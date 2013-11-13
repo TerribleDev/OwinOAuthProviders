@@ -68,6 +68,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Yahoo\Constants.cs" />
+    <Compile Include="Yahoo\Messages\AccessToken.cs" />
+    <Compile Include="Yahoo\Messages\RequestToken.cs" />
+    <Compile Include="Yahoo\Messages\RequestTokenSerializer.cs" />
+    <Compile Include="Yahoo\Messages\Serializers.cs" />
+    <Compile Include="Yahoo\Provider\IYahooAuthenticationProvider.cs" />
+    <Compile Include="Yahoo\Provider\YahooAuthenticatedContext.cs" />
+    <Compile Include="Yahoo\Provider\YahooAuthenticationProvider.cs" />
+    <Compile Include="Yahoo\Provider\YahooReturnEndpointContext.cs" />
+    <Compile Include="Yahoo\YahooAuthenticationExtensions.cs" />
+    <Compile Include="Yahoo\YahooAuthenticationHandler.cs" />
+    <Compile Include="Yahoo\YahooAuthenticationMiddleware.cs" />
+    <Compile Include="Yahoo\YahooAuthenticationOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

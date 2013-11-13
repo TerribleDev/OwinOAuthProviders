@@ -3,6 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.LinkedIn;
+using Owin.Security.Providers.Yahoo;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -35,7 +36,11 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            app.UseLinkedInAuthentication("", "");
+            //app.UseLinkedInAuthentication("", "");
+
+            //app.UseYahooAuthentication(
+            //    "",
+            //    "");
         }
     }
 }
