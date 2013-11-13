@@ -35,7 +35,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            app.UseLinkedInAuthentication("75v5alkgf1hucg", "LpcXeykGYz8sWGiT");
+            app.UseLinkedInAuthentication("", "");
         }
     }
 }
