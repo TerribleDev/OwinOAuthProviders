@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Owin.Security.Providers</id>
+    <version>1.0.0</version>
+    <authors>Jerrie Pelser</authors>
+    <owners>Jerrie Pelser</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/owin-middleware/OwinOAuthProviders</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Additional OAuth providers for Owin</description>
+    <releaseNotes>
+      Initial release with support for:
+      - Yahoo
+      - LinkedIn
+    </releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>owin oauth linkedin yahoo</tags>
+    <dependencies>
+      <dependency id="Microsoft.Owin.Security" version="2.0.2" />
+      <dependency id="Newtonsoft.Json" version="5.0.8" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Owin.Security.Providers\bin\Release\Owin.Security.Providers.dll" target="lib\net45" />
+  </files>
+</package>
