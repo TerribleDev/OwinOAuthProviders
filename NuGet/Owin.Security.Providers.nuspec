@@ -8,14 +8,17 @@
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/owin-middleware/OwinOAuthProviders</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Additional OAuth providers for Owin</description>
-    <releaseNotes>
-      Initial release with support for:
-      - Yahoo
+    <description>
+      Additional OAuth providers for Katana (OWIN).  Includes providers for
       - LinkedIn
+      - Yahoo
+      - GitHub
+    </description>
+    <releaseNotes>
+      Adds support for authenticating against GitHub
     </releaseNotes>
     <copyright>Copyright 2013</copyright>
-    <tags>owin oauth linkedin yahoo</tags>
+    <tags>owin katana oauth linkedin yahoo github</tags>
     <dependencies>
       <dependency id="Microsoft.Owin.Security" version="2.0.2" />
       <dependency id="Newtonsoft.Json" version="5.0.8" />
