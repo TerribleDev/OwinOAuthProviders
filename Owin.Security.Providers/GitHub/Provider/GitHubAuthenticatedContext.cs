@@ -8,59 +8,46 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using Newtonsoft.Json.Linq;
 
-namespace Owin.Security.Providers.LinkedIn
+namespace Owin.Security.Providers.GitHub
 {
     /// <summary>
     /// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
     /// </summary>
-    public class LinkedInAuthenticatedContext : BaseContext
+    public class GitHubAuthenticatedContext : BaseContext
     {
         /// <summary>
-        /// Initializes a <see cref="LinkedInAuthenticatedContext"/>
+        /// Initializes a <see cref="GitHubAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
-        /// <param name="accessToken">LinkedIn Access token</param>
-        /// <param name="expires">Seconds until expiration</param>
-        public LinkedInAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires)
+        /// <param name="accessToken">GitHub Access token</param>
+        public GitHubAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
             : base(context)
         {
             User = user;
             AccessToken = accessToken;
 
-            int expiresValue;
-            if (Int32.TryParse(expires, NumberStyles.Integer, CultureInfo.InvariantCulture, out expiresValue))
-            {
-                ExpiresIn = TimeSpan.FromSeconds(expiresValue);
-            }
-
             Id = TryGetValue(user, "id");
-            Name = TryGetValue(user, "formattedName");
-            Link = TryGetValue(user, "publicProfileUrl");
-            UserName = TryGetValue(user, "formattedName").Replace(" ", "");
-            Email = TryGetValue(user, "emailAddress");
+            Name = TryGetValue(user, "name");
+            Link = TryGetValue(user, "url");
+            UserName = TryGetValue(user, "login");
         }
 
         /// <summary>
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the LinkedIn user obtained from the endpoint https://api.linkedin.com/v1/people/~
+        /// Contains the GitHub user obtained from the endpoint https://api.github.com/user
         /// </remarks>
         public JObject User { get; private set; }
 
         /// <summary>
-        /// Gets the LinkedIn access token
+        /// Gets the GitHub access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the LinkedIn access token expiration time
-        /// </summary>
-        public TimeSpan? ExpiresIn { get; set; }
-
-        /// <summary>
-        /// Gets the LinkedIn user ID
+        /// Gets the GitHub user ID
         /// </summary>
         public string Id { get; private set; }
 
@@ -72,14 +59,9 @@ namespace Owin.Security.Providers.LinkedIn
         public string Link { get; private set; }
 
         /// <summary>
-        /// Gets the LinkedIn username
+        /// Gets the GitHub username
         /// </summary>
         public string UserName { get; private set; }
-
-        /// <summary>
-        /// Gets the LinkedIn email
-        /// </summary>
-        public string Email { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user

@@ -55,6 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitHub\Constants.cs" />
+    <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
+    <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
+    <Compile Include="GitHub\GitHubAuthenticationMiddleware.cs" />
+    <Compile Include="GitHub\GitHubAuthenticationOptions.cs" />
+    <Compile Include="GitHub\Provider\IGitHubAuthenticationProvider.cs" />
+    <Compile Include="GitHub\Provider\GitHubAuthenticatedContext.cs" />
+    <Compile Include="GitHub\Provider\GitHubAuthenticationProvider.cs" />
+    <Compile Include="GitHub\Provider\GitHubReturnEndpointContext.cs" />
     <Compile Include="LinkedIn\Constants.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationExtensions.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationHandler.cs" />

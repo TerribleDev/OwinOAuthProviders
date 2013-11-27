@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
 
@@ -41,6 +42,8 @@ namespace OwinOAuthProvidersDemo
             //app.UseYahooAuthentication(
             //    "",
             //    "");
+
+            //app.UseGitHubAuthentication("", "");
         }
     }
 }
