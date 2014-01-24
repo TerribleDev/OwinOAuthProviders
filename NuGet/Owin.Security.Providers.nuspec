@@ -2,8 +2,8 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.1.0</version>
-    <authors>Jerrie Pelser</authors>
+    <version>1.2.0</version>
+    <authors>Jerrie Pelser, Jérémie Bertrand</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/owin-middleware/OwinOAuthProviders</projectUrl>
@@ -13,12 +13,14 @@
       - LinkedIn
       - Yahoo
       - GitHub
+	  - OpenID 2.0 providers
+	  - Steam
     </description>
     <releaseNotes>
-      Adds support for authenticating against GitHub
+      Adds support for authenticating against OpenID 2.0 providers and Steam
     </releaseNotes>
     <copyright>Copyright 2013</copyright>
-    <tags>owin katana oauth linkedin yahoo github</tags>
+    <tags>owin katana oauth linkedin yahoo github openid steam</tags>
     <dependencies>
       <dependency id="Microsoft.Owin.Security" version="2.0.2" />
       <dependency id="Newtonsoft.Json" version="5.0.8" />

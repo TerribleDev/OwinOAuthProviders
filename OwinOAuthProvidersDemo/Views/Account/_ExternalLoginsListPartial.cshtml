@@ -7,8 +7,10 @@
     if (loginProviders.Count() == 0)
     {
         <div>
-            <p>There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-            for details on setting up this ASP.NET application to support logging in via external services.</p>
+            <p>
+                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+                for details on setting up this ASP.NET application to support logging in via external services.
+            </p>
         </div>
     }
     else
@@ -20,10 +22,10 @@
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                @foreach (AuthenticationDescription p in loginProviders)
-                {
-                    <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                }
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                    }
                 </p>
             </div>
         }

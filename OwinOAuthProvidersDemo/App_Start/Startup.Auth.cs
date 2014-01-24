@@ -5,6 +5,8 @@ using Owin;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
+using Owin.Security.Providers.OpenID;
+using Owin.Security.Providers.Steam;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -44,6 +46,16 @@ namespace OwinOAuthProvidersDemo
             //    "");
 
             //app.UseGitHubAuthentication("", "");
+
+
+            //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
+
+            //app.UseOpenIDAuthentication("https://openid.stackexchange.com/", "StackExchange");
+
+            //app.UseOpenIDAuthentication("https://www.google.com/accounts/o8/id", "Google");
+
+            //app.UseSteamAuthentication(applicationKey: "");
+
         }
     }
 }
