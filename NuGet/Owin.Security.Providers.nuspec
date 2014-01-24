@@ -19,7 +19,7 @@
     <releaseNotes>
       Adds support for authenticating against OpenID 2.0 providers and Steam
     </releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth linkedin yahoo github openid steam</tags>
     <dependencies>
       <dependency id="Microsoft.Owin.Security" version="2.0.2" />
