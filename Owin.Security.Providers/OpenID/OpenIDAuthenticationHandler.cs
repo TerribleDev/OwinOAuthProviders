@@ -305,7 +305,10 @@ namespace Owin.Security.Providers.OpenID
 
             if (challenge != null)
             {
-                await DoYadisDiscoveryAsync();
+                if (string.IsNullOrEmpty(Options.ProviderLoginUri))
+                {
+                    await DoYadisDiscoveryAsync();
+                }
 
                 if (!string.IsNullOrEmpty(Options.ProviderLoginUri))
                 {
@@ -405,7 +408,7 @@ namespace Owin.Security.Providers.OpenID
                     }
                 }
             }
-            
+
             // Get provider url from XRDS document
             XDocument xrdsDoc = XDocument.Parse(await httpResponse.Content.ReadAsStringAsync());
             Options.ProviderLoginUri = xrdsDoc.Root.Element(XName.Get("XRD", "xri://$xrd*($v*2.0)"))
@@ -470,7 +473,7 @@ namespace Owin.Security.Providers.OpenID
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     XmlReader reader = XmlReader.Create(responseStream, new XmlReaderSettings { MaxCharactersFromEntities = 1024, XmlResolver = null, DtdProcessing = DtdProcessing.Prohibit });
-                  
+
                     while (await reader.ReadAsync() && reader.NodeType != XmlNodeType.Element)
                     { }
                     if (reader.NamespaceURI == XRD_NAMESPACE && reader.Name == "XRDS")

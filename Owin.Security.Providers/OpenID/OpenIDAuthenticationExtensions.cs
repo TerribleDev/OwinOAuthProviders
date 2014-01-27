@@ -38,13 +38,35 @@ namespace Owin.Security.Providers.OpenID
         /// <returns>The updated <see cref="IAppBuilder"/></returns>
         public static IAppBuilder UseOpenIDAuthentication(this IAppBuilder app, string providerUri, string providerName)
         {
-            return UseOpenIDAuthentication(app, new OpenIDAuthenticationOptions
+            return UseOpenIDAuthentication(app, providerUri, providerName, false);
+        }
+
+        /// <summary>
+        /// Authenticate users using an OpenID provider
+        /// </summary>
+        /// <param name="app">The <see cref="IAppBuilder"/> passed to the configuration method</param>
+        /// <param name="providerUri">The uri of the OpenID provider</param>
+        /// <param name="providerName">Name of the OpenID provider</param>
+        /// <param name="uriIsProviderLoginUri">True if the specified uri is the provider login uri and not the provider discovery uri</param>
+        /// <returns>The updated <see cref="IAppBuilder"/></returns>
+        public static IAppBuilder UseOpenIDAuthentication(this IAppBuilder app, string providerUri, string providerName, bool uriIsProviderLoginUri)
+        {
+            var authOptions = new OpenIDAuthenticationOptions
             {
-                ProviderDiscoveryUri = providerUri,
                 Caption = providerName,
                 AuthenticationType = providerName,
                 CallbackPath = new PathString("/signin-openid" + providerName.ToLowerInvariant())
-            });
+            };
+            if (uriIsProviderLoginUri)
+            {
+                authOptions.ProviderLoginUri = providerUri;
+            }
+            else
+            {
+
+                authOptions.ProviderDiscoveryUri = providerUri;
+            }
+            return UseOpenIDAuthentication(app, authOptions);
         }
     }
 }
