@@ -396,19 +396,16 @@ namespace Owin.Security.Providers.OpenID
                 }
                 else
                 {
-                    if (string.Equals(url.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+                    httpResponse = SendRequest(url.AbsoluteUri, CONTENTTYPE_XRDS);
+                    if (httpResponse.StatusCode != HttpStatusCode.OK)
                     {
-                        httpResponse = SendRequest(url.AbsoluteUri, CONTENTTYPE_XRDS);
-                        if (httpResponse.StatusCode != HttpStatusCode.OK)
-                        {
-                            _logger.WriteError(string.Format("HTTP error {0} {1} while performing discovery on {2}.", (int)httpResponse.StatusCode, httpResponse.StatusCode, url.AbsoluteUri));
-                            return;
-                        }
-                        if (!IsXrdsDocument(httpResponse))
-                        {
-                            _logger.WriteError(string.Format("The uri {0} doesn't return an XRDS document.", url.AbsoluteUri));
-                            return;
-                        }
+                        _logger.WriteError(string.Format("HTTP error {0} {1} while performing discovery on {2}.", (int)httpResponse.StatusCode, httpResponse.StatusCode, url.AbsoluteUri));
+                        return;
+                    }
+                    if (!IsXrdsDocument(httpResponse))
+                    {
+                        _logger.WriteError(string.Format("The uri {0} doesn't return an XRDS document.", url.AbsoluteUri));
+                        return;
                     }
                 }
             }
@@ -422,7 +419,13 @@ namespace Owin.Security.Providers.OpenID
             Options.ProviderLoginUri = xrdsDoc.Root.Element(XName.Get("XRD", "xri://$xrd*($v*2.0)"))
                 .Descendants(XName.Get("Service", "xri://$xrd*($v*2.0)"))
                 .Where(service => service.Descendants(XName.Get("Type", "xri://$xrd*($v*2.0)")).Any(type => type.Value == "http://specs.openid.net/auth/2.0/server"))
-                .OrderBy(service => service.Attribute("priority").Value)
+                .OrderBy(service =>
+                {
+                    var priorityAttribute = service.Attribute("priority");
+                    if (priorityAttribute == null)
+                        return null;
+                    return priorityAttribute.Value;
+                })
                 .Select(service => service.Element(XName.Get("URI", "xri://$xrd*($v*2.0)")).Value)
                 .FirstOrDefault();
         }
