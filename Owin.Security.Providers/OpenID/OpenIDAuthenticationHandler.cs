@@ -294,18 +294,18 @@ namespace Owin.Security.Providers.OpenID
             return new Message(query, strict: true);
         }
 
-        protected override Task ApplyResponseChallengeAsync()
+        protected override async Task ApplyResponseChallengeAsync()
         {
             if (Response.StatusCode != 401)
             {
-                return Task.FromResult<object>(null);
+                return;
             }
 
             AuthenticationResponseChallenge challenge = Helper.LookupChallenge(Options.AuthenticationType, Options.AuthenticationMode);
 
             if (challenge != null)
             {
-                DoYadisDiscovery();
+                await DoYadisDiscoveryAsync();
 
                 if (!string.IsNullOrEmpty(Options.ProviderLoginUri))
                 {
@@ -350,24 +350,22 @@ namespace Owin.Security.Providers.OpenID
                     Response.Headers.Set("Location", authorizationEndpoint);
                 }
             }
-
-            return Task.FromResult<object>(null);
         }
 
-        private void DoYadisDiscovery()
+        private async Task DoYadisDiscoveryAsync()
         {
             // 1° request
-            HttpResponseMessage httpResponse = SendRequest(Options.ProviderDiscoveryUri, CONTENTTYPE_XRDS, CONTENTTYPE_HTML, CONTENTTYPE_XHTML);
+            HttpResponseMessage httpResponse = await SendRequestAsync(Options.ProviderDiscoveryUri, CONTENTTYPE_XRDS, CONTENTTYPE_HTML, CONTENTTYPE_XHTML);
             if (httpResponse.StatusCode != HttpStatusCode.OK)
             {
                 _logger.WriteError(string.Format("HTTP error {0} ({1}) while performing discovery on {2}.", (int)httpResponse.StatusCode, httpResponse.StatusCode, Options.ProviderDiscoveryUri));
                 return;
             }
 
-            httpResponse.Content.LoadIntoBufferAsync().Wait();
+            await httpResponse.Content.LoadIntoBufferAsync();
 
             // 2° request (if necessary)
-            if (!IsXrdsDocument(httpResponse))
+            if (!await IsXrdsDocumentAsync(httpResponse))
             {
                 IEnumerable<string> uriStrings;
                 string uriString = null;
@@ -385,9 +383,7 @@ namespace Owin.Security.Providers.OpenID
                 var contentType = httpResponse.Content.Headers.ContentType;
                 if (url == null && contentType != null && (contentType.MediaType == CONTENTTYPE_HTML || contentType.MediaType == CONTENTTYPE_XHTML))
                 {
-                    var readAsString = httpResponse.Content.ReadAsStringAsync();
-                    readAsString.Wait();
-                    url = FindYadisDocumentLocationInHtmlMetaTags(readAsString.Result);
+                    url = FindYadisDocumentLocationInHtmlMetaTags(await httpResponse.Content.ReadAsStringAsync());
                 }
                 if (url == null)
                 {
@@ -396,26 +392,22 @@ namespace Owin.Security.Providers.OpenID
                 }
                 else
                 {
-                    httpResponse = SendRequest(url.AbsoluteUri, CONTENTTYPE_XRDS);
+                    httpResponse = await SendRequestAsync(url.AbsoluteUri, CONTENTTYPE_XRDS);
                     if (httpResponse.StatusCode != HttpStatusCode.OK)
                     {
                         _logger.WriteError(string.Format("HTTP error {0} {1} while performing discovery on {2}.", (int)httpResponse.StatusCode, httpResponse.StatusCode, url.AbsoluteUri));
                         return;
                     }
-                    if (!IsXrdsDocument(httpResponse))
+                    if (!await IsXrdsDocumentAsync(httpResponse))
                     {
                         _logger.WriteError(string.Format("The uri {0} doesn't return an XRDS document.", url.AbsoluteUri));
                         return;
                     }
                 }
             }
-
-            // Get the XRDS document
-            var readAsStringXrdsDoc = httpResponse.Content.ReadAsStringAsync();
-            readAsStringXrdsDoc.Wait();
-
+            
             // Get provider url from XRDS document
-            XDocument xrdsDoc = XDocument.Parse(readAsStringXrdsDoc.Result);
+            XDocument xrdsDoc = XDocument.Parse(await httpResponse.Content.ReadAsStringAsync());
             Options.ProviderLoginUri = xrdsDoc.Root.Element(XName.Get("XRD", "xri://$xrd*($v*2.0)"))
                 .Descendants(XName.Get("Service", "xri://$xrd*($v*2.0)"))
                 .Where(service => service.Descendants(XName.Get("Type", "xri://$xrd*($v*2.0)")).Any(type => type.Value == "http://specs.openid.net/auth/2.0/server"))
@@ -447,7 +439,7 @@ namespace Owin.Security.Providers.OpenID
             return null;
         }
 
-        private HttpResponseMessage SendRequest(string uri, params string[] acceptTypes)
+        private async Task<HttpResponseMessage> SendRequestAsync(string uri, params string[] acceptTypes)
         {
             HttpRequestMessage httprequest = new HttpRequestMessage(HttpMethod.Get, uri);
             if (acceptTypes != null)
@@ -457,12 +449,11 @@ namespace Owin.Security.Providers.OpenID
                     httprequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(acceptType));
                 }
             }
-            var sendRequest = _httpClient.SendAsync(httprequest);
-            sendRequest.Wait();
-            return sendRequest.Result;
+
+            return await _httpClient.SendAsync(httprequest);
         }
 
-        private static bool IsXrdsDocument(HttpResponseMessage response)
+        private static async Task<bool> IsXrdsDocumentAsync(HttpResponseMessage response)
         {
             if (response.Content.Headers.ContentType == null)
             {
@@ -476,14 +467,11 @@ namespace Owin.Security.Providers.OpenID
 
             if (response.Content.Headers.ContentType.MediaType == CONTENTTYPE_XML)
             {
-                var readAsStream = response.Content.ReadAsStreamAsync();
-                readAsStream.Wait();
-                using (var responseStream = readAsStream.Result)
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     XmlReader reader = XmlReader.Create(responseStream, new XmlReaderSettings { MaxCharactersFromEntities = 1024, XmlResolver = null, DtdProcessing = DtdProcessing.Prohibit });
-                    var read = reader.ReadAsync();
-                    read.Wait();
-                    while (read.Result && reader.NodeType != XmlNodeType.Element)
+                  
+                    while (await reader.ReadAsync() && reader.NodeType != XmlNodeType.Element)
                     { }
                     if (reader.NamespaceURI == XRD_NAMESPACE && reader.Name == "XRDS")
                     {
