@@ -49,7 +49,7 @@ namespace Owin.Security.Providers.OpenID
         public OpenIDAuthenticationMiddlewareBase(OwinMiddleware next, IAppBuilder app, T options)
             : base(next, options)
         {
-            if (String.IsNullOrWhiteSpace(Options.ProviderDiscoveryUri) && Options.AuthenticationType != Constants.DefaultAuthenticationType)
+            if (String.IsNullOrWhiteSpace(Options.ProviderDiscoveryUri) && String.IsNullOrWhiteSpace(Options.ProviderLoginUri) && Options.AuthenticationType != Constants.DefaultAuthenticationType)
             {
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, "ProviderDiscoveryUri"));
             }

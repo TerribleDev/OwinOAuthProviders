@@ -56,6 +56,10 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseSteamAuthentication(applicationKey: "");
 
+            //app.UseOpenIDAuthentication("http://orange.fr", "Orange");
+            // Use OpenId provider login uri instead of discovery uri
+            //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
+
         }
     }
 }
