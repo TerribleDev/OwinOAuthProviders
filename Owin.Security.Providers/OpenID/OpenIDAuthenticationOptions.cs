@@ -75,7 +75,7 @@ namespace Owin.Security.Providers.OpenID
         /// <summary>
         /// The OpenID provider login uri
         /// </summary>
-        internal string ProviderLoginUri { get; set; }
+        public string ProviderLoginUri { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="OpenIDAuthenticationOptions"/>
