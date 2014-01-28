@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <authors>Jerrie Pelser, Jérémie Bertrand</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -17,7 +17,12 @@
 	  - Steam
     </description>
     <releaseNotes>
-      Adds support for authenticating against OpenID 2.0 providers and Steam
+      Version 1.2.1:
+      - Bug fixes to OpenID provider
+      - Adds the possibility to skip the discovery phase for OpenID provider by indicating directly the provider login uri instead of the provider discovery uri
+      
+      Version 1.2:
+      - Adds support for authenticating against OpenID 2.0 providers and Steam
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth linkedin yahoo github openid steam</tags>
