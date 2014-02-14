@@ -90,6 +90,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reddit\Constants.cs" />
+    <Compile Include="Reddit\Provider\IRedditAuthenticationProvider.cs" />
+    <Compile Include="Reddit\Provider\RedditAuthenticatedContext.cs" />
+    <Compile Include="Reddit\Provider\RedditAuthenticationProvider.cs" />
+    <Compile Include="Reddit\Provider\RedditReturnEndpointContext.cs" />
+    <Compile Include="Reddit\RedditAuthenticationExtensions.cs" />
+    <Compile Include="Reddit\RedditAuthenticationHandler.cs" />
+    <Compile Include="Reddit\RedditAuthenticationMiddleware.cs" />
+    <Compile Include="Reddit\RedditAuthenticationOptions.cs" />
     <Compile Include="Steam\SteamAuthenticationExtensions.cs" />
     <Compile Include="Steam\SteamAuthenticationHandler.cs" />
     <Compile Include="Steam\SteamAuthenticationMiddleware.cs" />
