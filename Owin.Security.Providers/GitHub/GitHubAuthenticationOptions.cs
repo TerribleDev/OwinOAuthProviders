@@ -8,6 +8,37 @@ namespace Owin.Security.Providers.GitHub
 {
     public class GitHubAuthenticationOptions : AuthenticationOptions
     {
+        public class GitHubAuthenticationEndpoints
+        {
+            /// <summary>
+            /// Endpoint which is used to redirect users to request GitHub access
+            /// </summary>
+            /// <remarks>
+            /// Defaults to https://github.com/login/oauth/authorize
+            /// </remarks>
+            public string AuthorizationEndpoint { get; set; }
+
+            /// <summary>
+            /// Endpoint which is used to exchange code for access token
+            /// </summary>
+            /// <remarks>
+            /// Defaults to https://github.com/login/oauth/access_token
+            /// </remarks>
+            public string TokenEndpoint { get; set; }
+
+            /// <summary>
+            /// Endpoint which is used to obtain user information after authentication
+            /// </summary>
+            /// <remarks>
+            /// Defaults to https://api.github.com/user
+            /// </remarks>
+            public string UserInfoEndpoint { get; set; }
+        }
+
+        private const string AuthorizationEndPoint = "https://github.com/login/oauth/authorize";
+        private const string TokenEndpoint = "https://github.com/login/oauth/access_token";
+        private const string UserInfoEndpoint = "https://api.github.com/user";
+
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
         ///     in back channel communications belong to GitHub.
@@ -63,6 +94,12 @@ namespace Owin.Security.Providers.GitHub
         public string ClientSecret { get; set; }
 
         /// <summary>
+        /// Gets the sets of OAuth endpoints used to authenticate against GitHub.  Overriding these endpoints allows you to use GitHub Enterprise for
+        /// authentication.
+        /// </summary>
+        public GitHubAuthenticationEndpoints Endpoints { get; set; }
+
+        /// <summary>
         ///     Gets or sets the <see cref="IGitHubAuthenticationProvider" /> used in the authentication events
         /// </summary>
         public IGitHubAuthenticationProvider Provider { get; set; }
@@ -97,6 +134,12 @@ namespace Owin.Security.Providers.GitHub
                 "user"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
+            Endpoints = new GitHubAuthenticationEndpoints
+            {
+                AuthorizationEndpoint = AuthorizationEndPoint,
+                TokenEndpoint = TokenEndpoint,
+                UserInfoEndpoint = UserInfoEndpoint
+            };
         }
     }
 }

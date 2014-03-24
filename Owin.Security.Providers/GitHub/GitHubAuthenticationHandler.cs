@@ -17,8 +17,6 @@ namespace Owin.Security.Providers.GitHub
     public class GitHubAuthenticationHandler : AuthenticationHandler<GitHubAuthenticationOptions>
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private const string TokenEndpoint = "https://github.com/login/oauth/access_token";
-        private const string UserInfoEndpoint = "https://api.github.com/user";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -73,7 +71,7 @@ namespace Owin.Security.Providers.GitHub
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
 
                 // Request the token
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 requestMessage.Content = new FormUrlEncodedContent(body);
                 HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestMessage);
@@ -85,7 +83,7 @@ namespace Owin.Security.Providers.GitHub
                 string accessToken = (string)response.access_token;
 
                 // Get the GitHub user
-                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
+                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage userResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
                 userResponse.EnsureSuccessStatusCode();
@@ -167,7 +165,7 @@ namespace Owin.Security.Providers.GitHub
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint =
-                    "https://github.com/login/oauth/authorize" +
+                    Options.Endpoints.AuthorizationEndpoint +
                         "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
                         "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
                         "&scope=" + Uri.EscapeDataString(scope) +
