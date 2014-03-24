@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.3</version>
+    <version>1.3.1</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -18,6 +18,9 @@
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.3.1
+      - Allows authentication against GitHub enterprise by specifying custom OAuth URLs
+      
       Version 1.3
       - Add support for authenticating with Reddit (Thanks to https://github.com/josephyanks)
 
