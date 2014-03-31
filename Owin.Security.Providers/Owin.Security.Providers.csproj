@@ -64,6 +64,15 @@
     <Compile Include="GitHub\Provider\GitHubAuthenticatedContext.cs" />
     <Compile Include="GitHub\Provider\GitHubAuthenticationProvider.cs" />
     <Compile Include="GitHub\Provider\GitHubReturnEndpointContext.cs" />
+    <Compile Include="GooglePlus\Constants.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationExtensions.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationHandler.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationMiddleware.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationOptions.cs" />
+    <Compile Include="GooglePlus\Provider\GooglePlusAuthenticatedContext.cs" />
+    <Compile Include="GooglePlus\Provider\GooglePlusAuthenticationProvider.cs" />
+    <Compile Include="GooglePlus\Provider\GooglePlusReturnEndpointContext.cs" />
+    <Compile Include="GooglePlus\Provider\IGooglePlusAuthenticationProvider.cs" />
     <Compile Include="LinkedIn\Constants.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationExtensions.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationHandler.cs" />

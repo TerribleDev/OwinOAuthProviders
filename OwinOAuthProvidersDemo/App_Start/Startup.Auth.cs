@@ -3,6 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.GitHub;
+using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
@@ -47,6 +48,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
+            app.UseGooglePlusAuthentication("169017484276-45fp7oma0vvsciiain786erkjm0uljtb.apps.googleusercontent.com", "sfNOmc1-e9ph9NjZkI7SWcr6");
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
 
