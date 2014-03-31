@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
+using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
@@ -48,7 +50,17 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
-            app.UseGooglePlusAuthentication("169017484276-45fp7oma0vvsciiain786erkjm0uljtb.apps.googleusercontent.com", "sfNOmc1-e9ph9NjZkI7SWcr6");
+            var options = new GooglePlusAuthenticationOptions
+            {
+                ClientId = "",
+                ClientSecret = "",
+                RequestOfflineAccess = true,
+                Provider = new GooglePlusAuthenticationProvider
+                {
+                    OnAuthenticated = async context => System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken))
+                }
+            };
+            app.UseGooglePlusAuthentication(options);
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
 

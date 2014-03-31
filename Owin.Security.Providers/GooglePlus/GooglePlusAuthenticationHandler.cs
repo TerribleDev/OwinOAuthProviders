@@ -84,6 +84,9 @@ namespace Owin.Security.Providers.GooglePlus
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
                 string expires = (string) response.expires_in;
+                string refreshToken = null;
+                if (response.refresh_token != null)
+                    refreshToken = (string) response.refresh_token;
 
                 // Get the Google user
                 HttpResponseMessage graphResponse = await httpClient.GetAsync(
@@ -99,7 +102,7 @@ namespace Owin.Security.Providers.GooglePlus
                 text = await graphResponse.Content.ReadAsStringAsync();
                 JObject person = JObject.Parse(text);
 
-                var context = new GooglePlusAuthenticatedContext(Context, user, person, accessToken, expires);
+                var context = new GooglePlusAuthenticatedContext(Context, user, person, accessToken, expires, refreshToken);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
@@ -179,11 +182,18 @@ namespace Owin.Security.Providers.GooglePlus
 
                 string authorizationEndpoint =
                     "https://accounts.google.com/o/oauth2/auth" +
-                        "?response_type=code" +
-                        "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
-                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-                        "&scope=" + Uri.EscapeDataString(scope) +
-                        "&state=" + Uri.EscapeDataString(state);
+                    "?response_type=code" +
+                    "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
+                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
+                    "&scope=" + Uri.EscapeDataString(scope) +
+                    "&state=" + Uri.EscapeDataString(state);
+
+                if (Options.RequestOfflineAccess)
+                    authorizationEndpoint += "&access_type=offline";
+                    //"&request_visible_actions=http://schemas.google.com/AddActivity" +
+                    //"&approval_prompt=force" +
+                    //"&include_granted_scopes=true"
+                    ;
 
                 Response.Redirect(authorizationEndpoint);
             }

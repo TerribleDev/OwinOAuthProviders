@@ -69,6 +69,11 @@ namespace Owin.Security.Providers.GooglePlus
         public IGooglePlusAuthenticationProvider Provider { get; set; }
 
         /// <summary>
+        /// Gets or sets whether to request offline access.  If offline access is requested the <see cref="GooglePlusAuthenticatedContext"/> will contain a Refresh Token.
+        /// </summary>
+        public bool RequestOfflineAccess { get; set; }
+
+        /// <summary>
         /// A list of permissions to request.
         /// </summary>
         public IList<string> Scope { get; private set; }
@@ -96,7 +101,7 @@ namespace Owin.Security.Providers.GooglePlus
             Scope = new List<string>
             {
                 "https://www.googleapis.com/auth/plus.login",
-                "https://www.googleapis.com/auth/userinfo.email"
+                "https://www.googleapis.com/auth/plus.profile.emails.read"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }

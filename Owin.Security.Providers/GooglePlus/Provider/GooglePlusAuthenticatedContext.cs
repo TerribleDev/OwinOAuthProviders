@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -23,12 +24,13 @@ namespace Owin.Security.Providers.GooglePlus.Provider
         /// <param name="person"></param>
         /// <param name="accessToken">Google+ Access token</param>
         /// <param name="expires">Seconds until expiration</param>
-        public GooglePlusAuthenticatedContext(IOwinContext context, JObject user, JObject person, string accessToken, string expires)
+        public GooglePlusAuthenticatedContext(IOwinContext context, JObject user, JObject person, string accessToken, string expires, string refreshToken)
             : base(context)
         {
             User = user;
             Person = person;
             AccessToken = accessToken;
+            RefreshToken = refreshToken;
 
             int expiresValue;
             if (Int32.TryParse(expires, NumberStyles.Integer, CultureInfo.InvariantCulture, out expiresValue))
@@ -40,7 +42,12 @@ namespace Owin.Security.Providers.GooglePlus.Provider
             Name = TryGetValue(person, "displayName");
             Link = TryGetValue(person, "url");
             UserName = TryGetValue(person, "displayName").Replace(" ", "");
-            Email = TryGetValue(user, "email");
+
+            var email = (from e in person["emails"]
+                where e["type"].ToString() == "account"
+                select e).FirstOrDefault();
+            if (email != null)
+                Email = email["value"].ToString();
         }
 
         /// <summary>
@@ -61,17 +68,22 @@ namespace Owin.Security.Providers.GooglePlus.Provider
         public JObject Person { get; private set; }
 
         /// <summary>
-        /// Gets the Facebook access token
+        /// Gets the Google OAuth access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the Facebook access token expiration time
+        /// Gets the Google OAuth refresh token.  This is only available when the RequestOfflineAccess property of <see cref="GooglePlusAuthenticationOptions"/> is set to true
+        /// </summary>
+        public string RefreshToken { get; private set; }
+
+        /// <summary>
+        /// Gets the Google+ access token expiration time
         /// </summary>
         public TimeSpan? ExpiresIn { get; set; }
 
         /// <summary>
-        /// Gets the Facebook user ID
+        /// Gets the Google+ user ID
         /// </summary>
         public string Id { get; private set; }
 
@@ -83,12 +95,12 @@ namespace Owin.Security.Providers.GooglePlus.Provider
         public string Link { get; private set; }
 
         /// <summary>
-        /// Gets the Facebook username
+        /// Gets the Google+ username
         /// </summary>
         public string UserName { get; private set; }
 
         /// <summary>
-        /// Gets the Facebook email
+        /// Gets the Google+ email address for the account
         /// </summary>
         public string Email { get; private set; }
 
