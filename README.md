@@ -2,6 +2,7 @@
 
 Provides a set of extra authentication providers for OWIN ([Project Katana](http://katanaproject.codeplex.com/)).  This project includes providers for:
 - OAuth
+  - Google+
   - Yahoo
   - LinkedIn
   - GitHub

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -12,15 +12,20 @@
       Additional OAuth providers for Katana (OWIN).  Includes providers for
       - LinkedIn
       - Yahoo
+      - Google+
       - GitHub
       - Reddit
 	  - OpenID 2.0 providers
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.4
+      - Integrated the Google+ provider from the Nuget package Owin.Security.GooglePlus
+      - Added support for requesting offline tokens and moment types to the Google+ provider
+        
       Version 1.3.1
       - Allows authentication against GitHub enterprise by specifying custom OAuth URLs
-      
+
       Version 1.3
       - Add support for authenticating with Reddit (Thanks to https://github.com/josephyanks)
 
