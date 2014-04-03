@@ -64,6 +64,12 @@ namespace Owin.Security.Providers.GooglePlus
         public string ClientSecret { get; set; }
 
         /// <summary>
+        /// The list of moment types which you application wants to write. During authentication this will be passed through via the request_visible_actions parameter.
+        /// For more information of the moment types you may request, see https://developers.google.com/+/api/moment-types/
+        /// </summary>
+        public IList<string> MomentTypes { get; private set; }
+
+        /// <summary>
         ///     Gets or sets the <see cref="IGooglePlusAuthenticationProvider" /> used in the authentication events
         /// </summary>
         public IGooglePlusAuthenticationProvider Provider { get; set; }
@@ -98,6 +104,7 @@ namespace Owin.Security.Providers.GooglePlus
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-googleplus");
             AuthenticationMode = AuthenticationMode.Passive;
+            MomentTypes = new List<string>();
             Scope = new List<string>
             {
                 "https://www.googleapis.com/auth/plus.login",

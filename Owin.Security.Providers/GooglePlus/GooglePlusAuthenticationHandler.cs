@@ -188,12 +188,14 @@ namespace Owin.Security.Providers.GooglePlus
                     "&scope=" + Uri.EscapeDataString(scope) +
                     "&state=" + Uri.EscapeDataString(state);
 
+                // Check if offline access was requested
                 if (Options.RequestOfflineAccess)
                     authorizationEndpoint += "&access_type=offline";
-                    //"&request_visible_actions=http://schemas.google.com/AddActivity" +
-                    //"&approval_prompt=force" +
-                    //"&include_granted_scopes=true"
-                    ;
+
+                // Request the moment types
+                if (Options.MomentTypes.Count > 0)
+                    authorizationEndpoint += String.Format("&request_visible_actions={0}",
+                        String.Join(" ", Options.MomentTypes));
 
                 Response.Redirect(authorizationEndpoint);
             }

@@ -50,17 +50,22 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
-            var options = new GooglePlusAuthenticationOptions
-            {
-                ClientId = "",
-                ClientSecret = "",
-                RequestOfflineAccess = true,
-                Provider = new GooglePlusAuthenticationProvider
-                {
-                    OnAuthenticated = async context => System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken))
-                }
-            };
-            app.UseGooglePlusAuthentication(options);
+
+            //var options = new GooglePlusAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    RequestOfflineAccess = true,
+            //    Provider = new GooglePlusAuthenticationProvider
+            //    {
+            //        OnAuthenticated = async context => System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken))
+            //    }
+            //};
+            //options.MomentTypes.Add("http://schemas.google.com/AddActivity");
+            //options.MomentTypes.Add("http://schemas.google.com/CheckInActivity");
+            //options.MomentTypes.Add("http://schemas.google.com/BuyActivity");
+            //app.UseGooglePlusAuthentication(options);
+
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
 
