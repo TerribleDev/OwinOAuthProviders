@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -19,6 +19,9 @@
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.4.1
+      - (Yahoo Provider) Retrieves primary email address of user and add it to the list of claims
+      
       Version 1.4
       - Integrated the Google+ provider from the Nuget package Owin.Security.GooglePlus
       - Added support for requesting offline tokens and moment types to the Google+ provider
