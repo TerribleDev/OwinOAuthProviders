@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
@@ -87,7 +88,7 @@ namespace Owin.Security.Providers.Yahoo
 
                 AccessToken accessToken = await ObtainAccessTokenAsync(Options.ConsumerKey, Options.ConsumerSecret, requestToken, oauthVerifier);
 
-                JObject userCard = await ObtainUserCard(Options.ConsumerKey, Options.ConsumerSecret, accessToken, oauthVerifier);
+                JObject userCard = await ObtainUserProfile(Options.ConsumerKey, Options.ConsumerSecret, accessToken, oauthVerifier);
 
                 var context = new YahooAuthenticatedContext(Context, userCard, accessToken.UserId, accessToken.Token, accessToken.TokenSecret);
 
@@ -96,6 +97,7 @@ namespace Owin.Security.Providers.Yahoo
                     {
                         new Claim(ClaimTypes.NameIdentifier, context.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
                         new Claim(ClaimTypes.Name, context.NickName, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
+                        new Claim(ClaimTypes.Email, context.Email, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
                         new Claim("urn:yahoo:userid", context.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
                         new Claim("urn:yahoo:nickname", context.NickName, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType)
                     },
@@ -342,15 +344,18 @@ namespace Owin.Security.Providers.Yahoo
             };
         }
 
-        private async Task<JObject> ObtainUserCard(string consumerKey, string consumerSecret, AccessToken token, string verifier)
+        private async Task<JObject> ObtainUserProfile(string consumerKey, string consumerSecret, AccessToken token, string verifier)
         {
-            // http://developer.yahoo.com/social/rest_api_guide/usercard-resource.html
-
-            _logger.WriteVerbose("ObtainAccessToken");
+            _logger.WriteVerbose("ObtainUserProfile");
 
             string nonce = Guid.NewGuid().ToString("N");
-            string requestUrl = string.Format("http://social.yahooapis.com/v1/user/{0}/profile/usercard", token.UserId);
+            string requestUrl = "https://query.yahooapis.com/v1/yql";
 
+            var queryParts = new Dictionary<string, string>
+            {
+                { "q", "select * from social.profile where guid=me" },
+                { "format", "json" }
+            };
             var authorizationParts = new SortedDictionary<string, string>
             {
                 { "oauth_consumer_key", consumerKey },
@@ -363,7 +368,7 @@ namespace Owin.Security.Providers.Yahoo
             };
 
             var parameterBuilder = new StringBuilder();
-            foreach (var authorizationKey in authorizationParts)
+            foreach (var authorizationKey in authorizationParts.Union(queryParts).OrderBy(x => x.Key))
             {
                 parameterBuilder.AppendFormat("{0}={1}&", Uri.EscapeDataString(authorizationKey.Key), Uri.EscapeDataString(authorizationKey.Value));
             }
@@ -389,6 +394,7 @@ namespace Owin.Security.Providers.Yahoo
             }
             authorizationHeaderBuilder.Length = authorizationHeaderBuilder.Length - 2;
 
+            requestUrl = WebUtilities.AddQueryString(requestUrl, queryParts);
             var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
             request.Headers.Add("Authorization", authorizationHeaderBuilder.ToString());
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -403,9 +409,20 @@ namespace Owin.Security.Providers.Yahoo
 
             string responseText = await response.Content.ReadAsStringAsync();
             JObject responseObject = JObject.Parse(responseText);
-            JObject userCard = responseObject.GetValue("profile").ToObject<JObject>();
 
-            return userCard;
+            var queryObject = responseObject.SelectToken("query");
+            if (queryObject != null)
+            {
+                int count = (int) queryObject.SelectToken("count");
+                if (count > 0)
+                {
+                    JObject userCard = (JObject)queryObject.SelectToken("results.profile");
+
+                    return userCard;
+                }
+            }
+
+            return null;
         }
 
         private static string GenerateTimeStamp()

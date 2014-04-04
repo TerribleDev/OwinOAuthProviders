@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -34,6 +35,13 @@ namespace Owin.Security.Providers.Yahoo
             NickName = TryGetValue(user, "nickname");
             AccessToken = accessToken;
             AccessTokenSecret = accessTokenSecret;
+
+            var email = (from e in user["emails"]
+                         where e["primary"].ToString() == "true"
+                         select e["handle"]).FirstOrDefault();
+
+            if (email != null)
+                Email = email.ToString();
         }
 
         /// <summary>
@@ -43,6 +51,11 @@ namespace Owin.Security.Providers.Yahoo
         /// Contains the LinkedIn user obtained from the endpoint http://social.yahooapis.com/v1/user/{guid}/profile/usercard
         /// </remarks>
         public JObject User { get; private set; }
+
+        /// <summary>
+        /// Gets the primary email address for the account
+        /// </summary>
+        public string Email { get; private set; }
 
         /// <summary>
         /// Gets the Yahoo user ID
