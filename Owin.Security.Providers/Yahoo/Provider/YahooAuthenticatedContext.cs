@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -35,13 +37,7 @@ namespace Owin.Security.Providers.Yahoo
             NickName = TryGetValue(user, "nickname");
             AccessToken = accessToken;
             AccessTokenSecret = accessTokenSecret;
-
-            var email = (from e in user["emails"]
-                         where e["primary"].ToString() == "true"
-                         select e["handle"]).FirstOrDefault();
-
-            if (email != null)
-                Email = email.ToString();
+            Email = GetEmail(user);
         }
 
         /// <summary>
@@ -91,6 +87,35 @@ namespace Owin.Security.Providers.Yahoo
         {
             JToken value;
             return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
+        }
+
+        private string GetEmail(JObject user)
+        {
+            if (user != null)
+            {
+                try
+                {
+                    // Try and get the primary email address
+                    var email = (from e in user["emails"]
+                        where e.Value<string>("primary") == "true"
+                        select e).FirstOrDefault();
+
+                    // If no email was located, select the first email we can find
+                    if (email == null)
+                        email = (from e in user["emails"]
+                            select e).FirstOrDefault();
+
+                    // If we managed to find an email (primary or otherwise), then return the email
+                    if (email != null && email["handle"] != null)
+                        return email["handle"].ToString();
+                }
+                catch
+                {
+                    // Suppress any exception here
+                }
+            }
+
+            return null;
         }
     }
 }
