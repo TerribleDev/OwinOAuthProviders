@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -19,6 +19,9 @@
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.4.2
+      - (Yahoo Provider) Fixes exception when primary email address is not present.  Also now falls back to first available email address in absence of primary email address
+      
       Version 1.4.1
       - (Yahoo Provider) Retrieves primary email address of user and add it to the list of claims
       
