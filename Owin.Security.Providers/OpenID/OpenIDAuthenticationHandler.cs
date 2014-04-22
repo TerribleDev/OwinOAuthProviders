@@ -247,9 +247,13 @@ namespace Owin.Security.Providers.OpenID
                 {
                     nameValue = lastValue;
                 }
-                else
+                else if (!string.IsNullOrEmpty(emailValue) && emailValue.Contains("@"))
                 {
                     nameValue = emailValue.Substring(0, emailValue.IndexOf('@'));
+                }
+                else
+                {
+                    nameValue = claimedID;
                 }
             }
 
