@@ -91,7 +91,7 @@ namespace Owin.Security.Providers.OpenID.Extensions
         /// <summary>
         /// Extracts SREG attributes and returns the results.
         /// </summary>
-        public Task<object> OnExtractResults(ClaimsIdentity identity, string claimedId, Infrastructure.Message message)
+        public Task<object> OnExtractResultsAsync(ClaimsIdentity identity, string claimedId, Infrastructure.Message message)
         {
             var result = new OpenIDSimpleRegistrationResult();
             foreach (var claim in claimsMap)

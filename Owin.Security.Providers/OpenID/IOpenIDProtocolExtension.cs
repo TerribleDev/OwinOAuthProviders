@@ -22,6 +22,6 @@ namespace Owin.Security.Providers.OpenID
         /// <summary>
         /// Extracts the data form the authentication response message and returns them.
         /// </summary>
-        Task<object> OnExtractResults(System.Security.Claims.ClaimsIdentity identity, string claimedId, Infrastructure.Message message);
+        Task<object> OnExtractResultsAsync(System.Security.Claims.ClaimsIdentity identity, string claimedId, Infrastructure.Message message);
     }
 }

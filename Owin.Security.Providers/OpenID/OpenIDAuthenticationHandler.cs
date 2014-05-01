@@ -211,7 +211,7 @@ namespace Owin.Security.Providers.OpenID
                     // Let protocol extensions to extract the results from the message
                     foreach (var protocolExtension in Options.ProtocolExtensions)
                     {
-                        var result = await protocolExtension.OnExtractResults(identity, claimedId.Value, message);
+                        var result = await protocolExtension.OnExtractResultsAsync(identity, claimedId.Value, message);
                         context.ProtocolExtensionData[protocolExtension.GetType()] = result;
                     }
 
