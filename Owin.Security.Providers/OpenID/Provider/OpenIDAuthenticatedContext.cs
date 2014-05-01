@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Owin.Security.Providers.OpenID
     /// </summary>
     public class OpenIDAuthenticatedContext : BaseContext
     {
-         /// <summary>
+        /// <summary>
         /// Initializes a <see cref="OpenIDAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
@@ -32,6 +33,7 @@ namespace Owin.Security.Providers.OpenID
             Properties = properties;
             ResponseMessage = responseMessage;
             AttributeExchangeProperties = attributeExchangeProperties;
+            ProtocolExtensionData = new Dictionary<Type, object>();
         }
 
         /// <summary>
@@ -47,5 +49,7 @@ namespace Owin.Security.Providers.OpenID
         public XElement ResponseMessage { get; set; }
 
         public IDictionary<string, string> AttributeExchangeProperties { get; private set; }
+
+        public IDictionary<Type, object> ProtocolExtensionData { get; private set; }
     }
 }
