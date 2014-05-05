@@ -1,7 +1,7 @@
 ﻿
 namespace Owin.Security.Providers.OpenID.Infrastructure
 {
-    internal class Property
+    public class Property
     {
         public string Key { get; set; }
         public string Namespace { get; set; }

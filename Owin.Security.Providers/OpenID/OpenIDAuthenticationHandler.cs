@@ -153,6 +153,15 @@ namespace Owin.Security.Providers.OpenID
                     }
                 }
 
+                // Allow protocol extensions to add custom message validation rules
+                foreach (var protocolExtension in Options.ProtocolExtensions)
+                {
+                    if (!await protocolExtension.OnValidateMessageAsync(message))
+                    {
+                        messageValidated = false;
+                    }
+                }
+
                 if (messageValidated)
                 {
                     IDictionary<string, string> attributeExchangeProperties = new Dictionary<string, string>();
@@ -190,13 +199,21 @@ namespace Owin.Security.Providers.OpenID
                     }
 
                     SetIdentityInformations(identity, claimedId.Value, attributeExchangeProperties);
-
+                    
                     var context = new OpenIDAuthenticatedContext(
                         Context,
                         identity,
                         properties,
                         responseMessage,
                         attributeExchangeProperties);
+
+
+                    // Let protocol extensions to extract the results from the message
+                    foreach (var protocolExtension in Options.ProtocolExtensions)
+                    {
+                        var result = await protocolExtension.OnExtractResultsAsync(identity, claimedId.Value, message);
+                        context.ProtocolExtensionData[protocolExtension.GetType()] = result;
+                    }
 
                     await Options.Provider.Authenticated(context);
 
@@ -353,8 +370,18 @@ namespace Owin.Security.Providers.OpenID
 
                             "&openid.ax.required=" + Uri.EscapeDataString("email,name,first,last,email2,name2,first2,last2");
 
+                    // allow protocol extensions to add their own attributes to the endpoint URL
+                    var endpoint = new OpenIDAuthorizationEndpointInfo()
+                    {
+                        Url = authorizationEndpoint
+                    };
+                    foreach (var protocolExtension in Options.ProtocolExtensions)
+                    {
+                        await protocolExtension.OnChallengeAsync(challenge, endpoint);
+                    }
+
                     Response.StatusCode = 302;
-                    Response.Headers.Set("Location", authorizationEndpoint);
+                    Response.Headers.Set("Location", endpoint.Url);
                 }
             }
         }
