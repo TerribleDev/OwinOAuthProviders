@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.4.2</version>
+    <version>1.4.4</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -19,16 +19,25 @@
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.4.4
+      - Fix assembly version
+      
+      Version 1.4.3
+      - Implementation of OpenID Simple Registration Extension (http://openid.net/specs/openid-simple-registration-extension-1_0.html).
+      For more information on how to use, please see the comment on the pull request: https://github.com/owin-middleware/OwinOAuthProviders/pull/11
+
+      Thank you Tomáš Herceg for this comtribution (https://github.com/tomasherceg)
+
       Version 1.4.2
       - (Yahoo Provider) Fixes exception when primary email address is not present.  Also now falls back to first available email address in absence of primary email address
-      
+
       Version 1.4.1
       - (Yahoo Provider) Retrieves primary email address of user and add it to the list of claims
-      
+
       Version 1.4
       - Integrated the Google+ provider from the Nuget package Owin.Security.GooglePlus
       - Added support for requesting offline tokens and moment types to the Google+ provider
-        
+
       Version 1.3.1
       - Allows authentication against GitHub enterprise by specifying custom OAuth URLs
 
