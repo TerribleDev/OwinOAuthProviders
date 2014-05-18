@@ -6,6 +6,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Yahoo
   - LinkedIn
   - GitHub
+  - Instagram
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam

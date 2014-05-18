@@ -73,6 +73,15 @@
     <Compile Include="GooglePlus\Provider\GooglePlusAuthenticationProvider.cs" />
     <Compile Include="GooglePlus\Provider\GooglePlusReturnEndpointContext.cs" />
     <Compile Include="GooglePlus\Provider\IGooglePlusAuthenticationProvider.cs" />
+    <Compile Include="Instagram\Constants.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationExtensions.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationHandler.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationMiddleware.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationOptions.cs" />
+    <Compile Include="Instagram\Provider\IInstagramAuthenticationProvider.cs" />
+    <Compile Include="Instagram\Provider\InstagramAuthenticatedContext.cs" />
+    <Compile Include="Instagram\Provider\InstagramAuthenticationProvider.cs" />
+    <Compile Include="Instagram\Provider\InstagramReturnEndpointContext.cs" />
     <Compile Include="LinkedIn\Constants.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationExtensions.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationHandler.cs" />

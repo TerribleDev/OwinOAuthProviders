@@ -6,6 +6,7 @@ using Owin;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
@@ -48,6 +49,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
+            //app.UseInstagramInAuthentication("", "");
 
             //var options = new GooglePlusAuthenticationOptions
             //{
@@ -76,7 +78,6 @@ namespace OwinOAuthProvidersDemo
             //app.UseOpenIDAuthentication("http://orange.fr", "Orange");
             // Use OpenId provider login uri instead of discovery uri
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
-
         }
     }
 }
