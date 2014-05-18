@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.4.4</version>
+    <version>1.5.0</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -15,13 +15,17 @@
       - Google+
       - GitHub
       - Reddit
+      - Instagram
 	  - OpenID 2.0 providers
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.5.0
+      - Instagram provider - Thank you James Cuthbert (https://github.com/jokcofbut)
+      
       Version 1.4.4
       - Fix assembly version
-      
+
       Version 1.4.3
       - Implementation of OpenID Simple Registration Extension (http://openid.net/specs/openid-simple-registration-extension-1_0.html).
       For more information on how to use, please see the comment on the pull request: https://github.com/owin-middleware/OwinOAuthProviders/pull/11
