@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -123,6 +124,15 @@
     <Compile Include="Reddit\RedditAuthenticationHandler.cs" />
     <Compile Include="Reddit\RedditAuthenticationMiddleware.cs" />
     <Compile Include="Reddit\RedditAuthenticationOptions.cs" />
+    <Compile Include="Salesforce\Constants.cs" />
+    <Compile Include="Salesforce\Provider\ISalesforceAuthenticationProvider.cs" />
+    <Compile Include="Salesforce\Provider\SalesforceAuthenticatedContext.cs" />
+    <Compile Include="Salesforce\Provider\SalesforceAuthenticationProvider.cs" />
+    <Compile Include="Salesforce\Provider\SalesforceReturnEndpointContext.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationExtensions.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationHandler.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationMiddleware.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationOptions.cs" />
     <Compile Include="Steam\SteamAuthenticationExtensions.cs" />
     <Compile Include="Steam\SteamAuthenticationHandler.cs" />
     <Compile Include="Steam\SteamAuthenticationMiddleware.cs" />
