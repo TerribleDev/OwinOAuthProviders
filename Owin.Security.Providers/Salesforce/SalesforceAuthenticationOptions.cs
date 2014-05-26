@@ -14,7 +14,7 @@ namespace Owin.Security.Providers.Salesforce
             /// Endpoint which is used to redirect users to request Salesforce access
             /// </summary>
             /// <remarks>
-            /// Defaults to https://salesforce.com/services/oauth2/authorize
+            /// Defaults to https://login.salesforce.com/services/oauth2/authorize
             /// </remarks>
             public string AuthorizationEndpoint { get; set; }
 
@@ -22,13 +22,13 @@ namespace Owin.Security.Providers.Salesforce
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             /// <remarks>
-            /// Defaults to https://salesforce.com/services/oauth2/token
+            /// Defaults to https://login.salesforce.com/services/oauth2/token
             /// </remarks>
             public string TokenEndpoint { get; set; }
         }
 
-        private const string AuthorizationEndPoint = "https://salesforce.com/services/oauth2/authorize";
-        private const string TokenEndpoint = "https://salesforce.com/services/oauth2/token";
+        private const string AuthorizationEndPoint = "https://login.salesforce.com/services/oauth2/authorize";
+        private const string TokenEndpoint = "https://login.salesforce.com/services/oauth2/token";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
