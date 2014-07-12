@@ -8,7 +8,6 @@ using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
-using Owin.Security.Providers.Salesforce;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.Steam;
