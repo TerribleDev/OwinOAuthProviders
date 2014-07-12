@@ -45,7 +45,7 @@ namespace Owin.Security.Providers.StackExchange
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// The endpoint https://api.stackexchange.com/2.2/me?order=desc&sort=reputation&site=stackoverflow&key={{client_id}}&access_token={{access_token}} returns a list of user accounts. This represents the first user account in that list.
+        /// The endpoint https://api.stackexchange.com/2.2/me?order=desc&sort=reputation&site=stackoverflow&key={{key}}&access_token={{access_token}} returns a list of user accounts. This represents the first user account in that list.
         /// The user object schema can be found here - http://api.stackexchange.com/docs/types/user
         /// Sample user objects can be viewed in the response of /users API here - http://api.stackexchange.com/docs/users#order=desc&sort=reputation&filter=default&site=stackoverflow&run=true
         /// </remarks>

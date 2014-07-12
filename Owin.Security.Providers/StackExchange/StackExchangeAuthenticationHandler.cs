@@ -96,7 +96,6 @@ namespace Owin.Security.Providers.StackExchange
                 //If Content-Encoding is not specified in response header, assume GZIP
                 using(var stream = new GZipStream(await graphResponse.Content.ReadAsStreamAsync(), CompressionMode.Decompress))
                 {
-                    
                     var sr = new StreamReader(stream);
                     text= sr.ReadToEnd();
                 }
