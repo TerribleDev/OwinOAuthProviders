@@ -80,22 +80,22 @@ namespace OwinOAuthProvidersDemo
             // Use OpenId provider login uri instead of discovery uri
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
 
-            app.UseSalesforceAuthentication("", "");
+            //app.UseSalesforceAuthentication("", "");
             
             //in scenarios where a sandbox URL needs to be used
-            app.UseSalesforceAuthentication(new SalesforceAuthenticationOptions
-            {
-                Endpoints =
-                    new Owin.Security.Providers.Salesforce.SalesforceAuthenticationOptions.
-                                                  SalesforceAuthenticationEndpoints
-                    {
-                        AuthorizationEndpoint =
-                            "https://cs5.salesforce.com/services/oauth2/authorize",
-                        TokenEndpoint = "https://cs5.salesforce.com/services/oauth2/token"
-                    },
-                ClientId = "",
-                ClientSecret = ""
-            });
+            //app.UseSalesforceAuthentication(new SalesforceAuthenticationOptions
+            //{
+            //    Endpoints =
+            //        new Owin.Security.Providers.Salesforce.SalesforceAuthenticationOptions.
+            //                                      SalesforceAuthenticationEndpoints
+            //        {
+            //            AuthorizationEndpoint =
+            //                "https://cs5.salesforce.com/services/oauth2/authorize",
+            //            TokenEndpoint = "https://cs5.salesforce.com/services/oauth2/token"
+            //        },
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
     }
 }

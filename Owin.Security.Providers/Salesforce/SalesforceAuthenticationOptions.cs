@@ -118,7 +118,7 @@ namespace Owin.Security.Providers.Salesforce
             : base("Salesforce")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-Salesforce");
+            CallbackPath = new PathString("/signin-salesforce");
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {

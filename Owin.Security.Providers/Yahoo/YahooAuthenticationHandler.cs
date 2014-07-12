@@ -93,17 +93,34 @@ namespace Owin.Security.Providers.Yahoo
                 var context = new YahooAuthenticatedContext(Context, userCard, accessToken.UserId, accessToken.Token, accessToken.TokenSecret);
 
                 context.Identity = new ClaimsIdentity(
-                    new[]
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, context.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim(ClaimTypes.Name, context.NickName, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim(ClaimTypes.Email, context.Email, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim("urn:yahoo:userid", context.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim("urn:yahoo:nickname", context.NickName, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType)
-                    },
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
+                if (!String.IsNullOrEmpty(context.UserId))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId,
+                        "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType));
+                }
+                if (!String.IsNullOrEmpty(context.NickName))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.NickName,
+                        "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType));
+                }
+                if (!String.IsNullOrEmpty(context.Email))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email,
+                        "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType));
+                }
+                if (!String.IsNullOrEmpty(context.UserId))
+                {
+                    context.Identity.AddClaim(new Claim("urn:yahoo:userid", context.UserId,
+                        "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType));
+                }
+                if (!String.IsNullOrEmpty(context.NickName))
+                {
+                    context.Identity.AddClaim(new Claim("urn:yahoo:nickname", context.NickName,
+                        "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType));
+                }
                 context.Properties = requestToken.Properties;
 
                 Response.Cookies.Delete(StateCookie);
