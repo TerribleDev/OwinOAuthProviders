@@ -45,7 +45,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            //app.UseLinkedInAuthentication("75avf01y4y9kcz", "ylgLWeUu1kQMZ82M");
+            //app.UseLinkedInAuthentication("", "");
 
             //app.UseYahooAuthentication("", "");
 
