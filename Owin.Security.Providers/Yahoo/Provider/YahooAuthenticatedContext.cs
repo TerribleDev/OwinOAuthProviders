@@ -44,7 +44,7 @@ namespace Owin.Security.Providers.Yahoo
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the LinkedIn user obtained from the endpoint http://social.yahooapis.com/v1/user/{guid}/profile/usercard
+        /// Contains the Yahoo user obtained from Yahoo
         /// </remarks>
         public JObject User { get; private set; }
 
