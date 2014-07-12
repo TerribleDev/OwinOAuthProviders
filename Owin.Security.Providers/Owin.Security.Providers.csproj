@@ -133,6 +133,15 @@
     <Compile Include="Salesforce\SalesforceAuthenticationHandler.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationMiddleware.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationOptions.cs" />
+    <Compile Include="StackExchange\Constants.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationExtensions.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationHandler.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationMiddleware.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationOptions.cs" />
+    <Compile Include="StackExchange\Provider\IStackExchangeAuthenticationProvider.cs" />
+    <Compile Include="StackExchange\Provider\StackExchangeAuthenticatedContext.cs" />
+    <Compile Include="StackExchange\Provider\StackExchangeAuthenticationProvider.cs" />
+    <Compile Include="StackExchange\Provider\StackExchangeReturnEndpointContext.cs" />
     <Compile Include="Steam\SteamAuthenticationExtensions.cs" />
     <Compile Include="Steam\SteamAuthenticationHandler.cs" />
     <Compile Include="Steam\SteamAuthenticationMiddleware.cs" />

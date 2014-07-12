@@ -9,6 +9,7 @@ using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Salesforce;
+using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.Steam;
@@ -44,7 +45,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            //app.UseLinkedInAuthentication("", "");
+            //app.UseLinkedInAuthentication("75avf01y4y9kcz", "ylgLWeUu1kQMZ82M");
 
             //app.UseYahooAuthentication("", "");
 
@@ -79,7 +80,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseOpenIDAuthentication("http://orange.fr", "Orange");
             // Use OpenId provider login uri instead of discovery uri
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
-
+            /*
             app.UseSalesforceAuthentication("", "");
             
             //in scenarios where a sandbox URL needs to be used
@@ -95,7 +96,10 @@ namespace OwinOAuthProvidersDemo
                     },
                 ClientId = "",
                 ClientSecret = ""
-            });
+            });*/
+
+            app.UseStackExchangeAuthentication("", "", "");
+
         }
     }
 }
