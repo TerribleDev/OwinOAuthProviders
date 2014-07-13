@@ -2,8 +2,8 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.5.1</version>
-    <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks</authors>
+    <version>1.6.0</version>
+    <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks, Tomáš Herceg, James Cuthbert, Payoj Baral</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/owin-middleware/OwinOAuthProviders</projectUrl>
@@ -16,10 +16,14 @@
       - GitHub
       - Reddit
       - Instagram
+      - StackExchange
 	  - OpenID 2.0 providers
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.6.0
+      - Add StackExchange Provider. Thank you to Payoj Baral (https://github.com/payojbaral) for this one.
+      
       Version 1.5.1
       - Fixed issue with Yahoo provider. Please see http://www.beabigrockstar.com/guides/aspnet-mvc-yahoo-login/ for how to use the Yahoo provider correctly. Take note of the requirements for testing on localhost.
 
@@ -33,7 +37,7 @@
       - Implementation of OpenID Simple Registration Extension (http://openid.net/specs/openid-simple-registration-extension-1_0.html).
       For more information on how to use, please see the comment on the pull request: https://github.com/owin-middleware/OwinOAuthProviders/pull/11
 
-      Thank you Tomáš Herceg for this comtribution (https://github.com/tomasherceg)
+      Thank you Tomáš Herceg for this contribution (https://github.com/tomasherceg)
 
       Version 1.4.2
       - (Yahoo Provider) Fixes exception when primary email address is not present.  Also now falls back to first available email address in absence of primary email address
