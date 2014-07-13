@@ -7,12 +7,13 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - LinkedIn
   - GitHub
   - Instagram
+  - StackExchange
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam
 
-## Background
-For background on how this project started, please view [this blog post](http://www.beabigrockstar.com/introducing-the-yahoo-linkedin-oauth-security-providers-for-owin)
+## Implementation Guides
+For guides on how to implement these providers, please visit my blog, [Be a Big Rockstar](http://www.beabigrockstar.com).
 
 ## Installation
 To use these providers you will need to install the ```Owin.Security.Providers``` NuGet package.
