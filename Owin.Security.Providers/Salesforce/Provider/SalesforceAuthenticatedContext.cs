@@ -21,11 +21,13 @@ namespace Owin.Security.Providers.Salesforce
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken">Salesforce Access token</param>
-        public SalesforceAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+        /// <param name="refreshToken">Salesforce Refresh token</param>
+        public SalesforceAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string refreshToken)
             : base(context)
         {
             User = user;
             AccessToken = accessToken;
+            RefreshToken = refreshToken;
 
             Id = TryGetValue(user, "id");
             UserId = TryGetValue(user, "user_id");
@@ -53,6 +55,11 @@ namespace Owin.Security.Providers.Salesforce
         /// Gets the Salesforce access token
         /// </summary>
         public string AccessToken { get; private set; }
+
+        /// <summary>
+        /// Gets the Salesforce refresh token, if the application's scope allows it
+        /// </summary>
+        public string RefreshToken { get; private set; }
 
         /// <summary>
         /// Gets the Salesforce ID / User Info Endpoint

@@ -83,6 +83,7 @@ namespace Owin.Security.Providers.Salesforce
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
+                string refreshToken = (string)response.refresh_token;
 
                 // Get the Salesforce user using the user info endpoint, which is part of the token - response.id
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, (string)response.id + "?access_token=" + Uri.EscapeDataString(accessToken));
@@ -92,7 +93,7 @@ namespace Owin.Security.Providers.Salesforce
                 text = await userResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new SalesforceAuthenticatedContext(Context, user, accessToken);
+                var context = new SalesforceAuthenticatedContext(Context, user, accessToken, refreshToken);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
