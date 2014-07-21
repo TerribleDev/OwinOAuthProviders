@@ -8,6 +8,7 @@ using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
+using Owin.Security.Providers.Salesforce;
 using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
@@ -85,7 +86,9 @@ namespace OwinOAuthProvidersDemo
             // Use OpenId provider login uri instead of discovery uri
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
 
-            //app.UseSalesforceAuthentication("", "");
+            //app.UseSalesforceAuthentication(
+            //    clientId: "", 
+            //    clientSecret: "");
 
             //in scenarios where a sandbox URL needs to be used
             //app.UseSalesforceAuthentication(new SalesforceAuthenticationOptions
