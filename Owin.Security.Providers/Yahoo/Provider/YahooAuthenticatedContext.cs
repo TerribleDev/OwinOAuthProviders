@@ -95,19 +95,33 @@ namespace Owin.Security.Providers.Yahoo
             {
                 try
                 {
-                    // Try and get the primary email address
-                    var email = (from e in user["emails"]
-                        where e.Value<string>("primary") == "true"
-                        select e).FirstOrDefault();
+                    JToken email = null;
+                    JToken emails = null;
 
-                    // If no email was located, select the first email we can find
-                    if (email == null)
-                        email = (from e in user["emails"]
-                            select e).FirstOrDefault();
+                    // Get the emails element
+                    user.TryGetValue("emails", out emails);
 
-                    // If we managed to find an email (primary or otherwise), then return the email
-                    if (email != null && email["handle"] != null)
-                        return email["handle"].ToString();
+                    if (emails != null)
+                    {
+                        if (emails.Type == JTokenType.Array)
+                        {
+                            // Try and get the primary email address
+                            email = emails.FirstOrDefault(e => e["primary"].ToString() == "true");
+
+                            // If no primary email was located, select the first email we can find
+                            if (email == null)
+                                email = emails.FirstOrDefault();
+                        }
+                        else if (emails.Type == JTokenType.Object)
+                        {
+                            // If the emails element is a single object and not an array, then take that object as the email object
+                            email = emails;
+                        }
+
+                        // If we managed to find an email (primary or otherwise), then return the email
+                        if (email != null && email["handle"] != null)
+                            return email["handle"].ToString();
+                    }
                 }
                 catch
                 {
