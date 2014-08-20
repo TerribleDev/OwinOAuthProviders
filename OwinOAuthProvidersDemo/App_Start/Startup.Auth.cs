@@ -10,6 +10,7 @@ using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Salesforce;
 using Owin.Security.Providers.StackExchange;
+using Owin.Security.Providers.TripIt;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.Steam;
@@ -48,6 +49,8 @@ namespace OwinOAuthProvidersDemo
             //app.UseLinkedInAuthentication("", "");
 
             //app.UseYahooAuthentication("", "");
+
+            //app.UseTripItAuthentication("", "");
 
             //app.UseGitHubAuthentication("", "");
 
