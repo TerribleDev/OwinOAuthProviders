@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
@@ -53,6 +54,8 @@ namespace OwinOAuthProvidersDemo
             //app.UseTripItAuthentication("", "");
 
             //app.UseGitHubAuthentication("", "");
+
+            //app.UseBufferAuthentication("", "");
 
             //app.UseStackExchangeAuthentication(
             //    clientId: "",

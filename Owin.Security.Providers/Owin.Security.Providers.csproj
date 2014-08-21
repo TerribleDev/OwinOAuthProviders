@@ -57,6 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buffer\BufferAuthenticationExtensions.cs" />
+    <Compile Include="Buffer\BufferAuthenticationHandler.cs" />
+    <Compile Include="Buffer\BufferAuthenticationMiddleware.cs" />
+    <Compile Include="Buffer\BufferAuthenticationOptions.cs" />
+    <Compile Include="Buffer\Constants.cs" />
+    <Compile Include="Buffer\Provider\BufferAuthenticatedContext.cs" />
+    <Compile Include="Buffer\Provider\BufferAuthenticationProvider.cs" />
+    <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
+    <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
     <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
