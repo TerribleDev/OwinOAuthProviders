@@ -92,6 +92,7 @@ namespace Owin.Security.Providers.Reddit
 
                 // Get the Reddit user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
+                userRequest.Headers.Add("User-Agent", "OWIN OAuth Provider");
                 userRequest.Headers.Add("Authorization", "bearer " + Uri.EscapeDataString(accessToken) + "");
                 HttpResponseMessage graphResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
                 graphResponse.EnsureSuccessStatusCode();
@@ -111,10 +112,6 @@ namespace Owin.Security.Providers.Reddit
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.UserName, XmlSchemaString, Options.AuthenticationType));
                 }
-
-                // Not sure if this is correct, but used this as an example of accessing more reddit data
-                context.Identity.AddClaim(new Claim("OverEighteen", context.OverEighteen.ToString()));
-
                 if (!string.IsNullOrEmpty(context.Link))
                 {
                     context.Identity.AddClaim(new Claim("urn:reddit:url", context.Link, XmlSchemaString, Options.AuthenticationType));
@@ -123,6 +120,7 @@ namespace Owin.Security.Providers.Reddit
                 {
                     context.Identity.AddClaim(new Claim("urn:reddit:accesstoken", context.AccessToken, XmlSchemaString, Options.AuthenticationType));
                 }
+                context.Identity.AddClaim(new Claim("urn:reddit:overeighteen", context.OverEighteen.ToString()));
                 context.Properties = properties;
 
                 await Options.Provider.Authenticated(context);

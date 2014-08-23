@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks, Tomáš Herceg, James Cuthbert, Payoj Baral</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -24,6 +24,9 @@
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.8.1
+      - Fix bug in Reddit provider
+      
       Version 1.8.0
       - Add TripIt provider
       - Add Buffer provider
