@@ -120,7 +120,6 @@ namespace Owin.Security.Providers.Reddit
                 {
                     context.Identity.AddClaim(new Claim("urn:reddit:accesstoken", context.AccessToken, XmlSchemaString, Options.AuthenticationType));
                 }
-
                 context.Identity.AddClaim(new Claim("urn:reddit:overeighteen", context.OverEighteen.ToString()));
                 context.Properties = properties;
 
