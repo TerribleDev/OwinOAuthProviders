@@ -37,7 +37,8 @@ namespace Owin.Security.Providers.GitHub
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the GitHub user obtained from the endpoint https://api.github.com/user
+        /// Contains the GitHub user obtained from the User Info endpoint. By default this is https://api.github.com/user but it can be
+        /// overridden in the options
         /// </remarks>
         public JObject User { get; private set; }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Owin.Security.Providers.OpenID.Infrastructure
 {
-    internal class Message
+    public class Message
     {
         public Message(IReadableStringCollection parameters, bool strict)
         {

@@ -30,16 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.Security.2.0.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -48,6 +49,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buffer\BufferAuthenticationExtensions.cs" />
+    <Compile Include="Buffer\BufferAuthenticationHandler.cs" />
+    <Compile Include="Buffer\BufferAuthenticationMiddleware.cs" />
+    <Compile Include="Buffer\BufferAuthenticationOptions.cs" />
+    <Compile Include="Buffer\Constants.cs" />
+    <Compile Include="Buffer\Provider\BufferAuthenticatedContext.cs" />
+    <Compile Include="Buffer\Provider\BufferAuthenticationProvider.cs" />
+    <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
+    <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
     <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
@@ -64,6 +75,24 @@
     <Compile Include="GitHub\Provider\GitHubAuthenticatedContext.cs" />
     <Compile Include="GitHub\Provider\GitHubAuthenticationProvider.cs" />
     <Compile Include="GitHub\Provider\GitHubReturnEndpointContext.cs" />
+    <Compile Include="GooglePlus\Constants.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationExtensions.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationHandler.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationMiddleware.cs" />
+    <Compile Include="GooglePlus\GooglePlusAuthenticationOptions.cs" />
+    <Compile Include="GooglePlus\Provider\GooglePlusAuthenticatedContext.cs" />
+    <Compile Include="GooglePlus\Provider\GooglePlusAuthenticationProvider.cs" />
+    <Compile Include="GooglePlus\Provider\GooglePlusReturnEndpointContext.cs" />
+    <Compile Include="GooglePlus\Provider\IGooglePlusAuthenticationProvider.cs" />
+    <Compile Include="Instagram\Constants.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationExtensions.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationHandler.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationMiddleware.cs" />
+    <Compile Include="Instagram\InstagramAuthenticationOptions.cs" />
+    <Compile Include="Instagram\Provider\IInstagramAuthenticationProvider.cs" />
+    <Compile Include="Instagram\Provider\InstagramAuthenticatedContext.cs" />
+    <Compile Include="Instagram\Provider\InstagramAuthenticationProvider.cs" />
+    <Compile Include="Instagram\Provider\InstagramReturnEndpointContext.cs" />
     <Compile Include="LinkedIn\Constants.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationExtensions.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationHandler.cs" />
@@ -74,12 +103,18 @@
     <Compile Include="LinkedIn\Provider\LinkedInReturnEndpointContext.cs" />
     <Compile Include="LinkedIn\Provider\ILinkedInAuthenticationProvider.cs" />
     <Compile Include="OpenID\Constants.cs" />
+    <Compile Include="OpenID\Extensions\OpenIDSimpleRegistrationAuthenticationContextExtensions.cs" />
+    <Compile Include="OpenID\Extensions\OpenIDSimpleRegistrationExtension.cs" />
+    <Compile Include="OpenID\Extensions\OpenIDSimpleRegistrationResult.cs" />
+    <Compile Include="OpenID\Extensions\OpenIDSimpleRegistrationField.cs" />
     <Compile Include="OpenID\Infrastructure\Message.cs" />
     <Compile Include="OpenID\Infrastructure\Property.cs" />
+    <Compile Include="OpenID\IOpenIDProtocolExtension.cs" />
     <Compile Include="OpenID\OpenIDAuthenticationExtensions.cs" />
     <Compile Include="OpenID\OpenIDAuthenticationHandler.cs" />
     <Compile Include="OpenID\OpenIDAuthenticationMiddleware.cs" />
     <Compile Include="OpenID\OpenIDAuthenticationOptions.cs" />
+    <Compile Include="OpenID\OpenIDAuthorizationEndpointInfo.cs" />
     <Compile Include="OpenID\Provider\IOpenIDAuthenticationProvider.cs" />
     <Compile Include="OpenID\Provider\OpenIDAuthenticatedContext.cs" />
     <Compile Include="OpenID\Provider\OpenIDAuthenticationProvider.cs" />
@@ -99,10 +134,41 @@
     <Compile Include="Reddit\RedditAuthenticationHandler.cs" />
     <Compile Include="Reddit\RedditAuthenticationMiddleware.cs" />
     <Compile Include="Reddit\RedditAuthenticationOptions.cs" />
+    <Compile Include="Salesforce\Constants.cs" />
+    <Compile Include="Salesforce\Provider\ISalesforceAuthenticationProvider.cs" />
+    <Compile Include="Salesforce\Provider\SalesforceAuthenticatedContext.cs" />
+    <Compile Include="Salesforce\Provider\SalesforceAuthenticationProvider.cs" />
+    <Compile Include="Salesforce\Provider\SalesforceReturnEndpointContext.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationExtensions.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationHandler.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationMiddleware.cs" />
+    <Compile Include="Salesforce\SalesforceAuthenticationOptions.cs" />
+    <Compile Include="StackExchange\Constants.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationExtensions.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationHandler.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationMiddleware.cs" />
+    <Compile Include="StackExchange\StackExchangeAuthenticationOptions.cs" />
+    <Compile Include="StackExchange\Provider\IStackExchangeAuthenticationProvider.cs" />
+    <Compile Include="StackExchange\Provider\StackExchangeAuthenticatedContext.cs" />
+    <Compile Include="StackExchange\Provider\StackExchangeAuthenticationProvider.cs" />
+    <Compile Include="StackExchange\Provider\StackExchangeReturnEndpointContext.cs" />
     <Compile Include="Steam\SteamAuthenticationExtensions.cs" />
     <Compile Include="Steam\SteamAuthenticationHandler.cs" />
     <Compile Include="Steam\SteamAuthenticationMiddleware.cs" />
     <Compile Include="Steam\SteamAuthenticationOptions.cs" />
+    <Compile Include="TripIt\Constants.cs" />
+    <Compile Include="TripIt\Messages\AccessToken.cs" />
+    <Compile Include="TripIt\Messages\RequestToken.cs" />
+    <Compile Include="TripIt\Messages\RequestTokenSerializer.cs" />
+    <Compile Include="TripIt\Messages\Serializers.cs" />
+    <Compile Include="TripIt\Provider\ITripItAuthenticationProvider.cs" />
+    <Compile Include="TripIt\Provider\TripItAuthenticatedContext.cs" />
+    <Compile Include="TripIt\Provider\TripItAuthenticationProvider.cs" />
+    <Compile Include="TripIt\Provider\TripItReturnEndpointContext.cs" />
+    <Compile Include="TripIt\TripItAuthenticationExtensions.cs" />
+    <Compile Include="TripIt\TripItAuthenticationHandler.cs" />
+    <Compile Include="TripIt\TripItAuthenticationMiddleware.cs" />
+    <Compile Include="TripIt\TripItAuthenticationOptions.cs" />
     <Compile Include="Yahoo\Constants.cs" />
     <Compile Include="Yahoo\Messages\AccessToken.cs" />
     <Compile Include="Yahoo\Messages\RequestToken.cs" />
@@ -124,6 +190,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

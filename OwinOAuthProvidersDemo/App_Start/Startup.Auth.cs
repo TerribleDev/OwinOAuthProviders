@@ -1,9 +1,18 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.GitHub;
+using Owin.Security.Providers.GooglePlus;
+using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
+using Owin.Security.Providers.Reddit;
+using Owin.Security.Providers.Salesforce;
+using Owin.Security.Providers.StackExchange;
+using Owin.Security.Providers.TripIt;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.Steam;
@@ -41,11 +50,37 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseLinkedInAuthentication("", "");
 
-            //app.UseYahooAuthentication(
-            //    "",
-            //    "");
+            //app.UseYahooAuthentication("", "");
+
+            //app.UseTripItAuthentication("", "");
 
             //app.UseGitHubAuthentication("", "");
+
+            //app.UseBufferAuthentication("", "");
+
+            //app.UseRedditAuthentication("", "");
+
+            //app.UseStackExchangeAuthentication(
+            //    clientId: "",
+            //    clientSecret: "",
+            //    key: "");
+
+            //app.UseInstagramInAuthentication("", "");
+
+            //var options = new GooglePlusAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    RequestOfflineAccess = true,
+            //    Provider = new GooglePlusAuthenticationProvider
+            //    {
+            //        OnAuthenticated = async context => System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken))
+            //    }
+            //};
+            //options.MomentTypes.Add("http://schemas.google.com/AddActivity");
+            //options.MomentTypes.Add("http://schemas.google.com/CheckInActivity");
+            //options.MomentTypes.Add("http://schemas.google.com/BuyActivity");
+            //app.UseGooglePlusAuthentication(options);
 
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
@@ -60,6 +95,24 @@ namespace OwinOAuthProvidersDemo
             // Use OpenId provider login uri instead of discovery uri
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
 
+            //app.UseSalesforceAuthentication(
+            //    clientId: "", 
+            //    clientSecret: "");
+
+            //in scenarios where a sandbox URL needs to be used
+            //app.UseSalesforceAuthentication(new SalesforceAuthenticationOptions
+            //{
+            //    Endpoints =
+            //        new Owin.Security.Providers.Salesforce.SalesforceAuthenticationOptions.
+            //                                      SalesforceAuthenticationEndpoints
+            //        {
+            //            AuthorizationEndpoint =
+            //                "https://cs5.salesforce.com/services/oauth2/authorize",
+            //            TokenEndpoint = "https://cs5.salesforce.com/services/oauth2/token"
+            //        },
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -34,15 +37,21 @@ namespace Owin.Security.Providers.Yahoo
             NickName = TryGetValue(user, "nickname");
             AccessToken = accessToken;
             AccessTokenSecret = accessTokenSecret;
+            Email = GetEmail(user);
         }
 
         /// <summary>
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the LinkedIn user obtained from the endpoint http://social.yahooapis.com/v1/user/{guid}/profile/usercard
+        /// Contains the Yahoo user obtained from Yahoo
         /// </remarks>
         public JObject User { get; private set; }
+
+        /// <summary>
+        /// Gets the primary email address for the account
+        /// </summary>
+        public string Email { get; private set; }
 
         /// <summary>
         /// Gets the Yahoo user ID
@@ -78,6 +87,49 @@ namespace Owin.Security.Providers.Yahoo
         {
             JToken value;
             return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
+        }
+
+        private string GetEmail(JObject user)
+        {
+            if (user != null)
+            {
+                try
+                {
+                    JToken email = null;
+                    JToken emails = null;
+
+                    // Get the emails element
+                    user.TryGetValue("emails", out emails);
+
+                    if (emails != null)
+                    {
+                        if (emails.Type == JTokenType.Array)
+                        {
+                            // Try and get the primary email address
+                            email = emails.FirstOrDefault(e => e["primary"].ToString() == "true");
+
+                            // If no primary email was located, select the first email we can find
+                            if (email == null)
+                                email = emails.FirstOrDefault();
+                        }
+                        else if (emails.Type == JTokenType.Object)
+                        {
+                            // If the emails element is a single object and not an array, then take that object as the email object
+                            email = emails;
+                        }
+
+                        // If we managed to find an email (primary or otherwise), then return the email
+                        if (email != null && email["handle"] != null)
+                            return email["handle"].ToString();
+                    }
+                }
+                catch
+                {
+                    // Suppress any exception here
+                }
+            }
+
+            return null;
         }
     }
 }

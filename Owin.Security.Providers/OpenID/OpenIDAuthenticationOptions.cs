@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System.Collections.Generic;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Net.Http;
@@ -78,6 +79,12 @@ namespace Owin.Security.Providers.OpenID
         public string ProviderLoginUri { get; set; }
 
         /// <summary>
+        /// A list of protocol extensions.
+        /// </summary>
+        public List<IOpenIDProtocolExtension> ProtocolExtensions { get; set; }
+
+
+        /// <summary>
         /// Initializes a new <see cref="OpenIDAuthenticationOptions"/>
         /// </summary>
         public OpenIDAuthenticationOptions()
@@ -87,6 +94,7 @@ namespace Owin.Security.Providers.OpenID
             CallbackPath = new PathString("/signin-openid");
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
+            ProtocolExtensions = new List<IOpenIDProtocolExtension>();
         }
     }
 }
