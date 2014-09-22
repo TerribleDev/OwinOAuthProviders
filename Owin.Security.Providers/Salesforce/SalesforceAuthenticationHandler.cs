@@ -65,12 +65,14 @@ namespace Owin.Security.Providers.Salesforce
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
-                var body = new List<KeyValuePair<string, string>>();
-                body.Add(new KeyValuePair<string, string>("code", code));
-                body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
-                body.Add(new KeyValuePair<string, string>("client_id", Options.ClientId));
-                body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
-                body.Add(new KeyValuePair<string, string>("grant_type", "authorization_code"));
+                var body = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("code", code),
+                        new KeyValuePair<string, string>("redirect_uri", redirectUri),
+                        new KeyValuePair<string, string>("client_id", Options.ClientId),
+                        new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
+                        new KeyValuePair<string, string>("grant_type", "authorization_code")
+                    };
 
                 // Request the token
                 var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
@@ -92,11 +94,13 @@ namespace Owin.Security.Providers.Salesforce
                 text = await userResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new SalesforceAuthenticatedContext(Context, user, accessToken);
-                context.Identity = new ClaimsIdentity(
-                    Options.AuthenticationType,
-                    ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
+                var context = new SalesforceAuthenticatedContext(Context, user, accessToken)
+                    {
+                        Identity = new ClaimsIdentity(
+                            Options.AuthenticationType,
+                            ClaimsIdentity.DefaultNameClaimType,
+                            ClaimsIdentity.DefaultRoleClaimType)
+                    };
 
                 if (!string.IsNullOrEmpty(context.UserId))
                 {
@@ -179,9 +183,6 @@ namespace Owin.Security.Providers.Salesforce
 
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
-
-                // comma separated
-                //string scope = string.Join(",", Options.Scope);
 
                 string state = Options.StateDataFormat.Protect(properties);
 
