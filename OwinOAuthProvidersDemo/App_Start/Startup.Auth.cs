@@ -100,19 +100,28 @@ namespace OwinOAuthProvidersDemo
             //    clientSecret: "");
 
             //in scenarios where a sandbox URL needs to be used
-            //app.UseSalesforceAuthentication(new SalesforceAuthenticationOptions
+            //var salesforceOptions = new SalesforceAuthenticationOptions
             //{
             //    Endpoints =
-            //        new Owin.Security.Providers.Salesforce.SalesforceAuthenticationOptions.
-            //                                      SalesforceAuthenticationEndpoints
+            //        new SalesforceAuthenticationOptions.SalesforceAuthenticationEndpoints
             //        {
             //            AuthorizationEndpoint =
-            //                "https://cs5.salesforce.com/services/oauth2/authorize",
-            //            TokenEndpoint = "https://cs5.salesforce.com/services/oauth2/token"
+            //                "https://ap1.salesforce.com/services/oauth2/authorize",
+            //            TokenEndpoint = "https://ap1.salesforce.com/services/oauth2/token"
             //        },
             //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //    ClientSecret = "",
+            //    Provider = new SalesforceAuthenticationProvider()
+            //    {
+            //        OnAuthenticated = async context =>
+            //        {
+            //            System.Diagnostics.Debug.WriteLine(context.AccessToken);
+            //            System.Diagnostics.Debug.WriteLine(context.RefreshToken);
+            //            System.Diagnostics.Debug.WriteLine(context.OrganizationId);
+            //        }
+            //    }
+            //};
+            //app.UseSalesforceAuthentication(salesforceOptions);
         }
     }
 }
