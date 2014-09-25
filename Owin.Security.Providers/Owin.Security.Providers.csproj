@@ -57,6 +57,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArcGISOnline\ArcGISOnlineAuthenticationExtensions.cs" />
+    <Compile Include="ArcGISOnline\ArcGISOnlineAuthenticationHandler.cs" />
+    <Compile Include="ArcGISOnline\ArcGISOnlineAuthenticationMiddleware.cs" />
+    <Compile Include="ArcGISOnline\ArcGISOnlineAuthenticationOptions.cs" />
+    <Compile Include="ArcGISOnline\Constants.cs" />
+    <Compile Include="ArcGISOnline\Provider\ArcGISOnlineAuthenticatedContext.cs" />
+    <Compile Include="ArcGISOnline\Provider\ArcGISOnlineAuthenticationProvider.cs" />
+    <Compile Include="ArcGISOnline\Provider\ArcGISOnlineReturnEndpointContext.cs" />
+    <Compile Include="ArcGISOnline\Provider\ArcGISOnlineUser.cs" />
+    <Compile Include="ArcGISOnline\Provider\IArcGISOnlineAuthenticationProvider.cs" />
     <Compile Include="Buffer\BufferAuthenticationExtensions.cs" />
     <Compile Include="Buffer\BufferAuthenticationHandler.cs" />
     <Compile Include="Buffer\BufferAuthenticationMiddleware.cs" />
