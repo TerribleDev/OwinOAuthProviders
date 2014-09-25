@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.ArcGISOnline;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
@@ -122,6 +123,10 @@ namespace OwinOAuthProvidersDemo
             //    }
             //};
             //app.UseSalesforceAuthentication(salesforceOptions);
+
+            app.UseArcGISOnlineAuthentication(
+                clientId: "",
+                clientSecret: "");
         }
     }
 }
