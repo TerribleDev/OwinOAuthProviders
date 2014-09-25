@@ -124,9 +124,9 @@ namespace OwinOAuthProvidersDemo
             //};
             //app.UseSalesforceAuthentication(salesforceOptions);
 
-            app.UseArcGISOnlineAuthentication(
-                clientId: "",
-                clientSecret: "");
+            //app.UseArcGISOnlineAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
         }
     }
 }
