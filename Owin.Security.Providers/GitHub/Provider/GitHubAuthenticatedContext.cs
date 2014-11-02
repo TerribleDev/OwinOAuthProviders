@@ -80,8 +80,6 @@ namespace Owin.Security.Providers.GitHub
         /// </summary>
         public AuthenticationProperties Properties { get; set; }
 
-
-
         private static string TryGetValue(JObject user, string propertyName)
         {
             JToken value;

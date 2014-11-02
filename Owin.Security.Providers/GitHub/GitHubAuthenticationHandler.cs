@@ -119,9 +119,7 @@ namespace Owin.Security.Providers.GitHub
 
                 await Options.Provider.Authenticated(context);
 
-                var ticket = new AuthenticationTicket(context.Identity, context.Properties);
-
-                return ticket;
+                return new AuthenticationTicket(context.Identity, context.Properties);
             }
             catch (Exception ex)
             {
