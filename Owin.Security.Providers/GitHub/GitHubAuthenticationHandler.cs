@@ -111,11 +111,17 @@ namespace Owin.Security.Providers.GitHub
                 {
                     context.Identity.AddClaim(new Claim("urn:github:url", context.Link, XmlSchemaString, Options.AuthenticationType));
                 }
+                if (!string.IsNullOrEmpty(context.Email))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
+                }
                 context.Properties = properties;
 
                 await Options.Provider.Authenticated(context);
 
-                return new AuthenticationTicket(context.Identity, context.Properties);
+                var ticket = new AuthenticationTicket(context.Identity, context.Properties);
+
+                return ticket;
             }
             catch (Exception ex)
             {

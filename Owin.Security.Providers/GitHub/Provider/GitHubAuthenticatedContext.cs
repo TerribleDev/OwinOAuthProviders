@@ -31,6 +31,7 @@ namespace Owin.Security.Providers.GitHub
             Name = TryGetValue(user, "name");
             Link = TryGetValue(user, "url");
             UserName = TryGetValue(user, "login");
+            Email = TryGetValue(user, "email");
         }
 
         /// <summary>
@@ -57,6 +58,11 @@ namespace Owin.Security.Providers.GitHub
         /// </summary>
         public string Name { get; private set; }
 
+        /// <summary>
+        /// Gets the user's email
+        /// </summary>
+        public string Email { get; private set; }
+
         public string Link { get; private set; }
 
         /// <summary>
@@ -73,6 +79,8 @@ namespace Owin.Security.Providers.GitHub
         /// Gets or sets a property bag for common authentication properties
         /// </summary>
         public AuthenticationProperties Properties { get; set; }
+
+
 
         private static string TryGetValue(JObject user, string propertyName)
         {
