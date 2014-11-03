@@ -81,7 +81,8 @@ namespace Owin.Security.Providers.WordPress
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
-                string expires = (string) response.expires_in;
+                string blogId = (string)response.blog_id;
+                string blogUrl = (string)response.blog_url;
 
                 // Get the Wordpress user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
@@ -92,7 +93,7 @@ namespace Owin.Security.Providers.WordPress
                 text = await graphResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new WordPressAuthenticatedContext(Context, user, accessToken, expires);
+                var context = new WordPressAuthenticatedContext(Context, user, accessToken, blogId, blogUrl);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,

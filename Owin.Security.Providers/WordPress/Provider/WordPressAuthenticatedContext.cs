@@ -21,27 +21,25 @@ namespace Owin.Security.Providers.WordPress
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken">WordPress Access token</param>
-        /// <param name="expires">Seconds until expiration</param>
-        public WordPressAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires)
+        /// <param name="blogId">The ID for this blog</param>
+        /// <param name="blogUrl">The URL for this blog</param>
+        public WordPressAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string blogId, string blogUrl)
             : base(context)
         {
             User = user;
+            AccessToken = accessToken;
+            BlogId = blogId;
+            BlogUrl = blogUrl;
+
             Id = TryGetValue(user, "ID");
             Name = TryGetValue(user, "display_name");
             Email = TryGetValue(user, "email");
-            AccessToken = accessToken;
-
-            int expiresValue;
-            if (Int32.TryParse(expires, NumberStyles.Integer, CultureInfo.InvariantCulture, out expiresValue))
-            {
-                ExpiresIn = TimeSpan.FromSeconds(expiresValue);
-            }
         }
 
         /// <summary>
         /// The email address of the user
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
         /// <summary>
         /// Gets the JSON-serialized user
@@ -55,6 +53,16 @@ namespace Owin.Security.Providers.WordPress
         /// Gets the WordPress OAuth access token
         /// </summary>
         public string AccessToken { get; private set; }
+
+        /// <summary>
+        /// The ID for the blog against which the user was authenticated
+        /// </summary>
+        public string BlogId { get; private set; }
+
+        /// <summary>
+        /// The URL for the blog against which the user was authenticated
+        /// </summary>
+        public string BlogUrl { get; private set; }
 
         /// <summary>
         /// Gets the WordPress access token expiration time

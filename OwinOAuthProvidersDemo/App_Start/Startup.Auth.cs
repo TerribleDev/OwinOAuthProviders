@@ -130,7 +130,7 @@ namespace OwinOAuthProvidersDemo
             //    clientSecret: "");
 
             app.UseWordPressAuthentication(
-                clientId: "", 
+                clientId: "",
                 clientSecret: "");
         }
     }
