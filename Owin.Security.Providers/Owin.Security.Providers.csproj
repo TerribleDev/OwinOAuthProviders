@@ -179,6 +179,15 @@
     <Compile Include="TripIt\TripItAuthenticationHandler.cs" />
     <Compile Include="TripIt\TripItAuthenticationMiddleware.cs" />
     <Compile Include="TripIt\TripItAuthenticationOptions.cs" />
+    <Compile Include="WordPress\WordPressAuthenticationExtensions.cs" />
+    <Compile Include="WordPress\WordPressAuthenticationHandler.cs" />
+    <Compile Include="WordPress\WordPressAuthenticationMiddleware.cs" />
+    <Compile Include="WordPress\WordPressAuthenticationOptions.cs" />
+    <Compile Include="WordPress\Constants.cs" />
+    <Compile Include="WordPress\Provider\WordPressAuthenticatedContext.cs" />
+    <Compile Include="WordPress\Provider\WordPressAuthenticationProvider.cs" />
+    <Compile Include="WordPress\Provider\WordPressReturnEndpointContext.cs" />
+    <Compile Include="WordPress\Provider\IWordPressAuthenticationProvider.cs" />
     <Compile Include="Yahoo\Constants.cs" />
     <Compile Include="Yahoo\Messages\AccessToken.cs" />
     <Compile Include="Yahoo\Messages\RequestToken.cs" />
