@@ -171,6 +171,12 @@ namespace Owin.Security.Providers.LinkedIn
                 // comma separated
                 string scope = string.Join(",", Options.Scope);
 
+                // allow scopes to be specified via the authentication properties for this request, when specified they will already be comma separated
+                if (properties.Dictionary.ContainsKey("scope"))
+                {
+                    scope = properties.Dictionary["scope"];
+                }
+                
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint =
