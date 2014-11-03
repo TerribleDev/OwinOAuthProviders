@@ -76,6 +76,15 @@
     <Compile Include="Buffer\Provider\BufferAuthenticationProvider.cs" />
     <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
     <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
+    <Compile Include="Dropbox\DropboxAuthenticationExtensions.cs" />
+    <Compile Include="Dropbox\DropboxAuthenticationHandler.cs" />
+    <Compile Include="Dropbox\DropboxAuthenticationMiddleware.cs" />
+    <Compile Include="Dropbox\DropboxAuthenticationOptions.cs" />
+    <Compile Include="Dropbox\Constants.cs" />
+    <Compile Include="Dropbox\Provider\DropboxAuthenticatedContext.cs" />
+    <Compile Include="Dropbox\Provider\DropboxAuthenticationProvider.cs" />
+    <Compile Include="Dropbox\Provider\DropboxReturnEndpointContext.cs" />
+    <Compile Include="Dropbox\Provider\IDropboxAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
     <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
