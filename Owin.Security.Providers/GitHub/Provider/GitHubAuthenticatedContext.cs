@@ -58,6 +58,11 @@ namespace Owin.Security.Providers.GitHub
         /// </summary>
         public string Name { get; private set; }
 
+        /// <summary>
+        /// Gets the user's email
+        /// </summary>
+        public string Email { get; private set; }
+
         public string Link { get; private set; }
 
         /// <summary>
