@@ -1,16 +1,17 @@
 #OWIN OAuth Providers
 
 Provides a set of extra authentication providers for OWIN ([Project Katana](http://katanaproject.codeplex.com/)).  This project includes providers for:
-- OAuth
+  - OAuth
   - Google+
   - Yahoo
   - LinkedIn
   - GitHub
   - Instagram
   - StackExchange
-- OpenID
+  - OpenID
   - Generic OpenID 2.0 provider
   - Steam
+  - HealthGraph
 
 ## Implementation Guides
 For guides on how to implement these providers, please visit my blog, [Be a Big Rockstar](http://www.beabigrockstar.com).
