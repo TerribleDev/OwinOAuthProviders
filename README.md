@@ -8,6 +8,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - GitHub
   - Instagram
   - StackExchange
+  - Battle.net
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam
