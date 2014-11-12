@@ -9,6 +9,7 @@ using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.HealthGraph;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Reddit;
@@ -56,7 +57,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseYahooAuthentication("", "");
 
             //app.UseTripItAuthentication("", "");
-
+            
             //app.UseGitHubAuthentication("", "");
 
             //app.UseBufferAuthentication("", "");
@@ -137,6 +138,10 @@ namespace OwinOAuthProvidersDemo
             //app.UseDropboxAuthentication(
             //    appKey: "",
             //    appSecret: "");
+
+            //app.UseHealthGraphAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
         }
     }
 }

@@ -86,6 +86,7 @@
     <Compile Include="Dropbox\Provider\DropboxReturnEndpointContext.cs" />
     <Compile Include="Dropbox\Provider\IDropboxAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
+    <Compile Include="HealthGraph\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
     <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
     <Compile Include="GitHub\GitHubAuthenticationMiddleware.cs" />
@@ -103,6 +104,13 @@
     <Compile Include="GooglePlus\Provider\GooglePlusAuthenticationProvider.cs" />
     <Compile Include="GooglePlus\Provider\GooglePlusReturnEndpointContext.cs" />
     <Compile Include="GooglePlus\Provider\IGooglePlusAuthenticationProvider.cs" />
+    <Compile Include="HealthGraph\HealthGraphAuthenticationExtensions.cs" />
+    <Compile Include="HealthGraph\HealthGraphAuthenticationHandler.cs" />
+    <Compile Include="HealthGraph\HealthGraphAuthenticationMiddleware.cs" />
+    <Compile Include="HealthGraph\Provider\HealthGraphAuthenticatedContext.cs" />
+    <Compile Include="HealthGraph\Provider\HealthGraphAuthenticationProvider.cs" />
+    <Compile Include="HealthGraph\Provider\HealthGraphReturnEndpointContext.cs" />
+    <Compile Include="HealthGraph\Provider\IHealthGraphAuthenticationProvider.cs" />
     <Compile Include="Instagram\Constants.cs" />
     <Compile Include="Instagram\InstagramAuthenticationExtensions.cs" />
     <Compile Include="Instagram\InstagramAuthenticationHandler.cs" />
@@ -153,6 +161,7 @@
     <Compile Include="Reddit\RedditAuthenticationHandler.cs" />
     <Compile Include="Reddit\RedditAuthenticationMiddleware.cs" />
     <Compile Include="Reddit\RedditAuthenticationOptions.cs" />
+    <Compile Include="HealthGraph\HealthGraphAuthenticationOptions.cs" />
     <Compile Include="Salesforce\Constants.cs" />
     <Compile Include="Salesforce\Provider\ISalesforceAuthenticationProvider.cs" />
     <Compile Include="Salesforce\Provider\SalesforceAuthenticatedContext.cs" />
