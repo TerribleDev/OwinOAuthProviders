@@ -18,6 +18,7 @@ namespace Owin.Security.Providers.WordPress
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string TokenEndpoint = "https://public-api.wordpress.com/oauth2/token";
         private const string UserInfoEndpoint = "https://public-api.wordpress.com/rest/v1/me";
+        private const string SiteInfoEndpoint = "https://public-api.wordpress.com/rest/v1/sites/";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -93,7 +94,16 @@ namespace Owin.Security.Providers.WordPress
                 text = await graphResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new WordPressAuthenticatedContext(Context, user, accessToken, blogId, blogUrl);
+                // Get the site details
+                HttpRequestMessage siteRequest = new HttpRequestMessage(HttpMethod.Get, SiteInfoEndpoint + blogId);
+                siteRequest.Headers.Add("User-Agent", "OWIN OAuth Provider");
+                siteRequest.Headers.Add("Authorization", "BEARER " + accessToken);
+                HttpResponseMessage siteResponse = await httpClient.SendAsync(siteRequest, Request.CallCancelled);
+                siteResponse.EnsureSuccessStatusCode();
+                text = await siteResponse.Content.ReadAsStringAsync();
+                JObject site = JObject.Parse(text);
+
+                var context = new WordPressAuthenticatedContext(Context, user, site, accessToken, blogId, blogUrl);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,

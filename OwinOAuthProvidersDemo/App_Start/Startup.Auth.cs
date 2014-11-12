@@ -131,9 +131,9 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseWordPressAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseWordPressAuthentication(
+                clientId: "37490",
+                clientSecret: "rt3YrwGaX6yPtAnfwLuz1KBxwEVrYz4LdTynnNe15hxFQZc0ysqjrccl7689IlbD");
 
             //app.UseDropboxAuthentication(
             //    appKey: "",
