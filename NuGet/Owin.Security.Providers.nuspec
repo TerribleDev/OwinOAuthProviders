@@ -2,42 +2,33 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.10.0</version>
+    <version>1.11.0</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks, Tomáš Herceg, James Cuthbert, Payoj Baral</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/owin-middleware/OwinOAuthProviders</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      Additional OAuth providers for Katana (OWIN).  Includes providers for
-      - LinkedIn
-      - Yahoo
-      - Google+
-      - GitHub
-      - Reddit
-      - Instagram
-      - StackExchange
-      - SalesForce
-      - TripIt
-      - Buffer
-      - ArcGIS
-      - Dropbox
-      - Wordpress
-	  - OpenID 2.0 providers
+      Additional OAuth providers for Katana (OWIN).  Includes providers for LinkedIn, Yahoo, Google+, GitHub, Reddit, Instagram, StackExchange, SalesForce, TripIt, Buffer, ArcGIS, Dropbox, Wordpress, 
+      OpenID 2.0 providers
 	  - Steam
     </description>
     <releaseNotes>
+      Version 1.11.0
+      - Add HealtGraph (Runkeeper) provider. Thank you Roberto Hernandez. (https://github.com/rjhernandez)
+      - Made change to WordPress provider to also retrieve information about the specific blog.
+      
       Version 1.10.0
       - Add Dropbox provider
       - Add WordPress provider
-      
+
       Version 1.9.1
       - A couple of small fixes.
-      
+
       Version 1.9.0
       - Add ArcGIS provider Thank you Dave Timmins (https://github.com/davetimmins)
       - Fixes to Salesforce provider
-      
+
       Version 1.8.1
       - Fix bug in Reddit provider
 

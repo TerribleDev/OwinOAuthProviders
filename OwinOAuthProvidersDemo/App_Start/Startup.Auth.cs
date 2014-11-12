@@ -9,6 +9,7 @@ using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.HealthGraph;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Reddit;
@@ -56,7 +57,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseYahooAuthentication("", "");
 
             //app.UseTripItAuthentication("", "");
-
+            
             //app.UseGitHubAuthentication("", "");
 
             //app.UseBufferAuthentication("", "");
@@ -130,13 +131,17 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseWordPressAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseWordPressAuthentication(
+                clientId: "37490",
+                clientSecret: "rt3YrwGaX6yPtAnfwLuz1KBxwEVrYz4LdTynnNe15hxFQZc0ysqjrccl7689IlbD");
 
             //app.UseDropboxAuthentication(
             //    appKey: "",
             //    appSecret: "");
+
+            //app.UseHealthGraphAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
         }
     }
 }

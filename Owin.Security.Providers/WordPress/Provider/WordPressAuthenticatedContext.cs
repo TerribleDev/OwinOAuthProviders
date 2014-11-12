@@ -23,13 +23,15 @@ namespace Owin.Security.Providers.WordPress
         /// <param name="accessToken">WordPress Access token</param>
         /// <param name="blogId">The ID for this blog</param>
         /// <param name="blogUrl">The URL for this blog</param>
-        public WordPressAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string blogId, string blogUrl)
+        public WordPressAuthenticatedContext(IOwinContext context, JObject user, JObject site, string accessToken, string blogId, string blogUrl)
             : base(context)
         {
             User = user;
+            Site = site;
             AccessToken = accessToken;
             BlogId = blogId;
             BlogUrl = blogUrl;
+            BlogName = TryGetValue(site, "name");
 
             Id = TryGetValue(user, "ID");
             Name = TryGetValue(user, "display_name");
@@ -50,6 +52,13 @@ namespace Owin.Security.Providers.WordPress
         public JObject User { get; private set; }
 
         /// <summary>
+        /// Gets the JSON-serialized user
+        /// </summary>
+        /// <remarks>
+        /// Contains the WordPress user obtained from the endpoint https://public-api.wordpress.com/rest/v1/sites/{siteId}
+        /// </remarks>
+        public JObject Site { get; private set; }
+        /// <summary>
         /// Gets the WordPress OAuth access token
         /// </summary>
         public string AccessToken { get; private set; }
@@ -63,6 +72,11 @@ namespace Owin.Security.Providers.WordPress
         /// The URL for the blog against which the user was authenticated
         /// </summary>
         public string BlogUrl { get; private set; }
+
+        /// <summary>
+        /// The name of the blog for the token
+        /// </summary>
+        public string BlogName { get; set; }
 
         /// <summary>
         /// Gets the WordPress access token expiration time

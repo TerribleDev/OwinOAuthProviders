@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin;
@@ -10,26 +11,26 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Owin.Security.Providers.HealthGraph.Provider;
 
-namespace Owin.Security.Providers.WordPress
+namespace Owin.Security.Providers.HealthGraph
 {
-    public class WordPressAuthenticationHandler : AuthenticationHandler<WordPressAuthenticationOptions>
+    public class HealthGraphAuthenticationHandler : AuthenticationHandler<HealthGraphAuthenticationOptions>
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private const string TokenEndpoint = "https://public-api.wordpress.com/oauth2/token";
-        private const string UserInfoEndpoint = "https://public-api.wordpress.com/rest/v1/me";
-        private const string SiteInfoEndpoint = "https://public-api.wordpress.com/rest/v1/sites/";
 
-        private readonly ILogger logger;
-        private readonly HttpClient httpClient;
+        private HttpClient httpClient;
+        private ILogger logger;
 
-        public WordPressAuthenticationHandler(HttpClient httpClient, ILogger logger)
+        public HealthGraphAuthenticationHandler(
+            HttpClient httpClient,
+            ILogger logger)
         {
             this.httpClient = httpClient;
             this.logger = logger;
         }
 
-        protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
+        protected async override Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
             AuthenticationProperties properties = null;
 
@@ -74,51 +75,44 @@ namespace Owin.Security.Providers.WordPress
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
 
                 // Request the token
-                HttpResponseMessage tokenResponse =
-                    await httpClient.PostAsync(TokenEndpoint, new FormUrlEncodedContent(body));
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
+                requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                requestMessage.Content = new FormUrlEncodedContent(body);
+                HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestMessage);
                 tokenResponse.EnsureSuccessStatusCode();
                 string text = await tokenResponse.Content.ReadAsStringAsync();
 
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
-                string blogId = (string)response.blog_id;
-                string blogUrl = (string)response.blog_url;
 
-                // Get the Wordpress user
-                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
-                userRequest.Headers.Add("User-Agent", "OWIN OAuth Provider");
-                userRequest.Headers.Add("Authorization", "BEARER " + accessToken);
-                HttpResponseMessage graphResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
-                graphResponse.EnsureSuccessStatusCode();
-                text = await graphResponse.Content.ReadAsStringAsync();
-                JObject user = JObject.Parse(text);
+                // Get the RunKeeper user
+                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
+                HttpResponseMessage userResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
+                userResponse.EnsureSuccessStatusCode();
+                var userText = await userResponse.Content.ReadAsStringAsync();
+                JObject user = JObject.Parse(userText);
 
-                // Get the site details
-                HttpRequestMessage siteRequest = new HttpRequestMessage(HttpMethod.Get, SiteInfoEndpoint + blogId);
-                siteRequest.Headers.Add("User-Agent", "OWIN OAuth Provider");
-                siteRequest.Headers.Add("Authorization", "BEARER " + accessToken);
-                HttpResponseMessage siteResponse = await httpClient.SendAsync(siteRequest, Request.CallCancelled);
-                siteResponse.EnsureSuccessStatusCode();
-                text = await siteResponse.Content.ReadAsStringAsync();
-                JObject site = JObject.Parse(text);
+                // Get the RunKeeper Profile
+                HttpRequestMessage profileRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.ProfileInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
+                HttpResponseMessage profileResponse = await httpClient.SendAsync(profileRequest, Request.CallCancelled);
+                profileResponse.EnsureSuccessStatusCode();
+                var profileText = await profileResponse.Content.ReadAsStringAsync();
+                JObject profile = JObject.Parse(profileText);
 
-                var context = new WordPressAuthenticatedContext(Context, user, site, accessToken, blogId, blogUrl);
+                var context = new HealthGraphAuthenticatedContext(Context, user, profile, accessToken);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
-                if (!string.IsNullOrEmpty(context.Id))
+
+                if (!string.IsNullOrEmpty(context.UserId))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId, XmlSchemaString, Options.AuthenticationType));
                 }
                 if (!string.IsNullOrEmpty(context.Name))
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.Name, XmlSchemaString, Options.AuthenticationType));
-                }
-                if (!string.IsNullOrEmpty(context.Email))
-                {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
                 }
                 context.Properties = properties;
 
@@ -168,14 +162,15 @@ namespace Owin.Security.Providers.WordPress
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
 
+                // comma separated
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint =
-                    "https://public-api.wordpress.com/oauth2/authorize" +
-                    "?response_type=code" +
-                    "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
-                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-                    "&state=" + Uri.EscapeDataString(state);
+                    Options.Endpoints.AuthorizationEndpoint +
+                        "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
+                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
+                        "&response_type=code" +
+                        "&state=" + Uri.EscapeDataString(state);
 
                 Response.Redirect(authorizationEndpoint);
             }
@@ -202,7 +197,7 @@ namespace Owin.Security.Providers.WordPress
                     return true;
                 }
 
-                var context = new WordPressReturnEndpointContext(Context, ticket);
+                var context = new HealthGraphReturnEndpointContext(Context, ticket);
                 context.SignInAsAuthenticationType = Options.SignInAsAuthenticationType;
                 context.RedirectUri = ticket.Properties.RedirectUri;
 
