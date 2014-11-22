@@ -219,6 +219,15 @@
     <Compile Include="Yahoo\YahooAuthenticationHandler.cs" />
     <Compile Include="Yahoo\YahooAuthenticationMiddleware.cs" />
     <Compile Include="Yahoo\YahooAuthenticationOptions.cs" />
+    <Compile Include="Yammer\Constants.cs" />
+    <Compile Include="Yammer\Provider\IYammerAuthenticationProvider.cs" />
+    <Compile Include="Yammer\Provider\YammerAuthenticatedContext.cs" />
+    <Compile Include="Yammer\Provider\YammerAuthenticationProvider.cs" />
+    <Compile Include="Yammer\Provider\YammerReturnEndpointContext.cs" />
+    <Compile Include="Yammer\YammerAuthenticationHandler.cs" />
+    <Compile Include="Yammer\YammerAuthenticationExtensions.cs" />
+    <Compile Include="Yammer\YammerAuthenticationMiddleware.cs" />
+    <Compile Include="Yammer\YammerAuthenticationOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
