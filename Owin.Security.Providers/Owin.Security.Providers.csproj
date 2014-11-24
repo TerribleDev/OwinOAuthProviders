@@ -67,6 +67,14 @@
     <Compile Include="ArcGISOnline\Provider\ArcGISOnlineReturnEndpointContext.cs" />
     <Compile Include="ArcGISOnline\Provider\ArcGISOnlineUser.cs" />
     <Compile Include="ArcGISOnline\Provider\IArcGISOnlineAuthenticationProvider.cs" />
+    <Compile Include="BattleNet\BattleNetAuthenticationExtensions.cs" />
+    <Compile Include="BattleNet\BattleNetAuthenticationHandler.cs" />
+    <Compile Include="BattleNet\BattleNetAuthenticationMiddleware.cs" />
+    <Compile Include="BattleNet\BattleNetAuthenticationOptions.cs" />
+    <Compile Include="BattleNet\Provider\BattleNetAuthenticatedContext.cs" />
+    <Compile Include="BattleNet\Provider\BattleNetAuthenticationProvider.cs" />
+    <Compile Include="BattleNet\Provider\BattleNetReturnEndpointContext.cs" />
+    <Compile Include="BattleNet\Provider\IBattleNetAuthenticationProvider.cs" />
     <Compile Include="Buffer\BufferAuthenticationExtensions.cs" />
     <Compile Include="Buffer\BufferAuthenticationHandler.cs" />
     <Compile Include="Buffer\BufferAuthenticationMiddleware.cs" />
@@ -76,6 +84,7 @@
     <Compile Include="Buffer\Provider\BufferAuthenticationProvider.cs" />
     <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
     <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
+    <Compile Include="BattleNet\Constants.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationExtensions.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationHandler.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationMiddleware.cs" />
