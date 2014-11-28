@@ -67,6 +67,7 @@
     <Compile Include="ArcGISOnline\Provider\ArcGISOnlineReturnEndpointContext.cs" />
     <Compile Include="ArcGISOnline\Provider\ArcGISOnlineUser.cs" />
     <Compile Include="ArcGISOnline\Provider\IArcGISOnlineAuthenticationProvider.cs" />
+    <Compile Include="AzureAD\Provider\AzureADApplyRedirectContext.cs" />
     <Compile Include="Buffer\BufferAuthenticationExtensions.cs" />
     <Compile Include="Buffer\BufferAuthenticationHandler.cs" />
     <Compile Include="Buffer\BufferAuthenticationMiddleware.cs" />
@@ -76,6 +77,15 @@
     <Compile Include="Buffer\Provider\BufferAuthenticationProvider.cs" />
     <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
     <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
+    <Compile Include="AzureAD\Constants.cs" />
+    <Compile Include="AzureAD\AzureADAuthenticationExtensions.cs" />
+    <Compile Include="AzureAD\AzureADAuthenticationHandler.cs" />
+    <Compile Include="AzureAD\AzureADAuthenticationMiddleware.cs" />
+    <Compile Include="AzureAD\AzureADAuthenticationOptions.cs" />
+    <Compile Include="AzureAD\Provider\AzureADAuthenticatedContext.cs" />
+    <Compile Include="AzureAD\Provider\AzureADAuthenticationProvider.cs" />
+    <Compile Include="AzureAD\Provider\AzureADReturnEndpointContext.cs" />
+    <Compile Include="AzureAD\Provider\IAzureADAuthenticationProvider.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationExtensions.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationHandler.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationMiddleware.cs" />

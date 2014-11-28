@@ -4,6 +4,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.ArcGISOnline;
+using Owin.Security.Providers.AzureAD;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.GitHub;
@@ -52,7 +53,9 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            //app.UseLinkedInAuthentication("", "");
+            //app.UseLinkedInAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
 
             //app.UseYahooAuthentication("", "");
 
@@ -131,9 +134,9 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: "");
 
-            app.UseWordPressAuthentication(
-                clientId: "37490",
-                clientSecret: "rt3YrwGaX6yPtAnfwLuz1KBxwEVrYz4LdTynnNe15hxFQZc0ysqjrccl7689IlbD");
+            //app.UseWordPressAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
 
             //app.UseDropboxAuthentication(
             //    appKey: "",
@@ -142,6 +145,14 @@ namespace OwinOAuthProvidersDemo
             //app.UseHealthGraphAuthentication(
             //    clientId: "",
             //    clientSecret: "");
+
+            //var azureAdOptions = new Owin.Security.Providers.AzureAD.AzureADAuthenticationOptions {
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    Provider = new Owin.Security.Providers.AzureAD.AzureADAuthenticationProvider()
+            //};
+            //azureAdOptions.Resource.Add("https://outlook.office365.com/");
+            //app.UseAzureADAuthentication(azureAdOptions);
         }
     }
 }
