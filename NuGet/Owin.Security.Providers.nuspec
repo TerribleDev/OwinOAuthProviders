@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.12.0</version>
+    <version>1.12.1</version>
     <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks, Tomáš Herceg, James Cuthbert, Payoj Baral</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -16,10 +16,13 @@
       Also adds generic OpenID 2.0 providers as well as a Steam-specific implementatio
     </summary>
     <releaseNotes>
+      Version 1.12.1
+      - Fix multiple scope request for Instagram. Thank you dunksmith (https://github.com/dunksmith)
+      
       Version 1.12.0
       - Adds Battle.NET provider. Thank you Kristoffer Pettersson (https://github.com/KetaSwe)
       - Adds Yammer provider. Thank you ravind (https://github.com/ravind)
-      
+
       Version 1.11.0
       - Add HealtGraph (Runkeeper) provider. Thank you Roberto Hernandez. (https://github.com/rjhernandez)
       - Made change to WordPress provider to also retrieve information about the specific blog.
