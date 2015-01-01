@@ -206,6 +206,15 @@
     <Compile Include="TripIt\TripItAuthenticationHandler.cs" />
     <Compile Include="TripIt\TripItAuthenticationMiddleware.cs" />
     <Compile Include="TripIt\TripItAuthenticationOptions.cs" />
+    <Compile Include="Twitch\Constants.cs" />
+    <Compile Include="Twitch\TwitchAuthenticationExtensions.cs" />
+    <Compile Include="Twitch\TwitchAuthenticationHandler.cs" />
+    <Compile Include="Twitch\TwitchAuthenticationMiddleware.cs" />
+    <Compile Include="Twitch\TwitchAuthenticationOptions.cs" />
+    <Compile Include="Twitch\Provider\TwitchAuthenticatedContext.cs" />
+    <Compile Include="Twitch\Provider\TwitchAuthenticationProvider.cs" />
+    <Compile Include="Twitch\Provider\TwitchReturnEndpointContext.cs" />
+    <Compile Include="Twitch\Provider\ITwitchAuthenticationProvider.cs" />
     <Compile Include="WordPress\WordPressAuthenticationExtensions.cs" />
     <Compile Include="WordPress\WordPressAuthenticationHandler.cs" />
     <Compile Include="WordPress\WordPressAuthenticationMiddleware.cs" />
