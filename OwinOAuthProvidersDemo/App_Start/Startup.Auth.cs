@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -16,6 +17,7 @@ using Owin.Security.Providers.Reddit;
 using Owin.Security.Providers.Salesforce;
 using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.TripIt;
+using Owin.Security.Providers.Twitch;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.Steam;
@@ -85,6 +87,46 @@ namespace OwinOAuthProvidersDemo
             //options.MomentTypes.Add("http://schemas.google.com/CheckInActivity");
             //options.MomentTypes.Add("http://schemas.google.com/BuyActivity");
             //app.UseGooglePlusAuthentication(options);
+
+            /*
+             * Twitch sign-ins use /signin-Twitch as the URL for authentication
+             *            
+             
+             */
+
+            ////Simple Twitch Sign-in
+            //app.UseTwitchAuthentication("", "");
+
+            ////More complex Twitch Sign-in
+            //var opt = new TwitchAuthenticationOptions()
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    Provider = new TwitchAuthenticationProvider()
+            //    {
+                  
+            //        OnAuthenticated = async z =>
+            //        {
+            ////            Getting the twitch users picture
+            //            z.Identity.AddClaim(new Claim("Picture", z.User.GetValue("logo").ToString()));
+            //        }
+            ////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
+            //        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
+            //        /*
+                      
+            //           if (user != null)
+            //                {
+            //                    var claim = (await AuthenticationManager.GetExternalLoginInfoAsync()).ExternalIdentity.Claims.First(
+            //                    a => a.Type == "Picture");
+            //                    user.Claims.Add(new IdentityUserClaim() { ClaimType = claim.Type, ClaimValue = claim.Value });
+            //                    await SignInAsync(user, isPersistent: false);
+            //                    return RedirectToLocal(returnUrl);
+            //                }
+            //         */
+            //    }
+            //};
+            //app.UseTwitchAuthentication(opt);
+            
 
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");

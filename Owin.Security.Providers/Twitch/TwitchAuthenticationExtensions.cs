@@ -4,6 +4,12 @@ namespace Owin.Security.Providers.Twitch
 {
     public static class TwitchAuthenticationExtensions
     {
+        /// <summary>
+        ///  Login with Twitch. http://yourUrl/signin-Twitch will be used as the redirect URI
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IAppBuilder UseTwitchAuthentication(this IAppBuilder app,
             TwitchAuthenticationOptions options)
         {
@@ -16,7 +22,13 @@ namespace Owin.Security.Providers.Twitch
 
             return app;
         }
-
+        /// <summary>
+        /// Login with Twitch. http://yourUrl/signin-Twitch will be used as the redirect URI
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="clientId"></param>
+        /// <param name="clientSecret"></param>
+        /// <returns></returns>
         public static IAppBuilder UseTwitchAuthentication(this IAppBuilder app, string clientId, string clientSecret)
         {
             return app.UseTwitchAuthentication(new TwitchAuthenticationOptions

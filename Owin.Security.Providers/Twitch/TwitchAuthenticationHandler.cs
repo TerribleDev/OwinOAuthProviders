@@ -73,12 +73,6 @@ namespace Owin.Security.Providers.Twitch
                 body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
                 body.Add(new KeyValuePair<string, string>("code", code));
 
-                //var uri = string.Format("?client_id={0}&client_secret={1}&grant_type={2}&redirect_uri={3}&code={4}",
-                //    Uri.EscapeDataString(Options.ClientId),
-                //    Uri.EscapeDataString(Options.ClientSecret),
-                //    "authorization_code",
-                //    redirectUri,
-                //    code);
                 // Request the token
                 var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
                 requestMessage.Content = new FormUrlEncodedContent(body);
