@@ -6,6 +6,15 @@ using Microsoft.Owin.Security;
 
 namespace Owin.Security.Providers.BattleNet
 {
+	public enum Region
+	{
+		Europe,
+		US,
+		Korea,
+		Taiwan,
+		China
+	}
+
 	public class BattleNetAuthenticationOptions : AuthenticationOptions
 	{
 		/// <summary>
@@ -78,6 +87,11 @@ namespace Owin.Security.Providers.BattleNet
 		///     Gets or sets the Battle.net supplied Client Secret
 		/// </summary>
 		public string ClientSecret { get; set; }
+
+		/// <summary>
+		///     Gets or sets the Battle.net Region to authenticate against.
+		/// </summary>
+		public Region Region { get; set; }
 
 		/// <summary>
 		///     Gets or sets the <see cref="IBattleNetAuthenticationProvider" /> used in the authentication events

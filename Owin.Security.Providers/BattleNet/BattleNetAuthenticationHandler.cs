@@ -16,9 +16,10 @@ namespace Owin.Security.Providers.BattleNet
 	{
 
 		private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-		private const string TokenEndpoint = "https://eu.battle.net/oauth/token";
-		private const string AccountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
-		private const string AccountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
+		private readonly string _tokenEndpoint = "https://eu.battle.net/oauth/token";
+		private readonly string _accountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
+		private readonly string _accountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
+		private readonly string _oauthAuthEndpoint = "https://eu.battle.net/oauth/authorize";
 
 		private readonly ILogger _logger;
 		private readonly HttpClient _httpClient;
@@ -27,6 +28,40 @@ namespace Owin.Security.Providers.BattleNet
 		{
 			_httpClient = httpClient;
 			_logger = logger;
+
+			switch (Options.Region)
+			{
+				case Region.China:
+					_tokenEndpoint = "https://cn.battle.net/oauth/token";
+					_accountUserIdEndpoint = "https://cn.api.battle.net/account/user/id";
+					_accountUserBattleTagEndpoint = "https://cn.api.battle.net/account/user/battletag";
+					_oauthAuthEndpoint = "https://cn.battle.net/oauth/authorize";
+					break;
+				case Region.Korea:
+					_tokenEndpoint = "https://kr.battle.net/oauth/token";
+					_accountUserIdEndpoint = "https://kr.api.battle.net/account/user/id";
+					_accountUserBattleTagEndpoint = "https://kr.api.battle.net/account/user/battletag";
+					_oauthAuthEndpoint = "https://kr.battle.net/oauth/authorize";
+					break;
+				case Region.Taiwan:
+					_tokenEndpoint = "https://tw.battle.net/oauth/token";
+					_accountUserIdEndpoint = "https://tw.api.battle.net/account/user/id";
+					_accountUserBattleTagEndpoint = "https://tw.api.battle.net/account/user/battletag";
+					_oauthAuthEndpoint = "https://tw.battle.net/oauth/authorize";
+					break;
+				case Region.Europe:
+					_tokenEndpoint = "https://eu.battle.net/oauth/token";
+					_accountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
+					_accountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
+					_oauthAuthEndpoint = "https://eu.battle.net/oauth/authorize";
+					break;
+				default:
+					_tokenEndpoint = "https://us.battle.net/oauth/token";
+					_accountUserIdEndpoint = "https://us.api.battle.net/account/user/id";
+					_accountUserBattleTagEndpoint = "https://us.api.battle.net/account/user/battletag";
+					_oauthAuthEndpoint = "https://us.battle.net/oauth/authorize";
+					break;
+			}
 		}
 
 		protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
@@ -80,7 +115,7 @@ namespace Owin.Security.Providers.BattleNet
 				};
 
 				// Request the token
-				var tokenResponse = await _httpClient.PostAsync(TokenEndpoint, new FormUrlEncodedContent(body));
+				var tokenResponse = await _httpClient.PostAsync(_tokenEndpoint, new FormUrlEncodedContent(body));
 				tokenResponse.EnsureSuccessStatusCode();
 				var text = await tokenResponse.Content.ReadAsStringAsync();
 
@@ -90,13 +125,13 @@ namespace Owin.Security.Providers.BattleNet
 				var expires = (string)response.expires_in;
 
 				// Get WoW User Id
-				var graphResponse = await _httpClient.GetAsync(AccountUserIdEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
+				var graphResponse = await _httpClient.GetAsync(_accountUserIdEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
 				graphResponse.EnsureSuccessStatusCode();
 				text = await graphResponse.Content.ReadAsStringAsync();
 				var userId = JObject.Parse(text);
 
 				// Get WoW BattleTag
-				graphResponse = await _httpClient.GetAsync(AccountUserBattleTagEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
+				graphResponse = await _httpClient.GetAsync(_accountUserBattleTagEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
 				graphResponse.EnsureSuccessStatusCode();
 				text = await graphResponse.Content.ReadAsStringAsync();
 				var battleTag = JObject.Parse(text);
@@ -177,7 +212,7 @@ namespace Owin.Security.Providers.BattleNet
 				var state = Options.StateDataFormat.Protect(properties);
 
 				var authorizationEndpoint =
-					"https://eu.battle.net/oauth/authorize" +
+					_oauthAuthEndpoint +
 					"?response_type=code" +
 					"&client_id=" + Uri.EscapeDataString(Options.ClientId) +
 					"&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
