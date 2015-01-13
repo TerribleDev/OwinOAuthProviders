@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -20,18 +21,29 @@ namespace Owin.Security.Providers.GitHub
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
+        /// <param name="emails"></param>
         /// <param name="accessToken">GitHub Access token</param>
-        public GitHubAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+        public GitHubAuthenticatedContext(IOwinContext context, JObject user, JArray emails, string accessToken)
             : base(context)
         {
             User = user;
+            Emails = emails;
             AccessToken = accessToken;
 
             Id = TryGetValue(user, "id");
             Name = TryGetValue(user, "name");
             Link = TryGetValue(user, "url");
             UserName = TryGetValue(user, "login");
-            Email = TryGetValue(user, "email");
+            Email = GetPrimaryEmail(emails) ?? TryGetValue(user, "email");
+        }
+
+
+        private static string GetPrimaryEmail(JArray emails)
+        {
+            return emails.Cast<JObject>()
+                .Where(o => string.Equals(TryGetValue(o, "primary"), "true", StringComparison.OrdinalIgnoreCase))
+                .Select(o => TryGetValue(o, "email"))
+                .SingleOrDefault();
         }
 
         /// <summary>
@@ -42,6 +54,15 @@ namespace Owin.Security.Providers.GitHub
         /// overridden in the options
         /// </remarks>
         public JObject User { get; private set; }
+
+        /// <summary>
+        /// Gets the JSON-serialized user's emails
+        /// </summary>
+        /// <remarks>
+        /// Contains the GitHub user's emails obtained from the User Emails endpoint. By default this is https://api.github.com/user/emails but it can be
+        /// overridden in the options
+        /// </remarks>
+        public JArray Emails { get; private set; }
 
         /// <summary>
         /// Gets the GitHub access token
