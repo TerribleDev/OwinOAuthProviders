@@ -21,7 +21,8 @@ namespace Owin.Security.Providers.BattleNet
 			return app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
 			{
 				ClientId = clientId,
-				ClientSecret = clientSecret
+				ClientSecret = clientSecret,
+				Region = Region.US
 			});
 		}
 	}

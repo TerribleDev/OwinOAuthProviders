@@ -4,6 +4,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.ArcGISOnline;
+using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.GitHub;
@@ -142,6 +143,16 @@ namespace OwinOAuthProvidersDemo
             //app.UseHealthGraphAuthentication(
             //    clientId: "",
             //    clientSecret: "");
+
+
+			//app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
+			//{
+			//	ClientId = "",
+			//	ClientSecret = ""
+			//});
+			//app.UseBattleNetAuthentication(
+			//	clientId: "",
+			//	clientSecret: "");
         }
     }
 }
