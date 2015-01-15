@@ -90,7 +90,15 @@ namespace Owin.Security.Providers.GitHub
                 text = await userResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new GitHubAuthenticatedContext(Context, user, accessToken);
+                // Get the GitHub user's emails
+                HttpRequestMessage emailsRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserEmailsEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
+                emailsRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage emailsResponse = await httpClient.SendAsync(emailsRequest, Request.CallCancelled);
+                emailsResponse.EnsureSuccessStatusCode();
+                text = await emailsResponse.Content.ReadAsStringAsync();
+                JArray emails = JArray.Parse(text);
+
+                var context = new GitHubAuthenticatedContext(Context, user, emails, accessToken);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,

@@ -33,11 +33,20 @@ namespace Owin.Security.Providers.GitHub
             /// Defaults to https://api.github.com/user
             /// </remarks>
             public string UserInfoEndpoint { get; set; }
+
+            /// <summary>
+            /// Endpoint which is used to obtain user's emails after authentication
+            /// </summary>
+            /// <remarks>
+            /// Defaults to https://api.github.com/user/emails
+            /// </remarks>
+            public string UserEmailsEndpoint { get; set; }
         }
 
         private const string AuthorizationEndPoint = "https://github.com/login/oauth/authorize";
         private const string TokenEndpoint = "https://github.com/login/oauth/access_token";
         private const string UserInfoEndpoint = "https://api.github.com/user";
+        private const string UserEmailsEndpoint = "https://api.github.com/user/emails";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -138,7 +147,8 @@ namespace Owin.Security.Providers.GitHub
             {
                 AuthorizationEndpoint = AuthorizationEndPoint,
                 TokenEndpoint = TokenEndpoint,
-                UserInfoEndpoint = UserInfoEndpoint
+                UserInfoEndpoint = UserInfoEndpoint,
+                UserEmailsEndpoint = UserEmailsEndpoint
             };
         }
     }
