@@ -67,6 +67,15 @@
     <Compile Include="ArcGISOnline\Provider\ArcGISOnlineReturnEndpointContext.cs" />
     <Compile Include="ArcGISOnline\Provider\ArcGISOnlineUser.cs" />
     <Compile Include="ArcGISOnline\Provider\IArcGISOnlineAuthenticationProvider.cs" />
+    <Compile Include="Asana\AsanaAuthenticationExtensions.cs" />
+    <Compile Include="Asana\AsanaAuthenticationHandler.cs" />
+    <Compile Include="Asana\AsanaAuthenticationMiddleware.cs" />
+    <Compile Include="Asana\AsanaAuthenticationOptions.cs" />
+    <Compile Include="Asana\Constants.cs" />
+    <Compile Include="Asana\Provider\AsanaAuthenticatedContext.cs" />
+    <Compile Include="Asana\Provider\AsanaAuthenticationProvider.cs" />
+    <Compile Include="Asana\Provider\AsanaReturnEndpointContext.cs" />
+    <Compile Include="Asana\Provider\IAsanaAuthenticationProvider.cs" />
     <Compile Include="BattleNet\BattleNetAuthenticationExtensions.cs" />
     <Compile Include="BattleNet\BattleNetAuthenticationHandler.cs" />
     <Compile Include="BattleNet\BattleNetAuthenticationMiddleware.cs" />

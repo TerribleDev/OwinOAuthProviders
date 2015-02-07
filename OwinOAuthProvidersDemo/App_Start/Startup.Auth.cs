@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Asana;
 using Owin.Security.Providers.ArcGISOnline;
 using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
@@ -195,6 +196,8 @@ namespace OwinOAuthProvidersDemo
 			//app.UseBattleNetAuthentication(
 			//	clientId: "",
 			//	clientSecret: "");
+
+            //app.UseAsanaAuthentication("", "");
         }
     }
 }
