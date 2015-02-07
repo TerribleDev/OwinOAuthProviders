@@ -2,8 +2,8 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.13.0</version>
-    <authors>Jerrie Pelser, Jérémie Bertrand, Joseph Yanks, Tomáš Herceg, James Cuthbert, Payoj Baral</authors>
+    <version>1.14.0</version>
+    <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/owin-middleware/OwinOAuthProviders</projectUrl>
@@ -16,14 +16,10 @@
       Also adds generic OpenID 2.0 providers as well as a Steam-specific implementatio
     </summary>
     <releaseNotes>
-      Version 1.13
+      Version 1.14
 
       Added
-      - Added Twitch provider. (Thank you Tommy Parnell - https://github.com/tparnell8)
-
-      Enhancements
-      - Allow selecting region for Battle.net provider (Thank you Kristoffer Pettersson - https://github.com/KetaSwe)
-      - Return Picture URL for LinkedIn provider (Thank you Aaron Horst - https://github.com/aaron-horst)
+      - Added Asana Provider (Thank you Anthony Ruffino - https://github.com/AnthonyRuffino)
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>

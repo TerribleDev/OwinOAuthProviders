@@ -10,6 +10,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - StackExchange
   - HealthGraph
   - Battle.net
+  - Asana
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam
@@ -42,6 +43,7 @@ A big thanks goes out to all these contributors without whom this would not have
 * Joseph Yanks (https://github.com/josephyanks)
 * Aaron Horst (https://github.com/aaron-horst)
 * Scott Hill (https://github.com/scottedwardhill)
+* Anthony Ruffino (https://github.com/AnthonyRuffino)
 
 ## License
 
