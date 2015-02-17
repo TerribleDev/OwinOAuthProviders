@@ -176,18 +176,24 @@ namespace Owin.Security.Providers.LinkedIn
                 {
                     scope = properties.Dictionary["scope"];
                 }
-                
+
                 string state = Options.StateDataFormat.Protect(properties);
 
-                string authorizationEndpoint =
-                    "https://www.linkedin.com/uas/oauth2/authorization" +
-                        "?response_type=code" +
-                        "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
-                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-                        "&scope=" + Uri.EscapeDataString(scope) +
-                        "&state=" + Uri.EscapeDataString(state);
-
-                Response.Redirect(authorizationEndpoint);
+                Response.Write("<html>");
+                Response.Write("<body>");
+                Response.Write("<form id=\"form\" method=\"POST\" action=\"https://www.linkedin.com/uas/oauth2/authorization\" >");
+                Response.Write("<input type=\"hidden\" name=\"response_type\" value=\"code\">");
+                Response.Write("<input type=\"hidden\" name=\"client_id\" value=\"" + Options.ClientId + "\">");
+                Response.Write("<input type=\"hidden\" name=\"redirect_uri\" value=\"" + redirectUri + "\">");
+                Response.Write("<input type=\"hidden\" name=\"scope\" value=\"" + scope + "\">");
+                Response.Write("<input type=\"hidden\" name=\"state\" value=\"" + state + "\">");
+                Response.Write("</form>");
+                Response.Write("<script type=\"text/javascript\">");
+                Response.Write("var form = document.getElementById(\"form\").submit();");
+                Response.Write("form.submit()");
+                Response.Write("</script>");
+                Response.Write("</body>");
+                Response.Write("</html>");
             }
 
             return Task.FromResult<object>(null);
