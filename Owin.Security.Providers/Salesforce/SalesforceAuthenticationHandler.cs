@@ -135,7 +135,7 @@ namespace Owin.Security.Providers.Salesforce
                     context.Identity.AddClaim(new Claim("urn:Salesforce:name", context.DisplayName, XmlSchemaString, Options.AuthenticationType));
                 }
 
-                if (!string.IsNullOrEmpty(context.DisplayName))
+                if (!string.IsNullOrEmpty(context.OrganizationId))
                 {
                     context.Identity.AddClaim(new Claim("urn:Salesforce:organization_id", context.OrganizationId, XmlSchemaString, Options.AuthenticationType));
                 }
