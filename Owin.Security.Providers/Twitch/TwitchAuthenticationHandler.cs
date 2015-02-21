@@ -167,7 +167,7 @@ namespace Owin.Security.Providers.Twitch
                 GenerateCorrelationId(properties);
 
                 // comma separated
-                string scope = string.Join(" ", Options.Scope);
+                string scope = string.Join(" ", Options.Scope.Distinct());
 
                 string state = Options.StateDataFormat.Protect(properties);
 
