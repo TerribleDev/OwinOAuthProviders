@@ -103,6 +103,15 @@
     <Compile Include="Dropbox\Provider\DropboxAuthenticationProvider.cs" />
     <Compile Include="Dropbox\Provider\DropboxReturnEndpointContext.cs" />
     <Compile Include="Dropbox\Provider\IDropboxAuthenticationProvider.cs" />
+    <Compile Include="EVEOnline\EVEOnlineAuthenticationExtensions.cs" />
+    <Compile Include="EVEOnline\EVEOnlineAuthenticationHandler.cs" />
+    <Compile Include="EVEOnline\EVEOnlineAuthenticationMiddleware.cs" />
+    <Compile Include="EVEOnline\EVEOnlineAuthenticationOptions.cs" />
+    <Compile Include="EVEOnline\Constants.cs" />
+    <Compile Include="EVEOnline\Provider\EVEOnlineAuthenticatedContext.cs" />
+    <Compile Include="EVEOnline\Provider\EVEOnlineAuthenticationProvider.cs" />
+    <Compile Include="EVEOnline\Provider\EVEOnlineReturnEndpointContext.cs" />
+    <Compile Include="EVEOnline\Provider\IEVEOnlineAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="HealthGraph\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
