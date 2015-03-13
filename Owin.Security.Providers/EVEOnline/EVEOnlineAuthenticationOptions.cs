@@ -24,11 +24,9 @@ namespace Owin.Security.Providers.EveOnline
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-eveonline");
             AuthenticationMode = AuthenticationMode.Passive;
-            Scope = new List<string>
-            {
-            };
+            Scope = new List<string>();
             BackchannelTimeout = TimeSpan.FromSeconds(60);
-            Server = EveOnline.Server.Tranquility;
+            Server = Server.Tranquility;
         }
 
         /// <summary>

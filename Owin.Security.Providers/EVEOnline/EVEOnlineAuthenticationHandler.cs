@@ -9,19 +9,20 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Owin.Security.Providers.EveOnline;
 
-namespace Owin.Security.Providers.EveOnline
+namespace Owin.Security.Providers
 {
     public class EveOnlineAuthenticationHandler : AuthenticationHandler<EveOnlineAuthenticationOptions>
     {
-
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private string _tokenEndpoint,
-                       _characterIdEndpoint,
-                       _oauthAuthEndpoint,
-                       _serverHost;
 
-        private readonly string _serverScheme = "https://";
+        private string _tokenEndpoint;
+        private string _characterIdEndpoint ;
+        private string _oauthAuthEndpoint ;
+        private string _serverHost ;
+
+        private const string _serverScheme = "https://";
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
 
@@ -31,7 +32,7 @@ namespace Owin.Security.Providers.EveOnline
             _logger = logger;
         }
 
-        protected override System.Threading.Tasks.Task InitializeCoreAsync()
+        protected override Task InitializeCoreAsync()
         {
             return Task.Run(() =>
             {
