@@ -9,9 +9,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Owin.Security.Providers.EveOnline;
 
-namespace Owin.Security.Providers
+namespace Owin.Security.Providers.EveOnline
 {
     public class EveOnlineAuthenticationHandler : AuthenticationHandler<EveOnlineAuthenticationOptions>
     {
