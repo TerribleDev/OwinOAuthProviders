@@ -4,7 +4,7 @@ using System.Net.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace Owin.Security.Providers.EVEOnline
+namespace Owin.Security.Providers.EveOnline
 {
     public enum Server
     {
@@ -12,14 +12,14 @@ namespace Owin.Security.Providers.EVEOnline
         Singularity
     }
 
-    public class EVEOnlineAuthenticationOptions : AuthenticationOptions
+    public class EveOnlineAuthenticationOptions : AuthenticationOptions
     {
         /// <summary>
-        ///     Initializes a new <see cref="EVEOnlineAuthenticationOptions" />.
+        ///     Initializes a new <see cref="EveOnlineAuthenticationOptions" />.
         ///		By default the scope is empty, you can add ie. publicData when initializing.
         /// </summary>
-        public EVEOnlineAuthenticationOptions()
-            : base("EVEOnline")
+        public EveOnlineAuthenticationOptions()
+            : base("EveOnline")
         {
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-eveonline");
@@ -28,12 +28,12 @@ namespace Owin.Security.Providers.EVEOnline
             {
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
-            Server = EVEOnline.Server.Tranquility;
+            Server = EveOnline.Server.Tranquility;
         }
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
-        ///     in back channel communications belong to EVEOnline.
+        ///     in back channel communications belong to EveOnline.
         /// </summary>
         /// <value>
         ///     The pinned certificate validator.
@@ -45,14 +45,14 @@ namespace Owin.Security.Providers.EVEOnline
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
         /// <summary>
-        ///     The HttpMessageHandler used to communicate with EVEOnline.
+        ///     The HttpMessageHandler used to communicate with EveOnline.
         ///     This cannot be set at the same time as BackchannelCertificateValidator unless the value
         ///     can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
         /// <summary>
-        ///     Gets or sets timeout value in milliseconds for back channel communications with EVEOnline.
+        ///     Gets or sets timeout value in milliseconds for back channel communications with EveOnline.
         /// </summary>
         /// <value>
         ///     The back channel timeout in milliseconds.
@@ -76,24 +76,24 @@ namespace Owin.Security.Providers.EVEOnline
         }
 
         /// <summary>
-        ///     Gets or sets EVEOnline supplied Client Id
+        ///     Gets or sets EveOnline supplied Client Id
         /// </summary>
         public string ClientId { get; set; }
 
         /// <summary>
-        ///     Gets or sets EVEOnline supplied Client Secret
+        ///     Gets or sets EveOnline supplied Client Secret
         /// </summary>
         public string ClientSecret { get; set; }
 
         /// <summary>
-        ///     Gets or sets the EVEOnline Server to authenticate against.
+        ///     Gets or sets the EveOnline Server to authenticate against.
         /// </summary>
         public Server Server { get; set; }
 
         /// <summary>
-        ///     Gets or sets the <see cref="IEVEOnlineAuthenticationProvider" /> used in the authentication events
+        ///     Gets or sets the <see cref="IEveOnlineAuthenticationProvider" /> used in the authentication events
         /// </summary>
-        public IEVEOnlineAuthenticationProvider Provider { get; set; }
+        public IEveOnlineAuthenticationProvider Provider { get; set; }
 
         /// <summary>
         /// A list of permissions to request.

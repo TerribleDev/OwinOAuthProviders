@@ -4,19 +4,19 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 
-namespace Owin.Security.Providers.EVEOnline
+namespace Owin.Security.Providers.EveOnline
 {
     /// <summary>
     /// Provides context information to middleware providers.
     /// </summary>
-    public class EVEOnlineReturnEndpointContext : ReturnEndpointContext
+    public class EveOnlineReturnEndpointContext : ReturnEndpointContext
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context">OWIN environment</param>
         /// <param name="ticket">The authentication ticket</param>
-        public EVEOnlineReturnEndpointContext(
+        public EveOnlineReturnEndpointContext(
             IOwinContext context,
             AuthenticationTicket ticket)
             : base(context, ticket)

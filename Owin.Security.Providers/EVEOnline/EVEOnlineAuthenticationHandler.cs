@@ -10,9 +10,9 @@ using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Owin.Security.Providers.EVEOnline
+namespace Owin.Security.Providers.EveOnline
 {
-    public class EVEOnlineAuthenticationHandler : AuthenticationHandler<EVEOnlineAuthenticationOptions>
+    public class EveOnlineAuthenticationHandler : AuthenticationHandler<EveOnlineAuthenticationOptions>
     {
 
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
@@ -25,7 +25,7 @@ namespace Owin.Security.Providers.EVEOnline
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
 
-        public EVEOnlineAuthenticationHandler(HttpClient httpClient, ILogger logger)
+        public EveOnlineAuthenticationHandler(HttpClient httpClient, ILogger logger)
         {
             _httpClient = httpClient;
             _logger = logger;
@@ -124,13 +124,13 @@ namespace Owin.Security.Providers.EVEOnline
 
                 graphRequest.Headers.Add("Authorization", "Bearer " + accessToken);
                 graphRequest.Headers.Add("Host", _serverHost);
-                graphRequest.Headers.UserAgent.ParseAdd("Microsoft Owin EVEOnline middleware");
+                graphRequest.Headers.UserAgent.ParseAdd("Microsoft Owin EveOnline middleware");
                 var graphResponse = await _httpClient.SendAsync(graphRequest);
                 graphResponse.EnsureSuccessStatusCode();
                 text = await graphResponse.Content.ReadAsStringAsync();
                 var characterId = JObject.Parse(text);
 
-                var context = new EVEOnlineAuthenticatedContext(Context, characterId, accessToken, refreshToken, expires)
+                var context = new EveOnlineAuthenticatedContext(Context, characterId, accessToken, refreshToken, expires)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
@@ -245,7 +245,7 @@ namespace Owin.Security.Providers.EVEOnline
                     return true;
                 }
 
-                var context = new EVEOnlineReturnEndpointContext(Context, ticket)
+                var context = new EveOnlineReturnEndpointContext(Context, ticket)
                 {
                     SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
                     RedirectUri = ticket.Properties.RedirectUri

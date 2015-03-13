@@ -9,14 +9,14 @@ using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
 using Owin.Security.Providers.Properties;
 
-namespace Owin.Security.Providers.EVEOnline
+namespace Owin.Security.Providers.EveOnline
 {
-    public class EVEOnlineAuthenticationMiddleware : AuthenticationMiddleware<EVEOnlineAuthenticationOptions>
+    public class EveOnlineAuthenticationMiddleware : AuthenticationMiddleware<EveOnlineAuthenticationOptions>
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger _logger;
 
-        public EVEOnlineAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app, EVEOnlineAuthenticationOptions options)
+        public EveOnlineAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app, EveOnlineAuthenticationOptions options)
             : base(next, options)
         {
             if (String.IsNullOrWhiteSpace(Options.ClientId))
@@ -26,15 +26,15 @@ namespace Owin.Security.Providers.EVEOnline
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture,
                     Resources.Exception_OptionMustBeProvided, "ClientSecret"));
 
-            _logger = app.CreateLogger<EVEOnlineAuthenticationMiddleware>();
+            _logger = app.CreateLogger<EveOnlineAuthenticationMiddleware>();
 
             if (Options.Provider == null)
-                Options.Provider = new EVEOnlineAuthenticationProvider();
+                Options.Provider = new EveOnlineAuthenticationProvider();
 
             if (Options.StateDataFormat == null)
             {
                 var dataProtector = app.CreateDataProtector(
-                    typeof(EVEOnlineAuthenticationMiddleware).FullName,
+                    typeof(EveOnlineAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
@@ -55,14 +55,14 @@ namespace Owin.Security.Providers.EVEOnline
         /// </summary>
         /// <returns>
         ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
-        ///     <see cref="T:Owin.Security.Providers.EVEOnline.EVEOnlineAuthenticationOptions" /> supplied to the constructor.
+        ///     <see cref="T:Owin.Security.Providers.EveOnline.EVeOnlineAuthenticationOptions" /> supplied to the constructor.
         /// </returns>
-        protected override AuthenticationHandler<EVEOnlineAuthenticationOptions> CreateHandler()
+        protected override AuthenticationHandler<EveOnlineAuthenticationOptions> CreateHandler()
         {
-            return new EVEOnlineAuthenticationHandler(_httpClient, _logger);
+            return new EveOnlineAuthenticationHandler(_httpClient, _logger);
         }
 
-        private static HttpMessageHandler ResolveHttpMessageHandler(EVEOnlineAuthenticationOptions options)
+        private static HttpMessageHandler ResolveHttpMessageHandler(EveOnlineAuthenticationOptions options)
         {
             HttpMessageHandler handler = options.BackchannelHttpHandler ?? new WebRequestHandler();
 

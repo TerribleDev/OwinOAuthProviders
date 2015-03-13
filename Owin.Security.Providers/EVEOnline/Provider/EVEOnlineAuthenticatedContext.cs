@@ -8,22 +8,22 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using Newtonsoft.Json.Linq;
 
-namespace Owin.Security.Providers.EVEOnline
+namespace Owin.Security.Providers.EveOnline
 {
     /// <summary>
     /// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
     /// </summary>
-    public class EVEOnlineAuthenticatedContext : BaseContext
+    public class EveOnlineAuthenticatedContext : BaseContext
     {
         /// <summary>
-        /// Initializes a <see cref="EVEOnlineAuthenticatedContext"/>
+        /// Initializes a <see cref="EveOnlineAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="characterData">The JSON-serialized userId</param>
         /// 
-        /// <param name="accessToken">EVEOnline Access token</param>
+        /// <param name="accessToken">EveOnline Access token</param>
         /// <param name="expires">Seconds until expiration</param>
-        public EVEOnlineAuthenticatedContext(IOwinContext context, JObject characterData, string accessToken, string refreshToken, string expires)
+        public EveOnlineAuthenticatedContext(IOwinContext context, JObject characterData, string accessToken, string refreshToken, string expires)
             : base(context)
         {
             JsonCharacterId = characterData;
@@ -45,38 +45,38 @@ namespace Owin.Security.Providers.EVEOnline
         /// Gets the JSON-serialized user ID
         /// </summary>
         /// <remarks>
-        /// Contains the EVEOnline user ID 
+        /// Contains the EveOnline user ID 
         /// </remarks>
         public JObject JsonCharacterId { get; private set; }
 
         /// <summary>
-        /// Gets EVEOnline OAuth access token
+        /// Gets EveOnline OAuth access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets EVEOnline OAuth refresh token
+        /// Gets EveOnline OAuth refresh token
         /// </summary>
         public string RefreshToken { get; private set; }
 
         /// <summary>
-        /// Gets EVEOnline access token expiration time
+        /// Gets EveOnline access token expiration time
         /// </summary>
         public TimeSpan? ExpiresIn { get; set; }
 
         /// <summary>
-        /// Gets EVEOnline character owner hash. It changes only if character is transfered
+        /// Gets EveOnline character owner hash. It changes only if character is transfered
         /// to other account.
         /// </summary>
         public string CharacterOwnerHash { get; private set; }
 
         /// <summary>
-        /// Gets EVEOnline character ID
+        /// Gets EveOnline character ID
         /// </summary>
         public string CharacterId { get; private set; }
 
         /// <summary>
-        /// Gets the EVEOnline character name
+        /// Gets the EveOnline character name
         /// </summary>
         public string CharacterName { get; private set; }
 
