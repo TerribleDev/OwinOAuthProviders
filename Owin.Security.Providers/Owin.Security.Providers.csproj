@@ -189,6 +189,15 @@
     <Compile Include="Salesforce\SalesforceAuthenticationHandler.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationMiddleware.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationOptions.cs" />
+    <Compile Include="SoundCloud\Constants.cs" />
+    <Compile Include="SoundCloud\Provider\ISoundCloudAuthenticationProvider.cs" />
+    <Compile Include="SoundCloud\Provider\SoundCloudAuthenticatedContext.cs" />
+    <Compile Include="SoundCloud\Provider\SoundCloudAuthenticationProvider.cs" />
+    <Compile Include="SoundCloud\Provider\SoundCloudReturnEndpointContext.cs" />
+    <Compile Include="SoundCloud\SoundCloudAuthenticationExtensions.cs" />
+    <Compile Include="SoundCloud\SoundCloudAuthenticationHandler.cs" />
+    <Compile Include="SoundCloud\SoundCloudAuthenticationMiddleware.cs" />
+    <Compile Include="SoundCloud\SoundCloudAuthenticationOptions.cs" />
     <Compile Include="StackExchange\Constants.cs" />
     <Compile Include="StackExchange\StackExchangeAuthenticationExtensions.cs" />
     <Compile Include="StackExchange\StackExchangeAuthenticationHandler.cs" />
