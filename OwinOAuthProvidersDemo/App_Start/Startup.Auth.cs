@@ -22,6 +22,7 @@ using Owin.Security.Providers.TripIt;
 using Owin.Security.Providers.Twitch;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
+using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Steam;
 using Owin.Security.Providers.WordPress;
 
@@ -198,6 +199,8 @@ namespace OwinOAuthProvidersDemo
 			//	clientSecret: "");
 
             //app.UseAsanaAuthentication("", "");
+
+            //app.UseSoundCloudAuthentication("", "");
         }
     }
 }
