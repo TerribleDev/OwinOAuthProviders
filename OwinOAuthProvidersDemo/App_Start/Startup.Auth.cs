@@ -9,6 +9,7 @@ using Owin.Security.Providers.ArcGISOnline;
 using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.Dropbox;
+using Owin.Security.Providers.EveOnline;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
@@ -198,6 +199,8 @@ namespace OwinOAuthProvidersDemo
 			//	clientSecret: "");
 
             //app.UseAsanaAuthentication("", "");
+
+            //app.UseEveOnlineAuthentication("", "");
         }
     }
 }
