@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/su8q95onnarswjaq/branch/master?svg=true)](https://ci.appveyor.com/project/ByteBlast/owinoauthproviders/branch/master)
+
+
 #OWIN OAuth Providers
 
 Provides a set of extra authentication providers for OWIN ([Project Katana](http://katanaproject.codeplex.com/)).  This project includes providers for:
