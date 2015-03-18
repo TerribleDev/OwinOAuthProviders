@@ -11,7 +11,8 @@ namespace Owin.Security.Providers.Foursquare.Provider
 		/// </summary>
 		/// <param name="context">OWIN environment</param>
 		/// <param name="ticket">The authentication ticket</param>
-		public FoursquareReturnEndpointContext(IOwinContext context, AuthenticationTicket ticket) : base(context, ticket)
+		public FoursquareReturnEndpointContext(IOwinContext context, AuthenticationTicket ticket)
+			: base(context, ticket)
 		{
 		}
 	}
