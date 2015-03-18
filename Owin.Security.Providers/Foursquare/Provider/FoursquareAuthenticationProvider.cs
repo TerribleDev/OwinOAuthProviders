@@ -7,8 +7,8 @@ namespace Owin.Security.Providers.Foursquare.Provider
 	{
 		public FoursquareAuthenticationProvider()
 		{
-			this.OnAuthenticated = context => Task.FromResult<Object>(null);
-			this.OnReturnEndpoint = context => Task.FromResult<Object>(null);
+			this.OnAuthenticated = context => Task.FromResult<object>(null);
+			this.OnReturnEndpoint = context => Task.FromResult<object>(null);
 		}
 
 		public Func<FoursquareAuthenticatedContext, Task> OnAuthenticated { get; set; }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Owin;
 
 namespace Owin.Security.Providers.Foursquare
 {
@@ -20,7 +19,7 @@ namespace Owin.Security.Providers.Foursquare
 			return app.Use(typeof(FoursquareAuthenticationMiddleware), app, options);
 		}
 
-		public static IAppBuilder UseFoursquareAuthentication(this IAppBuilder app, String clientId, String clientSecret)
+		public static IAppBuilder UseFoursquareAuthentication(this IAppBuilder app, string clientId, string clientSecret)
 		{
 			return app.UseFoursquareAuthentication(new FoursquareAuthenticationOptions
 			{

@@ -6,7 +6,6 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
-using Owin;
 using Owin.Security.Providers.Foursquare.Provider;
 
 namespace Owin.Security.Providers.Foursquare
@@ -16,14 +15,15 @@ namespace Owin.Security.Providers.Foursquare
 		private readonly ILogger _logger;
 		private readonly HttpClient _httpClient;
 
-		public FoursquareAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app, FoursquareAuthenticationOptions options) : base(next, options)
+		public FoursquareAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app, FoursquareAuthenticationOptions options)
+			: base(next, options)
 		{
-			if (String.IsNullOrWhiteSpace(this.Options.ClientId) == true)
+			if (string.IsNullOrWhiteSpace(this.Options.ClientId) == true)
 			{
 				throw new ArgumentException("The 'ClientId' must be provided.");
 			}
 
-			if (String.IsNullOrWhiteSpace(this.Options.ClientSecret) == true)
+			if (string.IsNullOrWhiteSpace(this.Options.ClientSecret) == true)
 			{
 				throw new ArgumentException("The 'ClientSecret' option must be provided.");
 			}
@@ -41,7 +41,7 @@ namespace Owin.Security.Providers.Foursquare
 				this.Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
 			}
 
-			if (String.IsNullOrEmpty(this.Options.SignInAsAuthenticationType) == true)
+			if (string.IsNullOrEmpty(this.Options.SignInAsAuthenticationType) == true)
 			{
 				this.Options.SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType();
 			}

@@ -15,10 +15,10 @@ namespace Owin.Security.Providers.Foursquare
 {
 	public class FoursquareAuthenticationHandler : AuthenticationHandler<FoursquareAuthenticationOptions>
 	{
-		private const String AuthorizationEndpoint = "https://foursquare.com/oauth2/authenticate";
-		private const String TokenEndpoint = "https://foursquare.com/oauth2/access_token";
-		private const String GraphApiEndpoint = "https://api.foursquare.com/v2/users/self";
-		private const String XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
+		private const string AuthorizationEndpoint = "https://foursquare.com/oauth2/authenticate";
+		private const string TokenEndpoint = "https://foursquare.com/oauth2/access_token";
+		private const string GraphApiEndpoint = "https://api.foursquare.com/v2/users/self";
+		private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
 
 		private readonly ILogger _logger;
 		private readonly HttpClient _httpClient;
@@ -29,9 +29,9 @@ namespace Owin.Security.Providers.Foursquare
 			this._logger = logger;
 		}
 
-		public override async Task<Boolean> InvokeAsync()
+		public override async Task<bool> InvokeAsync()
 		{
-			if ((String.IsNullOrEmpty(this.Options.CallbackPath) == false) && (this.Options.CallbackPath == this.Request.Path.ToString()))
+			if ((string.IsNullOrEmpty(this.Options.CallbackPath) == false) && (this.Options.CallbackPath == this.Request.Path.ToString()))
 			{
 				return await this.InvokeReturnPathAsync();
 			}
@@ -47,8 +47,8 @@ namespace Owin.Security.Providers.Foursquare
 
 			try
 			{
-				String code = null;
-				String state = null;
+				string code = null;
+				string state = null;
 
 				var query = this.Request.Query;
 				var values = query.GetValues("code");
@@ -78,13 +78,13 @@ namespace Owin.Security.Providers.Foursquare
 					return new AuthenticationTicket(null, properties);
 				}
 
-				var tokenRequestParameters = new List<KeyValuePair<String, String>>()
+				var tokenRequestParameters = new List<KeyValuePair<string, string>>()
 				{
-					new KeyValuePair<String, String>("client_id", this.Options.ClientId),
-					new KeyValuePair<String, String>("client_secret", this.Options.ClientSecret),
-					new KeyValuePair<String, String>("grant_type", "authorization_code"),
-					new KeyValuePair<String, String>("redirect_uri", this.GenerateRedirectUri()),
-					new KeyValuePair<String, String>("code", code),
+					new KeyValuePair<string, string>("client_id", this.Options.ClientId),
+					new KeyValuePair<string, string>("client_secret", this.Options.ClientSecret),
+					new KeyValuePair<string, string>("grant_type", "authorization_code"),
+					new KeyValuePair<string, string>("redirect_uri", this.GenerateRedirectUri()),
+					new KeyValuePair<string, string>("code", code),
 				};
 
 				var requestContent = new FormUrlEncodedContent(tokenRequestParameters);
@@ -95,19 +95,19 @@ namespace Owin.Security.Providers.Foursquare
 				var oauthTokenResponse = await response.Content.ReadAsStringAsync();
 
 				var oauth2Token = JObject.Parse(oauthTokenResponse);
-				var accessToken = oauth2Token["access_token"].Value<String>();
+				var accessToken = oauth2Token["access_token"].Value<string>();
 
-				if (String.IsNullOrWhiteSpace(accessToken) == true)
+				if (string.IsNullOrWhiteSpace(accessToken) == true)
 				{
 					this._logger.WriteWarning("Access token was not found");
 					return new AuthenticationTicket(null, properties);
 				}
 
-				var graphResponse = await this._httpClient.GetAsync(GraphApiEndpoint + "?oauth_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
+				var graphResponse = await this._httpClient.GetAsync(GraphApiEndpoint + "?oauth_token=" + Uri.EscapeDataString(accessToken) + "&m=foursquare&v=" + DateTime.Today.ToString("yyyyyMMdd"), this.Request.CallCancelled);
 				graphResponse.EnsureSuccessStatusCode();
 
-				var accountString = await graphResponse.Content.ReadAsStringAsync();
-				var accountInformation = JObject.Parse(accountString);
+				var accountstring = await graphResponse.Content.ReadAsStringAsync();
+				var accountInformation = JObject.Parse(accountstring);
 				var user = (JObject) accountInformation["response"]["user"];
 
 				var context = new FoursquareAuthenticatedContext(this.Context, user, accessToken);
@@ -118,13 +118,15 @@ namespace Owin.Security.Providers.Foursquare
 						new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, this.Options.AuthenticationType),
 						new Claim(ClaimTypes.Name, context.Name, XmlSchemaString, this.Options.AuthenticationType),
 						new Claim("urn:foursquare:id", context.Id, XmlSchemaString, this.Options.AuthenticationType),
-						new Claim("urn:foursquare:name", context.Name, XmlSchemaString, this.Options.AuthenticationType)
+						new Claim("urn:foursquare:name", context.Name, XmlSchemaString, this.Options.AuthenticationType),
+						new Claim("urn:foursquare:email", context.Email, XmlSchemaString, this.Options.AuthenticationType),
+						new Claim("urn:foursquare:twitter", context.Twitter, XmlSchemaString, this.Options.AuthenticationType)
 					},
 					this.Options.AuthenticationType,
 					ClaimsIdentity.DefaultNameClaimType,
 					ClaimsIdentity.DefaultRoleClaimType);
 
-				if (String.IsNullOrWhiteSpace(context.Email) == false)
+				if (string.IsNullOrWhiteSpace(context.Email) == false)
 				{
 					context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, this.Options.AuthenticationType));
 				}
@@ -146,7 +148,7 @@ namespace Owin.Security.Providers.Foursquare
 		{
 			this._logger.WriteVerbose("ApplyResponseChallenge");
 
-			if (this.Response.StatusCode != (Int32) HttpStatusCode.Unauthorized)
+			if (this.Response.StatusCode != (int) HttpStatusCode.Unauthorized)
 			{
 				return Task.FromResult<Object>(null);
 			}
@@ -161,7 +163,7 @@ namespace Owin.Security.Providers.Foursquare
 
 				var extra = challenge.Properties;
 
-				if (String.IsNullOrEmpty(extra.RedirectUri) == true)
+				if (string.IsNullOrEmpty(extra.RedirectUri) == true)
 				{
 					extra.RedirectUri = currentUri;
 				}
@@ -170,7 +172,7 @@ namespace Owin.Security.Providers.Foursquare
 				this.GenerateCorrelationId(extra);
 
 				// OAuth2 3.3 space separated
-				var scope = String.Join(" ", this.Options.Scope);
+				var scope = string.Join(" ", this.Options.Scope);
 
 				var state = this.Options.StateDataFormat.Protect(extra);
 
@@ -180,14 +182,14 @@ namespace Owin.Security.Providers.Foursquare
 						"&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
 						"&state=" + Uri.EscapeDataString(state);
 
-				this.Response.StatusCode = (Int32) HttpStatusCode.Moved;
+				this.Response.StatusCode = (int) HttpStatusCode.Moved;
 				this.Response.Headers.Set("Location", authorizationEndpoint);
 			}
 
 			return Task.FromResult<Object>(null);
 		}
 
-		public async Task<Boolean> InvokeReturnPathAsync()
+		public async Task<bool> InvokeReturnPathAsync()
 		{
 			this._logger.WriteVerbose("InvokeReturnPath");
 
@@ -205,7 +207,7 @@ namespace Owin.Security.Providers.Foursquare
 			{
 				var signInIdentity = context.Identity;
 
-				if (String.Equals(signInIdentity.AuthenticationType, context.SignInAsAuthenticationType, StringComparison.Ordinal) == false)
+				if (string.Equals(signInIdentity.AuthenticationType, context.SignInAsAuthenticationType, StringComparison.Ordinal) == false)
 				{
 					signInIdentity = new ClaimsIdentity(signInIdentity.Claims, context.SignInAsAuthenticationType, signInIdentity.NameClaimType, signInIdentity.RoleClaimType);
 				}
@@ -228,7 +230,7 @@ namespace Owin.Security.Providers.Foursquare
 			return context.IsRequestCompleted;
 		}
 
-		private String GenerateRedirectUri()
+		private string GenerateRedirectUri()
 		{
 			var requestPrefix = this.Request.Scheme + "://" + this.Request.Host;
 			var redirectUri = requestPrefix + this.RequestPathBase + this.Options.CallbackPath;

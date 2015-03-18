@@ -9,7 +9,7 @@ namespace Owin.Security.Providers.Foursquare.Provider
 {
 	public class FoursquareAuthenticatedContext : BaseContext
 	{
-		public FoursquareAuthenticatedContext(IOwinContext context, JObject user, String accessToken) : base(context)
+		public FoursquareAuthenticatedContext(IOwinContext context, JObject user, string accessToken) : base(context)
 		{
 			if (user == null)
 			{
@@ -49,31 +49,31 @@ namespace Owin.Security.Providers.Foursquare.Provider
 		}
 
 		public JObject User { get; private set; }
-		public String AccessToken { get; private set; }
-		public String Id { get; private set; }
-		public String FirstName { get; private set; }
-		public String LastName { get; private set; }
-		public String Name { get; private set; }
-		public String Gender { get; private set; }
-		public String Photo { get; private set; }
-		public String Friends { get; private set; }
-		public String HomeCity { get; private set; }
-		public String Bio { get; private set; }
-		public String Contact { get; private set; }
-		public String Phone { get; private set; }
-		public String Email { get; private set; }
-		public String Twitter { get; private set; }
-		public String Facebook { get; private set; }
-		public String Badges { get; private set; }
-		public String Mayorships { get; private set; }
-		public String Checkins { get; private set; }
-		public String Photos { get; private set; }
-		public String Scores { get; private set; }
-		public String Link { get; private set; }
+		public string AccessToken { get; private set; }
+		public string Id { get; private set; }
+		public string FirstName { get; private set; }
+		public string LastName { get; private set; }
+		public string Name { get; private set; }
+		public string Gender { get; private set; }
+		public string Photo { get; private set; }
+		public string Friends { get; private set; }
+		public string HomeCity { get; private set; }
+		public string Bio { get; private set; }
+		public string Contact { get; private set; }
+		public string Phone { get; private set; }
+		public string Email { get; private set; }
+		public string Twitter { get; private set; }
+		public string Facebook { get; private set; }
+		public string Badges { get; private set; }
+		public string Mayorships { get; private set; }
+		public string Checkins { get; private set; }
+		public string Photos { get; private set; }
+		public string Scores { get; private set; }
+		public string Link { get; private set; }
 		public ClaimsIdentity Identity { get; set; }
 		public AuthenticationProperties Properties { get; set; }
 
-		private static String TryGetValue(JObject user, String propertyName)
+		private static string TryGetValue(JObject user, string propertyName)
 		{
 			JToken value;
 			return user.TryGetValue(propertyName, out value) ? value.ToString() : null;

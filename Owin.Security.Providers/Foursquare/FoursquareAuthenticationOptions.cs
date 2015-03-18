@@ -11,7 +11,8 @@ namespace Owin.Security.Providers.Foursquare
 		/// <summary>
 		///     Initializes a new <see cref="FoursquareAuthenticationOptions" />
 		/// </summary>
-		public FoursquareAuthenticationOptions() : base(Constants.DefaultAuthenticationType)
+		public FoursquareAuthenticationOptions()
+			: base(Constants.DefaultAuthenticationType)
 		{
 			this.Caption = Constants.DefaultAuthenticationType;
 			this.CallbackPath = "/signin-foursquare";
@@ -23,12 +24,12 @@ namespace Owin.Security.Providers.Foursquare
 		/// <summary>
 		///     Gets or sets the Foursquare supplied Client ID
 		/// </summary>
-		public String ClientId { get; set; }
+		public string ClientId { get; set; }
 
 		/// <summary>
 		///     Gets or sets the Foursquare supplied Client Secret
 		/// </summary>
-		public String ClientSecret { get; set; }
+		public string ClientSecret { get; set; }
 
 		/// <summary>
 		///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -63,13 +64,13 @@ namespace Owin.Security.Providers.Foursquare
 		///     The middleware will process this request when it arrives.
 		///     Default value is "/signin-foursquare".
 		/// </summary>
-		public String CallbackPath { get; set; }
+		public string CallbackPath { get; set; }
 
 		/// <summary>
 		///     Gets or sets the name of another authentication middleware which will be responsible for actually issuing a user
 		///     <see cref="System.Security.Claims.ClaimsIdentity" />.
 		/// </summary>
-		public String SignInAsAuthenticationType { get; set; }
+		public string SignInAsAuthenticationType { get; set; }
 
 		/// <summary>
 		///     Gets or sets the <see cref="IFoursquareAuthenticationProvider" /> used in the authentication events
@@ -84,12 +85,12 @@ namespace Owin.Security.Providers.Foursquare
 		/// <summary>
 		/// A list of permissions to request.
 		/// </summary>
-		public IList<String> Scope { get; private set; }
+		public IList<string> Scope { get; private set; }
 
 		/// <summary>
 		///     Get or sets the text that the user can display on a sign in user interface.
 		/// </summary>
-		public String Caption
+		public string Caption
 		{
 			get { return this.Description.Caption; }
 			set { this.Description.Caption = value; }
