@@ -183,10 +183,10 @@ namespace Owin.Security.Providers.Foursquare
 						"?client_id=" + Uri.EscapeDataString(this.Options.ClientId) +
 						"&response_type=code" +
 						"&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-						"&state=" + Uri.EscapeDataString(state);
+						"&state=" + Uri.EscapeDataString(state) +
+						"&scope=" + Uri.EscapeDataString(scope);
 
-				this.Response.StatusCode = (int)HttpStatusCode.Moved;
-				this.Response.Headers.Set("Location", authorizationEndpoint);
+				this.Response.Redirect(authorizationEndpoint);
 			}
 
 			return Task.FromResult<Object>(null);
