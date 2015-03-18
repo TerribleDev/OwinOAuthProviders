@@ -9,7 +9,8 @@ namespace Owin.Security.Providers.Foursquare.Provider
 {
 	public class FoursquareAuthenticatedContext : BaseContext
 	{
-		public FoursquareAuthenticatedContext(IOwinContext context, JObject user, string accessToken) : base(context)
+		public FoursquareAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+			: base(context)
 		{
 			if (user == null)
 			{
