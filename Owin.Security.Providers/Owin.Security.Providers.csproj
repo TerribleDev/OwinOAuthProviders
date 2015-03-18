@@ -112,6 +112,15 @@
     <Compile Include="EveOnline\Provider\EveOnlineAuthenticationProvider.cs" />
     <Compile Include="EveOnline\Provider\EveOnlineReturnEndpointContext.cs" />
     <Compile Include="EveOnline\Provider\IEveOnlineAuthenticationProvider.cs" />
+    <Compile Include="Foursquare\Constants.cs" />
+    <Compile Include="Foursquare\FoursquareAuthenticationExtensions.cs" />
+    <Compile Include="Foursquare\FoursquareAuthenticationHandler.cs" />
+    <Compile Include="Foursquare\FoursquareAuthenticationMiddleware.cs" />
+    <Compile Include="Foursquare\FoursquareAuthenticationOptions.cs" />
+    <Compile Include="Foursquare\Provider\FoursquareAuthenticatedContext.cs" />
+    <Compile Include="Foursquare\Provider\FoursquareAuthenticationProvider.cs" />
+    <Compile Include="Foursquare\Provider\FoursquareReturnEndpointContext.cs" />
+    <Compile Include="Foursquare\Provider\IFoursquareAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="HealthGraph\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />

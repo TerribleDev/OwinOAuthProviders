@@ -10,6 +10,7 @@ using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.EveOnline;
+using Owin.Security.Providers.Foursquare;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
@@ -204,6 +205,10 @@ namespace OwinOAuthProvidersDemo
             //app.UseEveOnlineAuthentication("", "");
 
 			//app.UseSoundCloudAuthentication("", "");
+
+			//app.UseFoursquareAuthentication(
+			//	clientId: "",
+			//	clientSecret: "");
         }
     }
 }
