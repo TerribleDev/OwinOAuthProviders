@@ -1,5 +1,4 @@
-﻿
-namespace Owin.Security.Providers.Foursquare
+﻿namespace Owin.Security.Providers.Foursquare
 {
 	internal static class Constants
 	{

@@ -108,7 +108,7 @@ namespace Owin.Security.Providers.Foursquare
 
 				var accountstring = await graphResponse.Content.ReadAsStringAsync();
 				var accountInformation = JObject.Parse(accountstring);
-				var user = (JObject) accountInformation["response"]["user"];
+				var user = (JObject)accountInformation["response"]["user"];
 
 				var context = new FoursquareAuthenticatedContext(this.Context, user, accessToken);
 
@@ -119,8 +119,6 @@ namespace Owin.Security.Providers.Foursquare
 						new Claim(ClaimTypes.Name, context.Name, XmlSchemaString, this.Options.AuthenticationType),
 						new Claim("urn:foursquare:id", context.Id, XmlSchemaString, this.Options.AuthenticationType),
 						new Claim("urn:foursquare:name", context.Name, XmlSchemaString, this.Options.AuthenticationType),
-						new Claim("urn:foursquare:email", context.Email, XmlSchemaString, this.Options.AuthenticationType),
-						new Claim("urn:foursquare:twitter", context.Twitter, XmlSchemaString, this.Options.AuthenticationType)
 					},
 					this.Options.AuthenticationType,
 					ClaimsIdentity.DefaultNameClaimType,
@@ -129,6 +127,11 @@ namespace Owin.Security.Providers.Foursquare
 				if (string.IsNullOrWhiteSpace(context.Email) == false)
 				{
 					context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, this.Options.AuthenticationType));
+				}
+
+				if (string.IsNullOrWhiteSpace(context.Twitter) == false)
+				{
+					context.Identity.AddClaim(new Claim("urn:foursquare:twitter", context.Twitter, XmlSchemaString, this.Options.AuthenticationType));
 				}
 
 				await this.Options.Provider.Authenticated(context);
@@ -148,7 +151,7 @@ namespace Owin.Security.Providers.Foursquare
 		{
 			this._logger.WriteVerbose("ApplyResponseChallenge");
 
-			if (this.Response.StatusCode != (int) HttpStatusCode.Unauthorized)
+			if (this.Response.StatusCode != (int)HttpStatusCode.Unauthorized)
 			{
 				return Task.FromResult<Object>(null);
 			}
@@ -182,7 +185,7 @@ namespace Owin.Security.Providers.Foursquare
 						"&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
 						"&state=" + Uri.EscapeDataString(state);
 
-				this.Response.StatusCode = (int) HttpStatusCode.Moved;
+				this.Response.StatusCode = (int)HttpStatusCode.Moved;
 				this.Response.Headers.Set("Location", authorizationEndpoint);
 			}
 
