@@ -18,7 +18,6 @@ namespace Owin.Security.Providers.Foursquare
 			this.CallbackPath = "/signin-foursquare";
 			this.AuthenticationMode = AuthenticationMode.Passive;
 			this.BackchannelTimeout = TimeSpan.FromSeconds(60);
-			this.Scope = new List<String>();
 		}
 
 		/// <summary>
@@ -81,11 +80,6 @@ namespace Owin.Security.Providers.Foursquare
 		///     Gets or sets the type used to secure data handled by the middleware.
 		/// </summary>
 		public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
-
-		/// <summary>
-		/// A list of permissions to request.
-		/// </summary>
-		public IList<string> Scope { get; private set; }
 
 		/// <summary>
 		///     Get or sets the text that the user can display on a sign in user interface.

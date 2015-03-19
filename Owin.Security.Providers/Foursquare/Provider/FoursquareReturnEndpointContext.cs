@@ -4,6 +4,9 @@ using Microsoft.Owin.Security.Provider;
 
 namespace Owin.Security.Providers.Foursquare.Provider
 {
+	/// <summary>
+	/// Provides context information to middleware providers.
+	/// </summary>
 	public class FoursquareReturnEndpointContext : ReturnEndpointContext
 	{
 		/// <summary>

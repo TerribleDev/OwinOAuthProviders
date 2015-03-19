@@ -174,17 +174,13 @@ namespace Owin.Security.Providers.Foursquare
 				// OAuth2 10.12 CSRF
 				this.GenerateCorrelationId(extra);
 
-				// OAuth2 3.3 space separated
-				var scope = string.Join(" ", this.Options.Scope);
-
 				var state = this.Options.StateDataFormat.Protect(extra);
 
 				var authorizationEndpoint = AuthorizationEndpoint +
 						"?client_id=" + Uri.EscapeDataString(this.Options.ClientId) +
 						"&response_type=code" +
 						"&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-						"&state=" + Uri.EscapeDataString(state) +
-						"&scope=" + Uri.EscapeDataString(scope);
+						"&state=" + Uri.EscapeDataString(state);
 
 				this.Response.Redirect(authorizationEndpoint);
 			}
