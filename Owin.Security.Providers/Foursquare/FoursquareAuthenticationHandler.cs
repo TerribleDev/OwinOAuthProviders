@@ -20,6 +20,8 @@ namespace Owin.Security.Providers.Foursquare
 		private const string GraphApiEndpoint = "https://api.foursquare.com/v2/users/self";
 		private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
 
+		private static readonly DateTime VersionDate = new DateTime(2015, 3, 19);
+
 		private readonly ILogger _logger;
 		private readonly HttpClient _httpClient;
 
@@ -103,7 +105,7 @@ namespace Owin.Security.Providers.Foursquare
 					return new AuthenticationTicket(null, properties);
 				}
 
-				var graphResponse = await this._httpClient.GetAsync(GraphApiEndpoint + "?oauth_token=" + Uri.EscapeDataString(accessToken) + "&m=foursquare&v=" + DateTime.Today.ToString("yyyyyMMdd"), this.Request.CallCancelled);
+				var graphResponse = await this._httpClient.GetAsync(GraphApiEndpoint + "?oauth_token=" + Uri.EscapeDataString(accessToken) + "&m=foursquare&v=" + VersionDate.ToString("yyyyyMMdd"), this.Request.CallCancelled);
 				graphResponse.EnsureSuccessStatusCode();
 
 				var accountstring = await graphResponse.Content.ReadAsStringAsync();
