@@ -63,8 +63,12 @@ namespace Owin.Security.Providers.GooglePlus
                     return new AuthenticationTicket(null, properties);
                 }
 
-                string requestPrefix = Request.Scheme + "://" + Request.Host;
-                string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
+                string baseUri = Context.Environment
+                                        .GetIdentityServerBaseUrl()
+                                        .RemoveTrailingSlash();
+
+                string redirectUri = baseUri +
+                                     Options.CallbackPath;
 
                 // Build up the body for the token request
                 var body = new List<KeyValuePair<string, string>>();
@@ -151,20 +155,17 @@ namespace Owin.Security.Providers.GooglePlus
 
             if (challenge != null)
             {
-                string baseUri =
-                    Request.Scheme +
-                    Uri.SchemeDelimiter +
-                    Request.Host +
-                    Request.PathBase;
+                string baseUri = Context.Environment
+                                        .GetIdentityServerBaseUrl()
+                                        .RemoveTrailingSlash();
 
                 string currentUri =
                     baseUri +
                     Request.Path +
                     Request.QueryString;
 
-                string redirectUri =
-                    baseUri +
-                    Options.CallbackPath;
+                string redirectUri = baseUri +
+                                     Options.CallbackPath;
 
                 AuthenticationProperties properties = challenge.Properties;
                 if (string.IsNullOrEmpty(properties.RedirectUri))
