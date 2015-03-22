@@ -287,6 +287,15 @@
     <Compile Include="Wargaming\WargamingAuthenticationHandler.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationOptions.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationMiddleware.cs" />
+    <Compile Include="Untappd\Constants.cs" />
+    <Compile Include="Untappd\Provider\IUntappdAuthenticationProvider.cs" />
+    <Compile Include="Untappd\Provider\UntappdAuthenticatedContext.cs" />
+    <Compile Include="Untappd\Provider\UntappdAuthenticationProvider.cs" />
+    <Compile Include="Untappd\Provider\UntappdReturnEndpointContext.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationExtensions.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationHandler.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationMiddleware.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationOptions.cs" />
     <Compile Include="WordPress\WordPressAuthenticationExtensions.cs" />
     <Compile Include="WordPress\WordPressAuthenticationHandler.cs" />
     <Compile Include="WordPress\WordPressAuthenticationMiddleware.cs" />
