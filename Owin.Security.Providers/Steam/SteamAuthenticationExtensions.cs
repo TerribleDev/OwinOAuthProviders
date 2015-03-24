@@ -1,5 +1,4 @@
-﻿using Microsoft.Owin;
-using System;
+﻿using System;
 
 namespace Owin.Security.Providers.Steam
 {
@@ -39,10 +38,6 @@ namespace Owin.Security.Providers.Steam
         {
             return UseSteamAuthentication(app, new SteamAuthenticationOptions
             {
-                ProviderDiscoveryUri = "http://steamcommunity.com/openid/",
-                Caption = "Steam",
-                AuthenticationType = "Steam",
-                CallbackPath = new PathString("/signin-openidsteam"),
                 ApplicationKey = applicationKey
             });
         }
