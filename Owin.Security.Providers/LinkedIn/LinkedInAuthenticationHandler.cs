@@ -17,7 +17,7 @@ namespace Owin.Security.Providers.LinkedIn
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string TokenEndpoint = "https://www.linkedin.com/uas/oauth2/accessToken";
-        private const string UserInfoEndpoint = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,formatted-name,email-address,public-profile-url)";
+        private const string UserInfoEndpoint = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,formatted-name,email-address,public-profile-url,picture-url)";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -171,6 +171,12 @@ namespace Owin.Security.Providers.LinkedIn
                 // comma separated
                 string scope = string.Join(",", Options.Scope);
 
+                // allow scopes to be specified via the authentication properties for this request, when specified they will already be comma separated
+                if (properties.Dictionary.ContainsKey("scope"))
+                {
+                    scope = properties.Dictionary["scope"];
+                }
+                
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint =

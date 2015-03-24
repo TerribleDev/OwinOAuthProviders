@@ -1,21 +1,32 @@
 ﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Asana;
+using Owin.Security.Providers.ArcGISOnline;
+using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
+using Owin.Security.Providers.Dropbox;
+using Owin.Security.Providers.EveOnline;
+using Owin.Security.Providers.Foursquare;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.HealthGraph;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Reddit;
 using Owin.Security.Providers.Salesforce;
 using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.TripIt;
+using Owin.Security.Providers.Twitch;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
+using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Steam;
+using Owin.Security.Providers.WordPress;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -53,7 +64,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseYahooAuthentication("", "");
 
             //app.UseTripItAuthentication("", "");
-
+            
             //app.UseGitHubAuthentication("", "");
 
             //app.UseBufferAuthentication("", "");
@@ -82,6 +93,46 @@ namespace OwinOAuthProvidersDemo
             //options.MomentTypes.Add("http://schemas.google.com/BuyActivity");
             //app.UseGooglePlusAuthentication(options);
 
+            /*
+             * Twitch sign-ins use /signin-Twitch as the URL for authentication
+             *            
+             
+             */
+
+            ////Simple Twitch Sign-in
+            //app.UseTwitchAuthentication("", "");
+
+            ////More complex Twitch Sign-in
+            //var opt = new TwitchAuthenticationOptions()
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    Provider = new TwitchAuthenticationProvider()
+            //    {
+                  
+            //        OnAuthenticated = async z =>
+            //        {
+            ////            Getting the twitch users picture
+            //            z.Identity.AddClaim(new Claim("Picture", z.User.GetValue("logo").ToString()));
+            //        }
+            ////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
+            //        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
+            //        /*
+                      
+            //           if (user != null)
+            //                {
+            //                    var claim = (await AuthenticationManager.GetExternalLoginInfoAsync()).ExternalIdentity.Claims.First(
+            //                    a => a.Type == "Picture");
+            //                    user.Claims.Add(new IdentityUserClaim() { ClaimType = claim.Type, ClaimValue = claim.Value });
+            //                    await SignInAsync(user, isPersistent: false);
+            //                    return RedirectToLocal(returnUrl);
+            //                }
+            //         */
+            //    }
+            //};
+            //app.UseTwitchAuthentication(opt);
+            
+
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
 
@@ -100,19 +151,64 @@ namespace OwinOAuthProvidersDemo
             //    clientSecret: "");
 
             //in scenarios where a sandbox URL needs to be used
-            //app.UseSalesforceAuthentication(new SalesforceAuthenticationOptions
+            //var salesforceOptions = new SalesforceAuthenticationOptions
             //{
             //    Endpoints =
-            //        new Owin.Security.Providers.Salesforce.SalesforceAuthenticationOptions.
-            //                                      SalesforceAuthenticationEndpoints
+            //        new SalesforceAuthenticationOptions.SalesforceAuthenticationEndpoints
             //        {
             //            AuthorizationEndpoint =
-            //                "https://cs5.salesforce.com/services/oauth2/authorize",
-            //            TokenEndpoint = "https://cs5.salesforce.com/services/oauth2/token"
+            //                "https://ap1.salesforce.com/services/oauth2/authorize",
+            //            TokenEndpoint = "https://ap1.salesforce.com/services/oauth2/token"
             //        },
             //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //    ClientSecret = "",
+            //    Provider = new SalesforceAuthenticationProvider()
+            //    {
+            //        OnAuthenticated = async context =>
+            //        {
+            //            System.Diagnostics.Debug.WriteLine(context.AccessToken);
+            //            System.Diagnostics.Debug.WriteLine(context.RefreshToken);
+            //            System.Diagnostics.Debug.WriteLine(context.OrganizationId);
+            //        }
+            //    }
+            //};
+            //app.UseSalesforceAuthentication(salesforceOptions);
+
+            //app.UseArcGISOnlineAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
+
+            //app.UseWordPressAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
+
+            //app.UseDropboxAuthentication(
+            //    appKey: "",
+            //    appSecret: "");
+
+            //app.UseHealthGraphAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
+
+
+			//app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
+			//{
+			//	ClientId = "",
+			//	ClientSecret = ""
+			//});
+			//app.UseBattleNetAuthentication(
+			//	clientId: "",
+			//	clientSecret: "");
+
+            //app.UseAsanaAuthentication("", "");
+
+            //app.UseEveOnlineAuthentication("", "");
+
+			//app.UseSoundCloudAuthentication("", "");
+
+			//app.UseFoursquareAuthentication(
+			//	clientId: "",
+			//	clientSecret: "");
         }
     }
 }
