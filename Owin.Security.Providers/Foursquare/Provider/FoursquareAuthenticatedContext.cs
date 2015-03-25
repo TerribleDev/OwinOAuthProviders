@@ -41,15 +41,15 @@ namespace Owin.Security.Providers.Foursquare.Provider
             this.LastName = TryGetValue(user, "lastName");
             this.Name = this.FirstName + " " + this.LastName;
             this.Gender = TryGetValue(user, "gender");
-            this.Photo = TryGetValue(user, "photo");
+            this.Photo = (JObject)user["photo"];
             this.Friends = TryGetValue(user, "friends");
             this.HomeCity = TryGetValue(user, "homeCity");
             this.Bio = TryGetValue(user, "bio");
-            this.Contact = TryGetValue(user, "contact");
-            this.Phone = TryGetValue(JObject.Parse(this.Contact), "phone");
-            this.Email = TryGetValue(JObject.Parse(this.Contact), "email");
-            this.Twitter = TryGetValue(JObject.Parse(this.Contact), "twitter");
-            this.Facebook = TryGetValue(JObject.Parse(this.Contact), "facebook");
+            this.Contact = (JObject)user["contact"];
+            this.Phone = TryGetValue(Contact, "phone");
+            this.Email = TryGetValue(Contact, "email");
+            this.Twitter = TryGetValue(Contact, "twitter");
+            this.Facebook = TryGetValue(Contact, "facebook");
             this.Badges = TryGetValue(user, "badges");
             this.Mayorships = TryGetValue(user, "mayorships");
             this.Checkins = TryGetValue(user, "checkins");
@@ -93,7 +93,7 @@ namespace Owin.Security.Providers.Foursquare.Provider
         /// <summary>
         /// Gets the user's photo
         /// </summary>
-        public string Photo { get; private set; }
+        public JObject Photo { get; private set; }
         /// <summary>
         /// Gets the user's friends
         /// </summary>
@@ -109,7 +109,7 @@ namespace Owin.Security.Providers.Foursquare.Provider
         /// <summary>
         /// Gets the user's contact
         /// </summary>
-        public string Contact { get; private set; }
+        public JObject Contact { get; private set; }
         /// <summary>
         /// Gets the user's phone
         /// </summary>
