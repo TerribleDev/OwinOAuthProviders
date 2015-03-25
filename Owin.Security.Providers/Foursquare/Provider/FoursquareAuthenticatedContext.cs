@@ -7,77 +7,162 @@ using Newtonsoft.Json.Linq;
 
 namespace Owin.Security.Providers.Foursquare.Provider
 {
-    public class FoursquareAuthenticatedContext : BaseContext
-    {
-        public FoursquareAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
-            : base(context)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
+	/// <summary>
+	/// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
+	/// </summary>
+	public class FoursquareAuthenticatedContext : BaseContext
+	{
+		/// <summary>
+		/// Initializes a <see cref="FoursquareAuthenticatedContext"/>
+		/// </summary>
+		/// <param name="context">The OWIN environment</param>
+		/// <param name="user">The JSON-serialized user</param>
+		/// <param name="accessToken">GitHub Access token</param>
+		public FoursquareAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+			: base(context)
+		{
+			if (user == null)
+			{
+				throw new ArgumentNullException("user");
+			}
 
-            this.User = user;
-            this.AccessToken = accessToken;
+			this.User = user;
+			this.AccessToken = accessToken;
 
-            var userId = this.User["id"];
+			var userId = this.User["id"];
 
-            if (userId == null)
-            {
-                throw new ArgumentException("The user does not have an id.", "user");
-            }
+			if (userId == null)
+			{
+				throw new ArgumentException("The user does not have an id.", "user");
+			}
 
-            this.Id = TryGetValue(user, "id");
-            this.FirstName = TryGetValue(user, "firstName");
-            this.LastName = TryGetValue(user, "lastName");
-            this.Name = this.FirstName + " " + this.LastName;
-            this.Gender = TryGetValue(user, "gender");
-            this.Photo = TryGetValue(user, "photo");
-            this.Friends = TryGetValue(user, "friends");
-            this.HomeCity = TryGetValue(user, "homeCity");
-            this.Bio = TryGetValue(user, "bio");
-            this.Contact = TryGetValue(user, "contact");
-            this.Phone = TryGetValue(JObject.Parse(this.Contact), "phone");
-            this.Email = TryGetValue(JObject.Parse(this.Contact), "email");
-            this.Twitter = TryGetValue(JObject.Parse(this.Contact), "twitter");
-            this.Facebook = TryGetValue(JObject.Parse(this.Contact), "facebook");
-            this.Badges = TryGetValue(user, "badges");
-            this.Mayorships = TryGetValue(user, "mayorships");
-            this.Checkins = TryGetValue(user, "checkins");
-            this.Photos = TryGetValue(user, "photos");
-            this.Scores = TryGetValue(user, "scores");
-            this.Link = "https://foursquare.com/user/" + this.Id;
-        }
+			this.Id = TryGetValue(user, "id");
+			this.FirstName = TryGetValue(user, "firstName");
+			this.LastName = TryGetValue(user, "lastName");
+			this.Name = this.FirstName + " " + this.LastName;
+			this.Gender = TryGetValue(user, "gender");
+			this.Photo = TryGetValue(user, "photo");
+			this.Friends = TryGetValue(user, "friends");
+			this.HomeCity = TryGetValue(user, "homeCity");
+			this.Bio = TryGetValue(user, "bio");
+			this.Contact = TryGetValue(user, "contact");
+			this.Phone = TryGetValue(JObject.Parse(this.Contact), "phone");
+			this.Email = TryGetValue(JObject.Parse(this.Contact), "email");
+			this.Twitter = TryGetValue(JObject.Parse(this.Contact), "twitter");
+			this.Facebook = TryGetValue(JObject.Parse(this.Contact), "facebook");
+			this.Badges = TryGetValue(user, "badges");
+			this.Mayorships = TryGetValue(user, "mayorships");
+			this.Checkins = TryGetValue(user, "checkins");
+			this.Photos = TryGetValue(user, "photos");
+			this.Scores = TryGetValue(user, "scores");
+			this.Link = "https://foursquare.com/user/" + this.Id;
+		}
 
-        public JObject User { get; private set; }
-        public string AccessToken { get; private set; }
-        public string Id { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Name { get; private set; }
-        public string Gender { get; private set; }
-        public string Photo { get; private set; }
-        public string Friends { get; private set; }
-        public string HomeCity { get; private set; }
-        public string Bio { get; private set; }
-        public string Contact { get; private set; }
-        public string Phone { get; private set; }
-        public string Email { get; private set; }
-        public string Twitter { get; private set; }
-        public string Facebook { get; private set; }
-        public string Badges { get; private set; }
-        public string Mayorships { get; private set; }
-        public string Checkins { get; private set; }
-        public string Photos { get; private set; }
-        public string Scores { get; private set; }
-        public string Link { get; private set; }
-        public ClaimsIdentity Identity { get; set; }
-        public AuthenticationProperties Properties { get; set; }
+		/// <summary>
+		/// Gets the JSON-serialized user
+		/// </summary>
+		/// <remarks>
+		/// Contains the Foursquare user obtained from the User Info endpoint. By default this is https://api.foursquare.com/v2/users/self but it can be
+		/// overridden in the options
+		/// </remarks>
+		public JObject User { get; private set; }
+		/// <summary>
+		/// Gets the Foursquare access token
+		/// </summary>
+		public string AccessToken { get; private set; }
+		/// <summary>
+		/// Gets the Foursquare user ID
+		/// </summary>
+		public string Id { get; private set; }
+		/// <summary>
+		/// Gets the user's first name
+		/// </summary>
+		public string FirstName { get; private set; }
+		/// <summary>
+		/// Gets the user's last name
+		/// </summary>
+		public string LastName { get; private set; }
+		/// <summary>
+		/// Gets the user's full name
+		/// </summary>
+		public string Name { get; private set; }
+		/// <summary>
+		/// Gets the user's gender
+		/// </summary>
+		public string Gender { get; private set; }
+		/// <summary>
+		/// Gets the user's photo
+		/// </summary>
+		public string Photo { get; private set; }
+		/// <summary>
+		/// Gets the user's friends
+		/// </summary>
+		public string Friends { get; private set; }
+		/// <summary>
+		/// Gets the user's home city
+		/// </summary>
+		public string HomeCity { get; private set; }
+		/// <summary>
+		/// Gets the user's biography
+		/// </summary>
+		public string Bio { get; private set; }
+		/// <summary>
+		/// Gets the user's contact
+		/// </summary>
+		public string Contact { get; private set; }
+		/// <summary>
+		/// Gets the user's phone
+		/// </summary>
+		public string Phone { get; private set; }
+		/// <summary>
+		/// Gets the user's email
+		/// </summary>
+		public string Email { get; private set; }
+		/// <summary>
+		/// Gets the user's Twitter handle
+		/// </summary>
+		public string Twitter { get; private set; }
+		/// <summary>
+		/// Gets the user's Facebook id
+		/// </summary>
+		public string Facebook { get; private set; }
+		/// <summary>
+		/// Gets the user's badges
+		/// </summary>
+		public string Badges { get; private set; }
+		/// <summary>
+		/// Gets the user's mayorships
+		/// </summary>
+		public string Mayorships { get; private set; }
+		/// <summary>
+		/// Gets the user's checkins
+		/// </summary>
+		public string Checkins { get; private set; }
+		/// <summary>
+		/// Gets the user's photos
+		/// </summary>
+		public string Photos { get; private set; }
+		/// <summary>
+		/// Gets the user's scores
+		/// </summary>
+		public string Scores { get; private set; }
+		/// <summary>
+		/// Gets the user's link
+		/// </summary>
+		public string Link { get; private set; }
+		/// <summary>
+		/// Gets the <see cref="ClaimsIdentity"/> representing the user
+		/// </summary>
+		public ClaimsIdentity Identity { get; set; }
+		/// <summary>
+		/// Gets or sets a property bag for common authentication properties
+		/// </summary>
+		public AuthenticationProperties Properties { get; set; }
 
-        private static string TryGetValue(JObject user, string propertyName)
-        {
-            JToken value;
-            return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
-        }
-    }
+		private static string TryGetValue(JObject user, string propertyName)
+		{
+			JToken value;
+			return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
+		}
+	}
 }
