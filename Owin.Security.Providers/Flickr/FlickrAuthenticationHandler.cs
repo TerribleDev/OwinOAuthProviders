@@ -98,12 +98,12 @@ namespace Owin.Security.Providers.Flickr
                     context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId,
                         XmlSchemaString, Options.AuthenticationType));
                 }
-                if (!String.IsNullOrEmpty(context.FullName))
+                if(!String.IsNullOrEmpty(context.UserName))
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName,
                         XmlSchemaString, Options.AuthenticationType));
                 }
-                if (!String.IsNullOrEmpty(context.UserName))
+                if (!String.IsNullOrEmpty(context.FullName))
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.FullName, 
                         XmlSchemaString, Options.AuthenticationType));
