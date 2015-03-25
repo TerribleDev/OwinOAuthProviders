@@ -17,7 +17,7 @@ namespace Owin.Security.Providers.Foursquare.Provider
 		/// </summary>
 		/// <param name="context">The OWIN environment</param>
 		/// <param name="user">The JSON-serialized user</param>
-		/// <param name="accessToken">GitHub Access token</param>
+        /// <param name="accessToken">Foursquare Access token</param>
 		public FoursquareAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
 			: base(context)
 		{

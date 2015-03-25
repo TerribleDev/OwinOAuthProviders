@@ -28,7 +28,7 @@ namespace Owin.Security.Providers.Foursquare.Provider
 		public Func<FoursquareReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
 
 		/// <summary>
-		/// Invoked whenever GitHub succesfully authenticates a user
+        /// Invoked whenever Foursquare succesfully authenticates a user
 		/// </summary>
 		/// <param name="context">Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.</param>
 		/// <returns>A <see cref="Task"/> representing the completed operation.</returns>
