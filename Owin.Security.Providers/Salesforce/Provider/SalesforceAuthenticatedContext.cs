@@ -20,6 +20,7 @@ namespace Owin.Security.Providers.Salesforce
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken">Salesforce Access token</param>
         /// <param name="refreshToken">Salesforce Refresh token</param>
+        /// <param name="instanceUrl">Salesforce instance url</param>
         public SalesforceAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string refreshToken, string instanceUrl)
             : base(context)
         {
