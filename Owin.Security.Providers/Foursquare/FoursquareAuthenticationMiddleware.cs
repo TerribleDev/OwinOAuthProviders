@@ -51,6 +51,14 @@ namespace Owin.Security.Providers.Foursquare
             this._httpClient.MaxResponseContentBufferSize = 1024 * 1024 * 10; // 10 MB
         }
 
+        /// <summary>
+        ///     Provides the <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> object for processing
+        ///     authentication-related requests.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
+        ///     <see cref="T:Owin.Security.Providers.Foursquare.FoursquareAuthenticationOptions" /> supplied to the constructor.
+        /// </returns>
         protected override AuthenticationHandler<FoursquareAuthenticationOptions> CreateHandler()
         {
             return new FoursquareAuthenticationHandler(this._httpClient, this._logger);
