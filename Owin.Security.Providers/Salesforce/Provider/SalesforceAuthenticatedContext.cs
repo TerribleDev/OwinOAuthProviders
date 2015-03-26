@@ -64,7 +64,7 @@ namespace Owin.Security.Providers.Salesforce
         /// <summary>
         /// Gets the Salesforce instance url
         /// </summary>
-        public string InstanceUrl { get; set; }
+        public string InstanceUrl { get; private set; }
 
         /// <summary>
         /// Gets the Salesforce ID / User Info Endpoint
