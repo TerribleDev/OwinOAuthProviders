@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.15.0</version>
+    <version>1.16.0</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -16,11 +16,10 @@
       Also adds generic OpenID 2.0 providers as well as a Steam-specific implementatio
     </summary>
     <releaseNotes>
-      Version 1.15
+      Version 1.16
 
       Added
-      - Added Eve Online Provider (Thank you Mariusz Zieliński - https://github.com/mariozski)
-      - Added SoundCloud Provider
+      - Added Foursquare Provider (Thank you Ricardo Peres - https://github.com/rjperes)
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
