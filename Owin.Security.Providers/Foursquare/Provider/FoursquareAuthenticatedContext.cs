@@ -62,8 +62,7 @@ namespace Owin.Security.Providers.Foursquare.Provider
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the Foursquare user obtained from the User Info endpoint. By default this is https://api.foursquare.com/v2/users/self but it can be
-        /// overridden in the options
+        /// Contains the Foursquare user obtained from the User Info endpoint https://api.foursquare.com/v2/users/self
         /// </remarks>
         public JObject User { get; private set; }
         /// <summary>
