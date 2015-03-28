@@ -5,14 +5,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json.Converters;
-using System.Data;
 
 namespace Owin.Security.Providers.Wargaming
 {
     internal sealed class WargamingAuthenticationHandler : OpenIDAuthenticationHandlerBase<WargamingAuthenticationOptions>
     {
-
         private readonly Regex AccountIDRegex = new Regex(@"^https://na.wargaming.net/id/([0-9]{10}).*$", RegexOptions.Compiled);
 
         private const string UserInfoUri = "https://api.worldoftanks.com/wot/account/info/?application_id={0}&account_id={1}&fields=nickname";

@@ -10,7 +10,9 @@ namespace Owin.Security.Providers.Wargaming
 {
     public class WargamingAuthenticationOptions : OpenIDAuthenticationOptions
     {
-
+        /// <summary>
+        /// Region to use for to log in
+        /// </summary>
         public enum Region
         {
             Europe,

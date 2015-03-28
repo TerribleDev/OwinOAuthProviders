@@ -11,6 +11,9 @@ using Owin.Security.Providers.OpenID;
 
 namespace Owin.Security.Providers.Wargaming
 {
+    /// <summary>
+    /// OWIN middleware for authenticating users using an OpenID provider
+    /// </summary>
     public class WargamingAuthenticationMiddleware : OpenIDAuthenticationMiddlewareBase<WargamingAuthenticationOptions>
     {
 
