@@ -35,7 +35,7 @@ namespace Owin.Security.Providers.LinkedIn
             if (Options.StateDataFormat == null)
             {
                 IDataProtector dataProtector = app.CreateDataProtector(
-                    typeof (LinkedInAuthenticationMiddleware).FullName,
+                    typeof(LinkedInAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
@@ -46,8 +46,11 @@ namespace Owin.Security.Providers.LinkedIn
             httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
             {
                 Timeout = Options.BackchannelTimeout,
-                MaxResponseContentBufferSize = 1024*1024*10
+                MaxResponseContentBufferSize = 1024 * 1024 * 10
             };
+
+            // Fix for LinkedIn Expect: 100- continue issue
+            httpClient.DefaultRequestHeaders.ExpectContinue = false;
         }
 
         /// <summary>
