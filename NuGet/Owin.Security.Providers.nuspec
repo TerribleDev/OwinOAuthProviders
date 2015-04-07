@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.16.0</version>
+    <version>1.17.0-pre</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -16,10 +16,9 @@
       Also adds generic OpenID 2.0 providers as well as a Steam-specific implementatio
     </summary>
     <releaseNotes>
-      Version 1.16
+      Version 1.17-pre
 
-      Added
-      - Added Foursquare Provider (Thank you Ricardo Peres - https://github.com/rjperes)
+      Temporary fix for broken LinkedIn provider.
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
