@@ -13,8 +13,8 @@ namespace Owin.Security.Providers.BattleNet
 {
 	public class BattleNetAuthenticationMiddleware : AuthenticationMiddleware<BattleNetAuthenticationOptions>
 	{
-		private readonly HttpClient _httpClient;
-		private readonly ILogger _logger;
+		private readonly HttpClient httpClient;
+		private readonly ILogger logger;
 
 		public BattleNetAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app, BattleNetAuthenticationOptions options)
 			: base(next, options)
@@ -26,7 +26,7 @@ namespace Owin.Security.Providers.BattleNet
 				throw new ArgumentException(String.Format(CultureInfo.CurrentCulture,
 					Resources.Exception_OptionMustBeProvided, "ClientSecret"));
 
-			_logger = app.CreateLogger<BattleNetAuthenticationMiddleware>();
+			logger = app.CreateLogger<BattleNetAuthenticationMiddleware>();
 
 			if (Options.Provider == null)
 				Options.Provider = new BattleNetAuthenticationProvider();
@@ -42,7 +42,7 @@ namespace Owin.Security.Providers.BattleNet
 			if (String.IsNullOrEmpty(Options.SignInAsAuthenticationType))
 				Options.SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType();
 
-			_httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
+			httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
 			{
 				Timeout = Options.BackchannelTimeout,
 				MaxResponseContentBufferSize = 1024 * 1024 * 10
@@ -59,7 +59,7 @@ namespace Owin.Security.Providers.BattleNet
 		/// </returns>
 		protected override AuthenticationHandler<BattleNetAuthenticationOptions> CreateHandler()
 		{
-			return new BattleNetAuthenticationHandler(_httpClient, _logger);
+			return new BattleNetAuthenticationHandler(httpClient, logger);
 		}
 
 		private static HttpMessageHandler ResolveHttpMessageHandler(BattleNetAuthenticationOptions options)
