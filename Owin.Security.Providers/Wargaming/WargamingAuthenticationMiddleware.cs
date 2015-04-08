@@ -18,7 +18,7 @@ namespace Owin.Security.Providers.Wargaming
     {
 
         /// <summary>
-        /// Initializes a <see cref="SteamAuthenticationMiddleware"/>
+        /// Initializes a <see cref="WargamingAuthenticationMiddleware"/>
         /// </summary>
         /// <param name="next">The next middleware in the OWIN pipeline to invoke</param>
         /// <param name="app">The OWIN application</param>
