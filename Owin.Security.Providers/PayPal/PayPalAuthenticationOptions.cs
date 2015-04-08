@@ -140,7 +140,7 @@ namespace Owin.Security.Providers.PayPal
             CallbackPath = new PathString("/signin-paypal");
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>{
-                "openid","profile","email","address","phone"
+                "openid"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
             Endpoints = new PayPalAuthenticationEndpoints
