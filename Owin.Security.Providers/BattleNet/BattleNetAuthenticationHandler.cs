@@ -16,10 +16,10 @@ namespace Owin.Security.Providers.BattleNet
 	{
 
 		private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-		private readonly string _tokenEndpoint = "https://eu.battle.net/oauth/token";
-		private readonly string _accountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
-		private readonly string _accountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
-		private readonly string _oauthAuthEndpoint = "https://eu.battle.net/oauth/authorize";
+		private string _tokenEndpoint = "https://eu.battle.net/oauth/token";
+		private string _accountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
+		private string _accountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
+		private string _oauthAuthEndpoint = "https://eu.battle.net/oauth/authorize";
 
 		private readonly ILogger _logger;
 		private readonly HttpClient _httpClient;
@@ -28,41 +28,47 @@ namespace Owin.Security.Providers.BattleNet
 		{
 			_httpClient = httpClient;
 			_logger = logger;
-
-			switch (Options.Region)
-			{
-				case Region.China:
-					_tokenEndpoint = "https://cn.battle.net/oauth/token";
-					_accountUserIdEndpoint = "https://cn.api.battle.net/account/user/id";
-					_accountUserBattleTagEndpoint = "https://cn.api.battle.net/account/user/battletag";
-					_oauthAuthEndpoint = "https://cn.battle.net/oauth/authorize";
-					break;
-				case Region.Korea:
-					_tokenEndpoint = "https://kr.battle.net/oauth/token";
-					_accountUserIdEndpoint = "https://kr.api.battle.net/account/user/id";
-					_accountUserBattleTagEndpoint = "https://kr.api.battle.net/account/user/battletag";
-					_oauthAuthEndpoint = "https://kr.battle.net/oauth/authorize";
-					break;
-				case Region.Taiwan:
-					_tokenEndpoint = "https://tw.battle.net/oauth/token";
-					_accountUserIdEndpoint = "https://tw.api.battle.net/account/user/id";
-					_accountUserBattleTagEndpoint = "https://tw.api.battle.net/account/user/battletag";
-					_oauthAuthEndpoint = "https://tw.battle.net/oauth/authorize";
-					break;
-				case Region.Europe:
-					_tokenEndpoint = "https://eu.battle.net/oauth/token";
-					_accountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
-					_accountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
-					_oauthAuthEndpoint = "https://eu.battle.net/oauth/authorize";
-					break;
-				default:
-					_tokenEndpoint = "https://us.battle.net/oauth/token";
-					_accountUserIdEndpoint = "https://us.api.battle.net/account/user/id";
-					_accountUserBattleTagEndpoint = "https://us.api.battle.net/account/user/battletag";
-					_oauthAuthEndpoint = "https://us.battle.net/oauth/authorize";
-					break;
-			}
 		}
+
+        protected override Task InitializeCoreAsync()
+        {
+            return Task.Run(() =>
+            {
+                switch (Options.Region)
+                {
+                    case Region.China:
+                        _tokenEndpoint = "https://cn.battle.net/oauth/token";
+                        _accountUserIdEndpoint = "https://cn.api.battle.net/account/user/id";
+                        _accountUserBattleTagEndpoint = "https://cn.api.battle.net/account/user/battletag";
+                        _oauthAuthEndpoint = "https://cn.battle.net/oauth/authorize";
+                        break;
+                    case Region.Korea:
+                        _tokenEndpoint = "https://kr.battle.net/oauth/token";
+                        _accountUserIdEndpoint = "https://kr.api.battle.net/account/user/id";
+                        _accountUserBattleTagEndpoint = "https://kr.api.battle.net/account/user/battletag";
+                        _oauthAuthEndpoint = "https://kr.battle.net/oauth/authorize";
+                        break;
+                    case Region.Taiwan:
+                        _tokenEndpoint = "https://tw.battle.net/oauth/token";
+                        _accountUserIdEndpoint = "https://tw.api.battle.net/account/user/id";
+                        _accountUserBattleTagEndpoint = "https://tw.api.battle.net/account/user/battletag";
+                        _oauthAuthEndpoint = "https://tw.battle.net/oauth/authorize";
+                        break;
+                    case Region.Europe:
+                        _tokenEndpoint = "https://eu.battle.net/oauth/token";
+                        _accountUserIdEndpoint = "https://eu.api.battle.net/account/user/id";
+                        _accountUserBattleTagEndpoint = "https://eu.api.battle.net/account/user/battletag";
+                        _oauthAuthEndpoint = "https://eu.battle.net/oauth/authorize";
+                        break;
+                    default:
+                        _tokenEndpoint = "https://us.battle.net/oauth/token";
+                        _accountUserIdEndpoint = "https://us.api.battle.net/account/user/id";
+                        _accountUserBattleTagEndpoint = "https://us.api.battle.net/account/user/battletag";
+                        _oauthAuthEndpoint = "https://us.battle.net/oauth/authorize";
+                        break;
+                }
+            });
+        }
 
 		protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
 		{
