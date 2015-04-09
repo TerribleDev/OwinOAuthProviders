@@ -251,6 +251,7 @@
     <Compile Include="Twitch\Provider\TwitchAuthenticationProvider.cs" />
     <Compile Include="Twitch\Provider\TwitchReturnEndpointContext.cs" />
     <Compile Include="Twitch\Provider\ITwitchAuthenticationProvider.cs" />
+    <Compile Include="Untappd\ApiResponse.cs" />
     <Compile Include="Untappd\Constants.cs" />
     <Compile Include="Untappd\Provider\IUntappdAuthenticationProvider.cs" />
     <Compile Include="Untappd\Provider\UntappdAuthenticatedContext.cs" />

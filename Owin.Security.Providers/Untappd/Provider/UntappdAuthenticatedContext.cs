@@ -27,11 +27,11 @@ namespace Owin.Security.Providers.Untappd
             User = user;
             AccessToken = accessToken;
 
-            Id = TryGetValue(user, "_id");
-            Name = TryGetValue(user, "first_name") +" "+ TryGetValue(user, "last_name");
-            Link = TryGetValue(user, "url");
-            UserName = TryGetValue(user, "user_name");
-            Email = TryGetValue(user, "email_address");
+            Id = user["response"]["user"]["id"].ToString();
+            Name = user["response"]["user"]["first_name"].ToString() +" "+ user["response"]["user"]["last_name"].ToString();
+            Link = user["response"]["user"]["url"].ToString();
+            UserName = user["response"]["user"]["user_name"].ToString();
+            Email = user["response"]["user"]["settings"]["email_address"].ToString();
         }
 
         /// <summary>

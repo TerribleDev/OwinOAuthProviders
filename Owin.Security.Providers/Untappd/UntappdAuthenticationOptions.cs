@@ -37,7 +37,7 @@ namespace Owin.Security.Providers.Untappd
 
         private const string AuthorizationEndPoint = "https://untappd.com/oauth/authenticate";
         private const string TokenEndpoint = "https://untappd.com/oauth/authorize";
-        private const string UserInfoEndpoint = "https://untappd.com/v4/user/info";
+        private const string UserInfoEndpoint = "https://api.untappd.com/v4/user/info";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used

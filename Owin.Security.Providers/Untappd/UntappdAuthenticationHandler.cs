@@ -35,7 +35,6 @@ namespace Owin.Security.Providers.Untappd
             try
             {
                 string code = null;
-                string state = null;
 
                 IReadableStringCollection query = Request.Query;
                 IList<string> values = query.GetValues("code");
@@ -43,45 +42,30 @@ namespace Owin.Security.Providers.Untappd
                 {
                     code = string.Copy(values.First());
                 }
-                values = query.GetValues("state");
-                if (values != null && values.Count == 1)
-                {
-                    state = values[0];
-                }
-
-                properties = Options.StateDataFormat.Unprotect(state);
-                if (properties == null)
-                {
-                    return null;
-                }
-
-                // OAuth2 10.12 CSRF
-                if (!ValidateCorrelationId(properties, logger))
-                {
-                    return new AuthenticationTicket(null, properties);
-                }
-
                 string requestPrefix = Request.Scheme + "://" + Request.Host;
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
-                // Build up the body for the token request
-                var body = new List<KeyValuePair<string, string>>();
-                body.Add(new KeyValuePair<string, string>("client_id", Options.ClientId));
-                body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
-                body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
-                body.Add(new KeyValuePair<string, string>("code", code));
+                //// Build up the body for the token request
+                //var body = new List<KeyValuePair<string, string>>();
+                //body.Add(new KeyValuePair<string, string>("client_id", Options.ClientId));
+                //body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
+                //body.Add(new KeyValuePair<string, string>("redirect_url", redirectUri));
+                //body.Add(new KeyValuePair<string, string>("response_type", "code"));
+                //body.Add(new KeyValuePair<string, string>("code", code));
 
                 // Request the token
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
-                requestMessage.Content = new FormUrlEncodedContent(body);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Get, 
+                    
+                    
+                    String.Format(@"{0}/?client_id={1}&client_secret={2}&response_type=code&redirect_url={3}&code={4}", Options.Endpoints.TokenEndpoint,Options.ClientId, Options.ClientSecret, redirectUri, code));
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestMessage);
                 tokenResponse.EnsureSuccessStatusCode();
                 string text = await tokenResponse.Content.ReadAsStringAsync();
 
                 // Deserializes the token response
-                dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
-                string accessToken = (string)response.access_token;
+                var response = JsonConvert.DeserializeObject<ResponseRoot>(text);
+                string accessToken = response.response.access_token;
 
                 // Get the Untappd user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
@@ -116,10 +100,16 @@ namespace Owin.Security.Providers.Untappd
                 {
                     context.Identity.AddClaim(new Claim("urn:Untappd:url", context.Link, XmlSchemaString, Options.AuthenticationType));
                 }
+               
+
+                IDictionary<string, string> data = new Dictionary<string, string>
+                     {
+                        { "userData", "Data" }
+                    };
+                properties = new AuthenticationProperties(data);
                 context.Properties = properties;
-
                 await Options.Provider.Authenticated(context);
-
+                
                 return new AuthenticationTicket(context.Identity, context.Properties);
             }
             catch (Exception ex)
@@ -167,7 +157,7 @@ namespace Owin.Security.Providers.Untappd
                 string authorizationEndpoint =
                     Options.Endpoints.AuthorizationEndpoint +
                     "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
-                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
+                    "&redirect_url=" + Uri.EscapeDataString(redirectUri) +
                     "&response_type=" + "code";
 
                 Response.Redirect(authorizationEndpoint);
