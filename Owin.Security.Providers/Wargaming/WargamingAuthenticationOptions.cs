@@ -15,9 +15,11 @@ namespace Owin.Security.Providers.Wargaming
         /// </summary>
         public enum Region
         {
+            NorthAmerica,
             Europe,
-            US,
-            Russia
+            Russia,
+            Asia,
+            Korea
         }
 
         /// <summary>

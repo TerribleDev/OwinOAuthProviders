@@ -260,7 +260,7 @@
     <Compile Include="Twitch\Provider\TwitchAuthenticationProvider.cs" />
     <Compile Include="Twitch\Provider\TwitchReturnEndpointContext.cs" />
     <Compile Include="Twitch\Provider\ITwitchAuthenticationProvider.cs" />
-    <Compile Include="Wargaming\Constant.cs" />
+    <Compile Include="Wargaming\Constants.cs" />
     <Compile Include="Wargaming\WargamingAccountAuthenticationExtensions.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationHandler.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationOptions.cs" />
