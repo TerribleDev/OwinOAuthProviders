@@ -10,6 +10,7 @@ using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.EveOnline;
+using Owin.Security.Providers.Flickr;
 using Owin.Security.Providers.Foursquare;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
@@ -218,6 +219,8 @@ namespace OwinOAuthProvidersDemo
             //	isSandbox: false);
 
             //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
+
+            //app.UseFlickrAuthentication("", "");
         }
     }
 }
