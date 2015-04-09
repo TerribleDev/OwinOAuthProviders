@@ -27,6 +27,7 @@ using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Steam;
+using Owin.Security.Providers.Wargaming;
 using Owin.Security.Providers.WordPress;
 
 namespace OwinOAuthProvidersDemo
@@ -216,6 +217,7 @@ namespace OwinOAuthProvidersDemo
             //	clientSecret: "",
             //	isSandbox: false);
 
+            //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
         }
     }
 }
