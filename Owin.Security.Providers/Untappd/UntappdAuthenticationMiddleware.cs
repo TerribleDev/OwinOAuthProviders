@@ -32,14 +32,6 @@ namespace Owin.Security.Providers.Untappd
             if (Options.Provider == null)
                 Options.Provider = new UntappdAuthenticationProvider();
 
-            if (Options.StateDataFormat == null)
-            {
-                IDataProtector dataProtector = app.CreateDataProtector(
-                    typeof (UntappdAuthenticationMiddleware).FullName,
-                    Options.AuthenticationType, "v1");
-                Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
-            }
-
             if (String.IsNullOrEmpty(Options.SignInAsAuthenticationType))
                 Options.SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType();
 
