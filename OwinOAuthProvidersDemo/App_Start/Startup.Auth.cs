@@ -221,6 +221,9 @@ namespace OwinOAuthProvidersDemo
             //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
             //app.UseFlickrAuthentication("", "");
+			//app.UseVisualStudioAuthentication(
+			//	appId: "",
+			//	appSecret: "");
         }
     }
 }
