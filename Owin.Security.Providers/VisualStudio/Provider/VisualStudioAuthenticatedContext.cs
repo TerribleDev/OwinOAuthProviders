@@ -19,11 +19,13 @@ namespace Owin.Security.Providers.VisualStudio {
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken">Visual Studio Online Access token</param>
-		public VisualStudioAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+		public VisualStudioAuthenticatedContext(IOwinContext context, JObject user, string accessToken, int expiresIn, string refreshToken)
             : base(context)
         {
             AccessToken = accessToken;
             User = user;
+			RefreshToken = refreshToken;
+			ExpiresIn = TimeSpan.FromSeconds(expiresIn);
 
             Id = TryGetValue(user, "id");
 			Name = TryGetValue(user, "displayName");
@@ -43,6 +45,16 @@ namespace Owin.Security.Providers.VisualStudio {
 		/// Gets the Visual Studio Online OAuth access token
 		/// </summary>
 		public string AccessToken { get; private set; }
+
+		/// <summary>
+		/// Gets the Google OAuth refresh token.  This is only available when the RequestOfflineAccess property of <see cref="GooglePlusAuthenticationOptions"/> is set to true
+		/// </summary>
+		public string RefreshToken { get; private set; }
+
+		/// <summary>
+		/// Gets the Google+ access token expiration time
+		/// </summary>
+		public TimeSpan? ExpiresIn { get; set; }
 
 		/// <summary>
 		/// Get the user's id

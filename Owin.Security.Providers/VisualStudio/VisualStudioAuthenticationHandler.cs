@@ -73,6 +73,8 @@ namespace Owin.Security.Providers.VisualStudio {
 				// Deserializes the token response
 				dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
 				string accessToken = (string)response.access_token;
+				string refreshToken = (string)response.refresh_token;
+				int expiresIn = (int)response.expires_in;
 
 				// Get the Visual Studio Online user
 				HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint);
@@ -83,7 +85,7 @@ namespace Owin.Security.Providers.VisualStudio {
 				text = await userResponse.Content.ReadAsStringAsync();
 				JObject user = JObject.Parse(text);
 
-				var context = new VisualStudioAuthenticatedContext(Context, user, accessToken);
+				var context = new VisualStudioAuthenticatedContext(Context, user, accessToken, expiresIn, refreshToken);
 				context.Identity = new ClaimsIdentity(
 					Options.AuthenticationType,
 					ClaimsIdentity.DefaultNameClaimType,
