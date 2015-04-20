@@ -17,6 +17,7 @@ namespace Owin.Security.Providers.Untappd
 {
     public class UntappdAuthenticationHandler : AuthenticationHandler<UntappdAuthenticationOptions>
     {
+        private const string StateCookie = "_StateCookie";
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
 
         private readonly ILogger logger;
@@ -35,6 +36,7 @@ namespace Owin.Security.Providers.Untappd
             try
             {
                 string code = null;
+                string state = null;
 
                 IReadableStringCollection query = Request.Query;
                 IList<string> values = query.GetValues("code");
@@ -42,6 +44,21 @@ namespace Owin.Security.Providers.Untappd
                 {
                     code = string.Copy(values.First());
                 }
+
+                // restore State from Cookie
+                state = Request.Cookies[StateCookie];
+                properties = Options.StateDataFormat.Unprotect(state);
+                if (properties == null)
+                {
+                    return null;
+                }
+
+                // OAuth2 10.12 CSRF
+                if (!ValidateCorrelationId(properties, logger))
+                {
+                    return new AuthenticationTicket(null, properties);
+                }
+
                 string requestPrefix = Request.Scheme + "://" + Request.Host;
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
@@ -54,10 +71,8 @@ namespace Owin.Security.Providers.Untappd
                 //body.Add(new KeyValuePair<string, string>("code", code));
 
                 // Request the token
-                var requestMessage = new HttpRequestMessage(HttpMethod.Get, 
-                    
-                    
-                    String.Format(@"{0}/?client_id={1}&client_secret={2}&response_type=code&redirect_url={3}&code={4}", Options.Endpoints.TokenEndpoint,Options.ClientId, Options.ClientSecret, redirectUri, code));
+                var requestMessage = new HttpRequestMessage(HttpMethod.Get,
+                    String.Format(@"{0}/?client_id={1}&client_secret={2}&response_type=code&redirect_url={3}&code={4}", Options.Endpoints.TokenEndpoint, Options.ClientId, Options.ClientSecret, redirectUri, code));
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestMessage);
                 tokenResponse.EnsureSuccessStatusCode();
@@ -80,6 +95,10 @@ namespace Owin.Security.Providers.Untappd
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
+
+                // Add access_token to Claims to be used later on authenticated Untappd API requests
+                context.Identity.AddClaim(new Claim("UntappdAccessToken", accessToken));
+
                 if (!string.IsNullOrEmpty(context.Id))
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, Options.AuthenticationType));
@@ -100,16 +119,20 @@ namespace Owin.Security.Providers.Untappd
                 {
                     context.Identity.AddClaim(new Claim("urn:Untappd:url", context.Link, XmlSchemaString, Options.AuthenticationType));
                 }
-               
+                if (!string.IsNullOrEmpty(context.AvatarUrl))
+                {
+                    context.Identity.AddClaim(new Claim("urn:Untappd:avatar", context.AvatarUrl, XmlSchemaString, Options.AuthenticationType));
+                }
 
-                IDictionary<string, string> data = new Dictionary<string, string>
-                     {
-                        { "userData", "Data" }
-                    };
-                properties = new AuthenticationProperties(data);
+                //IDictionary<string, string> data = new Dictionary<string, string>
+                //     {
+                //        { "userData", "Data" }
+                //    };
+                //properties = new AuthenticationProperties(data);
+
                 context.Properties = properties;
                 await Options.Provider.Authenticated(context);
-                
+
                 return new AuthenticationTicket(context.Identity, context.Properties);
             }
             catch (Exception ex)
@@ -160,6 +183,13 @@ namespace Owin.Security.Providers.Untappd
                     "&redirect_url=" + Uri.EscapeDataString(redirectUri) +
                     "&response_type=" + "code";
 
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = Request.IsSecure
+                };
+
+                Response.Cookies.Append(StateCookie, Options.StateDataFormat.Protect(properties), cookieOptions);
                 Response.Redirect(authorizationEndpoint);
             }
 
