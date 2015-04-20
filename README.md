@@ -47,6 +47,7 @@ A big thanks goes out to all these contributors without whom this would not have
 * Aaron Horst (https://github.com/aaron-horst)
 * Scott Hill (https://github.com/scottedwardhill)
 * Anthony Ruffino (https://github.com/AnthonyRuffino)
+* Tommy Parnell (https://github.com/tparnell8)
 
 ## License
 
