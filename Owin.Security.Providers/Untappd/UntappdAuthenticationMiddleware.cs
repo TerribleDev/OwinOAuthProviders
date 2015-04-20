@@ -32,13 +32,21 @@ namespace Owin.Security.Providers.Untappd
             if (Options.Provider == null)
                 Options.Provider = new UntappdAuthenticationProvider();
 
+            if (Options.StateDataFormat == null)
+            {
+                IDataProtector dataProtector = app.CreateDataProtector(
+                    typeof(UntappdAuthenticationMiddleware).FullName,
+                    Options.AuthenticationType, "v1");
+                Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
+            }
+
             if (String.IsNullOrEmpty(Options.SignInAsAuthenticationType))
                 Options.SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType();
 
             httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
             {
                 Timeout = Options.BackchannelTimeout,
-                MaxResponseContentBufferSize = 1024*1024*10,
+                MaxResponseContentBufferSize = 1024 * 1024 * 10,
             };
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Microsoft Owin Untappd middleware");
             httpClient.DefaultRequestHeaders.ExpectContinue = false;
