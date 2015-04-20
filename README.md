@@ -14,6 +14,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - HealthGraph
   - Battle.net
   - Asana
+  - Twitch.tv
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam
