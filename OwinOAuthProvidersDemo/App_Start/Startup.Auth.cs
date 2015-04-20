@@ -8,6 +8,7 @@ using Owin.Security.Providers.Asana;
 using Owin.Security.Providers.ArcGISOnline;
 using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
+using Owin.Security.Providers.DeviantArt;
 using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.EveOnline;
 using Owin.Security.Providers.Flickr;
@@ -45,7 +46,7 @@ namespace OwinOAuthProvidersDemo
             });
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
+           //app.UseDeviantArtAuthentication("id", "secret");
             //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
