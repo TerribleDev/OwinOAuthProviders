@@ -28,10 +28,11 @@ namespace Owin.Security.Providers.Untappd
             AccessToken = accessToken;
 
             Id = user["response"]["user"]["id"].ToString();
-            Name = user["response"]["user"]["first_name"].ToString() +" "+ user["response"]["user"]["last_name"].ToString();
+            Name = user["response"]["user"]["first_name"].ToString() + " " + user["response"]["user"]["last_name"].ToString();
             Link = user["response"]["user"]["url"].ToString();
             UserName = user["response"]["user"]["user_name"].ToString();
             Email = user["response"]["user"]["settings"]["email_address"].ToString();
+            AvatarUrl = user["response"]["user"]["user_avatar"].ToString();
         }
 
         /// <summary>
@@ -69,6 +70,11 @@ namespace Owin.Security.Providers.Untappd
         /// Gets the Untappd email
         /// </summary>
         public string Email { get; private set; }
+
+        /// <summary>
+        /// Gets the Untappd avatar url 100x100
+        /// </summary>
+        public string AvatarUrl { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user
