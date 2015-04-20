@@ -94,6 +94,15 @@
     <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
     <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
     <Compile Include="BattleNet\Constants.cs" />
+    <Compile Include="DeviantArt\Constants.cs" />
+    <Compile Include="DeviantArt\Provider\IDeviantAuthenticationProvider.cs" />
+    <Compile Include="DeviantArt\Provider\DeviantAuthenticatedContext.cs" />
+    <Compile Include="DeviantArt\Provider\DeviantAuthenticationProvider.cs" />
+    <Compile Include="DeviantArt\Provider\DeviantReturnEndpointContext.cs" />
+    <Compile Include="DeviantArt\DeviantAuthenticationExtensions.cs" />
+    <Compile Include="DeviantArt\DeviantAuthenticationHandler.cs" />
+    <Compile Include="DeviantArt\DeviantAuthenticationMiddleware.cs" />
+    <Compile Include="DeviantArt\DeviantAuthenticationOptions.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationExtensions.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationHandler.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationMiddleware.cs" />
