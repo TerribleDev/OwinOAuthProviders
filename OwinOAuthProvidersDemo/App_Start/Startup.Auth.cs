@@ -28,8 +28,7 @@ using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Steam;
-using Owin.Security.Providers.Wargaming;
-using Owin.Security.Providers.WordPress;
+using Owin.Security.Providers.Wargaming;using Owin.Security.Providers.Untappd;using Owin.Security.Providers.WordPress;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -47,6 +46,7 @@ namespace OwinOAuthProvidersDemo
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
+            //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
@@ -67,7 +67,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseYahooAuthentication("", "");
 
             //app.UseTripItAuthentication("", "");
-            
+
             //app.UseGitHubAuthentication("", "");
 
             //app.UseBufferAuthentication("", "");
@@ -112,7 +112,7 @@ namespace OwinOAuthProvidersDemo
             //    ClientSecret = "",
             //    Provider = new TwitchAuthenticationProvider()
             //    {
-                  
+
             //        OnAuthenticated = async z =>
             //        {
             ////            Getting the twitch users picture
@@ -121,7 +121,7 @@ namespace OwinOAuthProvidersDemo
             ////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
             //        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
             //        /*
-                      
+
             //           if (user != null)
             //                {
             //                    var claim = (await AuthenticationManager.GetExternalLoginInfoAsync()).ExternalIdentity.Claims.First(
@@ -134,7 +134,7 @@ namespace OwinOAuthProvidersDemo
             //    }
             //};
             //app.UseTwitchAuthentication(opt);
-            
+
 
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
@@ -194,24 +194,24 @@ namespace OwinOAuthProvidersDemo
             //    clientSecret: "");
 
 
-			//app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
-			//{
-			//	ClientId = "",
-			//	ClientSecret = ""
-			//});
-			//app.UseBattleNetAuthentication(
-			//	clientId: "",
-			//	clientSecret: "");
+            //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
+            //{
+            //	ClientId = "",
+            //	ClientSecret = ""
+            //});
+            //app.UseBattleNetAuthentication(
+            //	clientId: "",
+            //	clientSecret: "");
 
             //app.UseAsanaAuthentication("", "");
 
             //app.UseEveOnlineAuthentication("", "");
 
-			//app.UseSoundCloudAuthentication("", "");
+            //app.UseSoundCloudAuthentication("", "");
 
-			//app.UseFoursquareAuthentication(
-			//	clientId: "",
-			//	clientSecret: "");
+            //app.UseFoursquareAuthentication(
+            //	clientId: "",
+            //	clientSecret: "");
 
             //app.UsePayPalAuthentication(
             //	clientId: "",
