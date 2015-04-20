@@ -9,15 +9,15 @@ using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
 using Owin.Security.Providers.Properties;
 
-namespace Owin.Security.Providers.LinkedIn
+namespace Owin.Security.Providers.PayPal
 {
-    public class LinkedInAuthenticationMiddleware : AuthenticationMiddleware<LinkedInAuthenticationOptions>
+    public class PayPalAuthenticationMiddleware : AuthenticationMiddleware<PayPalAuthenticationOptions>
     {
         private readonly HttpClient httpClient;
         private readonly ILogger logger;
 
-        public LinkedInAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
-            LinkedInAuthenticationOptions options)
+        public PayPalAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
+            PayPalAuthenticationOptions options)
             : base(next, options)
         {
             if (String.IsNullOrWhiteSpace(Options.ClientId))
@@ -27,15 +27,15 @@ namespace Owin.Security.Providers.LinkedIn
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture,
                     Resources.Exception_OptionMustBeProvided, "ClientSecret"));
 
-            logger = app.CreateLogger<LinkedInAuthenticationMiddleware>();
+            logger = app.CreateLogger<PayPalAuthenticationMiddleware>();
 
             if (Options.Provider == null)
-                Options.Provider = new LinkedInAuthenticationProvider();
+                Options.Provider = new PayPalAuthenticationProvider();
 
             if (Options.StateDataFormat == null)
             {
                 IDataProtector dataProtector = app.CreateDataProtector(
-                    typeof (LinkedInAuthenticationMiddleware).FullName,
+                    typeof (PayPalAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
@@ -46,10 +46,9 @@ namespace Owin.Security.Providers.LinkedIn
             httpClient = new HttpClient(ResolveHttpMessageHandler(Options))
             {
                 Timeout = Options.BackchannelTimeout,
-                MaxResponseContentBufferSize = 1024*1024*10
+                MaxResponseContentBufferSize = 1024*1024*10,
             };
-
-            // Fix for LinkedIn Expect: 100- continue issue
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Microsoft Owin PayPal middleware");
             httpClient.DefaultRequestHeaders.ExpectContinue = false;
         }
 
@@ -59,14 +58,14 @@ namespace Owin.Security.Providers.LinkedIn
         /// </summary>
         /// <returns>
         ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
-        ///     <see cref="T:Owin.Security.Providers.LinkedIn.LinkedInAuthenticationOptions" /> supplied to the constructor.
+        ///     <see cref="T:Owin.Security.Providers.PayPal.PayPalAuthenticationOptions" /> supplied to the constructor.
         /// </returns>
-        protected override AuthenticationHandler<LinkedInAuthenticationOptions> CreateHandler()
+        protected override AuthenticationHandler<PayPalAuthenticationOptions> CreateHandler()
         {
-            return new LinkedInAuthenticationHandler(httpClient, logger);
+            return new PayPalAuthenticationHandler(httpClient, logger);
         }
 
-        private HttpMessageHandler ResolveHttpMessageHandler(LinkedInAuthenticationOptions options)
+        private HttpMessageHandler ResolveHttpMessageHandler(PayPalAuthenticationOptions options)
         {
             HttpMessageHandler handler = options.BackchannelHttpHandler ?? new WebRequestHandler();
 

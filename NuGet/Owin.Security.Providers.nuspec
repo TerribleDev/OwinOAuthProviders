@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.15.0</version>
+    <version>1.17.1</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -12,15 +12,17 @@
       Adds additional OAuth providers for OWIN to use with ASP.NET
     </description>
     <summary>
-      Additional OAuth providers for Katana (OWIN).  Includes providers for LinkedIn, Yahoo, Google+, GitHub, Reddit, Instagram, StackExchange, SalesForce, TripIt, Buffer, ArcGIS, Dropbox, Wordpress, Battle.NET, Twitch and Yammer
-      Also adds generic OpenID 2.0 providers as well as a Steam-specific implementatio
+      Additional OAuth providers for Katana (OWIN).  Includes providers for LinkedIn, Yahoo, Google+, GitHub, Reddit, Instagram, StackExchange, SalesForce, TripIt, Buffer, ArcGIS, Dropbox, Wordpress, Battle.NET, Twitch, Yammer, Flickr and PayPal.
+      Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
     </summary>
     <releaseNotes>
-      Version 1.15
+      Version 1.17
 
       Added
-      - Added Eve Online Provider (Thank you Mariusz Zieliński - https://github.com/mariozski)
-      - Added SoundCloud Provider
+      - Added Flickr, Paypal and Wargaming providers
+      
+      Fixes
+      - Fixes issue with LinkedIn provider not working due to changes on LinkedIn side
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>

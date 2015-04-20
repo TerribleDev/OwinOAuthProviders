@@ -8,36 +8,41 @@ using Microsoft.Owin.Security.DataHandler;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
 using Owin.Security.Providers.Properties;
+using Owin.Security.Providers.Flickr.Messages;
+using Microsoft.Owin.Security.DataHandler.Encoder;
 
-namespace Owin.Security.Providers.LinkedIn
+namespace Owin.Security.Providers.Flickr
 {
-    public class LinkedInAuthenticationMiddleware : AuthenticationMiddleware<LinkedInAuthenticationOptions>
+    public class FlickrAuthenticationMiddleware : AuthenticationMiddleware<FlickrAuthenticationOptions>
     {
         private readonly HttpClient httpClient;
         private readonly ILogger logger;
 
-        public LinkedInAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
-            LinkedInAuthenticationOptions options)
+        public FlickrAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
+            FlickrAuthenticationOptions options)
             : base(next, options)
         {
-            if (String.IsNullOrWhiteSpace(Options.ClientId))
+            if (String.IsNullOrWhiteSpace(Options.AppKey))
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture,
-                    Resources.Exception_OptionMustBeProvided, "ClientId"));
-            if (String.IsNullOrWhiteSpace(Options.ClientSecret))
+                    Resources.Exception_OptionMustBeProvided, "AppKey"));
+            if (String.IsNullOrWhiteSpace(Options.AppSecret))
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture,
-                    Resources.Exception_OptionMustBeProvided, "ClientSecret"));
+                    Resources.Exception_OptionMustBeProvided, "AppSecret"));
 
-            logger = app.CreateLogger<LinkedInAuthenticationMiddleware>();
+            logger = app.CreateLogger<FlickrAuthenticationMiddleware>();
 
             if (Options.Provider == null)
-                Options.Provider = new LinkedInAuthenticationProvider();
+                Options.Provider = new FlickrAuthenticationProvider();
 
             if (Options.StateDataFormat == null)
             {
                 IDataProtector dataProtector = app.CreateDataProtector(
-                    typeof (LinkedInAuthenticationMiddleware).FullName,
+                    typeof(FlickrAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
-                Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
+                Options.StateDataFormat = new SecureDataFormat<RequestToken>(
+                    Serializers.RequestToken,
+                    dataProtector,
+                    TextEncodings.Base64Url);
             }
 
             if (String.IsNullOrEmpty(Options.SignInAsAuthenticationType))
@@ -48,9 +53,6 @@ namespace Owin.Security.Providers.LinkedIn
                 Timeout = Options.BackchannelTimeout,
                 MaxResponseContentBufferSize = 1024*1024*10
             };
-
-            // Fix for LinkedIn Expect: 100- continue issue
-            httpClient.DefaultRequestHeaders.ExpectContinue = false;
         }
 
         /// <summary>
@@ -59,14 +61,14 @@ namespace Owin.Security.Providers.LinkedIn
         /// </summary>
         /// <returns>
         ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
-        ///     <see cref="T:Owin.Security.Providers.LinkedIn.LinkedInAuthenticationOptions" /> supplied to the constructor.
+        ///     <see cref="T:Owin.Security.Providers.Flickr.FlickrAuthenticationOptions" /> supplied to the constructor.
         /// </returns>
-        protected override AuthenticationHandler<LinkedInAuthenticationOptions> CreateHandler()
+        protected override AuthenticationHandler<FlickrAuthenticationOptions> CreateHandler()
         {
-            return new LinkedInAuthenticationHandler(httpClient, logger);
+            return new FlickrAuthenticationHandler(httpClient, logger);
         }
 
-        private HttpMessageHandler ResolveHttpMessageHandler(LinkedInAuthenticationOptions options)
+        private HttpMessageHandler ResolveHttpMessageHandler(FlickrAuthenticationOptions options)
         {
             HttpMessageHandler handler = options.BackchannelHttpHandler ?? new WebRequestHandler();
 

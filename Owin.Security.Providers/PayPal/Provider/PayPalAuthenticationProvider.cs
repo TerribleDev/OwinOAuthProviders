@@ -1,40 +1,40 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Owin.Security.Providers.Foursquare.Provider
+namespace Owin.Security.Providers.PayPal
 {
     /// <summary>
-    /// Default <see cref="IFoursquareAuthenticationProvider"/> implementation.
+    /// Default <see cref="IPayPalAuthenticationProvider"/> implementation.
     /// </summary>
-    public class FoursquareAuthenticationProvider : IFoursquareAuthenticationProvider
+    public class PayPalAuthenticationProvider : IPayPalAuthenticationProvider
     {
         /// <summary>
-        /// Initializes a <see cref="FoursquareAuthenticationProvider"/>
+        /// Initializes a <see cref="PayPalAuthenticationProvider"/>
         /// </summary>
-        public FoursquareAuthenticationProvider()
+        public PayPalAuthenticationProvider()
         {
-            this.OnAuthenticated = context => Task.FromResult<object>(null);
-            this.OnReturnEndpoint = context => Task.FromResult<object>(null);
+            OnAuthenticated = context => Task.FromResult<object>(null);
+            OnReturnEndpoint = context => Task.FromResult<object>(null);
         }
 
         /// <summary>
         /// Gets or sets the function that is invoked when the Authenticated method is invoked.
         /// </summary>
-        public Func<FoursquareAuthenticatedContext, Task> OnAuthenticated { get; set; }
+        public Func<PayPalAuthenticatedContext, Task> OnAuthenticated { get; set; }
 
         /// <summary>
         /// Gets or sets the function that is invoked when the ReturnEndpoint method is invoked.
         /// </summary>
-        public Func<FoursquareReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
+        public Func<PayPalReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
 
         /// <summary>
-        /// Invoked whenever Foursquare succesfully authenticates a user
+        /// Invoked whenever PayPal succesfully authenticates a user
         /// </summary>
         /// <param name="context">Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task Authenticated(FoursquareAuthenticatedContext context)
+        public virtual Task Authenticated(PayPalAuthenticatedContext context)
         {
-            return this.OnAuthenticated(context);
+            return OnAuthenticated(context);
         }
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace Owin.Security.Providers.Foursquare.Provider
         /// </summary>
         /// <param name="context"></param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task ReturnEndpoint(FoursquareReturnEndpointContext context)
+        public virtual Task ReturnEndpoint(PayPalReturnEndpointContext context)
         {
-            return this.OnReturnEndpoint(context);
+            return OnReturnEndpoint(context);
         }
     }
 }

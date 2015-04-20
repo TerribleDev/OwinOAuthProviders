@@ -10,6 +10,7 @@ using Owin.Security.Providers.BattleNet;
 using Owin.Security.Providers.Buffer;
 using Owin.Security.Providers.Dropbox;
 using Owin.Security.Providers.EveOnline;
+using Owin.Security.Providers.Flickr;
 using Owin.Security.Providers.Foursquare;
 using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.GooglePlus;
@@ -17,6 +18,7 @@ using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.HealthGraph;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
+using Owin.Security.Providers.PayPal;
 using Owin.Security.Providers.Reddit;
 using Owin.Security.Providers.Salesforce;
 using Owin.Security.Providers.StackExchange;
@@ -26,8 +28,7 @@ using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Steam;
-using Owin.Security.Providers.Untappd;
-using Owin.Security.Providers.WordPress;
+using Owin.Security.Providers.Wargaming;using Owin.Security.Providers.Untappd;using Owin.Security.Providers.WordPress;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -211,6 +212,15 @@ namespace OwinOAuthProvidersDemo
             //app.UseFoursquareAuthentication(
             //	clientId: "",
             //	clientSecret: "");
+
+            //app.UsePayPalAuthentication(
+            //	clientId: "",
+            //	clientSecret: "",
+            //	isSandbox: false);
+
+            //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
+
+            //app.UseFlickrAuthentication("", "");
         }
     }
 }
