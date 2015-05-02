@@ -15,6 +15,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Battle.net
   - Asana
   - Visual Studio Online
+  - Twitch.tv
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam
