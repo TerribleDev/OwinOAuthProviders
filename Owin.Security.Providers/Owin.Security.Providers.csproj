@@ -282,6 +282,16 @@
     <Compile Include="VisualStudio\VisualStudioAuthenticationHandler.cs" />
     <Compile Include="VisualStudio\VisualStudioAuthenticationMiddleware.cs" />
     <Compile Include="VisualStudio\VisualStudioAuthenticationOptions.cs" />
+    <Compile Include="Untappd\ApiResponse.cs" />
+    <Compile Include="Untappd\Constants.cs" />
+    <Compile Include="Untappd\Provider\IUntappdAuthenticationProvider.cs" />
+    <Compile Include="Untappd\Provider\UntappdAuthenticatedContext.cs" />
+    <Compile Include="Untappd\Provider\UntappdAuthenticationProvider.cs" />
+    <Compile Include="Untappd\Provider\UntappdReturnEndpointContext.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationExtensions.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationHandler.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationMiddleware.cs" />
+    <Compile Include="Untappd\UntappdAuthenticationOptions.cs" />
     <Compile Include="Wargaming\Constants.cs" />
     <Compile Include="Wargaming\WargamingAccountAuthenticationExtensions.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationHandler.cs" />
