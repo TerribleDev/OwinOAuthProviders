@@ -273,6 +273,15 @@
     <Compile Include="Twitch\Provider\TwitchAuthenticationProvider.cs" />
     <Compile Include="Twitch\Provider\TwitchReturnEndpointContext.cs" />
     <Compile Include="Twitch\Provider\ITwitchAuthenticationProvider.cs" />
+    <Compile Include="VisualStudio\Constants.cs" />
+    <Compile Include="VisualStudio\Provider\IVisualStudioAuthenticationProvider.cs" />
+    <Compile Include="VisualStudio\Provider\VisualStudioAuthenticatedContext.cs" />
+    <Compile Include="VisualStudio\Provider\VisualStudioAuthenticationProvider.cs" />
+    <Compile Include="VisualStudio\Provider\VisualStudioReturnEndpointContext.cs" />
+    <Compile Include="VisualStudio\VisualStudioAuthenticationExtensions.cs" />
+    <Compile Include="VisualStudio\VisualStudioAuthenticationHandler.cs" />
+    <Compile Include="VisualStudio\VisualStudioAuthenticationMiddleware.cs" />
+    <Compile Include="VisualStudio\VisualStudioAuthenticationOptions.cs" />
     <Compile Include="Wargaming\Constants.cs" />
     <Compile Include="Wargaming\WargamingAccountAuthenticationExtensions.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationHandler.cs" />
