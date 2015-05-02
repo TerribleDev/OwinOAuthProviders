@@ -127,7 +127,7 @@ namespace Owin.Security.Providers.Untappd
             : base("Untappd")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-Untappd");
+            CallbackPath = new PathString("/signin-untappd");
             AuthenticationMode = AuthenticationMode.Passive;
             //untappd has no scopes AFAIK
             Scope = new List<string>{};
