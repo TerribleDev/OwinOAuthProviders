@@ -131,7 +131,7 @@ namespace Owin.Security.Providers.DeviantArt
             : base("DeviantArt")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-DeviantArt");
+            CallbackPath = new PathString("/signin-deviantart");
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {
