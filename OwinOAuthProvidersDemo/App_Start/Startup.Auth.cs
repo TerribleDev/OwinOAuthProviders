@@ -28,6 +28,7 @@ using Owin.Security.Providers.Twitch;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.SoundCloud;
+using Owin.Security.Providers.Spotify;
 using Owin.Security.Providers.Steam;
 using Owin.Security.Providers.Wargaming;using Owin.Security.Providers.Untappd;using Owin.Security.Providers.WordPress;
 
@@ -225,6 +226,10 @@ namespace OwinOAuthProvidersDemo
 			//app.UseVisualStudioAuthentication(
 			//	appId: "",
 			//	appSecret: "");
+
+            //app.UseSpotifyAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
         }
     }
 }

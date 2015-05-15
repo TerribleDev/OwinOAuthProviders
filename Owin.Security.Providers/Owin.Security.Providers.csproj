@@ -247,6 +247,15 @@
     <Compile Include="SoundCloud\SoundCloudAuthenticationHandler.cs" />
     <Compile Include="SoundCloud\SoundCloudAuthenticationMiddleware.cs" />
     <Compile Include="SoundCloud\SoundCloudAuthenticationOptions.cs" />
+    <Compile Include="Spotify\Constants.cs" />
+    <Compile Include="Spotify\Provider\ISpotifyAuthenticationProvider.cs" />
+    <Compile Include="Spotify\Provider\SpotifyAuthenticatedContext.cs" />
+    <Compile Include="Spotify\Provider\SpotifyAuthenticationProvider.cs" />
+    <Compile Include="Spotify\Provider\SpotifyReturnEndpointContext.cs" />
+    <Compile Include="Spotify\SpotifyAuthenticationExtensions.cs" />
+    <Compile Include="Spotify\SpotifyAuthenticationHandler.cs" />
+    <Compile Include="Spotify\SpotifyAuthenticationMiddleware.cs" />
+    <Compile Include="Spotify\SpotifyAuthenticationOptions.cs" />
     <Compile Include="StackExchange\Constants.cs" />
     <Compile Include="StackExchange\StackExchangeAuthenticationExtensions.cs" />
     <Compile Include="StackExchange\StackExchangeAuthenticationHandler.cs" />
