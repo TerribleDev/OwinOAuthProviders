@@ -19,18 +19,21 @@ using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.HealthGraph;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
+using Owin.Security.Providers.OpenID;
 using Owin.Security.Providers.PayPal;
 using Owin.Security.Providers.Reddit;
 using Owin.Security.Providers.Salesforce;
-using Owin.Security.Providers.StackExchange;
-using Owin.Security.Providers.TripIt;
-using Owin.Security.Providers.Twitch;
-using Owin.Security.Providers.Yahoo;
-using Owin.Security.Providers.OpenID;
+using Owin.Security.Providers.Slack;
 using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Spotify;
+using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.Steam;
-using Owin.Security.Providers.Wargaming;using Owin.Security.Providers.Untappd;using Owin.Security.Providers.WordPress;
+using Owin.Security.Providers.TripIt;
+using Owin.Security.Providers.Twitch;
+using Owin.Security.Providers.Untappd;
+using Owin.Security.Providers.Wargaming;
+using Owin.Security.Providers.WordPress;
+using Owin.Security.Providers.Yahoo;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -230,6 +233,15 @@ namespace OwinOAuthProvidersDemo
             //app.UseSpotifyAuthentication(
             //    clientId: "",
             //    clientSecret: "");
+
+            //var options = new SlackAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    TeamId = "" // optional
+            //};
+            //options.Scope.Add("identify");
+            //app.UseSlackAuthentication(options);
         }
     }
 }

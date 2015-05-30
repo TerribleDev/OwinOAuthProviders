@@ -238,6 +238,15 @@
     <Compile Include="Salesforce\SalesforceAuthenticationHandler.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationMiddleware.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationOptions.cs" />
+    <Compile Include="Slack\Constants.cs" />
+    <Compile Include="Slack\Provider\ISlackAuthenticationProvider.cs" />
+    <Compile Include="Slack\Provider\SlackAuthenticatedContext.cs" />
+    <Compile Include="Slack\Provider\SlackAuthenticationProvider.cs" />
+    <Compile Include="Slack\Provider\SlackReturnEndpointContext.cs" />
+    <Compile Include="Slack\SlackAuthenticationExtensions.cs" />
+    <Compile Include="Slack\SlackAuthenticationHandler.cs" />
+    <Compile Include="Slack\SlackAuthenticationMiddleware.cs" />
+    <Compile Include="Slack\SlackAuthenticationOptions.cs" />
     <Compile Include="SoundCloud\Constants.cs" />
     <Compile Include="SoundCloud\Provider\ISoundCloudAuthenticationProvider.cs" />
     <Compile Include="SoundCloud\Provider\SoundCloudAuthenticatedContext.cs" />
