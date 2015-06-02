@@ -128,11 +128,6 @@ namespace Owin.Security.Providers.Salesforce
 
                 if (!string.IsNullOrEmpty(context.DisplayName))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.DisplayName, XmlSchemaString, Options.AuthenticationType));
-                }
-
-                if (!string.IsNullOrEmpty(context.DisplayName))
-                {
                     context.Identity.AddClaim(new Claim("urn:Salesforce:name", context.DisplayName, XmlSchemaString, Options.AuthenticationType));
                 }
 
