@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.19</version>
+    <version>1.20</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -12,14 +12,17 @@
       Adds additional OAuth providers for OWIN to use with ASP.NET
     </description>
     <summary>
-      Additional OAuth providers for Katana (OWIN).  Includes providers for LinkedIn, Yahoo, Google+, GitHub, Reddit, Instagram, StackExchange, SalesForce, TripIt, Buffer, ArcGIS, Dropbox, Wordpress, Battle.NET, Twitch, Yammer, Flickr, Untappd, Visual Studio Online and PayPal.
+      Additional OAuth providers for Katana (OWIN).  Includes providers for LinkedIn, Yahoo, Google+, GitHub, Reddit, Instagram, StackExchange, SalesForce, TripIt, Buffer, ArcGIS, Dropbox, Wordpress, Battle.NET, Twitch, Yammer, Flickr, Untappd, Visual Studio Online, Slack and PayPal.
       Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
     </summary>
     <releaseNotes>
-      Version 1.19
+      Version 1.20
 
       Added
-      - Added Spotify
+      - Added Slack
+      
+      Fixed
+      - Fixed Name claim which was set incorrectly on Salesforce provider. Should be the username, but was set to the display name.
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
