@@ -106,7 +106,7 @@ namespace Owin.Security.Providers.Yahoo
                         if (emails.Type == JTokenType.Array)
                         {
                             // Try and get the primary email address
-                            email = emails.FirstOrDefault(e => e["primary"].ToString() == "true");
+                            email = emails.FirstOrDefault(e => e["primary"]!=null && e["primary"].ToString() == "true");
 
                             // If no primary email was located, select the first email we can find
                             if (email == null)
