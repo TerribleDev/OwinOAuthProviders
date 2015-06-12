@@ -71,7 +71,7 @@ namespace Owin.Security.Providers.Reddit
         /// <summary>
         /// A list of permissions to request.
         /// </summary>
-        public IList<string> Scope { get; private set; }
+        public IList<string> Scope { get; set; }
 
         /// <summary>
         ///     Gets or sets the name of another authentication middleware which will be responsible for actually issuing a user
