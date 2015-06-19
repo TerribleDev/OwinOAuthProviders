@@ -5,20 +5,38 @@
 
 Provides a set of extra authentication providers for OWIN ([Project Katana](http://katanaproject.codeplex.com/)).  This project includes providers for:
 - OAuth
-  - Google+
-  - Yahoo
-  - LinkedIn
-  - GitHub
-  - Instagram
-  - StackExchange
-  - HealthGraph
-  - Battle.net
+  - ArcGISOnline
   - Asana
-  - Visual Studio Online
+  - Battle.net
+  - Buffer
+  - DeviantArt
+  - Dropbox
+  - EVEOnline
+  - Flickr
+  - Foursquare
+  - GitHub
+  - Google+
+  - HealthGraph
+  - Instagram
+  - LinkedIn
+  - PayPal
+  - Reddit
+  - Salesforce
+  - Slack
+  - SoundCloud
+  - Spotify
+  - StackExchange
+  - TripIt
   - Twitch.tv
+  - Untappd
+  - Visual Studio Online
+  - Wordpress
+  - Yahoo
+  - Yammer
 - OpenID
   - Generic OpenID 2.0 provider
   - Steam
+  - Wargaming
 
 ## Implementation Guides
 For guides on how to implement these providers, please visit my blog, [Be a Big Rockstar](http://www.beabigrockstar.com).
@@ -50,6 +68,7 @@ A big thanks goes out to all these contributors without whom this would not have
 * Scott Hill (https://github.com/scottedwardhill)
 * Anthony Ruffino (https://github.com/AnthonyRuffino)
 * Tommy Parnell (https://github.com/tparnell8)
+* Maxime Roussin-Bélanger (https://github.com/Lorac)
 
 ## License
 
