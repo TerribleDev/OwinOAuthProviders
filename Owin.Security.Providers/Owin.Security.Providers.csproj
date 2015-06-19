@@ -144,6 +144,7 @@
     <Compile Include="Foursquare\Provider\FoursquareReturnEndpointContext.cs" />
     <Compile Include="Foursquare\Provider\IFoursquareAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
+    <Compile Include="GooglePlus\FooExtensions.cs" />
     <Compile Include="HealthGraph\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
     <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
