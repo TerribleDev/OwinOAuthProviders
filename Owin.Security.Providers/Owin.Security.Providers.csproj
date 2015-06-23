@@ -144,6 +144,15 @@
     <Compile Include="Foursquare\Provider\FoursquareReturnEndpointContext.cs" />
     <Compile Include="Foursquare\Provider\IFoursquareAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
+    <Compile Include="Gitter\Constants.cs" />
+    <Compile Include="Gitter\GitterAuthenticationExtensions.cs" />
+    <Compile Include="Gitter\GitterAuthenticationHandler.cs" />
+    <Compile Include="Gitter\GitterAuthenticationMiddleware.cs" />
+    <Compile Include="Gitter\GitterAuthenticationOptions.cs" />
+    <Compile Include="Gitter\Provider\GitterAuthenticatedContext.cs" />
+    <Compile Include="Gitter\Provider\GitterAuthenticationProvider.cs" />
+    <Compile Include="Gitter\Provider\GitterReturnEndpointContext.cs" />
+    <Compile Include="Gitter\Provider\IGitterAuthenticationProvider.cs" />
     <Compile Include="HealthGraph\Constants.cs" />
     <Compile Include="GitHub\GitHubAuthenticationExtensions.cs" />
     <Compile Include="GitHub\GitHubAuthenticationHandler.cs" />
