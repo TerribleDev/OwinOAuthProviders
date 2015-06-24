@@ -4,7 +4,7 @@ namespace Owin.Security.Providers.Gitter
 {
     public static class GitterAuthenticationExtensions
     {
-        public static IAppBuilder UseGooglePlusAuthentication(this IAppBuilder app,
+        public static IAppBuilder UseGitterAuthentication(this IAppBuilder app,
             GitterAuthenticationOptions options)
         {
             if (app == null)
@@ -19,7 +19,7 @@ namespace Owin.Security.Providers.Gitter
 
         public static IAppBuilder UseGitterAuthentication(this IAppBuilder app, string clientId, string clientSecret)
         {
-            return app.UseGooglePlusAuthentication(new GitterAuthenticationOptions
+            return app.UseGitterAuthentication(new GitterAuthenticationOptions
             {
                 ClientId = clientId,
                 ClientSecret = clientSecret
