@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin;
+using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
@@ -19,6 +21,7 @@ namespace Owin.Security.Providers.Gitter
         private const string TokenEndpoint = "https://gitter.im/login/oauth/token";
         private const string UserInfoEndpoint = "https://api.gitter.im/v1/user";
         private const string AuthorizeEndpoint = "https://gitter.im/login/oauth/authorize";
+        private const string Host = "api.gitter.im";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -80,23 +83,67 @@ namespace Owin.Security.Providers.Gitter
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
-                string scope = (string)response.scope;
+                string token_type = (string)response.token_type;
 
                 // Get the Gitter user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint + "?token=" + Uri.EscapeDataString(accessToken));
+                userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                userRequest.Headers.Authorization = new AuthenticationHeaderValue(token_type, accessToken);
+                userRequest.Headers.Host = Host;
 
                 HttpResponseMessage userResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
                 userResponse.EnsureSuccessStatusCode();
                 text = await userResponse.Content.ReadAsStringAsync();
-                JObject user = JObject.Parse(text);
+                JArray userArray = JArray.Parse(text);
+                JObject user = JObject.Parse(userArray[0].ToString());
 
-                var context = new GitterAuthenticatedContext(Context, user, accessToken, scope)
+                var context = new GitterAuthenticatedContext(Context, user, accessToken, token_type)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
                         ClaimsIdentity.DefaultNameClaimType,
                         ClaimsIdentity.DefaultRoleClaimType)
                 };
+
+                if (!string.IsNullOrEmpty(context.UserId))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.Username))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.Username, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.UserDisplayName))
+                {
+                    context.Identity.AddClaim(new Claim("urn:gitter:displayName", context.UserDisplayName, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.UserGV))
+                {
+                    context.Identity.AddClaim(new Claim("urn:gitter:gv", context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.UserUrl))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserUrl, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.UserAvatarUrlSmall))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserAvatarUrlSmall, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.UserAvatarUrlMedium))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.UserAvatarUrlMedium))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
+                }
+
+                context.Properties = properties;
+
+                await Options.Provider.Authenticated(context);
+
+                return new AuthenticationTicket(context.Identity, context.Properties);
+
             }
             catch (Exception ex)
             {
@@ -158,6 +205,60 @@ namespace Owin.Security.Providers.Gitter
             }
 
             return Task.FromResult<object>(null);
+        }
+
+        public override async Task<bool> InvokeAsync()
+        {
+            return await InvokeReplyPathAsync();
+        }
+
+        private async Task<bool> InvokeReplyPathAsync()
+        {
+            if (Options.CallbackPath.HasValue && Options.CallbackPath == Request.Path)
+            {
+
+                AuthenticationTicket ticket = await AuthenticateAsync();
+                if (ticket == null)
+                {
+                    logger.WriteWarning("Invalid return state, unable to redirect.");
+                    Response.StatusCode = 500;
+                    return true;
+                }
+
+                var context = new GitterReturnEndpointContext(Context, ticket)
+                {
+                    SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
+                    RedirectUri = ticket.Properties.RedirectUri
+                };
+
+                await Options.Provider.ReturnEndpoint(context);
+
+                if (context.SignInAsAuthenticationType != null &&
+                    context.Identity != null)
+                {
+                    ClaimsIdentity grantIdentity = context.Identity;
+                    if (!string.Equals(grantIdentity.AuthenticationType, context.SignInAsAuthenticationType, StringComparison.Ordinal))
+                    {
+                        grantIdentity = new ClaimsIdentity(grantIdentity.Claims, context.SignInAsAuthenticationType, grantIdentity.NameClaimType, grantIdentity.RoleClaimType);
+                    }
+                    Context.Authentication.SignIn(context.Properties, grantIdentity);
+                }
+
+                if (!context.IsRequestCompleted && context.RedirectUri != null)
+                {
+                    string redirectUri = context.RedirectUri;
+                    if (context.Identity == null)
+                    {
+                        // add a redirect hint that sign-in failed in some way
+                        redirectUri = WebUtilities.AddQueryString(redirectUri, "error", "access_denied");
+                    }
+                    Response.Redirect(redirectUri);
+                    context.RequestCompleted();
+                }
+
+                return context.IsRequestCompleted;
+            }
+            return false;
         }
     }
 }
