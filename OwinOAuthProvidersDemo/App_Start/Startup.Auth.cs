@@ -14,6 +14,7 @@ using Owin.Security.Providers.EveOnline;
 using Owin.Security.Providers.Flickr;
 using Owin.Security.Providers.Foursquare;
 using Owin.Security.Providers.GitHub;
+using Owin.Security.Providers.Gitter;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.HealthGraph;
@@ -238,10 +239,15 @@ namespace OwinOAuthProvidersDemo
             //{
             //    ClientId = "",
             //    ClientSecret = "",
-            //    TeamId = "" // optional
+            //    TeamId = "IntelliAgent" // optional
             //};
             //options.Scope.Add("identify");
             //app.UseSlackAuthentication(options);
+
+            //app.UseGitterAuthentication(
+            //    clientId: "",
+            //    clientSecret: ""
+            //);
         }
     }
 }
