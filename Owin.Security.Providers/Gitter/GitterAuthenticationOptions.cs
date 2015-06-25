@@ -36,7 +36,7 @@ namespace Owin.Security.Providers.Gitter
         ///     Determines the permissions granted from the application to Gitter.
         ///     Options include: identify, read, post, client, and/or admin
         /// </summary>
-        public IList<string> Scope { get; set; }
+        public IList<string> Scope { get; private set; }
 
         /// <summary>
         ///     Gets or sets the Google supplied Client ID

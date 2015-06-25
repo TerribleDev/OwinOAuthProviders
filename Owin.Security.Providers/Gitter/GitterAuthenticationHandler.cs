@@ -119,7 +119,7 @@ namespace Owin.Security.Providers.Gitter
                 }
                 if (!string.IsNullOrEmpty(context.UserGV))
                 {
-                    context.Identity.AddClaim(new Claim("urn:gitter:gv", context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:gitter:gv", context.UserGV, XmlSchemaString, Options.AuthenticationType));
                 }
                 if (!string.IsNullOrEmpty(context.UserUrl))
                 {
@@ -127,15 +127,11 @@ namespace Owin.Security.Providers.Gitter
                 }
                 if (!string.IsNullOrEmpty(context.UserAvatarUrlSmall))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserAvatarUrlSmall, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:gitter:avatarUrlSmall", context.UserAvatarUrlSmall, XmlSchemaString, Options.AuthenticationType));
                 }
                 if (!string.IsNullOrEmpty(context.UserAvatarUrlMedium))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
-                }
-                if (!string.IsNullOrEmpty(context.UserAvatarUrlMedium))
-                {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:gitter:avatarUrlMedium", context.UserAvatarUrlMedium, XmlSchemaString, Options.AuthenticationType));
                 }
 
                 context.Properties = properties;
