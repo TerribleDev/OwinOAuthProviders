@@ -71,11 +71,13 @@ A big thanks goes out to all these contributors without whom this would not have
 * Tommy Parnell (https://github.com/tparnell8)
 * Maxime Roussin-Bélanger (https://github.com/Lorac)
 
+For most accurate and up to date list of contributors please see https://github.com/RockstarLabs/OwinOAuthProviders/graphs/contributors
+
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Jerrie Pelser
+Copyright (c) 2014, 2015 Jerrie Pelser
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
