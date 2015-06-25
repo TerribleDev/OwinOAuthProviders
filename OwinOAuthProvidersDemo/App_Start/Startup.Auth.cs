@@ -239,7 +239,7 @@ namespace OwinOAuthProvidersDemo
             //{
             //    ClientId = "",
             //    ClientSecret = "",
-            //    TeamId = "IntelliAgent" // optional
+            //    TeamId = "" // optional
             //};
             //options.Scope.Add("identify");
             //app.UseSlackAuthentication(options);
