@@ -178,6 +178,15 @@
     <Compile Include="HealthGraph\Provider\HealthGraphAuthenticationProvider.cs" />
     <Compile Include="HealthGraph\Provider\HealthGraphReturnEndpointContext.cs" />
     <Compile Include="HealthGraph\Provider\IHealthGraphAuthenticationProvider.cs" />
+    <Compile Include="Imgur\ImgurAuthenticationDefaults.cs" />
+    <Compile Include="Imgur\ImgurAuthenticationExtensions.cs" />
+    <Compile Include="Imgur\ImgurAuthenticationHandler.cs" />
+    <Compile Include="Imgur\ImgurAuthenticationMiddleware.cs" />
+    <Compile Include="Imgur\ImgurAuthenticationOptions.cs" />
+    <Compile Include="Imgur\Provider\IImgurAuthenticationProvider.cs" />
+    <Compile Include="Imgur\Provider\ImgurAuthenticationProvider.cs" />
+    <Compile Include="Imgur\Provider\ImgurReturnEndpointContext.cs" />
+    <Compile Include="Imgur\Provider\ImgurAuthenticatedContext.cs" />
     <Compile Include="Instagram\Constants.cs" />
     <Compile Include="Instagram\InstagramAuthenticationExtensions.cs" />
     <Compile Include="Instagram\InstagramAuthenticationHandler.cs" />
