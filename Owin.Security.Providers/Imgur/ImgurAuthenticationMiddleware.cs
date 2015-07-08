@@ -21,7 +21,8 @@
 
         private readonly static string TypeFullName = typeof(ImgurAuthenticationMiddleware).FullName;
 
-        public ImgurAuthenticationMiddleware(OwinMiddleware next, IAppBuilder appBuilder, ImgurAuthenticationOptions options) : base(next, options)
+        public ImgurAuthenticationMiddleware(OwinMiddleware next, IAppBuilder appBuilder, ImgurAuthenticationOptions options)
+            : base(next, options)
         {
             if (appBuilder == null)
             {

@@ -19,8 +19,6 @@
 
     public class ImgurAuthenticationHandler : AuthenticationHandler<ImgurAuthenticationOptions>
     {
-        private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-
         private readonly HttpClient httpClient;
         private readonly ILogger logger;
 
@@ -77,19 +75,8 @@
 
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
-            var error = this.Request.Query.Get("error");
-
-            if (error != null)
+            if (this.Request.Query.Get("error") != null)
             {
-                if (error.Equals("access_denied", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.logger.WriteInformation("User denied access.");
-
-                    return new AuthenticationTicket(null, null);
-                }
-
-                this.logger.WriteInformation(string.Concat("Unknown authentication error: ", error));
-
                 return new AuthenticationTicket(null, null);
             }
 
@@ -111,7 +98,15 @@
 
             using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.imgur.com/oauth2/token"))
             {
-                httpRequestMessage.Content = new FormUrlEncodedContent(new[] { new KeyValuePair<string, string>("client_id", this.Options.ClientId), new KeyValuePair<string, string>("client_secret", this.Options.ClientSecret), new KeyValuePair<string, string>("grant_type", "authorization_code"), new KeyValuePair<string, string>("code", code) });
+                httpRequestMessage.Content =
+                    new FormUrlEncodedContent(
+                        new []
+                        {
+                            new KeyValuePair<string, string>("client_id", this.Options.ClientId),
+                            new KeyValuePair<string, string>("client_secret", this.Options.ClientSecret),
+                            new KeyValuePair<string, string>("grant_type", "authorization_code"),
+                            new KeyValuePair<string, string>("code", code)
+                        });
 
                 using (var httpResponseMessage = await this.httpClient.SendAsync(httpRequestMessage, this.Request.CallCancelled))
                 {
@@ -141,20 +136,20 @@
             }
 
             var identity = new ClaimsIdentity(this.Options.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, authenticationResponse.account_username, XmlSchemaString, this.Options.AuthenticationType));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, authenticationResponse.account_id.ToString("D", CultureInfo.InvariantCulture), XmlSchemaString, this.Options.AuthenticationType));
-            identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, authenticationResponse.account_username, XmlSchemaString, this.Options.AuthenticationType));
+            identity.AddClaim(new Claim(ClaimTypes.Name, authenticationResponse.AccountUsername, "http://www.w3.org/2001/XMLSchema#string", this.Options.AuthenticationType));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, authenticationResponse.AccountId.ToString("D", CultureInfo.InvariantCulture), "http://www.w3.org/2001/XMLSchema#string", this.Options.AuthenticationType));
+            identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, authenticationResponse.AccountUsername, "http://www.w3.org/2001/XMLSchema#string", this.Options.AuthenticationType));
 
             var context = new ImgurAuthenticatedContext(this.Context, this.Options);
-            context.AccessToken = authenticationResponse.access_token;
-            context.AccountId = authenticationResponse.account_id;
-            context.AccountUsername = authenticationResponse.account_username;
-            context.ExpiresIn = authenticationResponse.expires_in;
+            context.AccessToken = authenticationResponse.AccessToken;
+            context.AccountId = authenticationResponse.AccountId;
+            context.AccountUsername = authenticationResponse.AccountUsername;
+            context.ExpiresIn = authenticationResponse.ExpiresIn;
             context.Identity = identity;
             context.Properties = properties;
-            context.RefreshToken = authenticationResponse.refresh_token;
-            context.Scope = authenticationResponse.scope;
-            context.TokenType = authenticationResponse.token_type;
+            context.RefreshToken = authenticationResponse.RefreshToken;
+            context.Scope = authenticationResponse.Scope;
+            context.TokenType = authenticationResponse.TokenType;
 
             await this.Options.Provider.Authenticated(context);
 
@@ -221,19 +216,26 @@
 
         private class AuthenticationResponse
         {
-            public string access_token { get; set; }
+            [JsonProperty(PropertyName = "access_token")]
+            public string AccessToken { get; set; }
 
-            public int expires_in { get; set; }
+            [JsonProperty(PropertyName = "account_id")]
+            public int AccountId { get; set; }
 
-            public string token_type { get; set; }
+            [JsonProperty(PropertyName = "account_username")]
+            public string AccountUsername { get; set; }
 
-            public string scope { get; set; }
+            [JsonProperty(PropertyName = "expires_in")]
+            public int ExpiresIn { get; set; }
 
-            public string refresh_token { get; set; }
+            [JsonProperty(PropertyName = "refresh_token")]
+            public string RefreshToken { get; set; }
 
-            public int account_id { get; set; }
+            [JsonProperty(PropertyName = "scope")]
+            public string Scope { get; set; }
 
-            public string account_username { get; set; }
+            [JsonProperty(PropertyName = "token_type")]
+            public string TokenType { get; set; }
         }
     }
 }

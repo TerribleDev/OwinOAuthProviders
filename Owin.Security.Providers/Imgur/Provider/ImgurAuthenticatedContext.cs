@@ -8,7 +8,8 @@
 
     public class ImgurAuthenticatedContext : BaseContext<ImgurAuthenticationOptions>
     {
-        public ImgurAuthenticatedContext(IOwinContext context, ImgurAuthenticationOptions options) : base(context, options)
+        public ImgurAuthenticatedContext(IOwinContext context, ImgurAuthenticationOptions options)
+            : base(context, options)
         {
         }
 

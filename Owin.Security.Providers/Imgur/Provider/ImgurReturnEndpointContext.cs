@@ -6,7 +6,8 @@
 
     public class ImgurReturnEndpointContext : ReturnEndpointContext
     {
-        public ImgurReturnEndpointContext(IOwinContext context, AuthenticationTicket ticket) : base(context, ticket)
+        public ImgurReturnEndpointContext(IOwinContext context, AuthenticationTicket ticket)
+            : base(context, ticket)
         {
         }
     }

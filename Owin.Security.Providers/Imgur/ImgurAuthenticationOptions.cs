@@ -10,7 +10,8 @@
 
     public class ImgurAuthenticationOptions : AuthenticationOptions
     {
-        public ImgurAuthenticationOptions() : base(ImgurAuthenticationDefaults.AuthenticationType)
+        public ImgurAuthenticationOptions()
+            : base(ImgurAuthenticationDefaults.AuthenticationType)
         {
             this.AuthenticationMode = AuthenticationMode.Passive;
             this.BackchannelTimeout = TimeSpan.FromSeconds(60);
