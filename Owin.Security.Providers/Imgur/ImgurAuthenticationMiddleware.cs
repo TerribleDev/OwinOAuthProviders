@@ -5,7 +5,7 @@
 
     public class ImgurAuthenticationMiddleware : AuthenticationMiddleware<ImgurAuthenticationOptions>
     {
-        public ImgurAuthenticationMiddleware(OwinMiddleware next, ImgurAuthenticationOptions options) : base(next, options)
+        public ImgurAuthenticationMiddleware(OwinMiddleware next, IAppBuilder appBuilder, ImgurAuthenticationOptions options) : base(next, options)
         {
         }
 
