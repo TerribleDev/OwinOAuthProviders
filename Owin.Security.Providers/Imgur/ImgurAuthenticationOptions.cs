@@ -26,7 +26,18 @@
 
         public PathString CallbackPath { get; set; }
 
-        public string Caption { get; set; }
+        public string Caption
+        {
+            get
+            {
+                return this.Description.Caption;
+            }
+
+            set
+            {
+                this.Description.Caption = value;
+            }
+        }
 
         public string ClientId { get; set; }
 
