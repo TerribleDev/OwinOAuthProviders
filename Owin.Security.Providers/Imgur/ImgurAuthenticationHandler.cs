@@ -64,9 +64,24 @@
             var state = this.Options.StateDataFormat.Protect(challenge.Properties);
 
             var authorizationUri = ImgurAuthenticationDefaults.AuthorizationUri;
-            authorizationUri = WebUtilities.AddQueryString(authorizationUri, ImgurAuthenticationDefaults.ClientIdParameter, Uri.EscapeDataString(this.Options.ClientId));
-            authorizationUri = WebUtilities.AddQueryString(authorizationUri, ImgurAuthenticationDefaults.ResponseTypeParameter, ImgurAuthenticationDefaults.CodeResponseType);
-            authorizationUri = WebUtilities.AddQueryString(authorizationUri, ImgurAuthenticationDefaults.StateParameter, Uri.EscapeDataString(state));
+
+            authorizationUri =
+                WebUtilities.AddQueryString(
+                authorizationUri,
+                ImgurAuthenticationDefaults.ClientIdParameter,
+                Uri.EscapeDataString(this.Options.ClientId));
+
+            authorizationUri =
+                WebUtilities.AddQueryString(
+                authorizationUri,
+                ImgurAuthenticationDefaults.ResponseTypeParameter,
+                ImgurAuthenticationDefaults.CodeResponseType);
+
+            authorizationUri =
+                WebUtilities.AddQueryString(
+                authorizationUri,
+                ImgurAuthenticationDefaults.StateParameter,
+                Uri.EscapeDataString(state));
 
             this.Response.Redirect(authorizationUri);
 
@@ -102,10 +117,21 @@
                     new FormUrlEncodedContent(
                         new []
                         {
-                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.ClientIdParameter, this.Options.ClientId),
-                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.ClientSecretParameter, this.Options.ClientSecret),
-                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.GrantTypeParameter, ImgurAuthenticationDefaults.AuthorizationCodeGrantType),
-                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.CodeParameter, code)
+                            new KeyValuePair<string, string>(
+                                ImgurAuthenticationDefaults.ClientIdParameter,
+                                this.Options.ClientId),
+
+                            new KeyValuePair<string, string>(
+                                ImgurAuthenticationDefaults.ClientSecretParameter,
+                                this.Options.ClientSecret),
+
+                            new KeyValuePair<string, string>(
+                                ImgurAuthenticationDefaults.GrantTypeParameter,
+                                ImgurAuthenticationDefaults.AuthorizationCodeGrantType),
+
+                            new KeyValuePair<string, string>(
+                                ImgurAuthenticationDefaults.CodeParameter,
+                                code)
                         });
 
                 using (var httpResponseMessage = await this.httpClient.SendAsync(httpRequestMessage, this.Request.CallCancelled))
@@ -135,10 +161,32 @@
                 throw new Exception(ImgurAuthenticationDefaults.DeserializationFailureMessage);
             }
 
-            var identity = new ClaimsIdentity(this.Options.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, authenticationResponse.AccountUsername, ImgurAuthenticationDefaults.XmlSchemaString, this.Options.AuthenticationType));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, authenticationResponse.AccountId.ToString(ImgurAuthenticationDefaults.Int32Format, CultureInfo.InvariantCulture), ImgurAuthenticationDefaults.XmlSchemaString, this.Options.AuthenticationType));
-            identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, authenticationResponse.AccountUsername, ImgurAuthenticationDefaults.XmlSchemaString, this.Options.AuthenticationType));
+            var identity =
+                new ClaimsIdentity(
+                    this.Options.AuthenticationType,
+                    ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
+
+            identity.AddClaim(
+                new Claim(
+                    ClaimTypes.Name,
+                    authenticationResponse.AccountUsername,
+                    ImgurAuthenticationDefaults.XmlSchemaString,
+                    this.Options.AuthenticationType));
+
+            identity.AddClaim(
+                new Claim(
+                    ClaimTypes.NameIdentifier,
+                    authenticationResponse.AccountId.ToString(ImgurAuthenticationDefaults.Int32Format, CultureInfo.InvariantCulture),
+                    ImgurAuthenticationDefaults.XmlSchemaString,
+                    this.Options.AuthenticationType));
+
+            identity.AddClaim(
+                new Claim(
+                    ClaimsIdentity.DefaultNameClaimType,
+                    authenticationResponse.AccountUsername,
+                    ImgurAuthenticationDefaults.XmlSchemaString,
+                    this.Options.AuthenticationType));
 
             var context = new ImgurAuthenticatedContext(this.Context, this.Options);
             context.AccessToken = authenticationResponse.AccessToken;
@@ -187,7 +235,12 @@
 
                 if (!identity.AuthenticationType.Equals(context.SignInAsAuthenticationType, StringComparison.OrdinalIgnoreCase))
                 {
-                    identity = new ClaimsIdentity(identity.Claims, context.SignInAsAuthenticationType, identity.NameClaimType, identity.RoleClaimType);
+                    identity =
+                        new ClaimsIdentity(
+                            identity.Claims,
+                            context.SignInAsAuthenticationType,
+                            identity.NameClaimType,
+                            identity.RoleClaimType);
                 }
 
                 this.Context.Authentication.SignIn(context.Properties, identity);
@@ -202,7 +255,11 @@
 
             if (context.Identity == null)
             {
-                location = WebUtilities.AddQueryString(location, ImgurAuthenticationDefaults.ErrorParameter, ImgurAuthenticationDefaults.AccessDeniedErrorMessage);
+                location =
+                    WebUtilities.AddQueryString(
+                    location,
+                    ImgurAuthenticationDefaults.ErrorParameter,
+                    ImgurAuthenticationDefaults.AccessDeniedErrorMessage);
             }
 
             this.Response.Redirect(location);
