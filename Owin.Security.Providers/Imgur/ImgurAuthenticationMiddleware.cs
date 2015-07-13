@@ -39,48 +39,11 @@
                 throw new ArgumentNullException("options");
             }
 
-            if (string.IsNullOrWhiteSpace(this.Options.ClientId))
-            {
-                var message =
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Resources.Exception_OptionMustBeProvided,
-                        "ClientId");
-
-                throw new ArgumentException(message, "options");
-            }
-
-            if (string.IsNullOrWhiteSpace(this.Options.ClientSecret))
-            {
-                var message =
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        Resources.Exception_OptionMustBeProvided,
-                        "ClientSecret");
-
-                throw new ArgumentException(message, "options");
-            }
-
-            if (this.Options.Provider == null)
-            {
-                this.Options.Provider = new ImgurAuthenticationProvider();
-            }
-
-            if (string.IsNullOrWhiteSpace(this.Options.SignInAsAuthenticationType))
-            {
-                this.Options.SignInAsAuthenticationType = appBuilder.GetDefaultSignInAsAuthenticationType();
-            }
-
-            if (this.Options.StateDataFormat == null)
-            {
-                var dataProtector =
-                    appBuilder.CreateDataProtector(
-                        TypeFullName,
-                        this.Options.AuthenticationType,
-                        ImgurAuthenticationDefaults.Version);
-
-                this.Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
-            }
+            this.CheckClientId();
+            this.CheckClientSecret();
+            this.SetProvider();
+            this.SetSignInAsAuthenticationType(appBuilder);
+            this.SetStateDataFormat(appBuilder);
 
             var httpMessageHandler = ResolveHttpMessageHandler(this.Options);
 
@@ -93,6 +56,81 @@
         protected override AuthenticationHandler<ImgurAuthenticationOptions> CreateHandler()
         {
             return new ImgurAuthenticationHandler(this.httpClient, this.logger);
+        }
+
+        /// <summary></summary>
+        private void CheckClientSecret()
+        {
+            if (!string.IsNullOrWhiteSpace(this.Options.ClientSecret))
+            {
+                return;
+            }
+
+            var message =
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    Resources.Exception_OptionMustBeProvided,
+                    "ClientSecret");
+
+            throw new ArgumentException(message, "options");
+        }
+
+        /// <summary></summary>
+        private void CheckClientId()
+        {
+            if (!string.IsNullOrWhiteSpace(this.Options.ClientId))
+            {
+                return;
+            }
+
+            var message =
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    Resources.Exception_OptionMustBeProvided,
+                    "ClientId");
+
+            throw new ArgumentException(message, "options");
+        }
+
+        /// <summary></summary>
+        private void SetProvider()
+        {
+            if (this.Options.Provider != null)
+            {
+                return;
+            }
+
+            this.Options.Provider = new ImgurAuthenticationProvider();
+        }
+
+        /// <summary></summary>
+        /// <param name="appBuilder"></param>
+        private void SetSignInAsAuthenticationType(IAppBuilder appBuilder)
+        {
+            if (!string.IsNullOrWhiteSpace(this.Options.SignInAsAuthenticationType))
+            {
+                return;
+            }
+
+            this.Options.SignInAsAuthenticationType = appBuilder.GetDefaultSignInAsAuthenticationType();
+        }
+
+        /// <summary></summary>
+        /// <param name="appBuilder"></param>
+        private void SetStateDataFormat(IAppBuilder appBuilder)
+        {
+            if (this.Options.StateDataFormat != null)
+            {
+                return;
+            }
+
+            var dataProtector =
+                appBuilder.CreateDataProtector(
+                    TypeFullName,
+                    this.Options.AuthenticationType,
+                    ImgurAuthenticationDefaults.Version);
+
+            this.Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
         }
 
         /// <summary></summary>
