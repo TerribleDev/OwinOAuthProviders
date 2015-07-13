@@ -14,13 +14,13 @@ namespace Owin.Security.Providers.Imgur
         internal const string ClientSecretParameter = "client_secret";
         internal const string CodeParameter = "code";
         internal const string CodeResponseType = "code";
-        internal const string CommunicationFailureMessage = ""; // TODO
-        internal const string DeserializationFailureMessage = ""; // TODO
+        internal const string CommunicationFailureMessage = "An error occurred while talking with imgur's server.";
+        internal const string DeserializationFailureMessage = "The deserialization of the imgur's response failed. Perhaps imgur changed the response format?";
         internal const string ErrorParameter = "error";
         internal const string ExpiresInPropertyName = "expires_in";
         internal const string GrantTypeParameter = "grant_type";
         internal const string Int32Format = "D";
-        internal const string InvalidAuthenticationTicketMessage = ""; // TODO
+        internal const string InvalidAuthenticationTicketMessage = "Invalid authentication ticket.";
         internal const string RefreshInPropertyName = "refresh_token";
         internal const string ResponseTypeParameter = "response_type";
         internal const string ScopePropertyName = "scope";
