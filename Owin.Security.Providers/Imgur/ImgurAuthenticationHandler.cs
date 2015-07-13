@@ -17,11 +17,15 @@
 
     using Owin.Security.Providers.Imgur.Provider;
 
+    /// <summary></summary>
     public class ImgurAuthenticationHandler : AuthenticationHandler<ImgurAuthenticationOptions>
     {
         private readonly HttpClient httpClient;
         private readonly ILogger logger;
 
+        /// <summary></summary>
+        /// <param name="httpClient"></param>
+        /// <param name="logger"></param>
         public ImgurAuthenticationHandler(HttpClient httpClient, ILogger logger)
         {
             if (httpClient == null)
@@ -38,6 +42,8 @@
             this.logger = logger;
         }
 
+        /// <summary></summary>
+        /// <returns></returns>
         protected override Task ApplyResponseChallengeAsync()
         {
             if (this.Response.StatusCode != 401)
@@ -88,6 +94,8 @@
             return Task.FromResult<object>(null);
         }
 
+        /// <summary></summary>
+        /// <returns></returns>
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
             if (this.Request.Query.Get(ImgurAuthenticationDefaults.ErrorParameter) != null)
@@ -204,6 +212,8 @@
             return new AuthenticationTicket(context.Identity, context.Properties);
         }
 
+        /// <summary></summary>
+        /// <returns></returns>
         public override async Task<bool> InvokeAsync()
         {
             if (!this.Options.CallbackPath.HasValue)
@@ -269,26 +279,34 @@
             return context.IsRequestCompleted;
         }
 
+        /// <summary></summary>
         private class AuthenticationResponse
         {
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccessTokenPropertyName)]
             public string AccessToken { get; set; }
 
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccountIdPropertyName)]
             public int AccountId { get; set; }
 
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccountUsernamePropertyName)]
             public string AccountUsername { get; set; }
 
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.ExpiresInPropertyName)]
             public int ExpiresIn { get; set; }
 
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.RefreshInPropertyName)]
             public string RefreshToken { get; set; }
 
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.ScopePropertyName)]
             public string Scope { get; set; }
 
+            /// <summary></summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.TokenTypePropertyName)]
             public string TokenType { get; set; }
         }

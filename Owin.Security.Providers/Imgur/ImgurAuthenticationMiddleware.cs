@@ -14,6 +14,7 @@
     using Owin.Security.Providers.Imgur.Provider;
     using Owin.Security.Providers.Properties;
 
+    /// <summary></summary>
     public class ImgurAuthenticationMiddleware : AuthenticationMiddleware<ImgurAuthenticationOptions>
     {
         private readonly HttpClient httpClient;
@@ -21,6 +22,10 @@
 
         private readonly static string TypeFullName = typeof(ImgurAuthenticationMiddleware).FullName;
 
+        /// <summary></summary>
+        /// <param name="next"></param>
+        /// <param name="appBuilder"></param>
+        /// <param name="options"></param>
         public ImgurAuthenticationMiddleware(OwinMiddleware next, IAppBuilder appBuilder, ImgurAuthenticationOptions options)
             : base(next, options)
         {
@@ -83,11 +88,16 @@
             this.logger = appBuilder.CreateLogger<ImgurAuthenticationMiddleware>();
         }
 
+        /// <summary></summary>
+        /// <returns></returns>
         protected override AuthenticationHandler<ImgurAuthenticationOptions> CreateHandler()
         {
             return new ImgurAuthenticationHandler(this.httpClient, this.logger);
         }
 
+        /// <summary></summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
         private static HttpMessageHandler ResolveHttpMessageHandler(ImgurAuthenticationOptions options)
         {
             var httpMessageHandler = options.BackchannelHttpHandler ?? new WebRequestHandler();

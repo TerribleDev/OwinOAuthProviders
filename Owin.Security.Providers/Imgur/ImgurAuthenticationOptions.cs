@@ -8,8 +8,10 @@
 
     using Owin.Security.Providers.Imgur.Provider;
 
+    /// <summary></summary>
     public class ImgurAuthenticationOptions : AuthenticationOptions
     {
+        /// <summary></summary>
         public ImgurAuthenticationOptions()
             : base(ImgurAuthenticationDefaults.AuthenticationType)
         {
@@ -19,14 +21,19 @@
             this.Caption = ImgurAuthenticationDefaults.AuthenticationType;
         }
 
+        /// <summary></summary>
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
+        /// <summary></summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
+        /// <summary></summary>
         public TimeSpan BackchannelTimeout { get; set; }
 
+        /// <summary></summary>
         public PathString CallbackPath { get; set; }
 
+        /// <summary></summary>
         public string Caption
         {
             get
@@ -40,14 +47,19 @@
             }
         }
 
+        /// <summary></summary>
         public string ClientId { get; set; }
 
+        /// <summary></summary>
         public string ClientSecret { get; set; }
 
+        /// <summary></summary>
         public IImgurAuthenticationProvider Provider { get; set; }
 
+        /// <summary></summary>
         public string SignInAsAuthenticationType { get; set; }
 
+        /// <summary></summary>
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
     }
 }
