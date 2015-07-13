@@ -36,12 +36,16 @@
 
             if (string.IsNullOrWhiteSpace(this.Options.ClientId))
             {
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.Exception_OptionMustBeProvided, "ClientId"), "options");
+                var message = string.Format(CultureInfo.InvariantCulture, Resources.Exception_OptionMustBeProvided, "ClientId");
+
+                throw new ArgumentException(message, "options");
             }
 
             if (string.IsNullOrWhiteSpace(this.Options.ClientSecret))
             {
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.Exception_OptionMustBeProvided, "ClientSecret"), "options");
+                var message = string.Format(CultureInfo.InvariantCulture, Resources.Exception_OptionMustBeProvided, "ClientSecret");
+
+                throw new ArgumentException(message, "options");
             }
 
             if (this.Options.Provider == null)
@@ -56,7 +60,7 @@
 
             if (this.Options.StateDataFormat == null)
             {
-                var dataProtector = appBuilder.CreateDataProtector(TypeFullName, this.Options.AuthenticationType, "v1");
+                var dataProtector = appBuilder.CreateDataProtector(TypeFullName, this.Options.AuthenticationType, ImgurAuthenticationDefaults.Version);
 
                 this.Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }

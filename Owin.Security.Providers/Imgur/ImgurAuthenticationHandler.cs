@@ -63,10 +63,10 @@
 
             var state = this.Options.StateDataFormat.Protect(challenge.Properties);
 
-            var authorizationUri = "https://api.imgur.com/oauth2/authorize";
-            authorizationUri = WebUtilities.AddQueryString(authorizationUri, "client_id", Uri.EscapeDataString(this.Options.ClientId));
-            authorizationUri = WebUtilities.AddQueryString(authorizationUri, "response_type", "code");
-            authorizationUri = WebUtilities.AddQueryString(authorizationUri, "state", Uri.EscapeDataString(state));
+            var authorizationUri = ImgurAuthenticationDefaults.AuthorizationUri;
+            authorizationUri = WebUtilities.AddQueryString(authorizationUri, ImgurAuthenticationDefaults.ClientIdParameter, Uri.EscapeDataString(this.Options.ClientId));
+            authorizationUri = WebUtilities.AddQueryString(authorizationUri, ImgurAuthenticationDefaults.ResponseTypeParameter, ImgurAuthenticationDefaults.CodeResponseType);
+            authorizationUri = WebUtilities.AddQueryString(authorizationUri, ImgurAuthenticationDefaults.StateParameter, Uri.EscapeDataString(state));
 
             this.Response.Redirect(authorizationUri);
 
@@ -75,13 +75,13 @@
 
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
-            if (this.Request.Query.Get("error") != null)
+            if (this.Request.Query.Get(ImgurAuthenticationDefaults.ErrorParameter) != null)
             {
                 return new AuthenticationTicket(null, null);
             }
 
-            var code = this.Request.Query.Get("code");
-            var state = this.Request.Query.Get("state");
+            var code = this.Request.Query.Get(ImgurAuthenticationDefaults.CodeParameter);
+            var state = this.Request.Query.Get(ImgurAuthenticationDefaults.StateParameter);
             var properties = this.Options.StateDataFormat.Unprotect(state);
 
             if (properties == null)
@@ -96,23 +96,23 @@
 
             AuthenticationResponse authenticationResponse;
 
-            using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.imgur.com/oauth2/token"))
+            using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, ImgurAuthenticationDefaults.TokenUri))
             {
                 httpRequestMessage.Content =
                     new FormUrlEncodedContent(
                         new []
                         {
-                            new KeyValuePair<string, string>("client_id", this.Options.ClientId),
-                            new KeyValuePair<string, string>("client_secret", this.Options.ClientSecret),
-                            new KeyValuePair<string, string>("grant_type", "authorization_code"),
-                            new KeyValuePair<string, string>("code", code)
+                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.ClientIdParameter, this.Options.ClientId),
+                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.ClientSecretParameter, this.Options.ClientSecret),
+                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.GrantTypeParameter, ImgurAuthenticationDefaults.AuthorizationCodeGrantType),
+                            new KeyValuePair<string, string>(ImgurAuthenticationDefaults.CodeParameter, code)
                         });
 
                 using (var httpResponseMessage = await this.httpClient.SendAsync(httpRequestMessage, this.Request.CallCancelled))
                 {
                     if (!httpResponseMessage.IsSuccessStatusCode)
                     {
-                        throw new Exception(); // TODO
+                        throw new Exception(ImgurAuthenticationDefaults.CommunicationFailureMessage);
                     }
 
                     using (var stream = await httpResponseMessage.Content.ReadAsStreamAsync())
@@ -132,13 +132,13 @@
 
             if (authenticationResponse == null)
             {
-                throw new Exception(); // TODO
+                throw new Exception(ImgurAuthenticationDefaults.DeserializationFailureMessage);
             }
 
             var identity = new ClaimsIdentity(this.Options.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, authenticationResponse.AccountUsername, "http://www.w3.org/2001/XMLSchema#string", this.Options.AuthenticationType));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, authenticationResponse.AccountId.ToString("D", CultureInfo.InvariantCulture), "http://www.w3.org/2001/XMLSchema#string", this.Options.AuthenticationType));
-            identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, authenticationResponse.AccountUsername, "http://www.w3.org/2001/XMLSchema#string", this.Options.AuthenticationType));
+            identity.AddClaim(new Claim(ClaimTypes.Name, authenticationResponse.AccountUsername, ImgurAuthenticationDefaults.XmlSchemaString, this.Options.AuthenticationType));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, authenticationResponse.AccountId.ToString(ImgurAuthenticationDefaults.Int32Format, CultureInfo.InvariantCulture), ImgurAuthenticationDefaults.XmlSchemaString, this.Options.AuthenticationType));
+            identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, authenticationResponse.AccountUsername, ImgurAuthenticationDefaults.XmlSchemaString, this.Options.AuthenticationType));
 
             var context = new ImgurAuthenticatedContext(this.Context, this.Options);
             context.AccessToken = authenticationResponse.AccessToken;
@@ -172,9 +172,7 @@
 
             if (ticket == null)
             {
-                this.logger.WriteError("Invalid return state, unable to redirect.");
-
-                throw new Exception("Invalid return state, unable to redirect.");
+                throw new Exception(ImgurAuthenticationDefaults.InvalidAuthenticationTicketMessage);
             }
 
             var context = new ImgurReturnEndpointContext(this.Context, ticket);
@@ -204,7 +202,7 @@
 
             if (context.Identity == null)
             {
-                location = WebUtilities.AddQueryString(location, "error", "access_denied");
+                location = WebUtilities.AddQueryString(location, ImgurAuthenticationDefaults.ErrorParameter, ImgurAuthenticationDefaults.AccessDeniedErrorMessage);
             }
 
             this.Response.Redirect(location);
@@ -216,25 +214,25 @@
 
         private class AuthenticationResponse
         {
-            [JsonProperty(PropertyName = "access_token")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccessTokenPropertyName)]
             public string AccessToken { get; set; }
 
-            [JsonProperty(PropertyName = "account_id")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccountIdPropertyName)]
             public int AccountId { get; set; }
 
-            [JsonProperty(PropertyName = "account_username")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccountUsernamePropertyName)]
             public string AccountUsername { get; set; }
 
-            [JsonProperty(PropertyName = "expires_in")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.ExpiresInPropertyName)]
             public int ExpiresIn { get; set; }
 
-            [JsonProperty(PropertyName = "refresh_token")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.RefreshInPropertyName)]
             public string RefreshToken { get; set; }
 
-            [JsonProperty(PropertyName = "scope")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.ScopePropertyName)]
             public string Scope { get; set; }
 
-            [JsonProperty(PropertyName = "token_type")]
+            [JsonProperty(PropertyName = ImgurAuthenticationDefaults.TokenTypePropertyName)]
             public string TokenType { get; set; }
         }
     }

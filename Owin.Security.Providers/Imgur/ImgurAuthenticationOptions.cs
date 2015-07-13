@@ -15,7 +15,7 @@
         {
             this.AuthenticationMode = AuthenticationMode.Passive;
             this.BackchannelTimeout = TimeSpan.FromSeconds(60);
-            this.CallbackPath = new PathString("/signin-imgur");
+            this.CallbackPath = new PathString(ImgurAuthenticationDefaults.CallbackPath);
             this.Caption = ImgurAuthenticationDefaults.AuthenticationType;
         }
 
