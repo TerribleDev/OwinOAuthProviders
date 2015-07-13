@@ -44,6 +44,47 @@
 
         /// <summary></summary>
         /// <returns></returns>
+        public override async Task<bool> InvokeAsync()
+        {
+            if (!this.Options.CallbackPath.HasValue)
+            {
+                return false;
+            }
+
+            if (!this.Options.CallbackPath.Value.Equals(this.Request.Path.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            var ticket = await this.AuthenticateAsync();
+
+            if (ticket == null)
+            {
+                throw new Exception(ImgurAuthenticationDefaults.InvalidAuthenticationTicketMessage);
+            }
+
+            var context = this.GetImgurReturnEndpointContext(ticket);
+
+            await this.Options.Provider.ReturnEndpoint(context);
+
+            this.SignIn(context);
+
+            if (context.IsRequestCompleted || context.RedirectUri == null)
+            {
+                return context.IsRequestCompleted;
+            }
+
+            var location = GetRedirectLocation(context);
+
+            this.Response.Redirect(location);
+
+            context.RequestCompleted();
+
+            return context.IsRequestCompleted;
+        }
+
+        /// <summary></summary>
+        /// <returns></returns>
         protected override Task ApplyResponseChallengeAsync()
         {
             if (this.Response.StatusCode != 401)
@@ -96,7 +137,7 @@
                 return new AuthenticationTicket(null, properties);
             }
 
-            var authenticationResponse = await this.GetAuthenticationResponse(code);
+            var authenticationResponse = await this.GetAuthenticationResponseAsync(code);
 
             if (authenticationResponse == null)
             {
@@ -109,71 +150,6 @@
             await this.Options.Provider.Authenticated(context);
 
             return new AuthenticationTicket(context.Identity, context.Properties);
-        }
-
-        /// <summary></summary>
-        /// <returns></returns>
-        public override async Task<bool> InvokeAsync()
-        {
-            if (!this.Options.CallbackPath.HasValue)
-            {
-                return false;
-            }
-
-            if (!this.Options.CallbackPath.Value.Equals(this.Request.Path.Value, StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            var ticket = await this.AuthenticateAsync();
-
-            if (ticket == null)
-            {
-                throw new Exception(ImgurAuthenticationDefaults.InvalidAuthenticationTicketMessage);
-            }
-
-            var context = this.GetImgurReturnEndpointContext(ticket);
-
-            await this.Options.Provider.ReturnEndpoint(context);
-
-            this.SignIn(context);
-
-            if (context.IsRequestCompleted || context.RedirectUri == null)
-            {
-                return context.IsRequestCompleted;
-            }
-
-            var location = GetRedirectLocation(context);
-
-            this.Response.Redirect(location);
-
-            context.RequestCompleted();
-
-            return context.IsRequestCompleted;
-        }
-
-        /// <summary></summary>
-        /// <param name="context"></param>
-        private void SignIn(ImgurReturnEndpointContext context)
-        {
-            if (context.SignInAsAuthenticationType == null || context.Identity == null)
-            {
-                return;
-            }
-
-            var identity = context.Identity;
-
-            if (!identity.AuthenticationType.Equals(context.SignInAsAuthenticationType, StringComparison.OrdinalIgnoreCase))
-            {
-                identity =
-                    new ClaimsIdentity(
-                        identity.Claims,
-                        context.SignInAsAuthenticationType,
-                        identity.NameClaimType,
-                        identity.RoleClaimType);
-            }
-
-            this.Context.Authentication.SignIn(context.Properties, identity);
         }
 
         /// <summary></summary>
@@ -206,7 +182,7 @@
         /// <summary></summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        private async Task<AuthenticationResponse> GetAuthenticationResponse(string code)
+        private async Task<AuthenticationResponse> GetAuthenticationResponseAsync(string code)
         {
             using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, ImgurAuthenticationDefaults.TokenUri))
             {
@@ -329,6 +305,30 @@
             context.RedirectUri = ticket.Properties.RedirectUri;
 
             return context;
+        }
+
+        /// <summary></summary>
+        /// <param name="context"></param>
+        private void SignIn(ImgurReturnEndpointContext context)
+        {
+            if (context.SignInAsAuthenticationType == null || context.Identity == null)
+            {
+                return;
+            }
+
+            var identity = context.Identity;
+
+            if (!identity.AuthenticationType.Equals(context.SignInAsAuthenticationType, StringComparison.OrdinalIgnoreCase))
+            {
+                identity =
+                    new ClaimsIdentity(
+                        identity.Claims,
+                        context.SignInAsAuthenticationType,
+                        identity.NameClaimType,
+                        identity.RoleClaimType);
+            }
+
+            this.Context.Authentication.SignIn(context.Properties, identity);
         }
 
         /// <summary></summary>
