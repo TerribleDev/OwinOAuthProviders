@@ -20,7 +20,6 @@ namespace OwinOAuthProvidersDemo
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-            //http://localhost/OwinOAuthProvidersDemo/login/token
             app.UseStravaAuthentication(
                 clientId: OwinOAuthProviderConfig.Strava.ClientId,
                 clientSecret: OwinOAuthProviderConfig.Strava.ClientSecret
