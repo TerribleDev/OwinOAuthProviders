@@ -287,6 +287,15 @@
     <Compile Include="Steam\SteamAuthenticationHandler.cs" />
     <Compile Include="Steam\SteamAuthenticationMiddleware.cs" />
     <Compile Include="Steam\SteamAuthenticationOptions.cs" />
+    <Compile Include="Strava\Constants.cs" />
+    <Compile Include="Strava\Provider\IStravaAuthenticationProvider.cs" />
+    <Compile Include="Strava\Provider\StravaAuthenticatedContext.cs" />
+    <Compile Include="Strava\Provider\StravaAuthenticationProvider.cs" />
+    <Compile Include="Strava\Provider\StravaReturnEndpointContext.cs" />
+    <Compile Include="Strava\StravaAuthenticationExtensions.cs" />
+    <Compile Include="Strava\StravaAuthenticationHandler.cs" />
+    <Compile Include="Strava\StravaAuthenticationMiddleware.cs" />
+    <Compile Include="Strava\StravaAuthenticationOptions.cs" />
     <Compile Include="TripIt\Constants.cs" />
     <Compile Include="TripIt\Messages\AccessToken.cs" />
     <Compile Include="TripIt\Messages\RequestToken.cs" />
