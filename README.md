@@ -53,6 +53,23 @@ PM> Install-Package Owin.Security.Providers
 ## OwinOAuthProvidersDemo Project Setup - Git Ignore OwinOAuthProviderConfig
 The OwinOAuthProvidersDemo project demonstrates how to use the OwinOAuthProviders, specifically the new Strava provider. The demo project uses **OwinOAuthProviderConfig.cs** struct to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  The initial version of the file provides an example how to setup a client_id and client_secret for Strava and LinkedIn.  Once you tell git to not track local changes to this file, you can update the struct with your secret information without fear of committing to the public.  Follow the steps outlined below to ensire git will ignore local changes for *OwinOAuthProviderConfig.cs*
 
+```csharp
+ public struct OwinOAuthProviderConfig
+    {
+        public struct Strava
+        {
+            public const string ClientId = "<ADD-CUSTOM-CLIENT-ID>";
+            public const string ClientSecret = "<ADD-CUSTOM-CLIENT-SECRET>";
+        }
+
+        public struct LinkedIn
+        {
+            public const string ClientId = "<ADD-CUSTOM-CLIENT-ID>";
+            public const string ClientSecret = "<ADD-CUSTOM-CLIENT-SECRET>";
+        }
+    }
+```
+
 Git has the power to ignore local changes to tracked files, but it’s slightly clunkier than and completely inconsistent with the familiar .gitignore. You must use git update-index to tell git to ignore changes to the file:
 
 ```
