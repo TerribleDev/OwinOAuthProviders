@@ -51,7 +51,7 @@ PM> Install-Package Owin.Security.Providers
 ```
 
 ## OwinOAuthProvidersDemo Project Setup - Git Ignore OwinOAuthProviderConfig
-The OwinOAuthProvidersDemo project demonstrates how to use the OwinOAuthProviders, specifically the new Strava provider. The demo project uses **OwinOAuthProviderConfig.cs** struct to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  Obviously this is not totally secure, as you will be able to see this in an decompiler but will keep it from version control.  The initial version of the file provides an example how to setup a client_id and client_secret for Strava and LinkedIn.  
+The OwinOAuthProvidersDemo project demonstrates how to use the OwinOAuthProviders, specifically the new Strava provider. The demo project uses **OwinOAuthProviderConfig.cs** struct to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  Obviously this is not totally secure, as you will be able to see this in an decompiler but will keep it from version control.  The initial version of the file provides an example how to setup a client_id and client_secret for Strava and LinkedIn.  Simply add your own provider as a struct, update the Startup.cs to use it and your off an running. 
 
 Another option is to leverage Web.config transforms. Simply add your keys to Web.Debug.config or Web.Release.config and at build time VS will transform your custom settings into Web.config based on build configuration.  I chose not to use Web.config transforms becuase excluding your web.config from version control is not ideal.
 
