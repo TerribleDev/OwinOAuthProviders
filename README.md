@@ -40,6 +40,21 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Steam
   - Wargaming
 
+## Ignore OwinOAuthProviderConfig
+The **OwinOAuthProviderConfig.cs** class is leveraged to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  The initial version of the file provides an example how to setup a client_id and client_secret for Strava and LinkedIn.  One you tell git to not track local changes to this file, you can update the class with your secret information without fear of committing to the public.  Follow the steps outlined below to ensire git will ignore local changes for *OwinOAuthProviderConfig.cs*
+
+Git has the power to ignore local changes to tracked files, but it’s slightly clunkier than and completely inconsistent with the familiar .gitignore. You must use git update-index to tell git to ignore changes to the file:
+
+$ git update-index --assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs
+Now your git status will be clean, and you will have no unwanted results when you run things like git add . and git commit -a. And when you or somebody upstream modifies OwinOAuthProviderConfig.cs, git will not ask you to resolve the conflict.
+
+To un-mark the file as assume-unchanged:
+
+**$ git update-index --no-assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs**
+And if you want a list of tracked files that git is ignoring:
+
+**$ git ls-files -v | grep ^[a-z]**
+
 ## Implementation Guides
 For guides on how to implement these providers, please visit my blog, [Be a Big Rockstar](http://www.beabigrockstar.com).
 
