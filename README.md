@@ -74,8 +74,7 @@ $ git ls-files -v | grep ^[a-z]
 ### Using OwinOAuthProviderConfig Struct in Startup
 To tell OWIN to use Strava provider you need to configure the ASP.NET 5 Startup class ConfigureAuth method.  Tell the Applicaiton Builder to use the Strava Authentication with the **UseStravaApplicaiton** extension method passing in the clientId and clientSecret parameters.
 
-```
-csharp
+```csharp
 public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
