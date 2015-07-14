@@ -51,19 +51,53 @@ PM> Install-Package Owin.Security.Providers
 ```
 
 ## OwinOAuthProvidersDemo Project Setup - Git Ignore OwinOAuthProviderConfig
-The **OwinOAuthProviderConfig.cs** class is leveraged to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  The initial version of the file provides an example how to setup a client_id and client_secret for Strava and LinkedIn.  Once you tell git to not track local changes to this file, you can update the class with your secret information without fear of committing to the public.  Follow the steps outlined below to ensire git will ignore local changes for *OwinOAuthProviderConfig.cs*
+The OwinOAuthProvidersDemo project demonstrates how to use the OwinOAuthProviders, specifically the new Strava provider. The demo project uses **OwinOAuthProviderConfig.cs** struct to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  The initial version of the file provides an example how to setup a client_id and client_secret for Strava and LinkedIn.  Once you tell git to not track local changes to this file, you can update the struct with your secret information without fear of committing to the public.  Follow the steps outlined below to ensire git will ignore local changes for *OwinOAuthProviderConfig.cs*
 
 Git has the power to ignore local changes to tracked files, but it’s slightly clunkier than and completely inconsistent with the familiar .gitignore. You must use git update-index to tell git to ignore changes to the file:
 
-**$ git update-index --assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs**
+```
+$ git update-index --assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs
+```
 Now your git status will be clean, and you will have no unwanted results when you run things like git add . and git commit -a. And when you or somebody upstream modifies OwinOAuthProviderConfig.cs, git will not ask you to resolve the conflict.
 
 To un-mark the file as assume-unchanged:
 
-**$ git update-index --no-assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs**
+```
+$ git update-index --no-assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs
+```
 And if you want a list of tracked files that git is ignoring:
 
-**$ git ls-files -v | grep ^[a-z]**
+```
+$ git ls-files -v | grep ^[a-z]
+```
+
+### Using OwinOAuthProviderConfig Struct in Startup
+To tell OWIN to use Strava provider you need to configure the ASP.NET 5 Startup class ConfigureAuth method.  Tell the Applicaiton Builder to use the Strava Authentication with the **UseStravaApplicaiton** extension method passing in the clientId and clientSecret parameters.
+
+```
+csharp
+public partial class Startup
+    {
+        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+        public void ConfigureAuth(IAppBuilder app)
+        {
+            // Enable the application to use a cookie to store information for the signed in user
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login")
+            });
+            // Use a cookie to temporarily store information about a user logging in with a third party login provider
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            //http://localhost/OwinOAuthProvidersDemo/login/token
+            app.UseStravaAuthentication(
+                clientId: OwinOAuthProviderConfig.Strava.ClientId,
+                clientSecret: OwinOAuthProviderConfig.Strava.ClientSecret
+            );
+        }
+    }
+```
 
 ## Contributions
 
