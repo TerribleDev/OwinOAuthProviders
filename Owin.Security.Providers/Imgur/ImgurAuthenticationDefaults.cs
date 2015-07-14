@@ -1,87 +1,87 @@
 namespace Owin.Security.Providers.Imgur
 {
-    /// <summary></summary>
+    /// <summary>Configuration strings for the imgur provider.</summary>
     internal static class ImgurAuthenticationDefaults
     {
-        /// <summary></summary>
+        /// <summary>The error message for user authentication failure.</summary>
         internal const string AccessDeniedErrorMessage = "access_denied";
 
-        /// <summary></summary>
+        /// <summary>The name of the access token property in the imgur authentication response.</summary>
         internal const string AccessTokenPropertyName = "access_token";
 
-        /// <summary></summary>
+        /// <summary>The name of the account id property in the imgur authentication response.</summary>
         internal const string AccountIdPropertyName = "account_id";
 
-        /// <summary></summary>
+        /// <summary>The name of the account username property in the imgur authentication response.</summary>
         internal const string AccountUsernamePropertyName = "account_username";
 
-        /// <summary></summary>
+        /// <summary>The name of the provider.</summary>
         internal const string AuthenticationType = "Imgur";
 
-        /// <summary></summary>
+        /// <summary>The grant type to be used.</summary>
         internal const string AuthorizationCodeGrantType = "authorization_code";
 
-        /// <summary></summary>
-        internal const string AuthorizationUri = "https://api.imgur.com/oauth2/authorize";
+        /// <summary>The user authorization endpoint URL.</summary>
+        internal const string AuthorizationUrl = "https://api.imgur.com/oauth2/authorize";
 
-        /// <summary></summary>
+        /// <summary>The default callback path.</summary>
         internal const string CallbackPath = "/signin-imgur";
 
-        /// <summary></summary>
+        /// <summary>The name of the application client id parameter.</summary>
         internal const string ClientIdParameter = "client_id";
 
-        /// <summary></summary>
+        /// <summary>The name of the application client secret parameter.</summary>
         internal const string ClientSecretParameter = "client_secret";
 
-        /// <summary></summary>
+        /// <summary>The name of the response code parameter.</summary>
         internal const string CodeParameter = "code";
 
-        /// <summary></summary>
+        /// <summary>The code type of the authentication response.</summary>
         internal const string CodeResponseType = "code";
 
-        /// <summary></summary>
+        /// <summary>The message for the communication failure error.</summary>
         internal const string CommunicationFailureMessage = "An error occurred while talking with imgur's server.";
 
-        /// <summary></summary>
+        /// <summary>The message for the authentication response deserialization failure error.</summary>
         internal const string DeserializationFailureMessage = "The deserialization of the imgur's response failed. Perhaps imgur changed the response format?";
 
-        /// <summary></summary>
+        /// <summary>The name of the error parameter.</summary>
         internal const string ErrorParameter = "error";
 
-        /// <summary></summary>
+        /// <summary>The name of the access token duration property in the imgur authentication response.</summary>
         internal const string ExpiresInPropertyName = "expires_in";
 
-        /// <summary></summary>
+        /// <summary>The name of the grant type parameter.</summary>
         internal const string GrantTypeParameter = "grant_type";
 
-        /// <summary></summary>
+        /// <summary>The format to use to stringify <see cref="System.Int32"/>s.</summary>
         internal const string Int32Format = "D";
 
-        /// <summary></summary>
+        /// <summary>The message for the invalid authentication ticket error.</summary>
         internal const string InvalidAuthenticationTicketMessage = "Invalid authentication ticket.";
 
-        /// <summary></summary>
+        /// <summary>The name of the refresh token property in the imgur authentication response.</summary>
         internal const string RefreshInPropertyName = "refresh_token";
 
-        /// <summary></summary>
+        /// <summary>The name of the response type parameter.</summary>
         internal const string ResponseTypeParameter = "response_type";
 
-        /// <summary></summary>
+        /// <summary>The name of the scope property in the imgur authentication response.</summary>
         internal const string ScopePropertyName = "scope";
 
-        /// <summary></summary>
+        /// <summary>The name of the state parameter.</summary>
         internal const string StateParameter = "state";
 
-        /// <summary></summary>
+        /// <summary>The name of the token type property in the imgur authentication response.</summary>
         internal const string TokenTypePropertyName = "token_type";
 
-        /// <summary></summary>
-        internal const string TokenUri = "https://api.imgur.com/oauth2/token";
+        /// <summary>The token exchange endpoint URL.</summary>
+        internal const string TokenUrl = "https://api.imgur.com/oauth2/token";
 
-        /// <summary></summary>
+        /// <summary>The version of the provider.</summary>
         internal const string Version = "v1";
 
-        /// <summary></summary>
+        /// <summary>The string value type for <see cref="System.Security.Claims.Claim"/>s.</summary>
         internal const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
     }
 }

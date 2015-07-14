@@ -12,6 +12,7 @@
     using Microsoft.Owin.Logging;
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Infrastructure;
+    using Microsoft.Owin.Security.Provider;
 
     using Newtonsoft.Json;
 
@@ -23,9 +24,9 @@
         private readonly HttpClient httpClient;
         private readonly ILogger logger;
 
-        /// <summary></summary>
-        /// <param name="httpClient"></param>
-        /// <param name="logger"></param>
+        /// <summary>Creates a new <see cref="ImgurAuthenticationHandler"/>.</summary>
+        /// <param name="httpClient">The <see cref="HttpClient"/> to be used for back channel calls.</param>
+        /// <param name="logger">The <see cref="ILogger"/> to be used by the <see cref="ImgurAuthenticationHandler"/>.</param>
         public ImgurAuthenticationHandler(HttpClient httpClient, ILogger logger)
         {
             if (httpClient == null)
@@ -42,8 +43,8 @@
             this.logger = logger;
         }
 
-        /// <summary></summary>
-        /// <returns></returns>
+        /// <summary>Is called once by common code after initialization.</summary>
+        /// <returns>Return true if the request is handled by this <see cref="AuthenticationMiddleware{TOptions}"/>, returns false if the request should be passed to the next <see cref="AuthenticationMiddleware{TOptions}"/>.</returns>
         public override async Task<bool> InvokeAsync()
         {
             if (!this.Options.CallbackPath.HasValue)
@@ -83,8 +84,8 @@
             return context.IsRequestCompleted;
         }
 
-        /// <summary></summary>
-        /// <returns></returns>
+        /// <summary>Handles authentication challenges by intercepting 401 responses.</summary>
+        /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
         protected override Task ApplyResponseChallengeAsync()
         {
             if (this.Response.StatusCode != 401)
@@ -114,8 +115,9 @@
             return Task.FromResult<object>(null);
         }
 
-        /// <summary></summary>
-        /// <returns></returns>
+        /// <summary>The core authentication logic which must be provided by the <see cref="AuthenticationHandler{TOptions}"/>.</summary>
+        /// <returns>The ticket data provided by the authentication logic.</returns>
+        /// <remarks>Will be invoked at most once per request. Do not call directly, call the wrapping Authenticate method instead.</remarks>
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
             if (this.Request.Query.Get(ImgurAuthenticationDefaults.ErrorParameter) != null)
@@ -152,9 +154,9 @@
             return new AuthenticationTicket(context.Identity, context.Properties);
         }
 
-        /// <summary></summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
+        /// <summary>Gets the payload for the back channel authentication request.</summary>
+        /// <param name="code">The authorization code supplied by imgur.</param>
+        /// <returns>The <see cref="HttpContent"/> with the payload for the back channel authentication request.</returns>
         private HttpContent GetAuthenticationRequestContent(string code)
         {
             return
@@ -179,12 +181,12 @@
                     });
         }
 
-        /// <summary></summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
+        /// <summary>Gets the <see cref="AuthenticationResponse"/> from imgur.</summary>
+        /// <param name="code">The authorization code supplied by imgur.</param>
+        /// <returns>The <see cref="AuthenticationResponse"/> from imgur.</returns>
         private async Task<AuthenticationResponse> GetAuthenticationResponseAsync(string code)
         {
-            using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, ImgurAuthenticationDefaults.TokenUri))
+            using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, ImgurAuthenticationDefaults.TokenUrl))
             {
                 httpRequestMessage.Content = this.GetAuthenticationRequestContent(code);
 
@@ -211,12 +213,12 @@
             }
         }
 
-        /// <summary></summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
+        /// <summary>Gets the authorization URL for the back channel call.</summary>
+        /// <param name="state">The encrypted <see cref="AuthenticationProperties"/> for the current authentication session.</param>
+        /// <returns>The authorization URL for the back channel call.</returns>
         private string GetAuthorizationUri(string state)
         {
-            var authorizationUri = ImgurAuthenticationDefaults.AuthorizationUri;
+            var authorizationUri = ImgurAuthenticationDefaults.AuthorizationUrl;
 
             authorizationUri =
                 WebUtilities.AddQueryString(
@@ -239,9 +241,9 @@
             return authorizationUri;
         }
 
-        /// <summary></summary>
-        /// <param name="authenticationResponse"></param>
-        /// <returns></returns>
+        /// <summary>Gets the <see cref="ClaimsIdentity"/> for the identity of the user.</summary>
+        /// <param name="authenticationResponse">The <see cref="AuthenticationResponse"/> returned by imgur.</param>
+        /// <returns>The <see cref="ClaimsIdentity"/> for the identity of the user.</returns>
         private ClaimsIdentity GetIdentity(AuthenticationResponse authenticationResponse)
         {
             var identity =
@@ -274,11 +276,11 @@
             return identity;
         }
 
-        /// <summary></summary>
-        /// <param name="authenticationResponse"></param>
-        /// <param name="identity"></param>
-        /// <param name="properties"></param>
-        /// <returns></returns>
+        /// <summary>Gets the <see cref="ImgurAuthenticatedContext"/> for the current authentication session.</summary>
+        /// <param name="authenticationResponse">The <see cref="AuthenticationResponse"/> returned by imgur.</param>
+        /// <param name="identity">The <see cref="ClaimsIdentity"/> for the identity of the user.</param>
+        /// <param name="properties">The <see cref="AuthenticationProperties"/> for the current authentication session.</param>
+        /// <returns>The <see cref="ImgurAuthenticatedContext"/> for the current authentication session.</returns>
         private ImgurAuthenticatedContext GetImgurAuthenticatedContext(AuthenticationResponse authenticationResponse, ClaimsIdentity identity, AuthenticationProperties properties)
         {
             var context = new ImgurAuthenticatedContext(this.Context, this.Options);
@@ -295,9 +297,9 @@
             return context;
         }
 
-        /// <summary></summary>
-        /// <param name="ticket"></param>
-        /// <returns></returns>
+        /// <summary>Gets the <see cref="ImgurReturnEndpointContext"/> for the current authentication session.</summary>
+        /// <param name="ticket">The <see cref="AuthenticationTicket"/> for the current authentication session.</param>
+        /// <returns>The <see cref="ImgurReturnEndpointContext"/> for the current authentication session.</returns>
         private ImgurReturnEndpointContext GetImgurReturnEndpointContext(AuthenticationTicket ticket)
         {
             var context = new ImgurReturnEndpointContext(this.Context, ticket);
@@ -307,9 +309,9 @@
             return context;
         }
 
-        /// <summary></summary>
-        /// <param name="context"></param>
-        private void SignIn(ImgurReturnEndpointContext context)
+        /// <summary>Adds authentication information to the OWIN context to let the appropriate <see cref="AuthenticationMiddleware{TOptions}"/> authenticate the user.</summary>
+        /// <param name="context">The <see cref="ReturnEndpointContext"/> for the current authentication session.</param>
+        private void SignIn(ReturnEndpointContext context)
         {
             if (context.SignInAsAuthenticationType == null || context.Identity == null)
             {
@@ -331,10 +333,10 @@
             this.Context.Authentication.SignIn(context.Properties, identity);
         }
 
-        /// <summary></summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        private static string GetRedirectLocation(ImgurReturnEndpointContext context)
+        /// <summary>Gets the URL where the user should be redirect to.</summary>
+        /// <param name="context">The <see cref="ReturnEndpointContext"/> for the current authentication session.</param>
+        /// <returns>The URL where the user should be redirect to.</returns>
+        private static string GetRedirectLocation(ReturnEndpointContext context)
         {
             var location = context.RedirectUri;
 
@@ -346,37 +348,38 @@
                         ImgurAuthenticationDefaults.ErrorParameter,
                         ImgurAuthenticationDefaults.AccessDeniedErrorMessage);
             }
+
             return location;
         }
 
-        /// <summary></summary>
+        /// <summary>Response payload returned by imgur with the information of the authenticated user.</summary>
         private class AuthenticationResponse
         {
-            /// <summary></summary>
+            /// <summary>Gets or sets the access token for the authenticated user.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccessTokenPropertyName)]
             public string AccessToken { get; set; }
 
-            /// <summary></summary>
+            /// <summary>Gets or sets the account id of the authenticated user.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccountIdPropertyName)]
             public int AccountId { get; set; }
 
-            /// <summary></summary>
+            /// <summary>Gets or sets the account username of the authenticated user.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.AccountUsernamePropertyName)]
             public string AccountUsername { get; set; }
 
-            /// <summary></summary>
+            /// <summary>Gets or sets the duration of the access token.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.ExpiresInPropertyName)]
             public int ExpiresIn { get; set; }
 
-            /// <summary></summary>
+            /// <summary>Gets or sets the refresh token for the authenticated user.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.RefreshInPropertyName)]
             public string RefreshToken { get; set; }
 
-            /// <summary></summary>
+            /// <summary>Gets or sets the scope of the access token.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.ScopePropertyName)]
             public string Scope { get; set; }
 
-            /// <summary></summary>
+            /// <summary>Gets or sets the type of the access token.</summary>
             [JsonProperty(PropertyName = ImgurAuthenticationDefaults.TokenTypePropertyName)]
             public string TokenType { get; set; }
         }

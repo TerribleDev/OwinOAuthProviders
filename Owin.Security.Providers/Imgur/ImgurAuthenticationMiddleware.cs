@@ -14,7 +14,7 @@
     using Owin.Security.Providers.Imgur.Provider;
     using Owin.Security.Providers.Properties;
 
-    /// <summary></summary>
+    /// <summary>OWIN authentication middleware for imgur.</summary>
     public class ImgurAuthenticationMiddleware : AuthenticationMiddleware<ImgurAuthenticationOptions>
     {
         private readonly HttpClient httpClient;
@@ -22,10 +22,10 @@
 
         private readonly static string TypeFullName = typeof(ImgurAuthenticationMiddleware).FullName;
 
-        /// <summary></summary>
-        /// <param name="next"></param>
-        /// <param name="appBuilder"></param>
-        /// <param name="options"></param>
+        /// <summary>Creates a new <see cref="ImgurAuthenticationMiddleware"/>.</summary>
+        /// <param name="next">The next <see cref="OwinMiddleware"/> in the configuration chain.</param>
+        /// <param name="appBuilder">The OWIN <see cref="IAppBuilder"/> being configured.</param>
+        /// <param name="options">The <see cref="ImgurAuthenticationOptions"/> to be used to set up the <see cref="ImgurAuthenticationMiddleware"/>.</param>
         public ImgurAuthenticationMiddleware(OwinMiddleware next, IAppBuilder appBuilder, ImgurAuthenticationOptions options)
             : base(next, options)
         {
@@ -51,31 +51,14 @@
             this.logger = appBuilder.CreateLogger<ImgurAuthenticationMiddleware>();
         }
 
-        /// <summary></summary>
-        /// <returns></returns>
+        /// <summary>Creates the <see cref="AuthenticationHandler{TOptions}"/> to be used by the <see cref="ImgurAuthenticationMiddleware"/>.</summary>
+        /// <returns>The <see cref="AuthenticationHandler{TOptions}"/> to be used by the <see cref="ImgurAuthenticationMiddleware"/>.</returns>
         protected override AuthenticationHandler<ImgurAuthenticationOptions> CreateHandler()
         {
             return new ImgurAuthenticationHandler(this.httpClient, this.logger);
         }
 
-        /// <summary></summary>
-        private void CheckClientSecret()
-        {
-            if (!string.IsNullOrWhiteSpace(this.Options.ClientSecret))
-            {
-                return;
-            }
-
-            var message =
-                string.Format(
-                    CultureInfo.InvariantCulture,
-                    Resources.Exception_OptionMustBeProvided,
-                    "ClientSecret");
-
-            throw new ArgumentException(message, "options");
-        }
-
-        /// <summary></summary>
+        /// <summary>Checks that the imgur application client id has been set.</summary>
         private void CheckClientId()
         {
             if (!string.IsNullOrWhiteSpace(this.Options.ClientId))
@@ -92,7 +75,24 @@
             throw new ArgumentException(message, "options");
         }
 
-        /// <summary></summary>
+        /// <summary>Checks that the imgur application client secret has been set.</summary>
+        private void CheckClientSecret()
+        {
+            if (!string.IsNullOrWhiteSpace(this.Options.ClientSecret))
+            {
+                return;
+            }
+
+            var message =
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    Resources.Exception_OptionMustBeProvided,
+                    "ClientSecret");
+
+            throw new ArgumentException(message, "options");
+        }
+
+        /// <summary>Sets the provider to <see cref="ImgurAuthenticationProvider"/> if it hasn't been set.</summary>
         private void SetProvider()
         {
             if (this.Options.Provider != null)
@@ -103,8 +103,8 @@
             this.Options.Provider = new ImgurAuthenticationProvider();
         }
 
-        /// <summary></summary>
-        /// <param name="appBuilder"></param>
+        /// <summary>Sets the name authentication middleware responsible for signing in the user if it hasn't been set.</summary>
+        /// <param name="appBuilder">The OWIN <see cref="IAppBuilder"/> being configured.</param>
         private void SetSignInAsAuthenticationType(IAppBuilder appBuilder)
         {
             if (!string.IsNullOrWhiteSpace(this.Options.SignInAsAuthenticationType))
@@ -115,8 +115,8 @@
             this.Options.SignInAsAuthenticationType = appBuilder.GetDefaultSignInAsAuthenticationType();
         }
 
-        /// <summary></summary>
-        /// <param name="appBuilder"></param>
+        /// <summary>Sets the data protector to <see cref="PropertiesDataFormat"/> if it hasn't been set.</summary>
+        /// <param name="appBuilder">The OWIN <see cref="IAppBuilder"/> being configured.</param>
         private void SetStateDataFormat(IAppBuilder appBuilder)
         {
             if (this.Options.StateDataFormat != null)
@@ -133,9 +133,9 @@
             this.Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
         }
 
-        /// <summary></summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
+        /// <summary>Gets the <see cref="HttpMessageHandler"/> to be used for the back channel calls.</summary>
+        /// <param name="options">The <see cref="ImgurAuthenticationOptions"/> used to configure the <see cref="ImgurAuthenticationMiddleware"/>.</param>
+        /// <returns>The <see cref="HttpMessageHandler"/> to be used for the back channel calls.</returns>
         private static HttpMessageHandler ResolveHttpMessageHandler(ImgurAuthenticationOptions options)
         {
             var httpMessageHandler = options.BackchannelHttpHandler ?? new WebRequestHandler();
