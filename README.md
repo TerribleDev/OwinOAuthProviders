@@ -27,7 +27,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - SoundCloud
   - Spotify
   - StackExchange
-  - Strava
+  - [Strava](http://strava.github.io/api/)
   - TripIt
   - Twitch.tv
   - Untappd
