@@ -55,16 +55,16 @@ namespace OwinOAuthProvidersDemo
             //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.MicrosoftAccount.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.MicrosoftAccount.ClientSecret);
 
             //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            //   consumerKey: OwinOAuthProviderConfig.Twitter.CusumerKey,
+            //   consumerSecret: OwinOAuthProviderConfig.Twitter.ConsumerSecret);
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: OwinOAuthProviderConfig.Facebook.AppId,
+            //   appSecret: OwinOAuthProviderConfig.Facebook.AppSecret);
 
             //app.UseGoogleAuthentication();
 
@@ -81,16 +81,16 @@ namespace OwinOAuthProvidersDemo
             //app.UseRedditAuthentication("", "");
 
             //app.UseStackExchangeAuthentication(
-            //    clientId: "",
-            //    clientSecret: "",
-            //    key: "");
+            //    clientId: OwinOAuthProviderConfig.StackExchange.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.StackExchange.ClientSecret,
+            //    key: OwinOAuthProviderConfig.StackExchange.Key);
 
             //app.UseInstagramInAuthentication("", "");
 
             //var options = new GooglePlusAuthenticationOptions
             //{
-            //    ClientId = "",
-            //    ClientSecret = "",
+            //    ClientId = OwinOAuthProviderConfig.GooglePlus.ClientId,
+            //    ClientSecret = OwinOAuthProviderConfig.GooglePlus.ClientSecret,
             //    RequestOfflineAccess = true,
             //    Provider = new GooglePlusAuthenticationProvider
             //    {
@@ -114,17 +114,17 @@ namespace OwinOAuthProvidersDemo
             ////More complex Twitch Sign-in
             //var opt = new TwitchAuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = "",
+            //    ClientId = OwinOAuthProviderConfig.Twitch.ClientId,
+            //    ClientSecret = OwinOAuthProviderConfig.Twitch.ClientSecret,
             //    Provider = new TwitchAuthenticationProvider()
             //    {
 
             //        OnAuthenticated = async z =>
             //        {
-            ////            Getting the twitch users picture
+            //            //            Getting the twitch users picture
             //            z.Identity.AddClaim(new Claim("Picture", z.User.GetValue("logo").ToString()));
             //        }
-            ////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
+            //        //    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
             //        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
             //        /*
 
@@ -156,8 +156,8 @@ namespace OwinOAuthProvidersDemo
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
 
             //app.UseSalesforceAuthentication(
-            //    clientId: "", 
-            //    clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.Salesforce.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.Salesforce.ClientSecret);
 
             //in scenarios where a sandbox URL needs to be used
             //var salesforceOptions = new SalesforceAuthenticationOptions
@@ -169,8 +169,8 @@ namespace OwinOAuthProvidersDemo
             //                "https://ap1.salesforce.com/services/oauth2/authorize",
             //            TokenEndpoint = "https://ap1.salesforce.com/services/oauth2/token"
             //        },
-            //    ClientId = "",
-            //    ClientSecret = "",
+            //    ClientId = OwinOAuthProviderConfig.Salesforce.ClientId,
+            //    ClientSecret = OwinOAuthProviderConfig.Salesforce.ClientSecret,
             //    Provider = new SalesforceAuthenticationProvider()
             //    {
             //        OnAuthenticated = async context =>
@@ -184,30 +184,30 @@ namespace OwinOAuthProvidersDemo
             //app.UseSalesforceAuthentication(salesforceOptions);
 
             //app.UseArcGISOnlineAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.ArcGISOnline.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.ArcGISOnline.ClientSecret);
 
             //app.UseWordPressAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.WordPress.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.WordPress.ClientSecret);
 
             //app.UseDropboxAuthentication(
-            //    appKey: "",
-            //    appSecret: "");
+            //    appKey: OwinOAuthProviderConfig.Dropbox.ClientId,
+            //    appSecret: OwinOAuthProviderConfig.Dropbox.ClientSecret);
 
             //app.UseHealthGraphAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.HealthGraph.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.HealthGraph.ClientSecret);
 
 
             //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
             //{
-            //	ClientId = "",
-            //	ClientSecret = ""
+            //    ClientId = OwinOAuthProviderConfig.BattleNet.ClientId,
+            //    ClientSecret = OwinOAuthProviderConfig.BattleNet.ClientSecret
             //});
             //app.UseBattleNetAuthentication(
-            //	clientId: "",
-            //	clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.BattleNet.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.BattleNet.ClientSecret);
 
             //app.UseAsanaAuthentication("", "");
 
@@ -216,37 +216,37 @@ namespace OwinOAuthProvidersDemo
             //app.UseSoundCloudAuthentication("", "");
 
             //app.UseFoursquareAuthentication(
-            //	clientId: "",
-            //	clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.Foursquare.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.Foursquare.ClientSecret);
 
             //app.UsePayPalAuthentication(
-            //	clientId: "",
-            //	clientSecret: "",
-            //	isSandbox: false);
+            //    clientId: OwinOAuthProviderConfig.PayPal.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.PayPal.ClientSecret,
+            //    isSandbox: false);
 
             //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
             //app.UseFlickrAuthentication("", "");
-			//app.UseVisualStudioAuthentication(
-			//	appId: "",
-			//	appSecret: "");
+            //app.UseVisualStudioAuthentication(
+            //    appId: OwinOAuthProviderConfig.VisualStudio.AppId,
+            //    appSecret: OwinOAuthProviderConfig.VisualStudio.AppSecret);
 
             //app.UseSpotifyAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: OwinOAuthProviderConfig.Spotify.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.Spotify.ClientSecret);
 
             //var options = new SlackAuthenticationOptions
             //{
-            //    ClientId = "",
-            //    ClientSecret = "",
+            //    ClientId = OwinOAuthProviderConfig.Slack.ClientId,
+            //    ClientSecret = OwinOAuthProviderConfig.Slack.ClientSecret,
             //    TeamId = "" // optional
             //};
             //options.Scope.Add("identify");
             //app.UseSlackAuthentication(options);
 
             //app.UseGitterAuthentication(
-            //    clientId: "",
-            //    clientSecret: ""
+            //    clientId: OwinOAuthProviderConfig.Gitter.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.Gitter.ClientSecret
             //);
         }
     }
