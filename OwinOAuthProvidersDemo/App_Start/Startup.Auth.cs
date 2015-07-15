@@ -29,6 +29,7 @@ using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Spotify;
 using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.Steam;
+using Owin.Security.Providers.Strava;
 using Owin.Security.Providers.TripIt;
 using Owin.Security.Providers.Twitch;
 using Owin.Security.Providers.Untappd;
@@ -51,7 +52,12 @@ namespace OwinOAuthProvidersDemo
             });
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-           //app.UseDeviantArtAuthentication("id", "secret");
+
+            //app.UseStravaAuthentication(
+            //    clientId: OwinOAuthProviderConfig.Strava.ClientId,
+            //    clientSecret: OwinOAuthProviderConfig.Strava.ClientSecret);
+
+            //app.UseDeviantArtAuthentication("id", "secret");
             //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

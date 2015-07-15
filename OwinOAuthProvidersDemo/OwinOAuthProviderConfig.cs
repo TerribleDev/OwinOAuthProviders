@@ -108,10 +108,18 @@
             public const string ClientSecret = "<ADD-CUSTOM-CLIENT-SECRET>";
         }
 
+        public struct Strava
+        {
+            public const string ClientId = "<ADD-CUSTOM-CLIENT-ID>";
+            public const string ClientSecret = "<ADD-CUSTOM-CLIENT-SECRET>";
+            public const string RedirectUrl = "<ADD-CUSTOM-REDIRECT-URL>";
+        }
+
         public struct Gitter
         {
             public const string ClientId = "<ADD-CUSTOM-CLIENT-ID>";
             public const string ClientSecret = "<ADD-CUSTOM-CLIENT-SECRET>";
         }
+
     }
 }
