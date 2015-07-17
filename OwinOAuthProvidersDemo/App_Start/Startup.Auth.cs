@@ -18,6 +18,7 @@ using Owin.Security.Providers.Gitter;
 using Owin.Security.Providers.GooglePlus;
 using Owin.Security.Providers.GooglePlus.Provider;
 using Owin.Security.Providers.HealthGraph;
+using Owin.Security.Providers.Imgur;
 using Owin.Security.Providers.Instagram;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.OpenID;
@@ -248,6 +249,13 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: ""
             //);
+
+            //app.UseImgurAuthentication(
+            //    new ImgurAuthenticationOptions
+            //    {
+            //        ClientId = "",
+            //        ClientSecret = ""
+            //    });
         }
     }
 }
