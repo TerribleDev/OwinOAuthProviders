@@ -85,6 +85,12 @@ namespace Owin.Security.Providers.Reddit
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         /// <summary>
+        ///     Gets or sets the User-Agent string sent with token requests to Reddit.
+        ///     Prefered Format is : "&lt;AppName&gt; ( by /u/&lt;username&gt; )"
+        /// </summary>
+        public string UserAgent { get; set; }
+
+        /// <summary>
         ///     Initializes a new <see cref="RedditAuthenticationOptions" />
         /// </summary>
         public RedditAuthenticationOptions()
@@ -93,6 +99,7 @@ namespace Owin.Security.Providers.Reddit
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-reddit");
             AuthenticationMode = AuthenticationMode.Passive;
+            UserAgent = "OWIN OAuth Provider";
             Scope = new List<string>
             {
                 "identity",
