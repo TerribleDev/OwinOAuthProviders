@@ -75,12 +75,13 @@ namespace Owin.Security.Providers.Reddit
                 body.Add(new KeyValuePair<string, string>("state", state));
                 body.Add(new KeyValuePair<string, string>("scope", string.Join(",", Options.Scope)));
                 var request = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint);
+                request.Headers.Add("User-Agent", Options.UserAgent);
                 request.Content = new FormUrlEncodedContent(body);
 
                 // Request the token
 
                 HttpResponseMessage tokenResponse =
-                    await httpClient.PostAsync(TokenEndpoint, new FormUrlEncodedContent(body));
+                    await httpClient.SendAsync(request);
                 tokenResponse.EnsureSuccessStatusCode();
                 string text = await tokenResponse.Content.ReadAsStringAsync();
 
@@ -92,7 +93,7 @@ namespace Owin.Security.Providers.Reddit
 
                 // Get the Reddit user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
-                userRequest.Headers.Add("User-Agent", "OWIN OAuth Provider");
+                userRequest.Headers.Add("User-Agent", Options.UserAgent);
                 userRequest.Headers.Add("Authorization", "bearer " + Uri.EscapeDataString(accessToken) + "");
                 HttpResponseMessage graphResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
                 graphResponse.EnsureSuccessStatusCode();
