@@ -49,6 +49,75 @@ To use these providers you will need to install the ```Owin.Security.Providers``
 PM> Install-Package Owin.Security.Providers
 ```
 
+## OwinOAuthProvidersDemo Project Setup - Git Ignore OwinOAuthProviderConfig
+The OwinOAuthProvidersDemo project demonstrates how to use the OwinOAuthProviders. The demo project uses **OwinOAuthProviderConfig.cs** struct to keep your client_id and client_secret keys out of version control system to prevent leaking authentication information.  Obviously this is not totally secure, as you will be able to see this in an decompiler but will keep it from version control.  The initial version of the file provides an example how to setup a client_id and client_secret for Microsoft Account and Twitter.  Simply add your own provider as a struct, update the Startup.cs to use it and your off an running. 
+
+Another option is to leverage Web.config transforms. Simply add your keys to Web.Debug.config or Web.Release.config and at build time VS will transform your custom settings into Web.config based on build configuration.  I chose not to use Web.config transforms becuase excluding your web.config from version control is not ideal.
+
+Once you tell git to not track local changes to this file, you can update the struct with your secret information without fear of committing to the public.  Follow the steps outlined below to ensire git will ignore local changes for *OwinOAuthProviderConfig.cs*
+
+```csharp
+public struct OwinOAuthProviderConfig
+{
+    public struct MicrosoftAccount
+    {
+        public const string ClientId = "<ADD-CUSTOM-CLIENT-ID>";
+        public const string ClientSecret = "<ADD-CUSTOM-CLIENT-SECRET>";
+        public const string RedirectUrl = "<ADD-CUSTOM-REDIRECT-URL>";
+    }
+
+    public struct Twitter
+    {
+        public const string CusumerKey = "<ADD-CUSTOM-CONSUMER-ID>";
+        public const string ConsumerSecret = "<ADD-CUSTOM-CONSUMER-SECRET>";
+        public const string RedirectUrl = "<ADD-CUSTOM-REDIRECT-URL>";
+    }
+}
+```
+
+Git has the power to ignore local changes to tracked files, but it’s slightly clunkier than and completely inconsistent with the familiar .gitignore. You must use git update-index to tell git to ignore changes to the file:
+
+```
+$ git update-index --assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs
+```
+Now your git status will be clean, and you will have no unwanted results when you run things like git add . and git commit -a. And when you or somebody upstream modifies OwinOAuthProviderConfig.cs, git will not ask you to resolve the conflict.
+
+To un-mark the file as assume-unchanged:
+
+```
+$ git update-index --no-assume-unchanged OwinOAuthProvidersDemo/OwinOAuthProviderConfig.cs
+```
+And if you want a list of tracked files that git is ignoring:
+
+```
+$ git ls-files -v | grep ^[a-z]
+```
+
+### Using OwinOAuthProviderConfig Struct in Startup
+To tell OWIN to use MicrosoftAccount provider you need to configure the ASP.NET 5 Startup.Auth class ConfigureAuth method.  Tell the Applicaiton Builder to use the MicrosoftAccount Authentication with the **UseMicrosoftAccountAuthentication** extension method passing in the clientId and clientSecret parameters.
+
+```csharp
+public partial class Startup
+{
+    // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+    public void ConfigureAuth(IAppBuilder app)
+    {
+        // Enable the application to use a cookie to store information for the signed in user
+        app.UseCookieAuthentication(new CookieAuthenticationOptions
+        {
+            AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+            LoginPath = new PathString("/Account/Login")
+        });
+        // Use a cookie to temporarily store information about a user logging in with a third party login provider
+        app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+        app.UseMicrosoftAccountAuthentication(
+            clientId: OwinOAuthProviderConfig.MicrosoftAccount.ClientId,
+            clientSecret: OwinOAuthProviderConfig.MicrosoftAccount.ClientSecret);
+    }
+}
+```
+
 ## Contributions
 
 If you would like to also contribute then please fork the repo, make your changes and submit a pull request.
