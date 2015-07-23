@@ -7,6 +7,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
 - OAuth
   - ArcGISOnline
   - Asana
+  - Backlog
   - Battle.net
   - Buffer
   - DeviantArt
