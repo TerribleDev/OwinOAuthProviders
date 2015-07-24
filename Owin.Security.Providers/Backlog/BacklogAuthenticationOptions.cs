@@ -128,6 +128,7 @@ namespace Owin.Security.Providers.Backlog
             : base("Backlog")
         {
             Caption = Constants.DefaultAuthenticationType;
+            CallbackPath = new PathString("/signin-backlog");
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }
