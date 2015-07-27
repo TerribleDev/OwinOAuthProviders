@@ -76,6 +76,15 @@
     <Compile Include="Asana\Provider\AsanaAuthenticationProvider.cs" />
     <Compile Include="Asana\Provider\AsanaReturnEndpointContext.cs" />
     <Compile Include="Asana\Provider\IAsanaAuthenticationProvider.cs" />
+    <Compile Include="Backlog\BacklogAuthenticationExtensions.cs" />
+    <Compile Include="Backlog\BacklogAuthenticationHandler.cs" />
+    <Compile Include="Backlog\BacklogAuthenticationMiddleware.cs" />
+    <Compile Include="Backlog\BacklogAuthenticationOptions.cs" />
+    <Compile Include="Backlog\Constants.cs" />
+    <Compile Include="Backlog\Provider\BacklogAuthenticatedContext.cs" />
+    <Compile Include="Backlog\Provider\BacklogAuthenticationProvider.cs" />
+    <Compile Include="Backlog\Provider\BacklogReturnEndpointContext.cs" />
+    <Compile Include="Backlog\Provider\IGBacklogAuthenticationProvider.cs" />
     <Compile Include="BattleNet\BattleNetAuthenticationExtensions.cs" />
     <Compile Include="BattleNet\BattleNetAuthenticationHandler.cs" />
     <Compile Include="BattleNet\BattleNetAuthenticationMiddleware.cs" />

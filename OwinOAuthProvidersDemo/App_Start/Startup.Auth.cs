@@ -36,6 +36,7 @@ using Owin.Security.Providers.Untappd;
 using Owin.Security.Providers.Wargaming;
 using Owin.Security.Providers.WordPress;
 using Owin.Security.Providers.Yahoo;
+using Owin.Security.Providers.Backlog;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -228,9 +229,9 @@ namespace OwinOAuthProvidersDemo
             //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
             //app.UseFlickrAuthentication("", "");
-			//app.UseVisualStudioAuthentication(
-			//	appId: "",
-			//	appSecret: "");
+            //app.UseVisualStudioAuthentication(
+            //	appId: "",
+            //	appSecret: "");
 
             //app.UseSpotifyAuthentication(
             //    clientId: "",
@@ -256,6 +257,21 @@ namespace OwinOAuthProvidersDemo
             //        ClientId = "",
             //        ClientSecret = ""
             //    });
+
+            //var options = new BacklogAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    ContractName = "",
+            //    CallbackPath = new PathString(""),  // ex.new PathString("/OauthTokenRequest")
+            //    Provider = new BacklogAuthenticationProvider
+            //    {
+            //        OnAuthenticated = async context => await System.Threading.Tasks.Task.Run(()=> { System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken)); })
+            //    }
+            //};
+
+            //app.UseBacklogAuthentication(options);
+
         }
     }
 }
