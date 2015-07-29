@@ -10,6 +10,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Backlog
   - Battle.net
   - Buffer
+  - Cosign
   - DeviantArt
   - Dropbox
   - EVEOnline
