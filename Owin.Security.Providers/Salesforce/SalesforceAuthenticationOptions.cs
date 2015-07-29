@@ -95,6 +95,15 @@ namespace Owin.Security.Providers.Salesforce
         public IList<string> Scope { get; private set; }
 
         /// <summary>
+        /// Specifies how the authorization server prompts the user for reauthentication and reapproval. This parameter is optional. 
+        /// The only values Salesforce supports are:
+        /// login—The authorization server must prompt the user for reauthentication, forcing the user to log in again.
+        /// consent—The authorization server must prompt the user for reapproval before returning information to the client.
+        /// It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize. 
+        /// </summary>
+        public string Prompt { get; set; }
+
+        /// <summary>
         ///     Gets or sets the name of another authentication middleware which will be responsible for actually issuing a user
         ///     <see cref="System.Security.Claims.ClaimsIdentity" />.
         /// </summary>
