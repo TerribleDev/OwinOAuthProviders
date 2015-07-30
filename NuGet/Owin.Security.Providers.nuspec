@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.22</version>
+    <version>1.22.1</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -19,6 +19,11 @@
       Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
     </summary>
     <releaseNotes>
+      Version 1.22
+      
+      Enhancement
+        - Ability to specify prompt parameter for Salesforce provider
+        
       Version 1.22
       
       Added
