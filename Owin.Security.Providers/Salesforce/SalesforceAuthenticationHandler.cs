@@ -198,6 +198,11 @@ namespace Owin.Security.Providers.Salesforce
                     ""
                     );
 
+                if (Options.Prompt != null)
+                {
+                    authorizationEndpoint += string.Format("&prompt={0}", Options.Prompt);
+                }
+
                 Response.Redirect(authorizationEndpoint);
             }
 

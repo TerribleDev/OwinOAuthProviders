@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.21</version>
+    <version>1.22.1</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -14,15 +14,21 @@
     <summary>
       Additional OAuth providers for Katana (OWIN).  
       
-      Includes providers for ArcGISOnline, Asana, Battle.net, Buffer, DeviantArt, Dropbox, EVEOnline, Flickr, Foursquare, GitHub, Gitter, Google+, HealthGraph, Instagram, LinkedIn, PayPal, Reddit, Salesforce, Slack, SoundCloud, Spotify, StackExchange, TripIt, Twitch.tv, Untappd, Visual Studio Online, Wordpress, Yahoo and Yammer.
+      Includes providers for ArcGISOnline, Asana, Backlog, Battle.net, Buffer, DeviantArt, Dropbox, EVEOnline, Flickr, Foursquare, GitHub, Gitter, Google+, HealthGraph, Imgur, Instagram, LinkedIn, PayPal, Reddit, Salesforce, Slack, SoundCloud, Spotify, StackExchange, TripIt, Twitch.tv, Untappd, Visual Studio Online, Wordpress, Yahoo and Yammer.
       
       Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
     </summary>
     <releaseNotes>
-      Version 1.21
+      Version 1.22
+      
+      Enhancement
+        - Ability to specify prompt parameter for Salesforce provider
+        
+      Version 1.22
       
       Added
-      - Added Gitter
+      - Added Imgur
+      - Added Backlog 
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
