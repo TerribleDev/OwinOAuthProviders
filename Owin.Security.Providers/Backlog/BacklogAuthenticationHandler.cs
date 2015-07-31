@@ -11,6 +11,7 @@ using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Owin.Security.Providers.Backlog;
+using System.Net.Http.Headers;
 
 namespace Owin.Security.Providers.Backlog
 {
@@ -72,9 +73,12 @@ namespace Owin.Security.Providers.Backlog
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
 
                 // Get token
-                httpClient.DefaultRequestHeaders.Authorization = null;
-                HttpResponseMessage tokenResponse =
-                    await httpClient.PostAsync(Options.TokenEndpoint, new FormUrlEncodedContent(body));
+                var requestForToken = new HttpRequestMessage(HttpMethod.Post, Options.TokenEndpoint);
+                requestForToken.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                requestForToken.Content = new FormUrlEncodedContent(body);
+
+                HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestForToken);
+
                 tokenResponse.EnsureSuccessStatusCode();
                 string text = await tokenResponse.Content.ReadAsStringAsync();
 
@@ -88,9 +92,10 @@ namespace Owin.Security.Providers.Backlog
                 string tokenType = (string)response.token_type;
 
                 // Get the Backlog user
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(tokenType, Uri.EscapeDataString(accessToken));
-                HttpResponseMessage graphResponse = await httpClient.GetAsync(
-                    Options.UserInfoEndpoint, Request.CallCancelled);
+                var requestForUser = new HttpRequestMessage(HttpMethod.Get, Options.UserInfoEndpoint);
+                requestForUser.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                requestForUser.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(tokenType, Uri.EscapeDataString(accessToken));
+                HttpResponseMessage graphResponse = await httpClient.SendAsync(requestForUser, Request.CallCancelled);
 
                 graphResponse.EnsureSuccessStatusCode();
                 text = await graphResponse.Content.ReadAsStringAsync();
