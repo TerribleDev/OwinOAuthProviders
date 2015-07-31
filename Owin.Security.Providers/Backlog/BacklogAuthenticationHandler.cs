@@ -72,6 +72,7 @@ namespace Owin.Security.Providers.Backlog
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
 
                 // Get token
+                httpClient.DefaultRequestHeaders.Authorization = null;
                 HttpResponseMessage tokenResponse =
                     await httpClient.PostAsync(Options.TokenEndpoint, new FormUrlEncodedContent(body));
                 tokenResponse.EnsureSuccessStatusCode();
