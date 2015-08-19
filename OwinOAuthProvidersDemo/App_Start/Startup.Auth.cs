@@ -274,6 +274,16 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseBacklogAuthentication(options);
 
+            //var cosignOptions = new CosignAuthenticationOptions
+            //{
+            //    AuthenticationType = "Cosign",
+            //    SignInAsAuthenticationType = signInAsType,
+            //    CosignServer = "weblogin.umich.edu",
+            //    CosignServicePort = 6663,
+            //    IdentityServerHostInstance = "core1",
+            //    ClientServer = "cosignservername"
+            //};
+            //app.UseCosignAuthentication(cosignOptions);
         }
     }
 }
