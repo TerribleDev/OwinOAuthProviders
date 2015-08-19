@@ -71,8 +71,15 @@
 
         private static string TryGetValue(JToken shop, string propertyName)
         {
-            var propertyValue = shop?.First?.First?[propertyName];
-            return propertyValue?.ToString();
+            if (shop != null && shop.First != null && shop.First.First != null)
+            {
+                var propertyValue = shop.First.First[propertyName];
+
+                if (propertyValue != null)
+                    return propertyValue.ToString();
+            }
+
+            return null;
         }
     }
 }
