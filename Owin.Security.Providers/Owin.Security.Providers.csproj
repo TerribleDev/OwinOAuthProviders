@@ -152,6 +152,15 @@
     <Compile Include="Foursquare\Provider\FoursquareAuthenticationProvider.cs" />
     <Compile Include="Foursquare\Provider\FoursquareReturnEndpointContext.cs" />
     <Compile Include="Foursquare\Provider\IFoursquareAuthenticationProvider.cs" />
+    <Compile Include="Fitbit\Constants.cs" />
+    <Compile Include="Fitbit\FitbitAuthenticationExtensions.cs" />
+    <Compile Include="Fitbit\FitbitAuthenticationHandler.cs" />
+    <Compile Include="Fitbit\FitbitAuthenticationMiddleware.cs" />
+    <Compile Include="Fitbit\FitbitAuthenticationOptions.cs" />
+    <Compile Include="Fitbit\Provider\FitbitAuthenticatedContext.cs" />
+    <Compile Include="Fitbit\Provider\FitbitAuthenticationProvider.cs" />
+    <Compile Include="Fitbit\Provider\FitbitReturnEndpointContext.cs" />
+    <Compile Include="Fitbit\Provider\IFitbitAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="Gitter\Constants.cs" />
     <Compile Include="Gitter\GitterAuthenticationExtensions.cs" />
