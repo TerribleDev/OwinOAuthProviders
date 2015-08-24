@@ -30,6 +30,7 @@ using Owin.Security.Providers.SoundCloud;
 using Owin.Security.Providers.Spotify;
 using Owin.Security.Providers.StackExchange;
 using Owin.Security.Providers.Steam;
+using Owin.Security.Providers.Shopify;
 using Owin.Security.Providers.TripIt;
 using Owin.Security.Providers.Twitch;
 using Owin.Security.Providers.Untappd;
@@ -54,7 +55,7 @@ namespace OwinOAuthProvidersDemo
             });
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-           //app.UseDeviantArtAuthentication("id", "secret");
+            //app.UseDeviantArtAuthentication("id", "secret");
             //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
@@ -186,6 +187,8 @@ namespace OwinOAuthProvidersDemo
             //};
             //app.UseSalesforceAuthentication(salesforceOptions);
 
+            ////app.UseShopifyAuthentication("", "");
+
             //app.UseArcGISOnlineAuthentication(
             //    clientId: "",
             //    clientSecret: "");
@@ -201,7 +204,6 @@ namespace OwinOAuthProvidersDemo
             //app.UseHealthGraphAuthentication(
             //    clientId: "",
             //    clientSecret: "");
-
 
             //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
             //{
@@ -273,11 +275,22 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseBacklogAuthentication(options);
 
-//            app.UseFitbitAuthentication(new FitbitAuthenticationOptions
-//            {
-//                ClientId = "",
-//                ClientSecret = ""
-//            });
+            //var cosignOptions = new CosignAuthenticationOptions
+            //{
+            //    AuthenticationType = "Cosign",
+            //    SignInAsAuthenticationType = signInAsType,
+            //    CosignServer = "weblogin.umich.edu",
+            //    CosignServicePort = 6663,
+            //    IdentityServerHostInstance = "core1",
+            //    ClientServer = "cosignservername"
+            //};
+            //app.UseCosignAuthentication(cosignOptions);
+            
+            //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
     }
 }

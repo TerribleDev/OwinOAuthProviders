@@ -10,6 +10,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Backlog
   - Battle.net
   - Buffer
+  - Cosign
   - DeviantArt
   - Dropbox
   - EVEOnline
@@ -25,6 +26,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - PayPal
   - Reddit
   - Salesforce
+  - Shopify
   - Slack
   - SoundCloud
   - Spotify
@@ -42,7 +44,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Wargaming
 
 ## Implementation Guides
-For guides on how to implement these providers, please visit my blog, [Be a Big Rockstar](http://www.beabigrockstar.com).
+For above listed provider implementation guide, visit Jerrie Pelser's blog - [Be a Big Rockstar](http://www.beabigrockstar.com)
 
 ## Installation
 To use these providers you will need to install the ```Owin.Security.Providers``` NuGet package.
@@ -72,6 +74,7 @@ A big thanks goes out to all these contributors without whom this would not have
 * Anthony Ruffino (https://github.com/AnthonyRuffino)
 * Tommy Parnell (https://github.com/tparnell8)
 * Maxime Roussin-Bélanger (https://github.com/Lorac)
+* Jaspalsinh Chauhan (https://github.com/jsinh)
 
 For most accurate and up to date list of contributors please see https://github.com/RockstarLabs/OwinOAuthProviders/graphs/contributors
 

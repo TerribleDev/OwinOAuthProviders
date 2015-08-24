@@ -274,6 +274,15 @@
     <Compile Include="Salesforce\SalesforceAuthenticationHandler.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationMiddleware.cs" />
     <Compile Include="Salesforce\SalesforceAuthenticationOptions.cs" />
+    <Compile Include="Shopify\Constants.cs" />
+    <Compile Include="Shopify\Provider\IShopifyAuthenticationProvider.cs" />
+    <Compile Include="Shopify\Provider\ShopifyAuthenticatedContext.cs" />
+    <Compile Include="Shopify\Provider\ShopifyAuthenticationProvider.cs" />
+    <Compile Include="Shopify\Provider\ShopifyReturnEndpointContext.cs" />
+    <Compile Include="Shopify\ShopifyAuthenticationExtensions.cs" />
+    <Compile Include="Shopify\ShopifyAuthenticationHandler.cs" />
+    <Compile Include="Shopify\ShopifyAuthenticationMiddleware.cs" />
+    <Compile Include="Shopify\ShopifyAuthenticationOptions.cs" />
     <Compile Include="Slack\Constants.cs" />
     <Compile Include="Slack\Provider\ISlackAuthenticationProvider.cs" />
     <Compile Include="Slack\Provider\SlackAuthenticatedContext.cs" />

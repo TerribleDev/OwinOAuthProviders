@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.22.1</version>
+    <version>1.23</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -19,16 +19,11 @@
       Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
     </summary>
     <releaseNotes>
-      Version 1.22
-      
-      Enhancement
-        - Ability to specify prompt parameter for Salesforce provider
-        
-      Version 1.22
-      
+      Version 1.23
+            
       Added
-      - Added Imgur
-      - Added Backlog 
+      - Added Shopify
+      - Added Cosign 
     </releaseNotes>
     <copyright>Copyright 2013, 2014</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>

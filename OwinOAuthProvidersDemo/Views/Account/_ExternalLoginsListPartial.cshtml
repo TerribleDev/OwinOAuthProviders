@@ -24,6 +24,10 @@
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
+                        if (p.AuthenticationType.Equals("Shopify"))
+                        {
+                            @Html.TextBox("shopName")
+                        }
                         <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
                     }
                 </p>
