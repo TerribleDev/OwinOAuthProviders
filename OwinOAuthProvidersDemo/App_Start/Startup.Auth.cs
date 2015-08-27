@@ -38,6 +38,7 @@ using Owin.Security.Providers.Wargaming;
 using Owin.Security.Providers.WordPress;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.Backlog;
+using Owin.Security.Providers.Vimeo;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -284,6 +285,8 @@ namespace OwinOAuthProvidersDemo
             //    ClientServer = "cosignservername"
             //};
             //app.UseCosignAuthentication(cosignOptions);
+
+            //app.UseVimeoAuthentication("", "");
         }
     }
 }
