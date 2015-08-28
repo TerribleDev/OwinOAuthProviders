@@ -336,6 +336,15 @@
     <Compile Include="Twitch\Provider\TwitchAuthenticationProvider.cs" />
     <Compile Include="Twitch\Provider\TwitchReturnEndpointContext.cs" />
     <Compile Include="Twitch\Provider\ITwitchAuthenticationProvider.cs" />
+    <Compile Include="Vimeo\Constants.cs" />
+    <Compile Include="Vimeo\Provider\IVimeoAuthenticationProvider.cs" />
+    <Compile Include="Vimeo\Provider\VimeoAuthenticatedContext.cs" />
+    <Compile Include="Vimeo\Provider\VimeoAuthenticationProvider.cs" />
+    <Compile Include="Vimeo\Provider\VimeoReturnEndpointContext.cs" />
+    <Compile Include="Vimeo\VimeoAuthenticationExtensions.cs" />
+    <Compile Include="Vimeo\VimeoAuthenticationHandler.cs" />
+    <Compile Include="Vimeo\VimeoAuthenticationMiddleware.cs" />
+    <Compile Include="Vimeo\VimeoAuthenticationOptions.cs" />
     <Compile Include="VisualStudio\Constants.cs" />
     <Compile Include="VisualStudio\Provider\IVisualStudioAuthenticationProvider.cs" />
     <Compile Include="VisualStudio\Provider\VisualStudioAuthenticatedContext.cs" />
