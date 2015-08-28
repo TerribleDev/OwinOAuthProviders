@@ -14,6 +14,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - DeviantArt
   - Dropbox
   - EVEOnline
+  - Fitbit
   - Flickr
   - Foursquare
   - GitHub

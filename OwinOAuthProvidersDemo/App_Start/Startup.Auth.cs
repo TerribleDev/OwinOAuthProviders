@@ -39,6 +39,7 @@ using Owin.Security.Providers.WordPress;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.Backlog;
 using Owin.Security.Providers.Vimeo;
+using Owin.Security.Providers.Fitbit;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -287,6 +288,12 @@ namespace OwinOAuthProvidersDemo
             //app.UseCosignAuthentication(cosignOptions);
 
             //app.UseVimeoAuthentication("", "");
+            
+            //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
     }
 }
