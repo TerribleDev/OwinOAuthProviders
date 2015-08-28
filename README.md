@@ -34,6 +34,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - TripIt
   - Twitch.tv
   - Untappd
+  - Vimeo
   - Visual Studio Online
   - Wordpress
   - Yahoo
@@ -75,6 +76,8 @@ A big thanks goes out to all these contributors without whom this would not have
 * Tommy Parnell (https://github.com/tparnell8)
 * Maxime Roussin-Bélanger (https://github.com/Lorac)
 * Jaspalsinh Chauhan (https://github.com/jsinh)
+* Jason Loeffler (https://github.com/jmloeffler)
+* Ben Foster (https://github.com/benfoster)
 
 For most accurate and up to date list of contributors please see https://github.com/RockstarLabs/OwinOAuthProviders/graphs/contributors
 
