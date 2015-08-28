@@ -38,6 +38,7 @@ using Owin.Security.Providers.Wargaming;
 using Owin.Security.Providers.WordPress;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.Backlog;
+using Owin.Security.Providers.Fitbit;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -284,6 +285,12 @@ namespace OwinOAuthProvidersDemo
             //    ClientServer = "cosignservername"
             //};
             //app.UseCosignAuthentication(cosignOptions);
+            
+            //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
     }
 }
