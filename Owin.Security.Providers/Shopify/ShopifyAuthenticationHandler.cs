@@ -118,7 +118,7 @@
 
                 if (!string.IsNullOrEmpty(context.ShopName))
                 {
-                    context.Identity.AddClaim(new Claim("urn:shopify:shopname", context.ShopName, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:shopify:shopdomain", context.ShopifyDomain, XmlSchemaString, Options.AuthenticationType));
                 }
 
                 context.Properties = properties;
