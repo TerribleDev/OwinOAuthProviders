@@ -25,6 +25,7 @@
             UserName = string.IsNullOrWhiteSpace(fullShopifyDomainName) ? null : fullShopifyDomainName.Replace(".myshopify.com", "");
             Email = TryGetValue(shop, "email");
             ShopName = TryGetValue(shop, "name");
+            ShopifyDomain = fullShopifyDomainName;
         }
 
         /// <summary>
@@ -58,6 +59,11 @@
         /// Gets the Shopify shop name.
         /// </summary>
         public string ShopName { get; private set; }
+
+        /// <summary>
+        /// Gets the Shopify domain name.
+        /// </summary>
+        public string ShopifyDomain { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the Shopify shop.
