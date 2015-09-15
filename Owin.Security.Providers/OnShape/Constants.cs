@@ -1,7 +1,7 @@
-﻿namespace Owin.Security.Providers.OnShape
+﻿namespace Owin.Security.Providers.Onshape
 {
     internal static class Constants
     {
-        public const string DefaultAuthenticationType = "OnShape";
+        public const string DefaultAuthenticationType = "Onshape";
     }
 }

@@ -8,20 +8,20 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using Newtonsoft.Json.Linq;
 
-namespace Owin.Security.Providers.OnShape
+namespace Owin.Security.Providers.Onshape
 {
     /// <summary>
     /// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
     /// </summary>
-    public class OnShapeAuthenticatedContext : BaseContext
+    public class OnshapeAuthenticatedContext : BaseContext
     {
         /// <summary>
-        /// Initializes a <see cref="OnShapeAuthenticatedContext"/>
+        /// Initializes a <see cref="OnshapeAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
-        /// <param name="accessToken">OnShape Access token</param>
-        public OnShapeAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+        /// <param name="accessToken">Onshape Access token</param>
+        public OnshapeAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
             : base(context)
         {
             AccessToken = accessToken;
@@ -35,17 +35,17 @@ namespace Owin.Security.Providers.OnShape
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the OnShape user obtained from the endpoint https://api.OnShape.com/1/account/info
+        /// Contains the Onshape user obtained from the endpoint https://api.Onshape.com/1/account/info
         /// </remarks>
         public JObject User { get; private set; }
 
         /// <summary>
-        /// Gets the OnShape OAuth access token
+        /// Gets the Onshape OAuth access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the OnShape user ID
+        /// Gets the Onshape user ID
         /// </summary>
         public string Id { get; private set; }
 

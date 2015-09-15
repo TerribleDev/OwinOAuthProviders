@@ -14,11 +14,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 
-namespace Owin.Security.Providers.OnShape
+namespace Owin.Security.Providers.Onshape
 {
-    public class OnShapeAuthenticationHandler : AuthenticationHandler<OnShapeAuthenticationOptions>
+    public class OnshapeAuthenticationHandler : AuthenticationHandler<OnshapeAuthenticationOptions>
     {
-        private const string StateCookie = "_OnShapeState";
+        private const string StateCookie = "_OnshapeState";
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string TokenEndpoint = "https://partner.dev.onshape.com/oauth/token";
         private const string UserInfoEndpoint = "https://partner.dev.onshape.com/api/users/current";
@@ -26,7 +26,7 @@ namespace Owin.Security.Providers.OnShape
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
 
-        public OnShapeAuthenticationHandler(HttpClient httpClient, ILogger logger)
+        public OnshapeAuthenticationHandler(HttpClient httpClient, ILogger logger)
         {
             this.httpClient = httpClient;
             this.logger = logger;
@@ -76,6 +76,10 @@ namespace Owin.Security.Providers.OnShape
                 body.Add(new KeyValuePair<string, string>("client_id", Options.AppKey));
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.AppSecret));
 
+                // Request the token
+                //HttpResponseMessage tokenResponse =
+                //    await httpClient.PostAsync(TokenEndpoint, new FormUrlEncodedContent(body));
+
                 // Get token
                 var tokenRequest = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint);
                 tokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -90,6 +94,10 @@ namespace Owin.Security.Providers.OnShape
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
 
+                // Get the Onshape user
+                //HttpResponseMessage graphResponse = await httpClient.GetAsync(
+                //    UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
+
                 string tokenType = (string)response.token_type;
 
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
@@ -102,7 +110,7 @@ namespace Owin.Security.Providers.OnShape
                 text = await graphResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new OnShapeAuthenticatedContext(Context, user, accessToken);
+                var context = new OnshapeAuthenticatedContext(Context, user, accessToken);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
@@ -202,7 +210,7 @@ namespace Owin.Security.Providers.OnShape
                     return true;
                 }
 
-                var context = new OnShapeReturnEndpointContext(Context, ticket);
+                var context = new OnshapeReturnEndpointContext(Context, ticket);
                 context.SignInAsAuthenticationType = Options.SignInAsAuthenticationType;
                 context.RedirectUri = ticket.Properties.RedirectUri;
 

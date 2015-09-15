@@ -1,25 +1,25 @@
 ﻿using System;
 
-namespace Owin.Security.Providers.OnShape
+namespace Owin.Security.Providers.Onshape
 {
-    public static class OnShapeAuthenticationExtensions
+    public static class OnshapeAuthenticationExtensions
     {
-        public static IAppBuilder UseOnShapeAuthentication(this IAppBuilder app,
-            OnShapeAuthenticationOptions options)
+        public static IAppBuilder UseOnshapeAuthentication(this IAppBuilder app,
+            OnshapeAuthenticationOptions options)
         {
             if (app == null)
                 throw new ArgumentNullException("app");
             if (options == null)
                 throw new ArgumentNullException("options");
 
-            app.Use(typeof(OnShapeAuthenticationMiddleware), app, options);
+            app.Use(typeof(OnshapeAuthenticationMiddleware), app, options);
 
             return app;
         }
 
-        public static IAppBuilder UseOnShapeAuthentication(this IAppBuilder app, string appKey, string appSecret)
+        public static IAppBuilder UseOnshapeAuthentication(this IAppBuilder app, string appKey, string appSecret)
         {
-            return app.UseOnShapeAuthentication(new OnShapeAuthenticationOptions
+            return app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions
             {
                 AppKey = appKey,
                 AppSecret = appSecret

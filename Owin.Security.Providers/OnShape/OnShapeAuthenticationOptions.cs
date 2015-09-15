@@ -3,13 +3,13 @@ using System.Net.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace Owin.Security.Providers.OnShape
+namespace Owin.Security.Providers.Onshape
 {
-    public class OnShapeAuthenticationOptions : AuthenticationOptions
+    public class OnshapeAuthenticationOptions : AuthenticationOptions
     {
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
-        ///     in back channel communications belong to OnShape
+        ///     in back channel communications belong to Onshape
         /// </summary>
         /// <value>
         ///     The pinned certificate validator.
@@ -21,14 +21,14 @@ namespace Owin.Security.Providers.OnShape
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
         /// <summary>
-        ///     The HttpMessageHandler used to communicate with OnShape.
+        ///     The HttpMessageHandler used to communicate with Onshape.
         ///     This cannot be set at the same time as BackchannelCertificateValidator unless the value
         ///     can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
         /// <summary>
-        ///     Gets or sets timeout value in milliseconds for back channel communications with OnShape.
+        ///     Gets or sets timeout value in milliseconds for back channel communications with Onshape.
         /// </summary>
         /// <value>
         ///     The back channel timeout in milliseconds.
@@ -38,7 +38,7 @@ namespace Owin.Security.Providers.OnShape
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-OnShape".
+        ///     Default value is "/signin-Onshape".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -52,19 +52,19 @@ namespace Owin.Security.Providers.OnShape
         }
 
         /// <summary>
-        ///     Gets or sets the OnShape supplied Application Key
+        ///     Gets or sets the Onshape supplied Application Key
         /// </summary>
         public string AppKey { get; set; }
 
         /// <summary>
-        ///     Gets or sets the OnShape supplied Application Secret
+        ///     Gets or sets the Onshape supplied Application Secret
         /// </summary>
         public string AppSecret { get; set; }
 
         /// <summary>
-        ///     Gets or sets the <see cref="IOnShapeAuthenticationProvider" /> used in the authentication events
+        ///     Gets or sets the <see cref="IOnshapeAuthenticationProvider" /> used in the authentication events
         /// </summary>
-        public IOnShapeAuthenticationProvider Provider { get; set; }
+        public IOnshapeAuthenticationProvider Provider { get; set; }
 
         /// <summary>
         ///     Gets or sets the name of another authentication middleware which will be responsible for actually issuing a user
@@ -78,10 +78,10 @@ namespace Owin.Security.Providers.OnShape
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         /// <summary>
-        ///     Initializes a new <see cref="OnShapeAuthenticationOptions" />
+        ///     Initializes a new <see cref="OnshapeAuthenticationOptions" />
         /// </summary>
-        public OnShapeAuthenticationOptions()
-            : base("OnShape")
+        public OnshapeAuthenticationOptions()
+            : base("Onshape")
         {
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/oauthRedirect");

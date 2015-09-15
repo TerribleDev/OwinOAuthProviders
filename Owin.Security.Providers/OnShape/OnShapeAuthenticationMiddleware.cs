@@ -8,15 +8,15 @@ using Microsoft.Owin.Security.DataHandler;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Infrastructure;
 
-namespace Owin.Security.Providers.OnShape
+namespace Owin.Security.Providers.Onshape
 {
-    public class OnShapeAuthenticationMiddleware : AuthenticationMiddleware<OnShapeAuthenticationOptions>
+    public class OnshapeAuthenticationMiddleware : AuthenticationMiddleware<OnshapeAuthenticationOptions>
     {
         private readonly HttpClient httpClient;
         private readonly ILogger logger;
 
-        public OnShapeAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
-            OnShapeAuthenticationOptions options)
+        public OnshapeAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
+            OnshapeAuthenticationOptions options)
             : base(next, options)
         {
             if (String.IsNullOrWhiteSpace(Options.AppKey))
@@ -24,15 +24,15 @@ namespace Owin.Security.Providers.OnShape
             if (String.IsNullOrWhiteSpace(Options.AppSecret))
                 throw new ArgumentException("AppSecret must be provided");
 
-            logger = app.CreateLogger<OnShapeAuthenticationMiddleware>();
+            logger = app.CreateLogger<OnshapeAuthenticationMiddleware>();
 
             if (Options.Provider == null)
-                Options.Provider = new OnShapeAuthenticationProvider();
+                Options.Provider = new OnshapeAuthenticationProvider();
 
             if (Options.StateDataFormat == null)
             {
                 IDataProtector dataProtector = app.CreateDataProtector(
-                    typeof (OnShapeAuthenticationMiddleware).FullName,
+                    typeof (OnshapeAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
@@ -53,14 +53,14 @@ namespace Owin.Security.Providers.OnShape
         /// </summary>
         /// <returns>
         ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
-        ///     <see cref="T:Owin.Security.Providers.OnShape.OnShapeAuthenticationOptions" /> supplied to the constructor.
+        ///     <see cref="T:Owin.Security.Providers.Onshape.OnshapeAuthenticationOptions" /> supplied to the constructor.
         /// </returns>
-        protected override AuthenticationHandler<OnShapeAuthenticationOptions> CreateHandler()
+        protected override AuthenticationHandler<OnshapeAuthenticationOptions> CreateHandler()
         {
-            return new OnShapeAuthenticationHandler(httpClient, logger);
+            return new OnshapeAuthenticationHandler(httpClient, logger);
         }
 
-        private HttpMessageHandler ResolveHttpMessageHandler(OnShapeAuthenticationOptions options)
+        private HttpMessageHandler ResolveHttpMessageHandler(OnshapeAuthenticationOptions options)
         {
             HttpMessageHandler handler = options.BackchannelHttpHandler ?? new WebRequestHandler();
 

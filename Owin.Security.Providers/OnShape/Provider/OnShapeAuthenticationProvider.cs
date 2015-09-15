@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Owin.Security.Providers.OnShape
+namespace Owin.Security.Providers.Onshape
 {
     /// <summary>
-    /// Default <see cref="IOnShapeAuthenticationProvider"/> implementation.
+    /// Default <see cref="IOnshapeAuthenticationProvider"/> implementation.
     /// </summary>
-    public class OnShapeAuthenticationProvider : IOnShapeAuthenticationProvider
+    public class OnshapeAuthenticationProvider : IOnshapeAuthenticationProvider
     {
         /// <summary>
-        /// Initializes a <see cref="OnShapeAuthenticationProvider"/>
+        /// Initializes a <see cref="OnshapeAuthenticationProvider"/>
         /// </summary>
-        public OnShapeAuthenticationProvider()
+        public OnshapeAuthenticationProvider()
         {
             OnAuthenticated = context => Task.FromResult<object>(null);
             OnReturnEndpoint = context => Task.FromResult<object>(null);
@@ -20,19 +20,19 @@ namespace Owin.Security.Providers.OnShape
         /// <summary>
         /// Gets or sets the function that is invoked when the Authenticated method is invoked.
         /// </summary>
-        public Func<OnShapeAuthenticatedContext, Task> OnAuthenticated { get; set; }
+        public Func<OnshapeAuthenticatedContext, Task> OnAuthenticated { get; set; }
 
         /// <summary>
         /// Gets or sets the function that is invoked when the ReturnEndpoint method is invoked.
         /// </summary>
-        public Func<OnShapeReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
+        public Func<OnshapeReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
 
         /// <summary>
-        /// Invoked whenever OnShape successfully authenticates a user
+        /// Invoked whenever Onshape successfully authenticates a user
         /// </summary>
         /// <param name="context">Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task Authenticated(OnShapeAuthenticatedContext context)
+        public virtual Task Authenticated(OnshapeAuthenticatedContext context)
         {
             return OnAuthenticated(context);
         }
@@ -42,7 +42,7 @@ namespace Owin.Security.Providers.OnShape
         /// </summary>
         /// <param name="context"></param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task ReturnEndpoint(OnShapeReturnEndpointContext context)
+        public virtual Task ReturnEndpoint(OnshapeReturnEndpointContext context)
         {
             return OnReturnEndpoint(context);
         }
