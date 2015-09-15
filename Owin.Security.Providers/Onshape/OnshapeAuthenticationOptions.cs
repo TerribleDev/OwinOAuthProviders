@@ -91,6 +91,7 @@ namespace Owin.Security.Providers.Onshape
             Caption = Constants.DefaultAuthenticationType;
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
+            CallbackPath = new PathString("/signin-onshape");
             Hostname = "cad.onshape.com";
         }
     }
