@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin;
+using System;
 
 namespace Owin.Security.Providers.Onshape
 {
@@ -17,12 +18,14 @@ namespace Owin.Security.Providers.Onshape
             return app;
         }
 
-        public static IAppBuilder UseOnshapeAuthentication(this IAppBuilder app, string appKey, string appSecret)
+        public static IAppBuilder UseOnshapeAuthentication(this IAppBuilder app, string appKey, 
+          string appSecret, string callbackPath)
         {
             return app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions
             {
                 AppKey = appKey,
-                AppSecret = appSecret
+                AppSecret = appSecret,
+                CallbackPath = new PathString(callbackPath)
             });
         }
     }

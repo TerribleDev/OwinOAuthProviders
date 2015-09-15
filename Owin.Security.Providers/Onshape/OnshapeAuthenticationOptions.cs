@@ -62,6 +62,16 @@ namespace Owin.Security.Providers.Onshape
         public string AppSecret { get; set; }
 
         /// <summary>
+        /// Endpoint which is used to redirect users to request Onshape access
+        /// </summary>
+        public string AuthorizationEndpoint { get; set; }
+
+        /// <summary>
+        /// Endpoint which is used to exchange code for access token
+        /// </summary>
+        public string TokenEndpoint { get; set; }
+
+        /// <summary>
         ///     Gets or sets the <see cref="IOnshapeAuthenticationProvider" /> used in the authentication events
         /// </summary>
         public IOnshapeAuthenticationProvider Provider { get; set; }
@@ -84,7 +94,6 @@ namespace Owin.Security.Providers.Onshape
             : base("Onshape")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/oauthRedirect");
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }

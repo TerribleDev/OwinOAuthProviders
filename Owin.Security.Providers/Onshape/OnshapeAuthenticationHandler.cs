@@ -76,10 +76,6 @@ namespace Owin.Security.Providers.Onshape
                 body.Add(new KeyValuePair<string, string>("client_id", Options.AppKey));
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.AppSecret));
 
-                // Request the token
-                //HttpResponseMessage tokenResponse =
-                //    await httpClient.PostAsync(TokenEndpoint, new FormUrlEncodedContent(body));
-
                 // Get token
                 var tokenRequest = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint);
                 tokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -94,15 +90,10 @@ namespace Owin.Security.Providers.Onshape
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
 
-                // Get the Onshape user
-                //HttpResponseMessage graphResponse = await httpClient.GetAsync(
-                //    UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
-
                 string tokenType = (string)response.token_type;
 
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //userRequest.Headers.Authorization = new AuthenticationHeaderValue(tokenType, Uri.EscapeDataString(accessToken));
                 userRequest.Headers.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
                 HttpResponseMessage graphResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
 
