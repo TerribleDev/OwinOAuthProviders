@@ -20,8 +20,9 @@ namespace Owin.Security.Providers.Onshape
     {
         private const string StateCookie = "_OnshapeState";
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private const string TokenEndpoint = "https://partner.dev.onshape.com/oauth/token";
-        private const string UserInfoEndpoint = "https://partner.dev.onshape.com/api/users/current";
+        private const string AuthorizationEndpoint = "/oauth/authorize";
+        private const string TokenEndpoint = "/oauth/token";
+        private const string UserInfoEndpoint = "/api/users/current";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -77,7 +78,7 @@ namespace Owin.Security.Providers.Onshape
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.AppSecret));
 
                 // Get token
-                var tokenRequest = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint);
+                var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "https://" + Options.Hostname + TokenEndpoint);
                 tokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 tokenRequest.Content = new FormUrlEncodedContent(body);
 
@@ -92,7 +93,7 @@ namespace Owin.Security.Providers.Onshape
 
                 string tokenType = (string)response.token_type;
 
-                var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
+                var userRequest = new HttpRequestMessage(HttpMethod.Get, "https://" + Options.Hostname + UserInfoEndpoint);
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 userRequest.Headers.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
                 HttpResponseMessage graphResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
@@ -163,7 +164,7 @@ namespace Owin.Security.Providers.Onshape
                 GenerateCorrelationId(properties);
 
                 string authorizationEndpoint =
-                    "https://partner.dev.onshape.com/oauth/authorize" +
+                    "https://" + Options.Hostname + AuthorizationEndpoint +
                     "?response_type=code" +
                     "&client_id=" + Uri.EscapeDataString(Options.AppKey) +
                     "&redirect_uri=" + Uri.EscapeDataString(redirectUri);

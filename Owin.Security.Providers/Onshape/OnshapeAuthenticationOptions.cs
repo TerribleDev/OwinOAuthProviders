@@ -62,14 +62,9 @@ namespace Owin.Security.Providers.Onshape
         public string AppSecret { get; set; }
 
         /// <summary>
-        /// Endpoint which is used to redirect users to request Onshape access
+        /// Hostname to use for the endpoints. Override this for connecting to the partner stack.
         /// </summary>
-        public string AuthorizationEndpoint { get; set; }
-
-        /// <summary>
-        /// Endpoint which is used to exchange code for access token
-        /// </summary>
-        public string TokenEndpoint { get; set; }
+        public string Hostname { get; set; }
 
         /// <summary>
         ///     Gets or sets the <see cref="IOnshapeAuthenticationProvider" /> used in the authentication events
@@ -96,6 +91,7 @@ namespace Owin.Security.Providers.Onshape
             Caption = Constants.DefaultAuthenticationType;
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
+            Hostname = "cad.onshape.com";
         }
     }
 }

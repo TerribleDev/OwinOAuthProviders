@@ -28,5 +28,17 @@ namespace Owin.Security.Providers.Onshape
                 CallbackPath = new PathString(callbackPath)
             });
         }
+
+        public static IAppBuilder UseOnshapeAuthentication(this IAppBuilder app, string appKey,
+          string appSecret, string callbackPath, string hostname)
+        {
+          return app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions
+          {
+            AppKey = appKey,
+            AppSecret = appSecret,
+            CallbackPath = new PathString(callbackPath),
+            Hostname = hostname
+          });
+        }
     }
 }
