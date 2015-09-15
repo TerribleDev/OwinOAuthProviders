@@ -49,7 +49,12 @@ namespace Owin.Security.Providers.Onshape
                     code = values[0];
                 }
 
-                state = Request.Cookies[StateCookie];
+                values = query.GetValues("state");
+                if (values != null && values.Count == 1)
+                {
+                  state = values[0];
+                }
+
                 properties = Options.StateDataFormat.Unprotect(state);
                 if (properties == null)
                 {
@@ -163,11 +168,14 @@ namespace Owin.Security.Providers.Onshape
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
 
+                string state = Options.StateDataFormat.Protect(properties);
+
                 string authorizationEndpoint =
                     "https://" + Options.Hostname + AuthorizationEndpoint +
                     "?response_type=code" +
                     "&client_id=" + Uri.EscapeDataString(Options.AppKey) +
-                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri);
+                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
+                    "&state=" + Uri.EscapeDataString(state);
 
                 var cookieOptions = new CookieOptions
                 {
@@ -176,7 +184,6 @@ namespace Owin.Security.Providers.Onshape
                 };
 
                 Response.StatusCode = 302;
-                Response.Cookies.Append(StateCookie, Options.StateDataFormat.Protect(properties), cookieOptions);
                 Response.Headers.Set("Location", authorizationEndpoint);
             }
 
