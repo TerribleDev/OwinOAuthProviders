@@ -23,7 +23,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - HealthGraph
   - Instagram
   - LinkedIn
-  - OnShape
+  - Onshape
   - PayPal
   - Reddit
   - Salesforce
