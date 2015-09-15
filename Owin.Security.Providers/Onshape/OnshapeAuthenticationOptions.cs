@@ -38,7 +38,7 @@ namespace Owin.Security.Providers.Onshape
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-Onshape".
+        ///     Default value is "/signin-onshape".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
