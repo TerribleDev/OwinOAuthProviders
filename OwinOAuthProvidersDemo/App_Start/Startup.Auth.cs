@@ -298,14 +298,16 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseOnshapeAuthentication(
             //    appKey: "",
-            //    appSecret: "",
-            //    callbackPath: "/oauthRedirect");
+            //    appSecret: "");
             //
-            //app.UseOnshapeAuthentication(
-            //    appKey: "",
-            //    appSecret: "",
-            //    callbackPath: "/oauthRedirect",
-            //    hostname: "partner.dev.onshape.com");
+            //
+            //app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
+            //{
+            //  AppKey = "",
+            //  AppSecret = "",
+            //  CallbackPath = new PathString("/oauthRedirect"),
+            //  Hostname = "partner.dev.onshape.com"
+            //});
         }
     }
 }
