@@ -223,6 +223,15 @@
     <Compile Include="LinkedIn\Provider\LinkedInAuthenticationProvider.cs" />
     <Compile Include="LinkedIn\Provider\LinkedInReturnEndpointContext.cs" />
     <Compile Include="LinkedIn\Provider\ILinkedInAuthenticationProvider.cs" />
+    <Compile Include="Onshape\Constants.cs" />
+    <Compile Include="Onshape\OnshapeAuthenticationExtensions.cs" />
+    <Compile Include="Onshape\OnshapeAuthenticationHandler.cs" />
+    <Compile Include="Onshape\OnshapeAuthenticationMiddleware.cs" />
+    <Compile Include="Onshape\OnshapeAuthenticationOptions.cs" />
+    <Compile Include="Onshape\Provider\IOnshapeAuthenticationProvider.cs" />
+    <Compile Include="Onshape\Provider\OnshapeAuthenticatedContext.cs" />
+    <Compile Include="Onshape\Provider\OnshapeAuthenticationProvider.cs" />
+    <Compile Include="Onshape\Provider\OnshapeReturnEndpointContext.cs" />
     <Compile Include="OpenID\Constants.cs" />
     <Compile Include="OpenID\Extensions\OpenIDSimpleRegistrationAuthenticationContextExtensions.cs" />
     <Compile Include="OpenID\Extensions\OpenIDSimpleRegistrationExtension.cs" />

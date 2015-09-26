@@ -40,6 +40,7 @@ using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.Backlog;
 using Owin.Security.Providers.Vimeo;
 using Owin.Security.Providers.Fitbit;
+using Owin.Security.Providers.Onshape;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -293,6 +294,19 @@ namespace OwinOAuthProvidersDemo
             //{
             //    ClientId = "",
             //    ClientSecret = ""
+            //});
+
+            //app.UseOnshapeAuthentication(
+            //    appKey: "",
+            //    appSecret: "");
+            //
+            //
+            //app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
+            //{
+            //  AppKey = "",
+            //  AppSecret = "",
+            //  CallbackPath = new PathString("/oauthRedirect"),
+            //  Hostname = "partner.dev.onshape.com"
             //});
         }
     }
