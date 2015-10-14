@@ -117,6 +117,10 @@ namespace Owin.Security.Providers.Spotify
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.Name, XmlSchemaString, Options.AuthenticationType));
                 }
+                if (!string.IsNullOrEmpty(context.AccessToken))
+                {
+                    context.Identity.AddClaim(new Claim("urn:spotify:accesstoken", context.AccessToken, XmlSchemaString, Options.AuthenticationType));
+                }
                 if (!string.IsNullOrEmpty(context.ProfilePicture))
                 {
                     context.Identity.AddClaim(new Claim("urn:spotify:profilepicture", context.ProfilePicture, XmlSchemaString, Options.AuthenticationType));
