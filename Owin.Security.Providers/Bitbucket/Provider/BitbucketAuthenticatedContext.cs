@@ -20,7 +20,7 @@ namespace Owin.Security.Providers.Bitbucket
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
-        /// <param name="accessToken">GitHub Access token</param>
+        /// <param name="accessToken">Bitbucket Access token</param>
         public BitbucketAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
             : base(context)
         {
@@ -38,18 +38,18 @@ namespace Owin.Security.Providers.Bitbucket
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the GitHub user obtained from the User Info endpoint. By default this is https://api.github.com/user but it can be
+        /// Contains the Bitbucket user obtained from the User Info endpoint. By default this is https://api.bitbucket.org/2.0/user but it can be
         /// overridden in the options
         /// </remarks>
         public JObject User { get; private set; }
 
         /// <summary>
-        /// Gets the GitHub access token
+        /// Gets the Bitbucket access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the GitHub user ID
+        /// Gets the Bitbucket user ID
         /// </summary>
         public string Id { get; private set; }
 
@@ -61,12 +61,12 @@ namespace Owin.Security.Providers.Bitbucket
         public string Link { get; private set; }
 
         /// <summary>
-        /// Gets the GitHub username
+        /// Gets the Bitbucket username
         /// </summary>
         public string UserName { get; private set; }
 
         /// <summary>
-        /// Gets the GitHub email
+        /// Gets the Bitbucket email
         /// </summary>
         public string Email { get; private set; }
 

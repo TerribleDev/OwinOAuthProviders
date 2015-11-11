@@ -11,10 +11,10 @@ namespace Owin.Security.Providers.Bitbucket
         public class BitbucketAuthenticationEndpoints
         {
             /// <summary>
-            /// Endpoint which is used to redirect users to request GitHub access
+            /// Endpoint which is used to redirect users to request Bitbucket access
             /// </summary>
             /// <remarks>
-            /// Defaults to https://github.com/login/oauth/authorize
+            /// Defaults to https://bitbucket.org/site/oauth2/authorize
             /// </remarks>
             public string AuthorizationEndpoint { get; set; }
 
@@ -22,7 +22,7 @@ namespace Owin.Security.Providers.Bitbucket
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             /// <remarks>
-            /// Defaults to https://github.com/login/oauth/access_token
+            /// Defaults to https://bitbucket.org/site/oauth2/access_token
             /// </remarks>
             public string TokenEndpoint { get; set; }
 
@@ -30,18 +30,18 @@ namespace Owin.Security.Providers.Bitbucket
             /// Endpoint which is used to obtain user information after authentication
             /// </summary>
             /// <remarks>
-            /// Defaults to https://api.github.com/user
+            /// Defaults to https://api.bitbucket.org/2.0/user
             /// </remarks>
             public string UserInfoEndpoint { get; set; }
         }
 
-        private const string AuthorizationEndPoint = "https://github.com/login/oauth/authorize";
-        private const string TokenEndpoint = "https://github.com/login/oauth/access_token";
-        private const string UserInfoEndpoint = "https://api.github.com/user";
+        private const string AuthorizationEndPoint = "https://bitbucket.org/site/oauth2/authorize";
+        private const string TokenEndpoint = "https://bitbucket.org/site/oauth2/access_token";
+        private const string UserInfoEndpoint = "https://bitbucket.org/api/2.0/users/{0}";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
-        ///     in back channel communications belong to GitHub.
+        ///     in back channel communications belong to Bitbucket.
         /// </summary>
         /// <value>
         ///     The pinned certificate validator.
@@ -53,14 +53,14 @@ namespace Owin.Security.Providers.Bitbucket
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
         /// <summary>
-        ///     The HttpMessageHandler used to communicate with GitHub.
+        ///     The HttpMessageHandler used to communicate with Bitbucket.
         ///     This cannot be set at the same time as BackchannelCertificateValidator unless the value
         ///     can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
         /// <summary>
-        ///     Gets or sets timeout value in milliseconds for back channel communications with GitHub.
+        ///     Gets or sets timeout value in milliseconds for back channel communications with Bitbucket.
         /// </summary>
         /// <value>
         ///     The back channel timeout in milliseconds.
@@ -70,7 +70,7 @@ namespace Owin.Security.Providers.Bitbucket
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-github".
+        ///     Default value is "/signin-bitbucket".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -84,17 +84,17 @@ namespace Owin.Security.Providers.Bitbucket
         }
 
         /// <summary>
-        ///     Gets or sets the GitHub supplied Client ID
+        ///     Gets or sets the Bitbucket supplied Client ID
         /// </summary>
         public string ClientId { get; set; }
 
         /// <summary>
-        ///     Gets or sets the GitHub supplied Client Secret
+        ///     Gets or sets the Bitbucket supplied Client Secret
         /// </summary>
         public string ClientSecret { get; set; }
 
         /// <summary>
-        /// Gets the sets of OAuth endpoints used to authenticate against GitHub.  Overriding these endpoints allows you to use GitHub Enterprise for
+        /// Gets the sets of OAuth endpoints used to authenticate against Bitbucket.  Overriding these endpoints allows you to use Bitbucket Enterprise for
         /// authentication.
         /// </summary>
         public BitbucketAuthenticationEndpoints Endpoints { get; set; }
@@ -124,10 +124,10 @@ namespace Owin.Security.Providers.Bitbucket
         ///     Initializes a new <see cref="BitbucketAuthenticationOptions" />
         /// </summary>
         public BitbucketAuthenticationOptions()
-            : base("GitHub")
+            : base("Bitbucket")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-github");
+            CallbackPath = new PathString("/signin-bitbucket");
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {

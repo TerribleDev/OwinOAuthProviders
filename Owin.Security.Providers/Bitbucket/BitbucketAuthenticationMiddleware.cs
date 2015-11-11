@@ -48,7 +48,7 @@ namespace Owin.Security.Providers.Bitbucket
                 Timeout = Options.BackchannelTimeout,
                 MaxResponseContentBufferSize = 1024*1024*10,
             };
-            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Microsoft Owin GitHub middleware");
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Microsoft Owin Bitbucket middleware");
             httpClient.DefaultRequestHeaders.ExpectContinue = false;
         }
 

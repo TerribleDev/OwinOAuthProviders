@@ -82,7 +82,7 @@ namespace Owin.Security.Providers.Bitbucket
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
 
-                // Get the GitHub user
+                // Get the Bitbucket user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage userResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
@@ -109,11 +109,11 @@ namespace Owin.Security.Providers.Bitbucket
                 }
                 if (!string.IsNullOrEmpty(context.Name))
                 {
-                    context.Identity.AddClaim(new Claim("urn:github:name", context.Name, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:bitbucket:name", context.Name, XmlSchemaString, Options.AuthenticationType));
                 }
                 if (!string.IsNullOrEmpty(context.Link))
                 {
-                    context.Identity.AddClaim(new Claim("urn:github:url", context.Link, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:bitbucket:url", context.Link, XmlSchemaString, Options.AuthenticationType));
                 }
                 context.Properties = properties;
 

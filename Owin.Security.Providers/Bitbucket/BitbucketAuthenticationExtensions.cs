@@ -4,7 +4,7 @@ namespace Owin.Security.Providers.Bitbucket
 {
     public static class BitbucketAuthenticationExtensions
     {
-        public static IAppBuilder UseGitHubAuthentication(this IAppBuilder app,
+        public static IAppBuilder UseBitbucketAuthentication(this IAppBuilder app,
             BitbucketAuthenticationOptions options)
         {
             if (app == null)
@@ -17,9 +17,9 @@ namespace Owin.Security.Providers.Bitbucket
             return app;
         }
 
-        public static IAppBuilder UseGitHubAuthentication(this IAppBuilder app, string clientId, string clientSecret)
+        public static IAppBuilder UseBitbucketAuthentication(this IAppBuilder app, string clientId, string clientSecret)
         {
-            return app.UseGitHubAuthentication(new BitbucketAuthenticationOptions
+            return app.UseBitbucketAuthentication(new BitbucketAuthenticationOptions
             {
                 ClientId = clientId,
                 ClientSecret = clientSecret
