@@ -161,6 +161,15 @@
     <Compile Include="Fitbit\Provider\FitbitAuthenticationProvider.cs" />
     <Compile Include="Fitbit\Provider\FitbitReturnEndpointContext.cs" />
     <Compile Include="Fitbit\Provider\IFitbitAuthenticationProvider.cs" />
+    <Compile Include="Bitbucket\Constants.cs" />
+    <Compile Include="Bitbucket\BitbucketAuthenticationExtensions.cs" />
+    <Compile Include="Bitbucket\BitbucketAuthenticationHandler.cs" />
+    <Compile Include="Bitbucket\BitbucketAuthenticationMiddleware.cs" />
+    <Compile Include="Bitbucket\BitbucketAuthenticationOptions.cs" />
+    <Compile Include="Bitbucket\Provider\BitbucketAuthenticatedContext.cs" />
+    <Compile Include="Bitbucket\Provider\BitbucketAuthenticationProvider.cs" />
+    <Compile Include="Bitbucket\Provider\BitbucketReturnEndpointContext.cs" />
+    <Compile Include="Bitbucket\Provider\IBitbucketAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
     <Compile Include="Gitter\Constants.cs" />
     <Compile Include="Gitter\GitterAuthenticationExtensions.cs" />
