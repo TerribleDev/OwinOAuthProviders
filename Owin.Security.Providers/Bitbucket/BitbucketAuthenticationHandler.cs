@@ -34,7 +34,6 @@ namespace Owin.Security.Providers.Bitbucket
             try
             {
                 string code = null;
-                string state = null;
 
                 IReadableStringCollection query = Request.Query;
                 IList<string> values = query.GetValues("code");
@@ -42,37 +41,29 @@ namespace Owin.Security.Providers.Bitbucket
                 {
                     code = values[0];
                 }
-                values = query.GetValues("state");
-                if (values != null && values.Count == 1)
-                {
-                    state = values[0];
-                }
-
-                properties = Options.StateDataFormat.Unprotect(state);
-                if (properties == null)
-                {
-                    return null;
-                }
-
-                // OAuth2 10.12 CSRF
-                if (!ValidateCorrelationId(properties, logger))
-                {
-                    return new AuthenticationTicket(null, properties);
-                }
 
                 string requestPrefix = Request.Scheme + "://" + Request.Host;
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
-                var body = new List<KeyValuePair<string, string>>();
-                body.Add(new KeyValuePair<string, string>("code", code));
-                body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
-                body.Add(new KeyValuePair<string, string>("client_id", Options.ClientId));
-                body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
+
+                // https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Authorizationcodegrant
+                // curl -X POST -u "client_id:secret" https://bitbucket.org/site/oauth2/access_token -d grant_type=authorization_code -d code={code}
+
+                var body = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("code", code),
+                    new KeyValuePair<string, string>("grant_type", "authorization_code")
+                };
 
                 // Request the token
                 var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                requestMessage.Headers.Authorization = new AuthenticationHeaderValue(
+                    "Basic",
+                    Convert.ToBase64String(
+                        System.Text.Encoding.ASCII.GetBytes(
+                            string.Format("{0}:{1}", Options.ClientId, Options.ClientSecret))));
                 requestMessage.Content = new FormUrlEncodedContent(body);
                 HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestMessage);
                 tokenResponse.EnsureSuccessStatusCode();
@@ -81,9 +72,18 @@ namespace Owin.Security.Providers.Bitbucket
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
+                properties = new AuthenticationProperties
+                {
+                    //TODO: RedirectUri
+                    RedirectUri = requestPrefix + Request.PathBase,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes((int)response.expires_in),
+                    IssuedUtc = DateTimeOffset.UtcNow
+                };
+                //properties.Dictionary.Add("refresh_token", (string)response.refresh_token);
 
                 // Get the Bitbucket user
-                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
+                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint);
+                userRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage userResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
                 userResponse.EnsureSuccessStatusCode();
@@ -91,6 +91,7 @@ namespace Owin.Security.Providers.Bitbucket
                 JObject user = JObject.Parse(text);
 
                 var context = new BitbucketAuthenticatedContext(Context, user, accessToken);
+
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
@@ -119,6 +120,7 @@ namespace Owin.Security.Providers.Bitbucket
 
                 await Options.Provider.Authenticated(context);
 
+                //TODO: why does this 404?
                 return new AuthenticationTicket(context.Identity, context.Properties);
             }
             catch (Exception ex)
@@ -153,7 +155,6 @@ namespace Owin.Security.Providers.Bitbucket
                 string redirectUri =
                     baseUri +
                     Options.CallbackPath;
-
                 AuthenticationProperties properties = challenge.Properties;
                 if (string.IsNullOrEmpty(properties.RedirectUri))
                 {
@@ -163,17 +164,12 @@ namespace Owin.Security.Providers.Bitbucket
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
 
-                // comma separated
-                string scope = string.Join(",", Options.Scope);
-
-                string state = Options.StateDataFormat.Protect(properties);
-
+                // https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Accesstokens
                 string authorizationEndpoint =
                     Options.Endpoints.AuthorizationEndpoint +
                         "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
-                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-                        "&scope=" + Uri.EscapeDataString(scope) +
-                        "&state=" + Uri.EscapeDataString(state);
+                        "&response_type=code" +
+                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri);
 
                 Response.Redirect(authorizationEndpoint);
             }

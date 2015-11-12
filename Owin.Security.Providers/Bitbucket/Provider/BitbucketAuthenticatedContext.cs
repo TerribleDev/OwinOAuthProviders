@@ -27,10 +27,10 @@ namespace Owin.Security.Providers.Bitbucket
             User = user;
             AccessToken = accessToken;
 
-            Id = TryGetValue(user, "id");
-            Name = TryGetValue(user, "name");
-            Link = TryGetValue(user, "url");
-            UserName = TryGetValue(user, "login");
+            Id = TryGetValue(user, "uuid");
+            Name = TryGetValue(user, "display_name");
+            Link = TryGetValue(user, "website");
+            UserName = TryGetValue(user, "username");
             Email = TryGetValue(user, "email");
         }
 

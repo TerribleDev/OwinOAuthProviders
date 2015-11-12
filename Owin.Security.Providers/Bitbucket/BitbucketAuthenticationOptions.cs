@@ -37,7 +37,7 @@ namespace Owin.Security.Providers.Bitbucket
 
         private const string AuthorizationEndPoint = "https://bitbucket.org/site/oauth2/authorize";
         private const string TokenEndpoint = "https://bitbucket.org/site/oauth2/access_token";
-        private const string UserInfoEndpoint = "https://bitbucket.org/api/2.0/users/{0}";
+        private const string UserInfoEndpoint = "https://api.bitbucket.org/2.0/user";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -129,10 +129,13 @@ namespace Owin.Security.Providers.Bitbucket
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-bitbucket");
             AuthenticationMode = AuthenticationMode.Passive;
-            Scope = new List<string>
-            {
-                "user"
-            };
+
+            // Bitbucket does not support the scope parameter
+            // https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Scopes
+            //Scope = new List<string>
+            //{
+            //    "user"
+            //};
             BackchannelTimeout = TimeSpan.FromSeconds(60);
             Endpoints = new BitbucketAuthenticationEndpoints
             {
