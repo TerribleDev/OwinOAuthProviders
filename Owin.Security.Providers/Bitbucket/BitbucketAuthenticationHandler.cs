@@ -17,6 +17,9 @@ namespace Owin.Security.Providers.Bitbucket
     public class BitbucketAuthenticationHandler : AuthenticationHandler<BitbucketAuthenticationOptions>
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
+        private const string XsrfIdKey = "XsrfId";
+        private const string AuthenticatedReturnUrlKey = ".Bitbucket.ReturnUrl";
+        private const string CorrelationIdKey = ".AspNet.Correlation.Bitbucket";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -42,6 +45,27 @@ namespace Owin.Security.Providers.Bitbucket
                     code = values[0];
                 }
 
+                // Bitbucket doesn't include a state parameter in the callback url, so we need to retreive a few things required for OWIN
+                properties = new AuthenticationProperties();
+                properties.RedirectUri = Context.Request.Cookies[AuthenticatedReturnUrlKey];
+                var xsrfId = Context.Request.Cookies[XsrfIdKey];
+                if (xsrfId != null)
+                {
+                    properties.Dictionary.Add(XsrfIdKey, xsrfId);
+                }
+                properties.Dictionary.Add(CorrelationIdKey, Context.Request.Cookies[CorrelationIdKey]);
+
+                // OAuth2 10.12 CSRF
+                if (!ValidateCorrelationId(properties, logger))
+                {
+                    return new AuthenticationTicket(null, properties);
+                }
+
+                // clean up cookies
+                Context.Response.Cookies.Delete(XsrfIdKey);
+                Context.Response.Cookies.Delete(CorrelationIdKey);
+                Context.Response.Cookies.Delete(AuthenticatedReturnUrlKey);
+
                 string requestPrefix = Request.Scheme + "://" + Request.Host;
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
@@ -53,7 +77,8 @@ namespace Owin.Security.Providers.Bitbucket
                 var body = new List<KeyValuePair<string, string>>
                 {
                     new KeyValuePair<string, string>("code", code),
-                    new KeyValuePair<string, string>("grant_type", "authorization_code")
+                    new KeyValuePair<string, string>("grant_type", "authorization_code"),
+                    new KeyValuePair<string, string>("redirect_uri", redirectUri)
                 };
 
                 // Request the token
@@ -72,14 +97,6 @@ namespace Owin.Security.Providers.Bitbucket
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
-                properties = new AuthenticationProperties
-                {
-                    //TODO: RedirectUri
-                    RedirectUri = requestPrefix + Request.PathBase,
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes((int)response.expires_in),
-                    IssuedUtc = DateTimeOffset.UtcNow
-                };
-                //properties.Dictionary.Add("refresh_token", (string)response.refresh_token);
 
                 // Get the Bitbucket user
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint);
@@ -120,7 +137,6 @@ namespace Owin.Security.Providers.Bitbucket
 
                 await Options.Provider.Authenticated(context);
 
-                //TODO: why does this 404?
                 return new AuthenticationTicket(context.Identity, context.Properties);
             }
             catch (Exception ex)
@@ -161,8 +177,17 @@ namespace Owin.Security.Providers.Bitbucket
                     properties.RedirectUri = currentUri;
                 }
 
+                // Bitbucket doesn't include a state parameter in the callback url, so we need to persist a few things required for OWIN
+                Context.Response.Cookies.Append(AuthenticatedReturnUrlKey, properties.RedirectUri);
+                if (challenge.Properties.Dictionary.ContainsKey(XsrfIdKey))
+                {
+                    Context.Response.Cookies.Append(XsrfIdKey, challenge.Properties.Dictionary[XsrfIdKey]);
+                }
+                
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
+
+                Context.Response.Cookies.Append(CorrelationIdKey, challenge.Properties.Dictionary[CorrelationIdKey]);
 
                 // https://confluence.atlassian.com/bitbucket/oauth-on-bitbucket-cloud-238027431.html#OAuthonBitbucketCloud-Accesstokens
                 string authorizationEndpoint =
