@@ -86,7 +86,7 @@ namespace Owin.Security.Providers.LinkedIn
 
                 // Get the LinkedIn user
                 string userInfoEndpoint = UserInfoEndpoint
-                                          + "~:("+ string.Join(",", Options.ProfileFields.ToArray()) +")"
+                                          + "~:("+ string.Join(",", Options.ProfileFields.Distinct().ToArray()) +")"
                                           + "?oauth2_access_token=" + Uri.EscapeDataString(accessToken);
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, userInfoEndpoint);
                 userRequest.Headers.Add("x-li-format", "json");
