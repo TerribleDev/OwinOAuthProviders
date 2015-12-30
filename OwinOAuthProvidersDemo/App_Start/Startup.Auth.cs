@@ -41,6 +41,7 @@ using Owin.Security.Providers.Backlog;
 using Owin.Security.Providers.Vimeo;
 using Owin.Security.Providers.Fitbit;
 using Owin.Security.Providers.Onshape;
+using Owin.Security.Providers.VKontakte;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -80,7 +81,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseTripItAuthentication("", "");
 
-            //app.UseGitHubAuthentication("", "");
+            //app.UseGitHubAuthentication("c842f3dfb895808f6585", "5354f5cd141169d57ecb5e058bb8a4529685947f");
 
             //app.UseBufferAuthentication("", "");
 
@@ -308,6 +309,8 @@ namespace OwinOAuthProvidersDemo
             //  CallbackPath = new PathString("/oauthRedirect"),
             //  Hostname = "partner.dev.onshape.com"
             //});
+
+            //app.UseVKontakteAuthentication("", "");
         }
     }
 }

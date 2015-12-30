@@ -37,6 +37,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Untappd
   - Vimeo
   - Visual Studio Online
+  - VKontakte
   - Wordpress
   - Yahoo
   - Yammer
