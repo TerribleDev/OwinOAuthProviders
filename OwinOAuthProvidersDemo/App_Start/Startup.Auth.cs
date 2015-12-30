@@ -81,7 +81,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseTripItAuthentication("", "");
 
-            //app.UseGitHubAuthentication("c842f3dfb895808f6585", "5354f5cd141169d57ecb5e058bb8a4529685947f");
+            //app.UseGitHubAuthentication("", "");
 
             //app.UseBufferAuthentication("", "");
 
