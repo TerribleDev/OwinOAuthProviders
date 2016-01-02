@@ -382,6 +382,16 @@
     <Compile Include="VisualStudio\VisualStudioAuthenticationMiddleware.cs" />
     <Compile Include="VisualStudio\VisualStudioAuthenticationOptions.cs" />
     <Compile Include="Untappd\ApiResponse.cs" />
+    <Compile Include="VKontakte\Constants.cs" />
+    <Compile Include="VKontakte\VKontakteAuthenticationEndpoints.cs" />
+    <Compile Include="VKontakte\VKontakteAuthenticationExtensions.cs" />
+    <Compile Include="VKontakte\VKontakteAuthenticationHandler.cs" />
+    <Compile Include="VKontakte\VKontakteAuthenticationMiddleware.cs" />
+    <Compile Include="VKontakte\VKontakteAuthenticationOptions.cs" />
+    <Compile Include="VKontakte\Provider\VKontakteAuthenticatedContext.cs" />
+    <Compile Include="VKontakte\Provider\VKontakteAuthenticationProvider.cs" />
+    <Compile Include="VKontakte\Provider\VKontakteReturnEndpointContext.cs" />
+    <Compile Include="VKontakte\Provider\IVKontakteAuthenticationProvider.cs" />
     <Compile Include="Wargaming\Constants.cs" />
     <Compile Include="Wargaming\WargamingAccountAuthenticationExtensions.cs" />
     <Compile Include="Wargaming\WargamingAuthenticationHandler.cs" />
