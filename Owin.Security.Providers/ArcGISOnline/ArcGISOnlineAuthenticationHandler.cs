@@ -34,6 +34,7 @@ namespace Owin.Security.Providers.ArcGISOnline
             try
             {
                 string code = null;
+                string state = null;
 
                 IReadableStringCollection query = Request.Query;
                 IList<string> values = query.GetValues("code");
@@ -41,18 +42,34 @@ namespace Owin.Security.Providers.ArcGISOnline
                 {
                     code = values[0];
                 }
+                values = query.GetValues("state");
+                if (values != null && values.Count == 1)
+                {
+                    state = values[0];
+                }
 
+                properties = Options.StateDataFormat.Unprotect(state);
+                if (properties == null)
+                {
+                    return null;
+                }
+                // OAuth2 10.12 CSRF
+                if (!ValidateCorrelationId(properties,logger))
+                {
+                    return new AuthenticationTicket(null, properties);
+                }
+            
                 string requestPrefix = Request.Scheme + "://" + Request.Host;
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
                 var body = new List<KeyValuePair<string, string>>();
+                body.Add(new KeyValuePair<string, string>("grant_type", "authorization_code"));
                 body.Add(new KeyValuePair<string, string>("code", code));
                 body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
                 body.Add(new KeyValuePair<string, string>("client_id", Options.ClientId));
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
-                body.Add(new KeyValuePair<string, string>("grant_type", "authorization_code"));
-
+                
                 // Request the token
                 var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -104,12 +121,8 @@ namespace Owin.Security.Providers.ArcGISOnline
                     Request.Host +
                     Request.PathBase;
 
-                context.Properties = new AuthenticationProperties
-                {
-                    RedirectUri = baseUri +
-                    "/Account/ExternalLoginCallback"
-                };
-
+                context.Properties = properties;
+              
                 await Options.Provider.Authenticated(context);
 
                 return new AuthenticationTicket(context.Identity, context.Properties);
@@ -146,7 +159,14 @@ namespace Owin.Security.Providers.ArcGISOnline
                 string redirectUri =
                     baseUri +
                     Options.CallbackPath;
+                AuthenticationProperties properties=challenge.Properties;
+                if (string.IsNullOrEmpty(properties.RedirectUri))
+                {
+                    properties.RedirectUri = currentUri;
+                }
 
+                GenerateCorrelationId(properties);
+                string state = Options.StateDataFormat.Protect(properties);
                 // comma separated
                 string scope = string.Join(",", Options.Scope);
 
@@ -154,7 +174,8 @@ namespace Owin.Security.Providers.ArcGISOnline
                     Options.Endpoints.AuthorizationEndpoint +
                         "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
                         "&response_type=" + Uri.EscapeDataString(scope) +
-                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri);
+                        "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
+                        "&state=" + Uri.EscapeDataString(state);
 
                 Response.Redirect(authorizationEndpoint);
             }
