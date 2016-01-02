@@ -63,6 +63,20 @@ namespace Owin.Security.Providers.LinkedIn
         public string ClientSecret { get; set; }
 
         /// <summary>
+        ///     Gets the list of profile fields to retrieve when signing in. 
+        /// </summary>
+        /// <remarks>
+        ///     See https://developer.linkedin.com/docs/fields/basic-profile for the list of available Basic Profile fields. 
+        ///     There are additional member profile fields available, see https://developer.linkedin.com/docs/fields/full-profile. 
+        ///     Access to these fields requires that you apply for and are granted access to this information from LinkedIn.
+        ///     
+        ///     The following fields are added to the list by default: id, first-name, last-name, formatted-name ,email-address, public-profile-url, picture-url
+        /// 
+        ///     You can access the returned fields through the <see cref="LinkedInAuthenticatedContext.User"/> property.
+        /// </remarks>
+        public IList<string> ProfileFields { get; private set; }
+
+        /// <summary>
         ///     Gets or sets the <see cref="ILinkedInAuthenticationProvider" /> used in the authentication events
         /// </summary>
         public ILinkedInAuthenticationProvider Provider { get; set; }
@@ -96,6 +110,16 @@ namespace Owin.Security.Providers.LinkedIn
             {
                 "r_basicprofile",
                 "r_emailaddress"
+            };
+            ProfileFields = new List<string>
+            {
+                "id",
+                "first-name",
+                "last-name",
+                "formatted-name",
+                "email-address",
+                "public-profile-url",
+                "picture-url"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }
