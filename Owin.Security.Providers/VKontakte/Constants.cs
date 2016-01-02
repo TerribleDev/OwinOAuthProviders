@@ -2,6 +2,6 @@
 {
     internal static class Constants
     {
-        public const string DefaultAuthenticationType = "VK";
+        public const string DefaultAuthenticationType = "VKontakte";
     }
 }

@@ -9,6 +9,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Asana
   - Backlog
   - Battle.net
+  - Bitbucket
   - Buffer
   - Cosign
   - DeviantArt

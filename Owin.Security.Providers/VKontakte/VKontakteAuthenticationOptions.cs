@@ -12,7 +12,7 @@ namespace Owin.Security.Providers.VKontakte
         private const string AuthorizationEndPoint = "https://oauth.vk.com/authorize";
         private const string TokenEndpoint = "https://oauth.vk.com/access_token";
         private const string UserInfoEndpoint = "https://api.vk.com/method/users.get";
-        private const string DefaultCallbackPath = "/signin-vk";
+        private const string DefaultCallbackPath = "/signin-vkontakte";
         private const string DefaultDisplayMode = "page";
 
         /// <summary>
