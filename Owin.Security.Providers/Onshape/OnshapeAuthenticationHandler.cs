@@ -22,7 +22,7 @@ namespace Owin.Security.Providers.Onshape
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string AuthorizationEndpoint = "/oauth/authorize";
         private const string TokenEndpoint = "/oauth/token";
-        private const string UserInfoEndpoint = "/api/users/current";
+        private const string UserInfoEndpoint = "/api/users/session";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
