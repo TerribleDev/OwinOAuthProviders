@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,7 @@
     <AssemblyName>Owin.Security.Providers</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>05a3d3f8</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -415,6 +417,20 @@
     <Compile Include="WordPress\Provider\WordPressAuthenticationProvider.cs" />
     <Compile Include="WordPress\Provider\WordPressReturnEndpointContext.cs" />
     <Compile Include="WordPress\Provider\IWordPressAuthenticationProvider.cs" />
+    <Compile Include="Xing\Constants.cs" />
+    <Compile Include="Xing\Messages\AccessToken.cs" />
+    <Compile Include="Xing\Messages\RequestToken.cs" />
+    <Compile Include="Xing\Messages\RequestTokenSerializer.cs" />
+    <Compile Include="Xing\Messages\Serializer.cs" />
+    <Compile Include="Xing\Provider\IXingAuthenticationProvider.cs" />
+    <Compile Include="Xing\Provider\XingApplyRedirectContext.cs" />
+    <Compile Include="Xing\Provider\XingAuthenticatedContext.cs" />
+    <Compile Include="Xing\Provider\XingAuthenticationProvider.cs" />
+    <Compile Include="Xing\Provider\XingReturnEndpointContext.cs" />
+    <Compile Include="Xing\XingAuthenticationExtensions.cs" />
+    <Compile Include="Xing\XingAuthenticationHandler.cs" />
+    <Compile Include="Xing\XingAuthenticationMiddleware.cs" />
+    <Compile Include="Xing\XingAuthenticationOptions.cs" />
     <Compile Include="Yahoo\Constants.cs" />
     <Compile Include="Yahoo\Messages\AccessToken.cs" />
     <Compile Include="Yahoo\Messages\RequestToken.cs" />
@@ -448,8 +464,16 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DoYouBuzz\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
