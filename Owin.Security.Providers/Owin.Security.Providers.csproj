@@ -114,6 +114,21 @@
     <Compile Include="DeviantArt\DeviantAuthenticationHandler.cs" />
     <Compile Include="DeviantArt\DeviantAuthenticationMiddleware.cs" />
     <Compile Include="DeviantArt\DeviantAuthenticationOptions.cs" />
+    <Compile Include="DoYouBuzz\Constants.cs" />
+    <Compile Include="DoYouBuzz\DoYouBuzzAuthenticationHandler.cs" />
+    <Compile Include="DoYouBuzz\DoYouBuzzAuthenticationMiddleware.cs" />
+    <Compile Include="DoYouBuzz\DoYouBuzzAuthenticationOptions.cs" />
+    <Compile Include="DoYouBuzz\Messages\AccessToken.cs" />
+    <Compile Include="DoYouBuzz\Messages\RequestToken.cs" />
+    <Compile Include="DoYouBuzz\Messages\RequestTokenSerializer.cs" />
+    <Compile Include="DoYouBuzz\Messages\Resume.cs" />
+    <Compile Include="DoYouBuzz\Messages\Serializer.cs" />
+    <Compile Include="DoYouBuzz\Messages\UserInfo.cs" />
+    <Compile Include="DoYouBuzz\Provider\DoYouBuzzApplyRedirectContext.cs" />
+    <Compile Include="DoYouBuzz\Provider\DoYouBuzzAuthenticatedContext.cs" />
+    <Compile Include="DoYouBuzz\Provider\DoYouBuzzAuthenticationProvider.cs" />
+    <Compile Include="DoYouBuzz\Provider\DoYouBuzzReturnEndpointContext.cs" />
+    <Compile Include="DoYouBuzz\Provider\IDoYouBuzzAuthenticationProvider.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationExtensions.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationHandler.cs" />
     <Compile Include="Dropbox\DropboxAuthenticationMiddleware.cs" />
@@ -464,9 +479,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DoYouBuzz\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
