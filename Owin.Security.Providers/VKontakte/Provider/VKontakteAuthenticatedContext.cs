@@ -28,7 +28,7 @@ namespace Owin.Security.Providers.VKontakte.Provider
             Id = TryGetValue(user, "uid");
             string firstName = TryGetValue(user, "first_name");
             string lastName = TryGetValue(user, "last_name");
-            UserName = $"{firstName} {lastName}";
+            UserName = firstName + " " + lastName;
         }
 
         /// <summary>

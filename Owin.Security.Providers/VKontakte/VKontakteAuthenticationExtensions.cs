@@ -8,9 +8,9 @@ namespace Owin.Security.Providers.VKontakte
             VKontakteAuthenticationOptions options)
         {
             if (app == null)
-                throw new ArgumentNullException(nameof(app));
+                throw new ArgumentNullException("app");
             if (options == null)
-                throw new ArgumentNullException(nameof(options));
+                throw new ArgumentNullException("options");
 
             app.Use(typeof(VKontakteAuthenticationMiddleware), app, options);
 

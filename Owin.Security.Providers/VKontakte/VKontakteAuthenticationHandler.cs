@@ -42,11 +42,11 @@ namespace Owin.Security.Providers.VKontakte
 
             if (challenge != null)
             {
-                string baseUri = $"{Request.Scheme}{Uri.SchemeDelimiter}{Request.Host}{Request.PathBase}";
+                string baseUri = string.Format("{0}{1}{2}{3}", Request.Scheme, Uri.SchemeDelimiter, Request.Host, Request.PathBase);
 
-                string currentUri = $"{baseUri}{Request.Path}{Request.QueryString}";
+                string currentUri = string.Format("{0}{1}{2}", baseUri, Request.Path, Request.QueryString);
 
-                string redirectUri = $"{baseUri}{Options.CallbackPath}";
+                string redirectUri = string.Format("{0}{1}", baseUri, Options.CallbackPath);
 
                 AuthenticationProperties properties = challenge.Properties;
                 if (string.IsNullOrEmpty(properties.RedirectUri))
@@ -62,9 +62,13 @@ namespace Owin.Security.Providers.VKontakte
 
                 string state = Options.StateDataFormat.Protect(properties);
 
-                string authorizationEndpoint = $@"{Options.Endpoints.AuthorizationEndpoint}?client_id={Uri.EscapeDataString(Options.ClientId)}
-                        &redirect_uri={Uri.EscapeDataString(redirectUri)}&scope={Uri.EscapeDataString(scope)}
-                        &state={Uri.EscapeDataString(state)}&display={Uri.EscapeDataString(Options.Display)}";
+                string authorizationEndpoint = string.Format("{0}?client_id={1}&redirect_uri={2}&scope={3}&state={4}&display={5}",
+                    Options.Endpoints.AuthorizationEndpoint,
+                    Uri.EscapeDataString(Options.ClientId),
+                    Uri.EscapeDataString(redirectUri),
+                    Uri.EscapeDataString(scope),
+                    Uri.EscapeDataString(state),
+                    Uri.EscapeDataString(Options.Display));
 
                 Response.Redirect(authorizationEndpoint);
             }
@@ -150,12 +154,10 @@ namespace Owin.Security.Providers.VKontakte
 
         private async Task<JObject> GetUser(JObject response, string accessToken)
         {
-            int userId = (int) response["user_id"];
+            int userId = (int)response["user_id"];
 
             // Get the VK user
-            var userRequestUri =
-                new Uri(
-                    $@"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id{userId}");
+            var userRequestUri = new Uri(string.Format("{0}?access_token={1}&user_id{2}", Options.Endpoints.UserInfoEndpoint, Uri.EscapeDataString(accessToken), userId));
             HttpResponseMessage userResponse = await httpClient.GetAsync(userRequestUri, Request.CallCancelled);
             userResponse.EnsureSuccessStatusCode();
 
@@ -166,7 +168,7 @@ namespace Owin.Security.Providers.VKontakte
 
         private async Task<JObject> GetAuthorizationToken(string authorizationCode)
         {
-            string redirectUri = $"{Request.Scheme}://{Request.Host}{Request.PathBase}{Options.CallbackPath}";
+            string redirectUri = string.Format("{0}://{1}{2}{3}", Request.Scheme, Request.Host, Request.PathBase, Options.CallbackPath);
 
             // Build up the body for the token request
             var body = new Dictionary<string, string>
@@ -187,7 +189,7 @@ namespace Owin.Security.Providers.VKontakte
             JObject response = JObject.Parse(tokenResponseAsString);
             return response;
         }
-        
+
         private async Task<bool> InvokeReplyPathAsync()
         {
             if (Options.CallbackPath.HasValue && Options.CallbackPath == Request.Path)
