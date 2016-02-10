@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Owin.Security.Providers</id>
-    <version>1.26</version>
+    <version>1.27</version>
     <authors>Jerrie Pelser and contributors</authors>
     <owners>Jerrie Pelser</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -19,12 +19,10 @@
       Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
     </summary>
     <releaseNotes>
-      Version 1.26
-      - Adds Bitbucket provider
-      - Adds VKontakte provider
-      - Bug fixes
+      Version 1.27
+      - Adds Xing provider
     </releaseNotes>
-    <copyright>Copyright 2013, 2014</copyright>
+    <copyright>Copyright 2013 - 2016</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
     <dependencies>
       <dependency id="Microsoft.Owin.Security" version="2.1.0" />

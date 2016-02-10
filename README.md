@@ -40,6 +40,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Visual Studio Online
   - VKontakte
   - Wordpress
+  - Xing
   - Yahoo
   - Yammer
 - OpenID
