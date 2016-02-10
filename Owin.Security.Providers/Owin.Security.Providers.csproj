@@ -11,6 +11,7 @@
     <AssemblyName>Owin.Security.Providers</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>cbdbae43</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -415,6 +416,20 @@
     <Compile Include="WordPress\Provider\WordPressAuthenticationProvider.cs" />
     <Compile Include="WordPress\Provider\WordPressReturnEndpointContext.cs" />
     <Compile Include="WordPress\Provider\IWordPressAuthenticationProvider.cs" />
+    <Compile Include="Xing\Constants.cs" />
+    <Compile Include="Xing\Messages\AccessToken.cs" />
+    <Compile Include="Xing\Messages\RequestToken.cs" />
+    <Compile Include="Xing\Messages\RequestTokenSerializer.cs" />
+    <Compile Include="Xing\Messages\Serializer.cs" />
+    <Compile Include="Xing\Provider\IXingAuthenticationProvider.cs" />
+    <Compile Include="Xing\Provider\XingApplyRedirectContext.cs" />
+    <Compile Include="Xing\Provider\XingAuthenticatedContext.cs" />
+    <Compile Include="Xing\Provider\XingAuthenticationProvider.cs" />
+    <Compile Include="Xing\Provider\XingReturnEndpointContext.cs" />
+    <Compile Include="Xing\XingAuthenticationExtensions.cs" />
+    <Compile Include="Xing\XingAuthenticationHandler.cs" />
+    <Compile Include="Xing\XingAuthenticationMiddleware.cs" />
+    <Compile Include="Xing\XingAuthenticationOptions.cs" />
     <Compile Include="Yahoo\Constants.cs" />
     <Compile Include="Yahoo\Messages\AccessToken.cs" />
     <Compile Include="Yahoo\Messages\RequestToken.cs" />

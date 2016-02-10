@@ -42,6 +42,7 @@ using Owin.Security.Providers.Vimeo;
 using Owin.Security.Providers.Fitbit;
 using Owin.Security.Providers.Onshape;
 using Owin.Security.Providers.VKontakte;
+using Owin.Security.Providers.Xing;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -311,6 +312,8 @@ namespace OwinOAuthProvidersDemo
             //});
 
             //app.UseVKontakteAuthentication("", "");
+
+            //app.UseXingAuthentication("", "");
         }
     }
 }
