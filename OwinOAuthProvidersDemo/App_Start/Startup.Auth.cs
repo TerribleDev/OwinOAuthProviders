@@ -38,6 +38,7 @@ using Owin.Security.Providers.Wargaming;
 using Owin.Security.Providers.WordPress;
 using Owin.Security.Providers.Yahoo;
 using Owin.Security.Providers.Backlog;
+using Owin.Security.Providers.DoYouBuzz;
 using Owin.Security.Providers.Vimeo;
 using Owin.Security.Providers.Fitbit;
 using Owin.Security.Providers.Onshape;
@@ -314,6 +315,8 @@ namespace OwinOAuthProvidersDemo
             //app.UseVKontakteAuthentication("", "");
 
             //app.UseXingAuthentication("", "");
+
+            //app.UseDoYouBuzzAuthentication("", "");
         }
     }
 }
