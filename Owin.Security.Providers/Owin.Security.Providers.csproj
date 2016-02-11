@@ -47,6 +47,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -104,6 +105,19 @@
     <Compile Include="Buffer\Provider\BufferReturnEndpointContext.cs" />
     <Compile Include="Buffer\Provider\IBufferAuthenticationProvider.cs" />
     <Compile Include="BattleNet\Constants.cs" />
+    <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\DoYouBuzzConfigurationElement.cs" />
+    <Compile Include="Configuration\EmailTwoFactorAuthenticationConfigurationElement.cs" />
+    <Compile Include="Configuration\FacebookConfigurationElement.cs" />
+    <Compile Include="Configuration\GoogleAPIConfigurationElement.cs" />
+    <Compile Include="Configuration\GoogleConfigurationElement.cs" />
+    <Compile Include="Configuration\LinkedInConfigurationElement.cs" />
+    <Compile Include="Configuration\MicrosoftConfigurationElement.cs" />
+    <Compile Include="Configuration\OwinConfigSection.cs" />
+    <Compile Include="Configuration\SMSTwoFactorAuthenticationConfigurationElement.cs" />
+    <Compile Include="Configuration\TwitterConfigurationElement.cs" />
+    <Compile Include="Configuration\XingConfigurationElement.cs" />
+    <Compile Include="Configuration\YammerConfigurationElement.cs" />
     <Compile Include="DeviantArt\Constants.cs" />
     <Compile Include="DeviantArt\Provider\IDeviantAuthenticationProvider.cs" />
     <Compile Include="DeviantArt\Provider\DeviantAuthenticatedContext.cs" />
@@ -477,6 +491,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Configuration\OwinConfigSectionSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
