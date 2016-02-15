@@ -39,6 +39,7 @@ namespace Owin.Security.Providers.LinkedIn
             FamilyName = TryGetValue(user, "lastName");
             GivenName = TryGetValue(user, "firstName");
             Link = TryGetValue(user, "publicProfileUrl");
+            UserName = TryGetValue(user, "formattedName").Replace(" ", "");
             Email = TryGetValue(user, "emailAddress");
         }
 
