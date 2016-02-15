@@ -119,6 +119,7 @@ namespace Owin.Security.Providers.LinkedIn
                 if (!string.IsNullOrEmpty(context.Name))
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.Name, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:linkedin:name", context.Name, XmlSchemaString, Options.AuthenticationType));
                 }
                 if (!string.IsNullOrEmpty(context.Link))
                 {
