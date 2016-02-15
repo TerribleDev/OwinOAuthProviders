@@ -71,6 +71,12 @@ namespace Owin.Security.Providers.LinkedIn
         public string Name { get; private set; }
 
         /// <summary>
+        /// Gets the LinkedIn username
+        /// </summary>
+        [Obsolete("LinkedIn doesn't return a username claim. Use Name instead.")]
+        public string UserName { get; private set; }
+
+        /// <summary>
         /// Get the user's first name
         /// </summary>
         public string GivenName { get; private set; }
