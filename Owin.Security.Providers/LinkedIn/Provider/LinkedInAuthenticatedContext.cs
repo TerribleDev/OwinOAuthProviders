@@ -36,6 +36,8 @@ namespace Owin.Security.Providers.LinkedIn
 
             Id = TryGetValue(user, "id");
             Name = TryGetValue(user, "formattedName");
+            FamilyName = TryGetValue(user, "lastName");
+            GivenName = TryGetValue(user, "firstName");
             Link = TryGetValue(user, "publicProfileUrl");
             UserName = TryGetValue(user, "formattedName").Replace(" ", "");
             Email = TryGetValue(user, "emailAddress");
@@ -69,12 +71,23 @@ namespace Owin.Security.Providers.LinkedIn
         /// </summary>
         public string Name { get; private set; }
 
-        public string Link { get; private set; }
-
         /// <summary>
         /// Gets the LinkedIn username
         /// </summary>
+        [Obsolete("LinkedIn doesn't return a username claim. Use Name instead.")]
         public string UserName { get; private set; }
+
+        /// <summary>
+        /// Get the user's first name
+        /// </summary>
+        public string GivenName { get; private set; }
+
+        /// <summary>
+        /// Get the user's last name
+        /// </summary>
+        public string FamilyName { get; private set; }
+
+        public string Link { get; private set; }
 
         /// <summary>
         /// Gets the LinkedIn email
