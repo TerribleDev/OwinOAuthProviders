@@ -113,7 +113,7 @@ namespace Owin.Security.Providers.Orcid
             {
                 AuthorizationEndpoint = OrcidAuthenticationEndpoints.Default.AuthorizationEndPoint,
                 TokenEndpoint = OrcidAuthenticationEndpoints.Default.TokenEndpoint,
-                UserProfileEndpoint = OrcidAuthenticationEndpoints.Default.UserInfoEndpoint
+                ApiEndpoint = OrcidAuthenticationEndpoints.Default.ApiEndpoint
             };
         }
     }

@@ -94,14 +94,14 @@ namespace Owin.Security.Providers.Orcid
                 string refreshToken = (string)response.refresh_token;
                 string orcid = (string)response.orcid;
 
-                string userInfoEndpoint =
+                string profileEndpoint =
                     string.Format("{0}/{1}/{2}", 
-                    Options.Endpoints.UserProfileEndpoint,
+                    Options.Endpoints.ApiEndpoint,
                     orcid,
                     "orcid-profile/");
 
                 // Get Orcid profile
-                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, userInfoEndpoint);
+                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, profileEndpoint);
                 
                 //Requesting public info for now - no authirization needed
                 //userRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -119,7 +119,7 @@ namespace Owin.Security.Providers.Orcid
 
                 // Get the Orcid user using the user info endpoint, which is part of the token - response.id
 
-                var context = text.ToAuthenticationContext(Context, accessToken);
+				var context = text.ToAuthenticationContext(Context, orcid, accessToken);
 
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
@@ -130,6 +130,7 @@ namespace Owin.Security.Providers.Orcid
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, Options.AuthenticationType));
                 }
+
                 if (!string.IsNullOrEmpty(context.UserName))
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.UserName, XmlSchemaString, Options.AuthenticationType));

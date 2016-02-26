@@ -78,7 +78,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            //app.UseLinkedInAuthentication("", "");
+			app.UseLinkedInAuthentication("77t1r2itp37ylq", "df1AqMEHcN8FyTwT");
 
             //app.UseYahooAuthentication("", "");
 
@@ -318,7 +318,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseXingAuthentication("", "");
 
 			//app.UseDoYouBuzzAuthentication("", "");
-			
+
 			app.UseOrcidAuthentication("", "");
         }
     }

@@ -10,9 +10,9 @@ namespace Owin.Security.Providers.Orcid
     {
         public static class Default
         {
-            public const string AuthorizationEndPoint = @"http://orcid.org/oauth/authorize";
-            public const string TokenEndpoint = @"https://pub.orcid.org/oauth/token";
-            public const string UserInfoEndpoint = @"http://pub.orcid.org/v1.2";
+			public const string AuthorizationEndPoint = @"https://orcid.org/oauth/authorize";
+			public const string TokenEndpoint = @"https://pub.orcid.org/oauth/token";
+            public const string ApiEndpoint = @"http://pub.orcid.org/v1.2";
         }
 
         /// <summary>
@@ -28,6 +28,6 @@ namespace Owin.Security.Providers.Orcid
         /// <summary>
         /// Endpoint which is used to exchange code for access token
         /// </summary>
-        public string UserProfileEndpoint { get; set; }
+        public string ApiEndpoint { get; set; }
     }
 }
