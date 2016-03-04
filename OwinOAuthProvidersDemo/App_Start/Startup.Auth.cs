@@ -44,6 +44,7 @@ using Owin.Security.Providers.Fitbit;
 using Owin.Security.Providers.Onshape;
 using Owin.Security.Providers.VKontakte;
 using Owin.Security.Providers.Xing;
+using Owin.Security.Providers.Orcid;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -77,7 +78,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGoogleAuthentication();
 
-            //app.UseLinkedInAuthentication("", "");
+			//app.UseLinkedInAuthentication("", "");
 
             //app.UseYahooAuthentication("", "");
 
@@ -316,7 +317,9 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseXingAuthentication("", "");
 
-            //app.UseDoYouBuzzAuthentication("", "");
+			//app.UseDoYouBuzzAuthentication("", "");
+
+            //app.UseOrcidAuthentication("", "");
         }
     }
 }
