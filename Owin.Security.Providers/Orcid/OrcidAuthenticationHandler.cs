@@ -202,12 +202,13 @@ namespace Owin.Security.Providers.Orcid
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint = string.Format(
-                    "{0}?client_id={1}&response_type={2}&scope={3}&redirect_uri={4}",
+                    "{0}?client_id={1}&response_type={2}&scope={3}&redirect_uri={4}&state={5}",
                     Options.Endpoints.AuthorizationEndpoint,
                     Options.ClientId,
                     "code",
                     @"/authenticate",
-                    HttpUtility.UrlEncode(redirectUri)
+                    HttpUtility.UrlEncode(redirectUri),
+                    state
                     );
 
                 //RZ: Need this?
@@ -244,7 +245,7 @@ namespace Owin.Security.Providers.Orcid
                 var context = new OrcidReturnEndpointContext(Context, ticket)
                 {
                     SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
-                    RedirectUri = "/Account/ExternalLoginCallback" //ticket.Properties.RedirectUri
+                    RedirectUri = ticket.Properties.RedirectUri
                 };
 
                 await Options.Provider.ReturnEndpoint(context);
