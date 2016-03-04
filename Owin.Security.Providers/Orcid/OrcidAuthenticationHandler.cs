@@ -242,10 +242,10 @@ namespace Owin.Security.Providers.Orcid
                 }
 
                 var context = new OrcidReturnEndpointContext(Context, ticket)
-                    {
-                        SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
-                        RedirectUri = ticket.Properties.RedirectUri
-                    };
+                {
+                    SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
+                    RedirectUri = "/Account/ExternalLoginCallback" //ticket.Properties.RedirectUri
+                };
 
                 await Options.Provider.ReturnEndpoint(context);
 
