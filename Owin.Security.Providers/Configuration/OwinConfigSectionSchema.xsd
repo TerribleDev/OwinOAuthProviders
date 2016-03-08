@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OwinConfigSectionSchema"
+    targetNamespace="http://tempuri.org/OwinConfigSectionSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/OwinConfigSectionSchema.xsd"
+    xmlns:mstns="http://tempuri.org/OwinConfigSectionSchema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:simpleType name="boolean_Type">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="false" />
+      <xs:enumeration value="true" />
+      <xs:enumeration value="True" />
+      <xs:enumeration value="False" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="owinConfig_T">
+    <xs:all minOccurs="0" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="1" name="GoogleAuthentication" type="GoogleAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Google authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="FacebookAuthentication" type="FacebookAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Facebook authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="TwitterAuthentication" type="TwitterAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Twitter authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="MicrosoftAuthentication" type="MicrosoftAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Microsoft authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="LinkedInAuthentication" type="LinkedInAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The LinkedIn authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="YammerAuthentication" type="YammerAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Yammer authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="XingAuthentication" type="XingAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Xing authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="DoYouBuzzAuthentication" type="DoYouBuzzAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The DoYouBuzz authentication parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="SMSTwoFactorAuthentication" type="SMSTwoFactorAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The SMS two-factor authentication provider parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="EmailTwoFactorAuthentication" type="EmailTwoFactorAuthentication_T">
+        <xs:annotation>
+          <xs:documentation>The Email two-factor authentication provider parameters to use</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="configSource" type="xs:string" use="optional" />
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="GoogleAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via Google OAuth2</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientId" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the Google Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the Google Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="FacebookAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via Facebook</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AppId" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the Facebook Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AppSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the Facebook Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="TwitterAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via Twitter</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ConsumerKey" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the Twitter Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ConsumerSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the Twitter Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="MicrosoftAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via Microsoft OAuth2</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientId" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the Microsoft Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the Microsoft Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="LinkedInAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via LinkedIn OAuth2</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientId" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the LinkedIn Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the LinkedIn Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="YammerAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via Yammer OAuth2</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientId" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the Yammer Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ClientSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the Yammer Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="XingAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via Xing</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ConsumerKey" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the Xing Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ConsumerSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the Xing Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="DoYouBuzzAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled authentication via DoYouBUzz</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ConsumerKey" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the DoYouBUzz Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ConsumerSecret" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client secret of the account to use to the DoYouBUzz Authentication API with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="SMSTwoFactorAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled SMS provider</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AccountSid" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client ID of the account to use to the SMS provider with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AuthToken" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The client authentication token of the account to use to the SMS provider with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PhoneNumber" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The phone number of the account to use to the SMS provider with this application</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:complexType name="EmailTwoFactorAuthentication_T">
+    <xs:attribute name="Enabled" use="optional" type="boolean_Type" default="false">
+      <xs:annotation>
+        <xs:documentation>Set to true to enabled Email provider</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="From" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The sender of email</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FromDisplayName" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The friendly display name of the sender of email</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Copies" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The copy email(s) to send email</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="http://schemas.microsoft.com/XML-Document-Transform" processContents="strict"/>
+  </xs:complexType>
+  <xs:element name="owinConfig" type="owinConfig_T" />
+</xs:schema>

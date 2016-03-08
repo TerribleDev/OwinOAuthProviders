@@ -8,11 +8,13 @@ using Owin.Security.Providers.Xing.Messages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Owin.Security.Providers.Xing.Provider;
 
 namespace Owin.Security.Providers.Xing
@@ -24,6 +26,7 @@ namespace Owin.Security.Providers.Xing
         private const string RequestTokenEndpoint = "https://api.xing.com/v1/request_token";
         private const string AuthenticationEndpoint = "https://api.xing.com/v1/authorize?oauth_token=";
         private const string AccessTokenEndpoint = "https://api.xing.com/v1/access_token";
+        private const string UserInfoEndpoint = "https://api.xing.com/v1/users/me";
 
         private readonly HttpClient _httpClient;
         private readonly ILogger _logger;
@@ -83,18 +86,31 @@ namespace Owin.Security.Providers.Xing
 
                 var accessToken = await ObtainAccessTokenAsync(Options.ConsumerKey, Options.ConsumerSecret, requestToken, oauthVerifier);
 
-                var context = new XingAuthenticatedContext(Context, accessToken.UserId, accessToken.Token, accessToken.TokenSecret);
+                // Get the Xing user
+                var users = await ObtainUserProfile(Options.ConsumerKey, Options.ConsumerSecret, accessToken);
+                var context = new XingAuthenticatedContext(Context, accessToken.UserId, accessToken.Token, accessToken.TokenSecret, users)
+                {
+                    Identity = new ClaimsIdentity(Options.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType), Properties = requestToken.Properties
+                };
 
-                context.Identity = new ClaimsIdentity(
-                    new[]
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, accessToken.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        new Claim("urn:xing:userid", accessToken.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                    },
-                    Options.AuthenticationType,
-                    ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-                context.Properties = requestToken.Properties;
+                if (!string.IsNullOrEmpty(context.Id))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.Gender))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Gender, context.Gender, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.FirstName))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.GivenName, context.FirstName, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.FirstName))
+                    context.Identity.AddClaim(new Claim("urn:xing:lastname", context.LastName, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.DisplayName))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.DisplayName, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.Email))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.Profile))
+                    context.Identity.AddClaim(new Claim("urn:xing:profile", context.Profile, ClaimValueTypes.String, Options.AuthenticationType));
+                if (context.BirthDate.HasValue)
+                    context.Identity.AddClaim(new Claim(ClaimTypes.DateOfBirth, context.BirthDate.Value.ToShortDateString(), ClaimValueTypes.Date, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.AccessToken))
+                    context.Identity.AddClaim(new Claim("urn:xing:accesstoken", context.AccessToken, ClaimValueTypes.String, Options.AuthenticationType));
 
                 Response.Cookies.Delete(StateCookie);
 
@@ -323,6 +339,69 @@ namespace Owin.Security.Providers.Xing
                 TokenSecret = Uri.UnescapeDataString(responseParameters["oauth_token_secret"]),
                 UserId = Uri.UnescapeDataString(responseParameters["user_id"]),
             };
+        }
+
+        private async Task<JObject> ObtainUserProfile(string consumerKey, string consumerSecret, AccessToken token)
+        {
+            _logger.WriteVerbose("ObtainUserProfile");
+
+            var queryParts = new Dictionary<string, string>
+            {
+                {"fields", ""}
+            };
+
+            var nonce = Guid.NewGuid().ToString("N");
+
+            var authorizationParts = new SortedDictionary<string, string>
+            {
+                { "oauth_consumer_key", consumerKey },
+                { "oauth_nonce", nonce },
+                { "oauth_signature_method", "HMAC-SHA1" },
+                { "oauth_token", token.Token },
+                { "oauth_timestamp", GenerateTimeStamp() },
+                { "oauth_version", "1.0" },
+            };
+
+            var parameterBuilder = new StringBuilder();
+            foreach (var authorizationKey in authorizationParts.Union(queryParts).OrderBy(x => x.Key))
+            {
+                parameterBuilder.AppendFormat("{0}={1}&", Uri.EscapeDataString(authorizationKey.Key), Uri.EscapeDataString(authorizationKey.Value));
+            }
+            parameterBuilder.Length--;
+            var parameterString = parameterBuilder.ToString();
+
+            var canonicalizedRequestBuilder = new StringBuilder();
+            canonicalizedRequestBuilder.Append(HttpMethod.Get.Method);
+            canonicalizedRequestBuilder.Append("&");
+            canonicalizedRequestBuilder.Append(Uri.EscapeDataString(UserInfoEndpoint));
+            canonicalizedRequestBuilder.Append("&");
+            canonicalizedRequestBuilder.Append(Uri.EscapeDataString(parameterString));
+
+            string signature = ComputeSignature(consumerSecret, token.TokenSecret, canonicalizedRequestBuilder.ToString());
+            authorizationParts.Add("oauth_signature", signature);
+
+            var authorizationHeaderBuilder = new StringBuilder();
+            authorizationHeaderBuilder.Append("OAuth ");
+            foreach (var authorizationPart in authorizationParts)
+            {
+                authorizationHeaderBuilder.AppendFormat("{0}=\"{1}\", ", authorizationPart.Key, Uri.EscapeDataString(authorizationPart.Value));
+            }
+            authorizationHeaderBuilder.Length = authorizationHeaderBuilder.Length - 2;
+
+            var requestUrl = WebUtilities.AddQueryString(UserInfoEndpoint, queryParts);
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+            request.Headers.Add("Authorization", authorizationHeaderBuilder.ToString());
+
+            var response = await _httpClient.SendAsync(request, Request.CallCancelled);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.WriteError("AccessToken request failed with a status code of " + response.StatusCode);
+                response.EnsureSuccessStatusCode(); // throw
+            }
+
+            var responseText = await response.Content.ReadAsStringAsync();
+            return JObject.Parse(responseText);
         }
 
         private static string GetParameters(SortedDictionary<string, string> parameters)
