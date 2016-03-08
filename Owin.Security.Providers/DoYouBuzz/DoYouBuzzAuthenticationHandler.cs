@@ -7,15 +7,14 @@ using Microsoft.Owin.Security.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Owin.Security.Providers.DoYouBuzz.Messages;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Owin.Security.Providers.DoYouBuzz
 {
@@ -86,19 +85,29 @@ namespace Owin.Security.Providers.DoYouBuzz
 
                 var accessToken = await ObtainAccessTokenAsync(Options.ConsumerKey, Options.ConsumerSecret, requestToken, oauthVerifier);
 
-                var context = new DoYouBuzzAuthenticatedContext(Context, accessToken.UserId, accessToken.Token, accessToken.TokenSecret)
+                // Get the DoYouBuzz user
+                var user = await ObtainUserProfile(Options.ConsumerKey, Options.ConsumerSecret, accessToken);
+
+                var context = new DoYouBuzzAuthenticatedContext(Context, accessToken.UserId, accessToken.Token, accessToken.TokenSecret, user)
                 {
-                    Identity = new ClaimsIdentity(
-                        new[]
-                        {
-                            new Claim(ClaimTypes.NameIdentifier, accessToken.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                            new Claim("urn:DoYouBuzz:userid", accessToken.UserId, "http://www.w3.org/2001/XMLSchema#string", Options.AuthenticationType),
-                        },
-                        Options.AuthenticationType,
-                        ClaimsIdentity.DefaultNameClaimType,
+                    Identity = new ClaimsIdentity(Options.AuthenticationType,
+                        ClaimsIdentity.DefaultNameClaimType, 
                         ClaimsIdentity.DefaultRoleClaimType),
-                    Properties = requestToken.Properties
+                        Properties = requestToken.Properties
                 };
+
+                if (!string.IsNullOrEmpty(context.Id))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.FirstName))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.GivenName, context.FirstName, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.LastName))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.LastName, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.Email))
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.Profile))
+                    context.Identity.AddClaim(new Claim("urn:doyoubuzz:profile", context.Profile, ClaimValueTypes.String, Options.AuthenticationType));
+                if (!string.IsNullOrEmpty(context.AccessToken))
+                    context.Identity.AddClaim(new Claim("urn:doyoubuzz:accesstoken", context.AccessToken, ClaimValueTypes.String, Options.AuthenticationType));
 
                 Response.Cookies.Delete(StateCookie);
 
@@ -318,9 +327,7 @@ namespace Owin.Security.Providers.DoYouBuzz
             }
 
             var responseText = await response.Content.ReadAsStringAsync();
-
             var responseParameters = WebHelpers.ParseForm(responseText);
-            
             var accessToken = new AccessToken
             {
                 Token = Uri.UnescapeDataString(responseParameters["oauth_token"]),
@@ -328,17 +335,22 @@ namespace Owin.Security.Providers.DoYouBuzz
                 UserId = "",
             };
 
-            var userInfo = GetUserInfo(consumerKey, consumerSecret, accessToken);
-            accessToken.UserId = userInfo.Id.ToString();
+            var userInfo = await ObtainUserProfile(consumerKey, consumerSecret, accessToken);
+            accessToken.UserId = userInfo.ToString();
 
             return accessToken;
         }
 
-        private async Task<AccessToken> GetUserInfo(string consumerKey, string consumerSecret, AccessToken token)
+        private async Task<JObject> ObtainUserProfile(string consumerKey, string consumerSecret, AccessToken token)
         {
             _logger.WriteVerbose("ObtainAccessToken");
 
             var nonce = Guid.NewGuid().ToString("N");
+
+            var queryParts = new Dictionary<string, string>
+            {
+                {"format", "json"}
+            };
 
             var authorizationParts = new SortedDictionary<string, string>
             {
@@ -351,7 +363,7 @@ namespace Owin.Security.Providers.DoYouBuzz
             };
 
             var parameterBuilder = new StringBuilder();
-            foreach (var authorizationKey in authorizationParts)
+            foreach (var authorizationKey in authorizationParts.Union(queryParts).OrderBy(x => x.Key))
             {
                 parameterBuilder.AppendFormat("{0}={1}&", Uri.EscapeDataString(authorizationKey.Key), Uri.EscapeDataString(authorizationKey.Value));
             }
@@ -377,9 +389,9 @@ namespace Owin.Security.Providers.DoYouBuzz
             }
             authorizationHeaderBuilder.Length = authorizationHeaderBuilder.Length - 2;
 
-            var request = new HttpRequestMessage(HttpMethod.Post, UserInfoEndpoint);
+            var requestUrl = WebUtilities.AddQueryString(UserInfoEndpoint, queryParts);
+            var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
             request.Headers.Add("Authorization", authorizationHeaderBuilder.ToString());
-
             var response = await _httpClient.SendAsync(request, Request.CallCancelled);
 
             if (!response.IsSuccessStatusCode)
@@ -389,19 +401,7 @@ namespace Owin.Security.Providers.DoYouBuzz
             }
 
             var responseText = await response.Content.ReadAsStringAsync();
-
-            var document = new XmlDocument();
-            document.LoadXml(responseText);
-            
-            var json = JsonConvert.SerializeXmlNode(document, Formatting.None);
-            var userInfo = JsonConvert.DeserializeObject<UserInfo>(json);
-
-            return new AccessToken
-            {
-                Token = token.Token,
-                TokenSecret = token.TokenSecret,
-                UserId = userInfo.Id.ToString(),
-            };
+            return JObject.Parse(responseText);
         }
 
         private static string GetParameters(SortedDictionary<string, string> parameters)
