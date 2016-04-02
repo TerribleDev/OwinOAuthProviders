@@ -45,6 +45,8 @@ using Owin.Security.Providers.Onshape;
 using Owin.Security.Providers.VKontakte;
 using Owin.Security.Providers.Xing;
 
+using Owin.Security.Providers.Jawbone;
+
 namespace OwinOAuthProvidersDemo
 {
     public partial class Startup
@@ -292,7 +294,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseCosignAuthentication(cosignOptions);
 
             //app.UseVimeoAuthentication("", "");
-            
+
             //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
             //{
             //    ClientId = "",
@@ -317,6 +319,14 @@ namespace OwinOAuthProvidersDemo
             //app.UseXingAuthentication("", "");
 
             //app.UseDoYouBuzzAuthentication("", "");
+
+            app.UseJawboneAuthentication(new JawboneAuthenticationOptions()
+            {
+                AppKey = "",
+                AppSecret = "",
+                CallbackPath = new PathString("/oauthRedirect"),
+                Hostname = "partner.dev.onshape.com"
+            });
         }
     }
 }

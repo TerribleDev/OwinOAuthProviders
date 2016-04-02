@@ -240,6 +240,15 @@
     <Compile Include="Instagram\Provider\InstagramAuthenticatedContext.cs" />
     <Compile Include="Instagram\Provider\InstagramAuthenticationProvider.cs" />
     <Compile Include="Instagram\Provider\InstagramReturnEndpointContext.cs" />
+    <Compile Include="Jawbone\Constants.cs" />
+    <Compile Include="Jawbone\JawboneAuthenticationExtensions.cs" />
+    <Compile Include="Jawbone\JawboneAuthenticationHandler.cs" />
+    <Compile Include="Jawbone\JawboneAuthenticationMiddleware.cs" />
+    <Compile Include="Jawbone\JawboneAuthenticationOptions.cs" />
+    <Compile Include="Jawbone\Provider\IJawboneAuthenticationProvider.cs" />
+    <Compile Include="Jawbone\Provider\JawboneAuthenticatedContext.cs" />
+    <Compile Include="Jawbone\Provider\JawboneAuthenticationProvider.cs" />
+    <Compile Include="Jawbone\Provider\JawboneReturnEndpointContext.cs" />
     <Compile Include="LinkedIn\Constants.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationExtensions.cs" />
     <Compile Include="LinkedIn\LinkedInAuthenticationHandler.cs" />
