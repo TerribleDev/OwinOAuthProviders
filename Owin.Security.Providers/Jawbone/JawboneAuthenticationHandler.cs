@@ -18,11 +18,13 @@ namespace Owin.Security.Providers.Jawbone
 {
     public class JawboneAuthenticationHandler : AuthenticationHandler<JawboneAuthenticationOptions>
     {
-        private const string StateCookie = "_OnshapeState";
+        private const string StateCookie = "_OnshapeState"; // TODO: Jawbone has this?
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private const string AuthorizationEndpoint = "/oauth/authorize";
-        private const string TokenEndpoint = "/oauth/token";
-        private const string UserInfoEndpoint = "/api/users/session";
+        private const string AuthorizationEndpoint = "/auth/oauth2/auth";
+        private const string TokenEndpoint = "/auth/oauth2/token";
+        private const string UserInfoEndpoint = "/nudge/api/v.1.1/users/@me";
+
+        private const string RefreshTokenEndpoint = "/nudge/api/v.1.1/users/@me/refreshToken";
 
         private readonly ILogger logger;
         private readonly HttpClient httpClient;
@@ -55,11 +57,11 @@ namespace Owin.Security.Providers.Jawbone
                     state = values[0];
                 }
 
-                properties = Options.StateDataFormat.Unprotect(state);
-                if (properties == null)
-                {
-                    return null;
-                }
+                //properties = Options.StateDataFormat.Unprotect(state);
+                //if (properties == null)
+                //{
+                //    return null;
+                //}
 
                 // OAuth2 10.12 CSRF
                 if (!ValidateCorrelationId(properties, logger))
@@ -68,17 +70,18 @@ namespace Owin.Security.Providers.Jawbone
                 }
 
                 // Check for error
-                if (Request.Query.Get("error") != null)
-                    return new AuthenticationTicket(null, properties);
+                //if (Request.Query.Get("error") != null)
+                //    return new AuthenticationTicket(null, properties);
 
-                string requestPrefix = Request.Scheme + "://" + Request.Host;
-                string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
+                //string requestPrefix = Request.Scheme + "://" + Request.Host;
+                //string requestPrefix = Request.Scheme + "://" + Request.Host + ":" + Request.LocalPort;
+                //string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
                 var body = new List<KeyValuePair<string, string>>();
                 body.Add(new KeyValuePair<string, string>("grant_type", "authorization_code"));
                 body.Add(new KeyValuePair<string, string>("code", code));
-                body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
+                body.Add(new KeyValuePair<string, string>("redirect_uri", Options.RedirectURI));
                 body.Add(new KeyValuePair<string, string>("client_id", Options.AppKey));
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.AppSecret));
 
@@ -100,7 +103,8 @@ namespace Owin.Security.Providers.Jawbone
 
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, "https://" + Options.Hostname + UserInfoEndpoint);
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                userRequest.Headers.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                userRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                //userRequest.Headers.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
                 HttpResponseMessage graphResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
 
                 graphResponse.EnsureSuccessStatusCode();
@@ -155,9 +159,9 @@ namespace Owin.Security.Providers.Jawbone
                     Request.Path +
                     Request.QueryString;
 
-                string redirectUri =
-                    baseUri +
-                    Options.CallbackPath;
+                //string redirectUri =
+                //    baseUri +
+                //    Options.CallbackPath;
 
                 AuthenticationProperties properties = challenge.Properties;
                 if (string.IsNullOrEmpty(properties.RedirectUri))
@@ -174,8 +178,8 @@ namespace Owin.Security.Providers.Jawbone
                     "https://" + Options.Hostname + AuthorizationEndpoint +
                     "?response_type=code" +
                     "&client_id=" + Uri.EscapeDataString(Options.AppKey) +
-                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
-                    "&state=" + Uri.EscapeDataString(state);
+                    "&redirect_uri=" + Uri.EscapeDataString(Options.RedirectURI) +
+                    "&scope=" + Uri.EscapeDataString(state);
 
                 var cookieOptions = new CookieOptions
                 {

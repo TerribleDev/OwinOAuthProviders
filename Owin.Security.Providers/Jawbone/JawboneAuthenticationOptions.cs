@@ -52,12 +52,12 @@ namespace Owin.Security.Providers.Jawbone
         }
 
         /// <summary>
-        ///     Gets or sets the Onshape supplied Application Key
+        ///     Gets or sets the Jawbone supplied Application Key (client_id)
         /// </summary>
         public string AppKey { get; set; }
 
         /// <summary>
-        ///     Gets or sets the Onshape supplied Application Secret
+        ///     Gets or sets the Jawbone supplied Application Secret (client_secret)
         /// </summary>
         public string AppSecret { get; set; }
 
@@ -67,7 +67,12 @@ namespace Owin.Security.Providers.Jawbone
         public string Hostname { get; set; }
 
         /// <summary>
-        ///     Gets or sets the <see cref="IOnshapeAuthenticationProvider" /> used in the authentication events
+        /// URI for the redirect.
+        /// </summary>
+        public string RedirectURI { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the <see cref="JawboneAuthenticationProvider" /> used in the authentication events
         /// </summary>
         public IJawboneAuthenticationProvider Provider { get; set; }
 
@@ -91,8 +96,8 @@ namespace Owin.Security.Providers.Jawbone
             Caption = Constants.DefaultAuthenticationType;
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
-            CallbackPath = new PathString("/signin-onshape");
-            Hostname = "cad.onshape.com";
+            CallbackPath = new PathString("/nudge/api/v.1.1/users/@me");
+            Hostname = "jawbone.com";
         }
     }
 }
