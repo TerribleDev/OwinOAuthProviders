@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -105,7 +106,26 @@ namespace Owin.Security.Providers.GitHub
                 }
                 if (!string.IsNullOrEmpty(context.Email))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString,
+                        Options.AuthenticationType));
+                }
+                else if (Options.Scope.Any(x=> x == "user" || x == "user:email"))
+                {
+                    var userRequest2 = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "/emails" + "?access_token=" + Uri.EscapeDataString(accessToken));
+                    userRequest2.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var userResponse2 = await httpClient.SendAsync(userRequest2, Request.CallCancelled);
+                    userResponse2.EnsureSuccessStatusCode();
+                    text = await userResponse2.Content.ReadAsStringAsync();
+                    var emails = JsonConvert.DeserializeObject<List<UserEmail>>(text);
+                    if (emails.Any())
+                    {
+                        var primaryEmail = emails.FirstOrDefault(x => x.Primary && x.Verified);
+                        if (primaryEmail != null)
+                        {
+                            context.Identity.AddClaim(new Claim(ClaimTypes.Email, primaryEmail.Email, XmlSchemaString,
+                        Options.AuthenticationType));
+                        }
+                    }
                 }
                 if (!string.IsNullOrEmpty(context.Name))
                 {

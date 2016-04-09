@@ -188,6 +188,7 @@
     <Compile Include="Bitbucket\Provider\BitbucketReturnEndpointContext.cs" />
     <Compile Include="Bitbucket\Provider\IBitbucketAuthenticationProvider.cs" />
     <Compile Include="GitHub\Constants.cs" />
+    <Compile Include="GitHub\UserEmail.cs" />
     <Compile Include="Gitter\Constants.cs" />
     <Compile Include="Gitter\GitterAuthenticationExtensions.cs" />
     <Compile Include="Gitter\GitterAuthenticationHandler.cs" />
