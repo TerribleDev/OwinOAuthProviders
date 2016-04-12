@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -137,7 +133,7 @@ namespace OwinOAuthProvidersDemo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
-            bool hasPassword = HasPassword();
+            var hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasPassword)
@@ -415,12 +411,12 @@ namespace OwinOAuthProvidersDemo.Controllers
                 var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {
-                    properties.Dictionary[XsrfKey] = this.UserId;
+                    properties.Dictionary[XsrfKey] = UserId;
                 }
 
-                if (!string.IsNullOrWhiteSpace(this.ShopName))
+                if (!string.IsNullOrWhiteSpace(ShopName))
                 {
-                    properties.Dictionary[ShopNameKey] = this.ShopName;
+                    properties.Dictionary[ShopNameKey] = ShopName;
                 }
 
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
