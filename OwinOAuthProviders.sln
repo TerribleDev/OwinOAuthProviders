@@ -4,93 +4,93 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinOAuthProvidersDemo", "OwinOAuthProvidersDemo\OwinOAuthProvidersDemo.csproj", "{5A438007-0C90-4DAC-BAA1-54A32164067F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISOnline", "Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj", "{8A49FAEF-D365-4D25-942C-1CAD03845A5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISOnline", "src\Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj", "{8A49FAEF-D365-4D25-942C-1CAD03845A5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Asana", "Owin.Security.Providers.Asana\Owin.Security.Providers.Asana.csproj", "{F3E27220-1D8C-4037-94AA-7B7F4A12F351}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Asana", "src\Owin.Security.Providers.Asana\Owin.Security.Providers.Asana.csproj", "{F3E27220-1D8C-4037-94AA-7B7F4A12F351}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Backlog", "Owin.Security.Providers.Backlog\Owin.Security.Providers.Backlog.csproj", "{2DC03778-9EF1-466A-83EC-7D8422DECD23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Backlog", "src\Owin.Security.Providers.Backlog\Owin.Security.Providers.Backlog.csproj", "{2DC03778-9EF1-466A-83EC-7D8422DECD23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.BattleNet", "Owin.Security.Providers.BattleNet\Owin.Security.Providers.BattleNet.csproj", "{99A175DA-ADE4-436C-A272-C8AE44B7A086}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.BattleNet", "src\Owin.Security.Providers.BattleNet\Owin.Security.Providers.BattleNet.csproj", "{99A175DA-ADE4-436C-A272-C8AE44B7A086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Bitbucket", "Owin.Security.Providers.Bitbucket\Owin.Security.Providers.Bitbucket.csproj", "{E5212FC7-ABCB-462F-9989-8E022DFFE43C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Bitbucket", "src\Owin.Security.Providers.Bitbucket\Owin.Security.Providers.Bitbucket.csproj", "{E5212FC7-ABCB-462F-9989-8E022DFFE43C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Buffer", "Owin.Security.Providers.Buffer\Owin.Security.Providers.Buffer.csproj", "{6F75FC1F-D9E9-49B3-A6CE-CFA8FEEA11A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Buffer", "src\Owin.Security.Providers.Buffer\Owin.Security.Providers.Buffer.csproj", "{6F75FC1F-D9E9-49B3-A6CE-CFA8FEEA11A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Cosign", "Owin.Security.Providers.Cosign\Owin.Security.Providers.Cosign.csproj", "{1F1F8D6B-7219-46FA-93D3-8D3061A6CBBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Cosign", "src\Owin.Security.Providers.Cosign\Owin.Security.Providers.Cosign.csproj", "{1F1F8D6B-7219-46FA-93D3-8D3061A6CBBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.DeviantArt", "Owin.Security.Providers.DeviantArt\Owin.Security.Providers.DeviantArt.csproj", "{FABD2E54-976D-41F5-8800-DEE58ACC027C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.DeviantArt", "src\Owin.Security.Providers.DeviantArt\Owin.Security.Providers.DeviantArt.csproj", "{FABD2E54-976D-41F5-8800-DEE58ACC027C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.DoYouBuzz", "Owin.Security.Providers.DoYouBuzz\Owin.Security.Providers.DoYouBuzz.csproj", "{4550D8BD-05A7-44F8-BBC0-C3D8E7AF2912}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.DoYouBuzz", "src\Owin.Security.Providers.DoYouBuzz\Owin.Security.Providers.DoYouBuzz.csproj", "{4550D8BD-05A7-44F8-BBC0-C3D8E7AF2912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Dropbox", "Owin.Security.Providers.Dropbox\Owin.Security.Providers.Dropbox.csproj", "{CEF697B1-3651-49E5-9060-65F2E26C039C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Dropbox", "src\Owin.Security.Providers.Dropbox\Owin.Security.Providers.Dropbox.csproj", "{CEF697B1-3651-49E5-9060-65F2E26C039C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.EVEOnline", "Owin.Security.Providers.EVEOnline\Owin.Security.Providers.EVEOnline.csproj", "{F5DC23F4-5042-4024-9E34-ACA648602BA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.EVEOnline", "src\Owin.Security.Providers.EVEOnline\Owin.Security.Providers.EVEOnline.csproj", "{F5DC23F4-5042-4024-9E34-ACA648602BA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Fitbit", "Owin.Security.Providers.Fitbit\Owin.Security.Providers.Fitbit.csproj", "{CA44D014-5A74-4749-A891-1F711FD3A266}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Fitbit", "src\Owin.Security.Providers.Fitbit\Owin.Security.Providers.Fitbit.csproj", "{CA44D014-5A74-4749-A891-1F711FD3A266}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Flickr", "Owin.Security.Providers.Flickr\Owin.Security.Providers.Flickr.csproj", "{AF6CBEB8-5638-43D4-839E-C81F305960BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Flickr", "src\Owin.Security.Providers.Flickr\Owin.Security.Providers.Flickr.csproj", "{AF6CBEB8-5638-43D4-839E-C81F305960BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Foursquare", "Owin.Security.Providers.Foursquare\Owin.Security.Providers.Foursquare.csproj", "{8ACD9194-1EFE-4128-AC42-856D856332A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Foursquare", "src\Owin.Security.Providers.Foursquare\Owin.Security.Providers.Foursquare.csproj", "{8ACD9194-1EFE-4128-AC42-856D856332A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.GitHub", "Owin.Security.Providers.GitHub\Owin.Security.Providers.GitHub.csproj", "{803F9EB7-029C-45AC-AB81-135E60D5BEAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.GitHub", "src\Owin.Security.Providers.GitHub\Owin.Security.Providers.GitHub.csproj", "{803F9EB7-029C-45AC-AB81-135E60D5BEAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Gitter", "Owin.Security.Providers.Gitter\Owin.Security.Providers.Gitter.csproj", "{42EC50EB-0C51-460C-93A4-1E007BF1F323}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Gitter", "src\Owin.Security.Providers.Gitter\Owin.Security.Providers.Gitter.csproj", "{42EC50EB-0C51-460C-93A4-1E007BF1F323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.GooglePlus", "Owin.Security.Providers.GooglePlus\Owin.Security.Providers.GooglePlus.csproj", "{D3FEF959-0E0E-4F50-954C-F123A0B629DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.GooglePlus", "src\Owin.Security.Providers.GooglePlus\Owin.Security.Providers.GooglePlus.csproj", "{D3FEF959-0E0E-4F50-954C-F123A0B629DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.HealthGraph", "Owin.Security.Providers.HealthGraph\Owin.Security.Providers.HealthGraph.csproj", "{157BB715-29B2-4202-8A59-CCBACFCBEDD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.HealthGraph", "src\Owin.Security.Providers.HealthGraph\Owin.Security.Providers.HealthGraph.csproj", "{157BB715-29B2-4202-8A59-CCBACFCBEDD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Imgur", "Owin.Security.Providers.Imgur\Owin.Security.Providers.Imgur.csproj", "{101841D3-645E-4A44-AF8B-8AAA85CEEA4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Imgur", "src\Owin.Security.Providers.Imgur\Owin.Security.Providers.Imgur.csproj", "{101841D3-645E-4A44-AF8B-8AAA85CEEA4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Instagram", "Owin.Security.Providers.Instagram\Owin.Security.Providers.Instagram.csproj", "{041178C4-6131-4D68-9896-CE33124D83A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Instagram", "src\Owin.Security.Providers.Instagram\Owin.Security.Providers.Instagram.csproj", "{041178C4-6131-4D68-9896-CE33124D83A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.LinkedIn", "Owin.Security.Providers.LinkedIn\Owin.Security.Providers.LinkedIn.csproj", "{9FA87825-30E9-48D7-AC4A-39E8F0C2777C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.LinkedIn", "src\Owin.Security.Providers.LinkedIn\Owin.Security.Providers.LinkedIn.csproj", "{9FA87825-30E9-48D7-AC4A-39E8F0C2777C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Onshape", "Owin.Security.Providers.Onshape\Owin.Security.Providers.Onshape.csproj", "{9FEC99F8-6F45-40A2-8200-85381434C79A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Onshape", "src\Owin.Security.Providers.Onshape\Owin.Security.Providers.Onshape.csproj", "{9FEC99F8-6F45-40A2-8200-85381434C79A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenID", "Owin.Security.Providers.OpenID\Owin.Security.Providers.OpenID.csproj", "{90C152D7-9C66-4949-9998-C7CE48B593DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenID", "src\Owin.Security.Providers.OpenID\Owin.Security.Providers.OpenID.csproj", "{90C152D7-9C66-4949-9998-C7CE48B593DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.PayPal", "Owin.Security.Providers.PayPal\Owin.Security.Providers.PayPal.csproj", "{F7129064-3DB7-4B79-81D3-80130D664E45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.PayPal", "src\Owin.Security.Providers.PayPal\Owin.Security.Providers.PayPal.csproj", "{F7129064-3DB7-4B79-81D3-80130D664E45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Reddit", "Owin.Security.Providers.Reddit\Owin.Security.Providers.Reddit.csproj", "{D0CD86C8-A6F9-4C6C-9BF0-EAA461E7FBAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Reddit", "src\Owin.Security.Providers.Reddit\Owin.Security.Providers.Reddit.csproj", "{D0CD86C8-A6F9-4C6C-9BF0-EAA461E7FBAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Salesforce", "Owin.Security.Providers.Salesforce\Owin.Security.Providers.Salesforce.csproj", "{827A9D68-0DD4-4C5E-B763-8302FAEEDECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Salesforce", "src\Owin.Security.Providers.Salesforce\Owin.Security.Providers.Salesforce.csproj", "{827A9D68-0DD4-4C5E-B763-8302FAEEDECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Shopify", "Owin.Security.Providers.Shopify\Owin.Security.Providers.Shopify.csproj", "{67F12BFB-EB3A-4A86-B5DC-F4C066FDF792}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Shopify", "src\Owin.Security.Providers.Shopify\Owin.Security.Providers.Shopify.csproj", "{67F12BFB-EB3A-4A86-B5DC-F4C066FDF792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Slack", "Owin.Security.Providers.Slack\Owin.Security.Providers.Slack.csproj", "{3E6F293D-8500-428D-BDC9-27440CC91E16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Slack", "src\Owin.Security.Providers.Slack\Owin.Security.Providers.Slack.csproj", "{3E6F293D-8500-428D-BDC9-27440CC91E16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.SoundCloud", "Owin.Security.Providers.SoundCloud\Owin.Security.Providers.SoundCloud.csproj", "{2C959026-7058-4302-A6C4-DFD10A030585}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.SoundCloud", "src\Owin.Security.Providers.SoundCloud\Owin.Security.Providers.SoundCloud.csproj", "{2C959026-7058-4302-A6C4-DFD10A030585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Spotify", "Owin.Security.Providers.Spotify\Owin.Security.Providers.Spotify.csproj", "{683B4041-A399-40CE-84B8-392F08A6805D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Spotify", "src\Owin.Security.Providers.Spotify\Owin.Security.Providers.Spotify.csproj", "{683B4041-A399-40CE-84B8-392F08A6805D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.StackExchange", "Owin.Security.Providers.StackExchange\Owin.Security.Providers.StackExchange.csproj", "{2C0E07ED-F26D-4FF8-8C3D-F760C09A2D5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.StackExchange", "src\Owin.Security.Providers.StackExchange\Owin.Security.Providers.StackExchange.csproj", "{2C0E07ED-F26D-4FF8-8C3D-F760C09A2D5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Steam", "Owin.Security.Providers.Steam\Owin.Security.Providers.Steam.csproj", "{312C4ED7-8CA1-4723-9203-ABC694DFDC7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Steam", "src\Owin.Security.Providers.Steam\Owin.Security.Providers.Steam.csproj", "{312C4ED7-8CA1-4723-9203-ABC694DFDC7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.TripIt", "Owin.Security.Providers.TripIt\Owin.Security.Providers.TripIt.csproj", "{B35E2616-DC00-48B4-BD58-7E23046257F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.TripIt", "src\Owin.Security.Providers.TripIt\Owin.Security.Providers.TripIt.csproj", "{B35E2616-DC00-48B4-BD58-7E23046257F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Twitch", "Owin.Security.Providers.Twitch\Owin.Security.Providers.Twitch.csproj", "{C3CF8734-6AAC-4F59-9A3E-1CBA8582CD48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Twitch", "src\Owin.Security.Providers.Twitch\Owin.Security.Providers.Twitch.csproj", "{C3CF8734-6AAC-4F59-9A3E-1CBA8582CD48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Untappd", "Owin.Security.Providers.Untappd\Owin.Security.Providers.Untappd.csproj", "{3E89ECA3-F4E7-4181-B26B-8250D5151044}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Untappd", "src\Owin.Security.Providers.Untappd\Owin.Security.Providers.Untappd.csproj", "{3E89ECA3-F4E7-4181-B26B-8250D5151044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Vimeo", "Owin.Security.Providers.Vimeo\Owin.Security.Providers.Vimeo.csproj", "{98ECC703-D651-4EAD-A55D-AA3E903AE4D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Vimeo", "src\Owin.Security.Providers.Vimeo\Owin.Security.Providers.Vimeo.csproj", "{98ECC703-D651-4EAD-A55D-AA3E903AE4D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.VisualStudio", "Owin.Security.Providers.VisualStudio\Owin.Security.Providers.VisualStudio.csproj", "{3B19FA31-DDFF-427F-9D73-F860DE74BBC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.VisualStudio", "src\Owin.Security.Providers.VisualStudio\Owin.Security.Providers.VisualStudio.csproj", "{3B19FA31-DDFF-427F-9D73-F860DE74BBC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.VKontakte", "Owin.Security.Providers.VKontakte\Owin.Security.Providers.VKontakte.csproj", "{32D70E31-3799-482A-AC7A-081FF9206FC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.VKontakte", "src\Owin.Security.Providers.VKontakte\Owin.Security.Providers.VKontakte.csproj", "{32D70E31-3799-482A-AC7A-081FF9206FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Wargaming", "Owin.Security.Providers.Wargaming\Owin.Security.Providers.Wargaming.csproj", "{AA72BFCE-8495-4A4D-988D-F8D490521776}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Wargaming", "src\Owin.Security.Providers.Wargaming\Owin.Security.Providers.Wargaming.csproj", "{AA72BFCE-8495-4A4D-988D-F8D490521776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.WordPress", "Owin.Security.Providers.WordPress\Owin.Security.Providers.WordPress.csproj", "{0EDE8223-DD5F-4DB8-A98A-64B1F4591F48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.WordPress", "src\Owin.Security.Providers.WordPress\Owin.Security.Providers.WordPress.csproj", "{0EDE8223-DD5F-4DB8-A98A-64B1F4591F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Xing", "Owin.Security.Providers.Xing\Owin.Security.Providers.Xing.csproj", "{D497D8BD-6EF9-4C30-B195-B0DD153418D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Xing", "src\Owin.Security.Providers.Xing\Owin.Security.Providers.Xing.csproj", "{D497D8BD-6EF9-4C30-B195-B0DD153418D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yahoo", "Owin.Security.Providers.Yahoo\Owin.Security.Providers.Yahoo.csproj", "{1765BEDB-9E4B-468C-BAF6-06784CDCED67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yahoo", "src\Owin.Security.Providers.Yahoo\Owin.Security.Providers.Yahoo.csproj", "{1765BEDB-9E4B-468C-BAF6-06784CDCED67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yammer", "Owin.Security.Providers.Yammer\Owin.Security.Providers.Yammer.csproj", "{8D029A93-E687-4DDF-82B0-700EBBF477F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yammer", "src\Owin.Security.Providers.Yammer\Owin.Security.Providers.Yammer.csproj", "{8D029A93-E687-4DDF-82B0-700EBBF477F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenIDBase", "Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj", "{4FD7B873-1994-4990-AA40-C37060121494}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenIDBase", "src\Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj", "{4FD7B873-1994-4990-AA40-C37060121494}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
