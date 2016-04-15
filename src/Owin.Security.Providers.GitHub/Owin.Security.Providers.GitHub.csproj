@@ -101,6 +101,6 @@
       $(PostBuildEventDependsOn);
       PostBuildMacros;
     </PostBuildEventDependsOn>
-    <PostBuildEvent>if $(ConfigurationName) == Release NuGet pack "$(ProjectDir)Owin.Security.Providers.GitHub.nuspec" -o "$(SolutionDir)Output" -version @(VersionNumber)</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)\nuget\NuGet pack "$(ProjectDir)Owin.Security.Providers.GitHub.nuspec" -o "$(SolutionDir)Output" -version @(VersionNumber)</PostBuildEvent>
   </PropertyGroup>
 </Project>
