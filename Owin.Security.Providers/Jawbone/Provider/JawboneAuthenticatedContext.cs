@@ -20,39 +20,89 @@ namespace Owin.Security.Providers.Jawbone
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
-        /// <param name="accessToken">Onshape Access token</param>
+        /// <param name="accessToken">Jawbone Access token</param>
         public JawboneAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
             : base(context)
         {
             AccessToken = accessToken;
-            User = user;
+            // Pull out the {{data:... from JSON which starts with {{meta:...{data:...
+            foreach(var u in user)
+            {
+                if (u.Key.Equals("data"))
+                {
+                    User = (JObject)u.Value;
+                    break;
+                }
+            }
 
-            Id = TryGetValue(user, "id");
-            Name = TryGetValue(user, "name");
+            Id = TryGetValue(User, "xid");
+            FirstName = TryGetValue(User, "first");
+            LastName = TryGetValue(User, "last");
+            ImageUrl = TryGetValue(User, "image");
+
+            string weight = TryGetValue(User, "weight");
+            decimal dWeight = 0L;
+            Decimal.TryParse(weight, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out dWeight);
+            Weight = dWeight;
+            string height = TryGetValue(User, "height");
+            decimal dHeight = 0L;
+            Decimal.TryParse(height, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out dHeight);
+            Height = dHeight;
         }
 
         /// <summary>
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the Onshape user obtained from the endpoint https://api.Onshape.com/1/account/info
+        /// Contains the Jawbone user obtained from the endpoint https://jawbone.com/nudge/api/v.1.1/users/@me
         /// </remarks>
         public JObject User { get; private set; }
 
         /// <summary>
-        /// Gets the Onshape OAuth access token
+        /// Gets the Jawbone OAuth access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the Onshape user ID
+        /// Gets the Jawbone user ID
         /// </summary>
         public string Id { get; private set; }
 
         /// <summary>
-        /// The name of the user
+        /// The first name of the user
         /// </summary>
-        public string Name { get; private set; }
+        public string FirstName { get; private set; }
+
+        /// <summary>
+        /// The last name of the user
+        /// </summary>
+        public string LastName { get; private set; }
+
+        /// <summary>
+        /// Conveience attribute to provide name of the user
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
+        /// <summary>
+        /// The image url of the user
+        /// </summary>
+        public string ImageUrl { get; private set; }
+
+        /// <summary>
+        /// The weight of the user
+        /// </summary>
+        public decimal Weight { get; private set; }
+
+        /// <summary>
+        /// The height of the user
+        /// </summary>
+        public decimal Height { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user

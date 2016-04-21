@@ -2,6 +2,7 @@
 using System.Net.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using System.Collections.Generic;
 
 namespace Owin.Security.Providers.Jawbone
 {
@@ -9,7 +10,7 @@ namespace Owin.Security.Providers.Jawbone
     {
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
-        ///     in back channel communications belong to Onshape
+        ///     in back channel communications belong to Jawbone
         /// </summary>
         /// <value>
         ///     The pinned certificate validator.
@@ -21,14 +22,14 @@ namespace Owin.Security.Providers.Jawbone
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
         /// <summary>
-        ///     The HttpMessageHandler used to communicate with Onshape.
+        ///     The HttpMessageHandler used to communicate with Jawbone.
         ///     This cannot be set at the same time as BackchannelCertificateValidator unless the value
         ///     can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
         /// <summary>
-        ///     Gets or sets timeout value in milliseconds for back channel communications with Onshape.
+        ///     Gets or sets timeout value in milliseconds for back channel communications with Jawbone.
         /// </summary>
         /// <value>
         ///     The back channel timeout in milliseconds.
@@ -38,7 +39,7 @@ namespace Owin.Security.Providers.Jawbone
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-onshape".
+        ///     Default value is "/signin-jawbone".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -72,6 +73,11 @@ namespace Owin.Security.Providers.Jawbone
         public string RedirectURI { get; set; }
 
         /// <summary>
+        /// A list of permissions to request.
+        /// </summary>
+        public IList<string> Scope { get; set; }        
+
+        /// <summary>
         ///     Gets or sets the <see cref="JawboneAuthenticationProvider" /> used in the authentication events
         /// </summary>
         public IJawboneAuthenticationProvider Provider { get; set; }
@@ -96,7 +102,15 @@ namespace Owin.Security.Providers.Jawbone
             Caption = Constants.DefaultAuthenticationType;
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
-            CallbackPath = new PathString("/nudge/api/v.1.1/users/@me");
+            Scope = new List<string>
+            {
+                "basic_read", "extended_read", "location_read", "friends_read",
+                "mood_read", "mood_write", "move_read", "move_write",
+                "sleep_read", "sleep_write","meal_read", "meal_write",
+                "weight_read","weight_write", "generic_event_read", "generic_event_write",
+                "heartrate_read"
+            };
+            CallbackPath = new PathString("/signin-jawbone");
             Hostname = "jawbone.com";
         }
     }

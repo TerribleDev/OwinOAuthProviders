@@ -53,7 +53,7 @@ namespace Owin.Security.Providers.Jawbone
         /// </summary>
         /// <returns>
         ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
-        ///     <see cref="T:Owin.Security.Providers.Onshape.OnshapeAuthenticationOptions" /> supplied to the constructor.
+        ///     <see cref="T:Owin.Security.Providers.Jawbone.JawboneAuthenticationOptions" /> supplied to the constructor.
         /// </returns>
         protected override AuthenticationHandler<JawboneAuthenticationOptions> CreateHandler()
         {

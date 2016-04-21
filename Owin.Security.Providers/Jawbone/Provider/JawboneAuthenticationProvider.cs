@@ -28,7 +28,7 @@ namespace Owin.Security.Providers.Jawbone
         public Func<JawboneReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
 
         /// <summary>
-        /// Invoked whenever Onshape successfully authenticates a user
+        /// Invoked whenever Jawbone successfully authenticates a user
         /// </summary>
         /// <param name="context">Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>

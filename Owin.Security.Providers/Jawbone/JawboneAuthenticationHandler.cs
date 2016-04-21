@@ -18,7 +18,6 @@ namespace Owin.Security.Providers.Jawbone
 {
     public class JawboneAuthenticationHandler : AuthenticationHandler<JawboneAuthenticationOptions>
     {
-        private const string StateCookie = "_OnshapeState"; // TODO: Jawbone has this?
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string AuthorizationEndpoint = "/auth/oauth2/auth";
         private const string TokenEndpoint = "/auth/oauth2/token";
@@ -57,11 +56,11 @@ namespace Owin.Security.Providers.Jawbone
                     state = values[0];
                 }
 
-                //properties = Options.StateDataFormat.Unprotect(state);
-                //if (properties == null)
-                //{
-                //    return null;
-                //}
+                properties = Options.StateDataFormat.Unprotect(state);
+                if (properties == null)
+                {
+                    return null;
+                }
 
                 // OAuth2 10.12 CSRF
                 if (!ValidateCorrelationId(properties, logger))
@@ -73,17 +72,16 @@ namespace Owin.Security.Providers.Jawbone
                 //if (Request.Query.Get("error") != null)
                 //    return new AuthenticationTicket(null, properties);
 
-                //string requestPrefix = Request.Scheme + "://" + Request.Host;
-                //string requestPrefix = Request.Scheme + "://" + Request.Host + ":" + Request.LocalPort;
-                //string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
+                string requestPrefix = Request.Scheme + "://" + Request.Host;
+                string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
                 var body = new List<KeyValuePair<string, string>>();
                 body.Add(new KeyValuePair<string, string>("grant_type", "authorization_code"));
                 body.Add(new KeyValuePair<string, string>("code", code));
-                body.Add(new KeyValuePair<string, string>("redirect_uri", Options.RedirectURI));
                 body.Add(new KeyValuePair<string, string>("client_id", Options.AppKey));
                 body.Add(new KeyValuePair<string, string>("client_secret", Options.AppSecret));
+                body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
 
                 // Get token
                 var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "https://" + Options.Hostname + TokenEndpoint);
@@ -159,9 +157,9 @@ namespace Owin.Security.Providers.Jawbone
                     Request.Path +
                     Request.QueryString;
 
-                //string redirectUri =
-                //    baseUri +
-                //    Options.CallbackPath;
+                string redirectUri =
+                    baseUri +
+                    Options.CallbackPath;
 
                 AuthenticationProperties properties = challenge.Properties;
                 if (string.IsNullOrEmpty(properties.RedirectUri))
@@ -171,6 +169,9 @@ namespace Owin.Security.Providers.Jawbone
 
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
+                
+                // space separated
+                string scope = string.Join(" ", Options.Scope);
 
                 string state = Options.StateDataFormat.Protect(properties);
 
@@ -178,8 +179,9 @@ namespace Owin.Security.Providers.Jawbone
                     "https://" + Options.Hostname + AuthorizationEndpoint +
                     "?response_type=code" +
                     "&client_id=" + Uri.EscapeDataString(Options.AppKey) +
-                    "&redirect_uri=" + Uri.EscapeDataString(Options.RedirectURI) +
-                    "&scope=" + Uri.EscapeDataString(state);
+                    "&redirect_uri=" + Uri.EscapeDataString(redirectUri) + 
+                    "&scope=" + Uri.EscapeDataString(scope) +
+                    "&state=" + Uri.EscapeDataString(state);
 
                 var cookieOptions = new CookieOptions
                 {

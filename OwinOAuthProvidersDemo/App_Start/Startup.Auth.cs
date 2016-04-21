@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -44,7 +45,6 @@ using Owin.Security.Providers.Fitbit;
 using Owin.Security.Providers.Onshape;
 using Owin.Security.Providers.VKontakte;
 using Owin.Security.Providers.Xing;
-
 using Owin.Security.Providers.Jawbone;
 
 namespace OwinOAuthProvidersDemo
@@ -320,13 +320,12 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseDoYouBuzzAuthentication("", "");
 
-            app.UseJawboneAuthentication(new JawboneAuthenticationOptions()
-            {
-                AppKey = "",
-                AppSecret = "",
-                CallbackPath = new PathString("/oauthRedirect"),
-                Hostname = "partner.dev.onshape.com"
-            });
+            //app.UseJawboneAuthentication(new JawboneAuthenticationOptions()
+            //{
+            //    AppKey = "",
+            //    AppSecret = "",
+            //    Scope = new List<string> { "basic_read" } // Without this it'll ask for all the scopes
+            //});
         }
     }
 }
