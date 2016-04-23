@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Owin.Security.Providers</id>
+    <version><%= @version %></version>
+    <authors>Jerrie Pelser, Tommy Parnell and contributors</authors>
+    <owners>Tommy Parnell</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/tparnell8/OwinOAuthProviders</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Adds additional OAuth providers for OWIN to use with ASP.NET
+    </description>
+    <summary>
+      Additional OAuth providers for Katana (OWIN).
+      There are many individual providers, this package is a meta package that has a dependency on all of them.
+    </summary>
+    <releaseNotes>
+      Version 2.0
+      - Decouple providers into individual files
+    </releaseNotes>
+    <copyright>Copyright 2013 - 2016</copyright>
+    <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
+    <dependencies>
+      <% for @item in @nugets %>
+        <dependency id="<%= @item %>" version="<%= @version %>" />
+      <% end %>
+       </dependencies>
+  </metadata>
+</package>

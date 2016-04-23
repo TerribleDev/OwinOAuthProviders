@@ -74,7 +74,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\projects\GitHub\OwinOAuthProviders\Owin.Security.Providers.EVEOnline\Owin.Security.Providers.EVEOnline.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +99,5 @@
       $(PostBuildEventDependsOn);
       PostBuildMacros;
     </PostBuildEventDependsOn>
-    <PostBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)\nuget\NuGet pack "$(ProjectDir)Owin.Security.Providers.EVEOnline.nuspec" -o "$(SolutionDir)Output" -version @(VersionNumber)</PostBuildEvent>
   </PropertyGroup>
 </Project>

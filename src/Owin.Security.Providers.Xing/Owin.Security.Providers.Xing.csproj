@@ -79,7 +79,6 @@
     <Compile Include="Provider\XingReturnEndpointContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\projects\GitHub\OwinOAuthProviders\Owin.Security.Providers.Xing\Owin.Security.Providers.Xing.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +104,5 @@
       $(PostBuildEventDependsOn);
       PostBuildMacros;
     </PostBuildEventDependsOn>
-    <PostBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)\nuget\NuGet pack "$(ProjectDir)Owin.Security.Providers.Xing.nuspec" -o "$(SolutionDir)Output" -version @(VersionNumber)</PostBuildEvent>
   </PropertyGroup>
 </Project>

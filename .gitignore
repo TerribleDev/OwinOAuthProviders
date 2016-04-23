@@ -21,11 +21,14 @@ build/
 
 # Visual Studo 2015 cache/options directory
 .vs/
-
+Owin.Security.Providers.nuspec
+Owin.Security.Providers*.nupkg
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
-
+src/**/*.nuspec
+src/**/*.nupkg
+tools/
 *_i.c
 *_p.c
 *.ilk

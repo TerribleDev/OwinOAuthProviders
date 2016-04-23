@@ -46,6 +46,10 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Owin.Security.Providers.OpenIDBase, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.Security.Providers.OpenIDBase.2.0.0\lib\net452\Owin.Security.Providers.OpenIDBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -68,21 +72,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\projects\GitHub\OwinOAuthProviders\Owin.Security.Providers.OpenID\Owin.Security.Providers.OpenID.nuspec" />
-    <None Include="packages - Copy.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj">
-      <Project>{4fd7b873-1994-4990-aa40-c37060121494}</Project>
-      <Name>Owin.Security.Providers.OpenIDBase</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Provider\" />
@@ -103,6 +101,5 @@
       $(PostBuildEventDependsOn);
       PostBuildMacros;
     </PostBuildEventDependsOn>
-    <PostBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)\nuget\NuGet pack "$(ProjectDir)Owin.Security.Providers.OpenID.nuspec" -o "$(SolutionDir)Output" -version @(VersionNumber)</PostBuildEvent>
   </PropertyGroup>
 </Project>

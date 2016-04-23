@@ -90,7 +90,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yah
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yammer", "src\Owin.Security.Providers.Yammer\Owin.Security.Providers.Yammer.csproj", "{8D029A93-E687-4DDF-82B0-700EBBF477F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenIDBase", "src\Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj", "{4FD7B873-1994-4990-AA40-C37060121494}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenIDBase", "base\Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj", "{4FD7B873-1994-4990-AA40-C37060121494}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
