@@ -1,10 +1,10 @@
 version: 1.0.{build}
 nuget:
   project_feed: true
+install:
+  - set PATH=C:\Ruby22\bin;%PATH%
+  - bundle install
 build_script:
-- ps: >-
-    gem install bundle
-    bundle
-    rake preflight
+  - rake preflight
 artifacts:
 - path: src\**\*.nupkg
