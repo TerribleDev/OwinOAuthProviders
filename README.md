@@ -1,5 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/su8q95onnarswjaq/branch/master?svg=true)](https://ci.appveyor.com/project/ByteBlast/owinoauthproviders/branch/master)
-
+[![Build status](https://ci.appveyor.com/api/projects/status/gjlkpp86t8dw164f?svg=true)](https://ci.appveyor.com/project/tparnell8/owinoauthproviders)
 
 #OWIN OAuth Providers
 
@@ -55,14 +54,10 @@ For above listed provider implementation guide, visit Jerrie Pelser's blog - [Be
 To use these providers you will need to install the ```Owin.Security.Providers``` NuGet package.
 
 ```
-PM> Install-Package Owin.Security.Providers.*
+PM> Install-Package Owin.Security.Providers
 ```
-Where * is the name of the provider you need e.g.:
-```
-PM> Install-Package Owin.Security.Providers.GitHub
-```
-I haven't published all of the providers yet as of 4/12/2016.
 
+Currently there is an RC that decouples the various providers as seperate packages. They are named Owin.Security.Providers.*
 
 ## Contributions
 
