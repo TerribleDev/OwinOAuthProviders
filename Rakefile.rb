@@ -9,13 +9,13 @@ require 'nokogiri'
 require 'openssl'
 import 'nuget.rake'
 
-CLEAN.include(['src/**/obj', 'src/**/bin', 'tool', 'packages/**','src/**/*.nuspec', 'src/**/*.nupkg', 'tools', 'packages'])
+CLEAN.include(['src/**/obj', 'src/**/bin', 'tool', 'packages/**','src/**/*.nuspec', 'src/**/*.nupkg', 'tools', 'packages', '*.nupkg'])
 Configuration = ENV['CONFIGURATION'] || 'Release'
 PACKAGES = File.expand_path("packages")
 TOOLS = File.expand_path("tools")
 NUGET = File.expand_path("#{TOOLS}/nuget")
 NUGET_EXE = File.expand_path("#{TOOLS}/nuget/nuget.exe")
-@version = "2.0.0-beta1"
+@version = "2.0.0-rc1"
 PROJECTS = Dir.glob('src/*').select{|dir| File.directory? dir }
 
 desc 'Retrieve things'
@@ -27,11 +27,13 @@ task :build => [:retrieve, :compile]
 desc 'clean, retrieve, build, generate nuspecs'
 task :preflight => [:clean, :build, :nuspec_gen]
 
-build :compile do |t|
 
+desc 'publish'
+task :publish => [:preflight,:nuspec_gen, :nuspec_pack,  :nuspec_publish]
+
+build :compile do |t|
   t.prop 'Configuration', Configuration
   t.sln = 'OwinOAuthProviders.sln'
-
 end
 
 
@@ -50,14 +52,21 @@ task :nuspec_gen do
 end
 
 desc 'pack nuspec files'
-task :nuspec_pack => :nuspec_gen do
+task :nuspec_pack do
   PROJECTS.each{|dir|
     Dir.chdir(dir) do
-      sh "#{NUGET_EXE} pack #{FileList["*.csproj"].first} -Prop Configuration=#{Configuration} -IncludeReferencedProjects"
+      sh "#{NUGET_EXE} pack #{FileList["*.csproj"].first} -Prop Configuration=#{Configuration}"
     end
   }
   sh "#{NUGET_EXE} pack Owin.Security.Providers.nuspec -Exclude \"**\""
 end
 
 desc 'publish nugets'
-task :nuget_
+task :nuspec_publish do
+  PROJECTS.each{|dir|
+    Dir.chdir(dir) do
+      sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first}"
+    end
+  }
+  sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first}"
+end

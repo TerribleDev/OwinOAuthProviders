@@ -58,8 +58,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Sal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Shopify", "src\Owin.Security.Providers.Shopify\Owin.Security.Providers.Shopify.csproj", "{67F12BFB-EB3A-4A86-B5DC-F4C066FDF792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Slack", "src\Owin.Security.Providers.Slack\Owin.Security.Providers.Slack.csproj", "{3E6F293D-8500-428D-BDC9-27440CC91E16}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.SoundCloud", "src\Owin.Security.Providers.SoundCloud\Owin.Security.Providers.SoundCloud.csproj", "{2C959026-7058-4302-A6C4-DFD10A030585}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Spotify", "src\Owin.Security.Providers.Spotify\Owin.Security.Providers.Spotify.csproj", "{683B4041-A399-40CE-84B8-392F08A6805D}"
@@ -91,6 +89,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Yammer", "src\Owin.Security.Providers.Yammer\Owin.Security.Providers.Yammer.csproj", "{8D029A93-E687-4DDF-82B0-700EBBF477F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.OpenIDBase", "base\Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj", "{4FD7B873-1994-4990-AA40-C37060121494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.SlackProvider", "src\Owin.Security.Providers.SlackProvider\Owin.Security.Providers.SlackProvider.csproj", "{3E6F293D-8500-428D-BDC9-27440CC91E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -210,10 +210,6 @@ Global
 		{67F12BFB-EB3A-4A86-B5DC-F4C066FDF792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F12BFB-EB3A-4A86-B5DC-F4C066FDF792}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F12BFB-EB3A-4A86-B5DC-F4C066FDF792}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2C959026-7058-4302-A6C4-DFD10A030585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2C959026-7058-4302-A6C4-DFD10A030585}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C959026-7058-4302-A6C4-DFD10A030585}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -278,6 +274,10 @@ Global
 		{4FD7B873-1994-4990-AA40-C37060121494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FD7B873-1994-4990-AA40-C37060121494}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FD7B873-1994-4990-AA40-C37060121494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E6F293D-8500-428D-BDC9-27440CC91E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
