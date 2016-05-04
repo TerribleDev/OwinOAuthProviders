@@ -11,14 +11,15 @@
 *.sln.docstates
 
 # Build results
-
+.gitignore/
+.bundle/
 [Dd]ebug/
 [Rr]elease/
 x64/
 build/
 [Bb]in/
 [Oo]bj/
-
+OwinOAuthProvidersDemo/App_Data/
 # Visual Studo 2015 cache/options directory
 .vs/
 Owin.Security.Providers.nuspec
