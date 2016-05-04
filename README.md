@@ -52,13 +52,8 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
 For above listed provider implementation guide, visit Jerrie Pelser's blog - [Be a Big Rockstar](http://www.beabigrockstar.com)
 
 ## Installation
-To use these providers you will need to install the ```Owin.Security.Providers``` NuGet package.
 
-```
-PM> Install-Package Owin.Security.Providers
-```
-
-Currently there is an RC that decouples the various providers as seperate packages. They are named Owin.Security.Providers.*
+You may install each provider separately. They are named Owin.Security.Providers.*, or you may install the meta package `Owin.Security.Providers` which will give you all 40+ providers.
 
 ## Contributions
 
