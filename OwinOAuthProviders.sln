@@ -96,6 +96,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{03307B8B-8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.DoYouBuzz", "base\Owin.Security.Providers.DoYouBuzz\Owin.Security.Providers.DoYouBuzz.csproj", "{9CB1A267-3EF6-49ED-A201-D7DAD15FD1C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Xing", "Owin.Security.Providers.Xing\Owin.Security.Providers.Xing.csproj", "{584E580A-6511-4CCE-839A-145E21B07BA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -286,6 +288,10 @@ Global
 		{9CB1A267-3EF6-49ED-A201-D7DAD15FD1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CB1A267-3EF6-49ED-A201-D7DAD15FD1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CB1A267-3EF6-49ED-A201-D7DAD15FD1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{584E580A-6511-4CCE-839A-145E21B07BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584E580A-6511-4CCE-839A-145E21B07BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584E580A-6511-4CCE-839A-145E21B07BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584E580A-6511-4CCE-839A-145E21B07BA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -293,5 +299,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4FD7B873-1994-4990-AA40-C37060121494} = {03307B8B-8236-4ACD-A320-0D9DD72E27E6}
 		{9CB1A267-3EF6-49ED-A201-D7DAD15FD1C3} = {03307B8B-8236-4ACD-A320-0D9DD72E27E6}
+		{584E580A-6511-4CCE-839A-145E21B07BA0} = {03307B8B-8236-4ACD-A320-0D9DD72E27E6}
 	EndGlobalSection
 EndGlobal
