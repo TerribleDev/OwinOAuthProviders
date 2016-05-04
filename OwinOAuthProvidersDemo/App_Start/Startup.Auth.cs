@@ -3,278 +3,279 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
+//using Owin.Security.Providers.Orcid;
+
 namespace OwinOAuthProvidersDemo
 {
-    public partial class Startup
-    {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
-        {
-            // Enable the application to use a cookie to store information for the signed in user
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login")
-            });
-            // Use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            //app.UseDeviantArtAuthentication("id", "secret");
-            //app.UseUntappdAuthentication("id", "secret");
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+	public partial class Startup
+	{
+		// For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+		public void ConfigureAuth(IAppBuilder app)
+		{
+			// Enable the application to use a cookie to store information for the signed in user
+			app.UseCookieAuthentication(new CookieAuthenticationOptions
+			{
+				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+				LoginPath = new PathString("/Account/Login")
+			});
+			// Use a cookie to temporarily store information about a user logging in with a third party login provider
+			app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+			//app.UseDeviantArtAuthentication("id", "secret");
+			//app.UseUntappdAuthentication("id", "secret");
+			// Uncomment the following lines to enable logging in with third party login providers
+			//app.UseMicrosoftAccountAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+			//app.UseTwitterAuthentication(
+			//   consumerKey: "",
+			//   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+			//app.UseFacebookAuthentication(
+			//   appId: "",
+			//   appSecret: "");
 
-            //app.UseGoogleAuthentication();
+			//app.UseGoogleAuthentication();
 
-            //app.UseLinkedInAuthentication("", "");
+			//app.UseLinkedInAuthentication("", "");
 
-            //app.UseYahooAuthentication("", "");
+			//app.UseYahooAuthentication("", "");
 
-            //app.UseTripItAuthentication("", "");
+			//app.UseTripItAuthentication("", "");
 
-            //app.UseGitHubAuthentication("", "");
+			//app.UseGitHubAuthentication("", "");
 
-            //app.UseBufferAuthentication("", "");
+			//app.UseBufferAuthentication("", "");
 
-            //app.UseRedditAuthentication("", "");
+			//app.UseRedditAuthentication("", "");
 
-            //app.UseStackExchangeAuthentication(
-            //    clientId: "",
-            //    clientSecret: "",
-            //    key: "");
+			//app.UseStackExchangeAuthentication(
+			//    clientId: "",
+			//    clientSecret: "",
+			//    key: "");
 
-            //app.UseInstagramInAuthentication("", "");
+			//app.UseInstagramInAuthentication("", "");
 
-            //var options = new GooglePlusAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    RequestOfflineAccess = true,
-            //    Provider = new GooglePlusAuthenticationProvider
-            //    {
-            //        OnAuthenticated = async context => System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken))
-            //    }
-            //};
-            //options.MomentTypes.Add("http://schemas.google.com/AddActivity");
-            //options.MomentTypes.Add("http://schemas.google.com/CheckInActivity");
-            //options.MomentTypes.Add("http://schemas.google.com/BuyActivity");
-            //app.UseGooglePlusAuthentication(options);
+			//var options = new GooglePlusAuthenticationOptions
+			//{
+			//    ClientId = "",
+			//    ClientSecret = "",
+			//    RequestOfflineAccess = true,
+			//    Provider = new GooglePlusAuthenticationProvider
+			//    {
+			//        OnAuthenticated = async context => System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken))
+			//    }
+			//};
+			//options.MomentTypes.Add("http://schemas.google.com/AddActivity");
+			//options.MomentTypes.Add("http://schemas.google.com/CheckInActivity");
+			//options.MomentTypes.Add("http://schemas.google.com/BuyActivity");
+			//app.UseGooglePlusAuthentication(options);
 
-            /*
+			/*
              * Twitch sign-ins use /signin-Twitch as the URL for authentication
-             *            
-             
+             *
+
              */
 
-            ////Simple Twitch Sign-in
-            //app.UseTwitchAuthentication("", "");
+			////Simple Twitch Sign-in
+			//app.UseTwitchAuthentication("", "");
 
-            ////More complex Twitch Sign-in
-            //var opt = new TwitchAuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    Provider = new TwitchAuthenticationProvider()
-            //    {
+			////More complex Twitch Sign-in
+			//var opt = new TwitchAuthenticationOptions()
+			//{
+			//    ClientId = "",
+			//    ClientSecret = "",
+			//    Provider = new TwitchAuthenticationProvider()
+			//    {
+			//        OnAuthenticated = async z =>
+			//        {
+			////            Getting the twitch users picture
+			//            z.Identity.AddClaim(new Claim("Picture", z.User.GetValue("logo").ToString()));
+			//        }
+			////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
+			//        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
+			//        /*
 
-            //        OnAuthenticated = async z =>
-            //        {
-            ////            Getting the twitch users picture
-            //            z.Identity.AddClaim(new Claim("Picture", z.User.GetValue("logo").ToString()));
-            //        }
-            ////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
-            //        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
-            //        /*
+			//           if (user != null)
+			//                {
+			//                    var claim = (await AuthenticationManager.GetExternalLoginInfoAsync()).ExternalIdentity.Claims.First(
+			//                    a => a.Type == "Picture");
+			//                    user.Claims.Add(new IdentityUserClaim() { ClaimType = claim.Type, ClaimValue = claim.Value });
+			//                    await SignInAsync(user, isPersistent: false);
+			//                    return RedirectToLocal(returnUrl);
+			//                }
+			//         */
+			//    }
+			//};
+			//app.UseTwitchAuthentication(opt);
 
-            //           if (user != null)
-            //                {
-            //                    var claim = (await AuthenticationManager.GetExternalLoginInfoAsync()).ExternalIdentity.Claims.First(
-            //                    a => a.Type == "Picture");
-            //                    user.Claims.Add(new IdentityUserClaim() { ClaimType = claim.Type, ClaimValue = claim.Value });
-            //                    await SignInAsync(user, isPersistent: false);
-            //                    return RedirectToLocal(returnUrl);
-            //                }
-            //         */
-            //    }
-            //};
-            //app.UseTwitchAuthentication(opt);
+			//app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
 
+			//app.UseOpenIDAuthentication("https://openid.stackexchange.com/", "StackExchange");
 
+			//app.UseOpenIDAuthentication("https://www.google.com/accounts/o8/id", "Google");
 
-            //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
+			//app.UseSteamAuthentication(applicationKey: "");
 
-            //app.UseOpenIDAuthentication("https://openid.stackexchange.com/", "StackExchange");
+			//app.UseOpenIDAuthentication("http://orange.fr", "Orange");
+			// Use OpenId provider login uri instead of discovery uri
+			//app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
 
-            //app.UseOpenIDAuthentication("https://www.google.com/accounts/o8/id", "Google");
+			//app.UseSalesforceAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            //app.UseSteamAuthentication(applicationKey: "");
+			//in scenarios where a sandbox URL needs to be used
+			//var salesforceOptions = new SalesforceAuthenticationOptions
+			//{
+			//    Endpoints =
+			//        new SalesforceAuthenticationOptions.SalesforceAuthenticationEndpoints
+			//        {
+			//            AuthorizationEndpoint =
+			//                "https://ap1.salesforce.com/services/oauth2/authorize",
+			//            TokenEndpoint = "https://ap1.salesforce.com/services/oauth2/token"
+			//        },
+			//    ClientId = "",
+			//    ClientSecret = "",
+			//    Provider = new SalesforceAuthenticationProvider()
+			//    {
+			//        OnAuthenticated = async context =>
+			//        {
+			//            System.Diagnostics.Debug.WriteLine(context.AccessToken);
+			//            System.Diagnostics.Debug.WriteLine(context.RefreshToken);
+			//            System.Diagnostics.Debug.WriteLine(context.OrganizationId);
+			//        }
+			//    }
+			//};
+			//app.UseSalesforceAuthentication(salesforceOptions);
 
-            //app.UseOpenIDAuthentication("http://orange.fr", "Orange");
-            // Use OpenId provider login uri instead of discovery uri
-            //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
+			////app.UseShopifyAuthentication("", "");
 
-            //app.UseSalesforceAuthentication(
-            //    clientId: "", 
-            //    clientSecret: "");
+			//app.UseArcGISOnlineAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            //in scenarios where a sandbox URL needs to be used
-            //var salesforceOptions = new SalesforceAuthenticationOptions
-            //{
-            //    Endpoints =
-            //        new SalesforceAuthenticationOptions.SalesforceAuthenticationEndpoints
-            //        {
-            //            AuthorizationEndpoint =
-            //                "https://ap1.salesforce.com/services/oauth2/authorize",
-            //            TokenEndpoint = "https://ap1.salesforce.com/services/oauth2/token"
-            //        },
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    Provider = new SalesforceAuthenticationProvider()
-            //    {
-            //        OnAuthenticated = async context =>
-            //        {
-            //            System.Diagnostics.Debug.WriteLine(context.AccessToken);
-            //            System.Diagnostics.Debug.WriteLine(context.RefreshToken);
-            //            System.Diagnostics.Debug.WriteLine(context.OrganizationId);
-            //        }
-            //    }
-            //};
-            //app.UseSalesforceAuthentication(salesforceOptions);
+			//app.UseWordPressAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            ////app.UseShopifyAuthentication("", "");
+			//app.UseDropboxAuthentication(
+			//    appKey: "",
+			//    appSecret: "");
 
-            //app.UseArcGISOnlineAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+			//app.UseHealthGraphAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            //app.UseWordPressAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+			//app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
+			//{
+			//	ClientId = "",
+			//	ClientSecret = ""
+			//});
+			//app.UseBattleNetAuthentication(
+			//	clientId: "",
+			//	clientSecret: "");
 
-            //app.UseDropboxAuthentication(
-            //    appKey: "",
-            //    appSecret: "");
+			//app.UseAsanaAuthentication("", "");
 
-            //app.UseHealthGraphAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+			//app.UseEveOnlineAuthentication("", "");
 
-            //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
-            //{
-            //	ClientId = "",
-            //	ClientSecret = ""
-            //});
-            //app.UseBattleNetAuthentication(
-            //	clientId: "",
-            //	clientSecret: "");
+			//app.UseSoundCloudAuthentication("", "");
 
-            //app.UseAsanaAuthentication("", "");
+			//app.UseFoursquareAuthentication(
+			//	clientId: "",
+			//	clientSecret: "");
 
-            //app.UseEveOnlineAuthentication("", "");
+			//app.UsePayPalAuthentication(
+			//	clientId: "",
+			//	clientSecret: "",
+			//	isSandbox: false);
 
-            //app.UseSoundCloudAuthentication("", "");
+			//app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
-            //app.UseFoursquareAuthentication(
-            //	clientId: "",
-            //	clientSecret: "");
+			//app.UseFlickrAuthentication("", "");
+			//app.UseVisualStudioAuthentication(
+			//	appId: "",
+			//	appSecret: "");
 
-            //app.UsePayPalAuthentication(
-            //	clientId: "",
-            //	clientSecret: "",
-            //	isSandbox: false);
+			//app.UseSpotifyAuthentication(
+			//    clientId: "",
+			//    clientSecret: "");
 
-            //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
+			//var options = new SlackAuthenticationOptions
+			//{
+			//    ClientId = "",
+			//    ClientSecret = "",
+			//    TeamId = "" // optional
+			//};
+			//options.Scope.Add("identify");
+			//app.UseSlackAuthentication(options);
 
-            //app.UseFlickrAuthentication("", "");
-            //app.UseVisualStudioAuthentication(
-            //	appId: "",
-            //	appSecret: "");
+			//app.UseGitterAuthentication(
+			//    clientId: "",
+			//    clientSecret: ""
+			//);
 
-            //app.UseSpotifyAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+			//app.UseImgurAuthentication(
+			//    new ImgurAuthenticationOptions
+			//    {
+			//        ClientId = "",
+			//        ClientSecret = ""
+			//    });
 
-            //var options = new SlackAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    TeamId = "" // optional
-            //};
-            //options.Scope.Add("identify");
-            //app.UseSlackAuthentication(options);
+			//var options = new BacklogAuthenticationOptions
+			//{
+			//    ClientId = "",
+			//    ClientSecret = "",
+			//    ContractName = "",
+			//    CallbackPath = new PathString(""),  // ex.new PathString("/OauthTokenRequest")
+			//    Provider = new BacklogAuthenticationProvider
+			//    {
+			//        OnAuthenticated = async context => await System.Threading.Tasks.Task.Run(()=> { System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken)); })
+			//    }
+			//};
 
-            //app.UseGitterAuthentication(
-            //    clientId: "",
-            //    clientSecret: ""
-            //);
+			//app.UseBacklogAuthentication(options);
 
-            //app.UseImgurAuthentication(
-            //    new ImgurAuthenticationOptions
-            //    {
-            //        ClientId = "",
-            //        ClientSecret = ""
-            //    });
+			//var cosignOptions = new CosignAuthenticationOptions
+			//{
+			//    AuthenticationType = "Cosign",
+			//    SignInAsAuthenticationType = signInAsType,
+			//    CosignServer = "weblogin.umich.edu",
+			//    CosignServicePort = 6663,
+			//    IdentityServerHostInstance = "core1",
+			//    ClientServer = "cosignservername"
+			//};
+			//app.UseCosignAuthentication(cosignOptions);
 
-            //var options = new BacklogAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    ContractName = "",
-            //    CallbackPath = new PathString(""),  // ex.new PathString("/OauthTokenRequest")
-            //    Provider = new BacklogAuthenticationProvider
-            //    {
-            //        OnAuthenticated = async context => await System.Threading.Tasks.Task.Run(()=> { System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken)); })
-            //    }
-            //};
+			//app.UseVimeoAuthentication("", "");
 
-            //app.UseBacklogAuthentication(options);
+			//app.UseFitbitAuthentication(new FitbitAuthenticationOptions
+			//{
+			//    ClientId = "",
+			//    ClientSecret = ""
+			//});
 
-            //var cosignOptions = new CosignAuthenticationOptions
-            //{
-            //    AuthenticationType = "Cosign",
-            //    SignInAsAuthenticationType = signInAsType,
-            //    CosignServer = "weblogin.umich.edu",
-            //    CosignServicePort = 6663,
-            //    IdentityServerHostInstance = "core1",
-            //    ClientServer = "cosignservername"
-            //};
-            //app.UseCosignAuthentication(cosignOptions);
+			//app.UseOnshapeAuthentication(
+			//    appKey: "",
+			//    appSecret: "");
+			//
+			//
+			//app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
+			//{
+			//  AppKey = "",
+			//  AppSecret = "",
+			//  CallbackPath = new PathString("/oauthRedirect"),
+			//  Hostname = "partner.dev.onshape.com"
+			//});
 
-            //app.UseVimeoAuthentication("", "");
-            
-            //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+			//app.UseVKontakteAuthentication("", "");
 
-            //app.UseOnshapeAuthentication(
-            //    appKey: "",
-            //    appSecret: "");
-            //
-            //
-            //app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
-            //{
-            //  AppKey = "",
-            //  AppSecret = "",
-            //  CallbackPath = new PathString("/oauthRedirect"),
-            //  Hostname = "partner.dev.onshape.com"
-            //});
+			//app.UseXingAuthentication("", "");
 
-            //app.UseVKontakteAuthentication("", "");
-
-            //app.UseXingAuthentication("", "");
-
-            //app.UseDoYouBuzzAuthentication("", "");
-        }
-    }
+			//app.UseDoYouBuzzAuthentication("", "");
+			//app.("", "");
+			//app.UseOrcidAuthentication("APP-QQ4XO1AYU3WR696B", "6bb22d2e-71b3-4d5d-b1af-f5d3a8cd4270");
+		}
+	}
 }

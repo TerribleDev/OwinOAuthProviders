@@ -21,7 +21,6 @@ DEPENDENCIES
   albacore
   nokogiri
   os
-  rake
 
 BUNDLED WITH
-   1.10.6
+   1.12.1
