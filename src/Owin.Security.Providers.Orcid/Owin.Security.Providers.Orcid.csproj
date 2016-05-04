@@ -73,6 +73,7 @@
     <Compile Include="Provider\OrcidReturnEndpointContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Owin.Security.Providers.Orcid.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
