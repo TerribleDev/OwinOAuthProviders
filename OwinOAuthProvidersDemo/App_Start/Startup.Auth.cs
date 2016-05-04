@@ -275,7 +275,7 @@ namespace OwinOAuthProvidersDemo
 
 			//app.UseDoYouBuzzAuthentication("", "");
 			//app.("", "");
-			//app.UseOrcidAuthentication("APP-QQ4XO1AYU3WR696B", "6bb22d2e-71b3-4d5d-b1af-f5d3a8cd4270");
+			//app.UseOrcidAuthentication("","");
 		}
 	}
 }

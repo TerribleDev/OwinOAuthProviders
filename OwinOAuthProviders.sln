@@ -94,8 +94,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Orc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinOAuthProvidersDemo", "OwinOAuthProvidersDemo\OwinOAuthProvidersDemo.csproj", "{5A438007-0C90-4DAC-BAA1-54A32164067F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Orcid", "src\Owin.Security.Providers.Orcid\Owin.Security.Providers.Orcid.csproj", "{89CB4342-E23D-4E7C-89E5-C369599A5860}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
