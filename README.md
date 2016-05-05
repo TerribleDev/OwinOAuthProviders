@@ -53,7 +53,7 @@ For above listed provider implementation guide, visit Jerrie Pelser's blog - [Be
 
 ## Installation
 
-You may install each provider separately. They are named Owin.Security.Providers.*, or you may install the meta package `Owin.Security.Providers` which will give you all 40+ providers.
+You may install each provider via nuget separately. They are named Owin.Security.Providers.*, or you may install the meta package `Owin.Security.Providers` which will give you all 40+ providers.
 
 ## Contributions
 
