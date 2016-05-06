@@ -123,6 +123,22 @@ namespace Owin.Security.Providers.LinkedIn
                     context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.Name, XmlSchemaString, Options.AuthenticationType));
                     context.Identity.AddClaim(new Claim("urn:linkedin:name", context.Name, XmlSchemaString, Options.AuthenticationType));
                 }
+                if (!string.IsNullOrEmpty(context.Industry))
+                {
+                    context.Identity.AddClaim(new Claim("urn:linkedin:industry", context.Industry, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.Positions))
+                {
+                    context.Identity.AddClaim(new Claim("urn:linkedin:positions", context.Positions, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.Summary))
+                {
+                    context.Identity.AddClaim(new Claim("urn:linkedin:summary", context.Summary, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.Headline))
+                {
+                    context.Identity.AddClaim(new Claim("urn:linkedin:headline", context.Headline, XmlSchemaString, Options.AuthenticationType));
+                }
                 if (!string.IsNullOrEmpty(context.Link))
                 {
                     context.Identity.AddClaim(new Claim("urn:linkedin:url", context.Link, XmlSchemaString, Options.AuthenticationType));
