@@ -119,7 +119,11 @@ namespace Owin.Security.Providers.LinkedIn
                 "formatted-name",
                 "email-address",
                 "public-profile-url",
-                "picture-url"
+                "picture-url",
+                "industry",
+                "headline",
+                "summary",
+                "positions"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }

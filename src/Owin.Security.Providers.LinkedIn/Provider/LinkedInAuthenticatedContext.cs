@@ -7,6 +7,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Owin.Security.Providers.LinkedIn
 {
@@ -41,6 +42,10 @@ namespace Owin.Security.Providers.LinkedIn
             Link = TryGetValue(user, "publicProfileUrl");
             UserName = TryGetValue(user, "formattedName").Replace(" ", "");
             Email = TryGetValue(user, "emailAddress");
+            Industry = TryGetValue(user, "industry");
+            Summary = TryGetValue(user, "summary");
+            Headline = TryGetValue(user, "headline");
+            Positions = TryGetValueAndSerialize(user, "positions");
         }
 
         /// <summary>
@@ -87,6 +92,28 @@ namespace Owin.Security.Providers.LinkedIn
         /// </summary>
         public string FamilyName { get; private set; }
 
+        /// <summary>
+        /// Describes the users membership profile
+        /// </summary>
+        public string Summary { get; private set; }
+
+        /// <summary>
+        /// Industry the member belongs to
+        /// https://developer.linkedin.com/docs/reference/industry-codes
+        /// </summary>
+        public string Industry { get; set; }
+
+        /// <summary>
+        /// The members headline
+        /// </summary>
+        public string Headline { get; set; }
+
+        /// <summary>
+        /// Member's current positions
+        /// https://developer.linkedin.com/docs/fields/positions
+        /// </summary>
+        public string Positions { get; set; }
+
         public string Link { get; private set; }
 
         /// <summary>
@@ -108,6 +135,12 @@ namespace Owin.Security.Providers.LinkedIn
         {
             JToken value;
             return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
+        }
+
+        private static string TryGetValueAndSerialize(JObject user, string propertyName)
+        {
+            JToken value;
+            return user.TryGetValue(propertyName, out value) ? JsonConvert.SerializeObject(value) : null;
         }
     }
 }
