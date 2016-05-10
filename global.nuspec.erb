@@ -23,7 +23,7 @@
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
     <dependencies>
       <% for @item in @nugets %>
-        <dependency id="<%= @item %>" version="<%= @version %>" />
+        <dependency id="<%= @item %>" version="[<%= @version %>]" />
       <% end %>
        </dependencies>
   </metadata>
