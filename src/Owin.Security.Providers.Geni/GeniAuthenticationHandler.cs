@@ -71,28 +71,24 @@ namespace Owin.Security.Providers.Geni
                     new KeyValuePair<string, string>("code", code),
                     new KeyValuePair<string, string>("grant_type", "authorization_code"),
                     new KeyValuePair<string, string>("client_id", Options.AppKey),
+                    new KeyValuePair<string, string>("client_secret", Options.AppSecret),
                     new KeyValuePair<string, string>("redirect_uri", redirectUri)
                 };
 
                 // Request the token
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
-                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", new Base64TextEncoder().Encode(Encoding.ASCII.GetBytes(Options.AppKey + ":" + Options.AppSecret)));
-                requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                requestMessage.Content = new FormUrlEncodedContent(body);
-                var tokenResponse = await _httpClient.SendAsync(requestMessage);
+                var tokenResponse =
+                    await _httpClient.PostAsync(Options.Endpoints.TokenEndpoint, new FormUrlEncodedContent(body));
                 tokenResponse.EnsureSuccessStatusCode();
                 var text = await tokenResponse.Content.ReadAsStringAsync();
 
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 var accessToken = (string)response.access_token;
-                var refreshToken = (string) response.refresh_token;
+                var refreshToken = (string)response.refresh_token;
 
-                // Get the user info
-                var userInfoRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserEndpoint);
-                userInfoRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                userInfoRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var userInfoResponse = await _httpClient.SendAsync(userInfoRequest);
+                // Get the Geni user
+                var userInfoResponse = await _httpClient.GetAsync(
+                    Options.Endpoints.UserEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
                 userInfoResponse.EnsureSuccessStatusCode();
                 text = await userInfoResponse.Content.ReadAsStringAsync();
                 var user = JObject.Parse(text);

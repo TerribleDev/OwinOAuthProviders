@@ -26,8 +26,8 @@ namespace Owin.Security.Providers.Geni.Provider
             AccessToken = accessToken;
             RefreshToken = refreshToken;
             User = user;
-            Name = user.SelectToken("user.name").ToString();
-            Id = user.SelectToken("user.translator_id").ToString();
+            Name = user.SelectToken("name").ToString();
+            Id = user.SelectToken("translator_id").ToString();
         }
 
         /// <summary>
