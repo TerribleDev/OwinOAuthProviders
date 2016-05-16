@@ -14,7 +14,7 @@ namespace Owin.Security.Providers.Geni
             /// Endpoint which is used to redirect users to request Geni access
             /// </summary>
             /// <remarks>
-            /// Defaults to https://www.geni.com/oauth2/authorize
+            /// Defaults to https://www.geni.com/platform/oauth/authorize
             /// </remarks>
             public string AuthorizationEndpoint { get; set; }
 
@@ -22,10 +22,16 @@ namespace Owin.Security.Providers.Geni
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             /// <remarks>
-            /// Defaults to https://api.geni.com/oauth2/token
+            /// Defaults to https://www.geni.com/platform/oauth/request_token
             /// </remarks>
             public string TokenEndpoint { get; set; }
 
+            /// <summary>
+            /// Endpoint which is used to get information on the user
+            /// </summary>
+            /// <remarks>
+            /// Defaults to https://geni.com/api/user
+            /// </remarks>
             public string UserEndpoint { get; set; }
         }
 
@@ -95,8 +101,8 @@ namespace Owin.Security.Providers.Geni
         public GeniAuthenticationOptions()
             : base("Geni")
         {
-			Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-Geni");
+            Caption = Constants.DefaultAuthenticationType;
+            CallbackPath = new PathString("/signin-geni");
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);			
             Endpoints = new GeniAuthenticationEndpoints
