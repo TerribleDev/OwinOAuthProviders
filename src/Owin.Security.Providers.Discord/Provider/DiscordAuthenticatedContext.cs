@@ -15,15 +15,15 @@ namespace Owin.Security.Providers.Discord.Provider
     /// </summary>
     public class DiscordAuthenticatedContext : BaseContext
     {
-		/// <summary>
-		/// Initializes a <see cref="DiscordAuthenticatedContext"/>
-		/// </summary>
-		/// <param name="context">The OWIN environment</param>
-		/// <param name="user">The JSON-serialized user</param>
-		/// <param name="accessToken">Discord Access token</param>
-		/// <param name="expires">Seconds until expiration</param>
-		/// <param name="refreshToken"></param>
-		public DiscordAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires, string refreshToken)
+        /// <summary>
+        /// Initializes a <see cref="DiscordAuthenticatedContext"/>
+        /// </summary>
+        /// <param name="context">The OWIN environment</param>
+        /// <param name="user">The JSON-serialized user</param>
+        /// <param name="accessToken">Discord Access token</param>
+        /// <param name="expires">Seconds until expiration</param>
+        /// <param name="refreshToken"></param>
+        public DiscordAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires, string refreshToken)
             : base(context)
         {
             User = user;
@@ -34,12 +34,12 @@ namespace Owin.Security.Providers.Discord.Provider
             {
                 ExpiresIn = TimeSpan.FromSeconds(expiresValue);
             }
-			Id = TryGetValue(user, "id");
-			UserName = TryGetValue(user, "username");
-			Discriminator = TryGetValue(user, "discriminator");
-			Avatar = TryGetValue(user, "avatar");
-			Email = TryGetValue(user, "email");
-			Verified = TryGetValue(user, "verified") == "true";
+            Id = TryGetValue(user, "id");
+            UserName = TryGetValue(user, "username");
+            Discriminator = TryGetValue(user, "discriminator");
+            Avatar = TryGetValue(user, "avatar");
+            Email = TryGetValue(user, "email");
+            Verified = TryGetValue(user, "verified") == "true";
         }
 
         public string RefreshToken { get; set; }
@@ -66,31 +66,31 @@ namespace Owin.Security.Providers.Discord.Provider
         /// Gets the Discord user ID
         /// </summary>
         public string Id { get; private set; }
-		
-		/// <summary>
-		/// Gets the Discord user discriminator
-		/// </summary>
-		public string Discriminator { get; private set; }
 
-		/// <summary>
-		/// Gets the Discord user avatar
-		/// </summary>
-		public string Avatar { get; private set; }
+        /// <summary>
+        /// Gets the Discord user discriminator
+        /// </summary>
+        public string Discriminator { get; private set; }
 
-		/// <summary>
-		/// Gets the Discord user email
-		/// </summary>
-		public string Email { get; private set; }
+        /// <summary>
+        /// Gets the Discord user avatar
+        /// </summary>
+        public string Avatar { get; private set; }
+
+        /// <summary>
+        /// Gets the Discord user email
+        /// </summary>
+        public string Email { get; private set; }
 
         /// <summary>
         /// Gets the Discord username
         /// </summary>
         public string UserName { get; private set; }
 
-		/// <summary>
-		/// Gets whether the user is verified or not.
-		/// </summary>
-		public bool Verified { get; private set; } = false;
+        /// <summary>
+        /// Gets whether the user is verified or not.
+        /// </summary>
+        public bool Verified { get; private set; } = false;
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user

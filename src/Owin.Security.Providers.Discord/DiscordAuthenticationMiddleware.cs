@@ -18,7 +18,7 @@ namespace Owin.Security.Providers.Discord
         private readonly ILogger _logger;
 
         public DiscordAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
-			DiscordAuthenticationOptions options)
+            DiscordAuthenticationOptions options)
             : base(next, options)
         {
             if (string.IsNullOrWhiteSpace(Options.ClientId))
@@ -36,7 +36,7 @@ namespace Owin.Security.Providers.Discord
             if (Options.StateDataFormat == null)
             {
                 var dataProtector = app.CreateDataProtector(
-                    typeof (DiscordAuthenticationMiddleware).FullName,
+                    typeof(DiscordAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
@@ -47,19 +47,19 @@ namespace Owin.Security.Providers.Discord
             _httpClient = new HttpClient(ResolveHttpMessageHandler())
             {
                 Timeout = Options.BackchannelTimeout,
-                MaxResponseContentBufferSize = 1024*1024*10
+                MaxResponseContentBufferSize = 1024 * 1024 * 10
             };
         }
 
-		/// <summary>
-		///     Provides the <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> object for processing
-		///     authentication-related requests.
-		/// </summary>
-		/// <returns>
-		///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
-		///     <see cref="T:Owin.Security.Providers.Discord.DiscordAuthenticationOptions" /> supplied to the constructor.
-		/// </returns>
-		protected override AuthenticationHandler<DiscordAuthenticationOptions> CreateHandler()
+        /// <summary>
+        ///     Provides the <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> object for processing
+        ///     authentication-related requests.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
+        ///     <see cref="T:Owin.Security.Providers.Discord.DiscordAuthenticationOptions" /> supplied to the constructor.
+        /// </returns>
+        protected override AuthenticationHandler<DiscordAuthenticationOptions> CreateHandler()
         {
             return new DiscordAuthenticationHandler(_httpClient, _logger);
         }

@@ -32,10 +32,8 @@ namespace Owin.Security.Providers.Discord
         {
             AuthenticationProperties properties = null;
 
-#if !DEBUG
-			try
+            try
             {
-#endif
                 string code = null;
                 string state = null;
 
@@ -66,14 +64,14 @@ namespace Owin.Security.Providers.Discord
                 var requestPrefix = Request.Scheme + "://" + Request.Host;
                 var redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
-				// Build up the body for the token request
-				var body = new List<KeyValuePair<string, string>>
-				{
-					new KeyValuePair<string, string>("grant_type", "authorization_code"),
-					new KeyValuePair<string, string>("code", code),
-					new KeyValuePair<string, string>("redirect_uri", redirectUri),
-					new KeyValuePair<string, string>("client_id", Options.ClientId),
-					new KeyValuePair<string, string>("client_secret", Options.ClientSecret)
+                // Build up the body for the token request
+                var body = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("grant_type", "authorization_code"),
+                    new KeyValuePair<string, string>("code", code),
+                    new KeyValuePair<string, string>("redirect_uri", redirectUri),
+                    new KeyValuePair<string, string>("client_id", Options.ClientId),
+                    new KeyValuePair<string, string>("client_secret", Options.ClientSecret)
                 };
                 var request = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint);
                 request.Content = new FormUrlEncodedContent(body);
@@ -87,8 +85,8 @@ namespace Owin.Security.Providers.Discord
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 var accessToken = (string)response.access_token;
-                var expires = (string) response.expires_in;
-                var refreshToken = (string) response.refresh_token;
+                var expires = (string)response.expires_in;
+                var refreshToken = (string)response.refresh_token;
 
                 // Get the Discord user
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
@@ -113,35 +111,33 @@ namespace Owin.Security.Providers.Discord
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.UserName, XmlSchemaString, Options.AuthenticationType));
                 }
-				if(!string.IsNullOrEmpty(context.Email))
-				{
-					context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
-				}
-				if (!string.IsNullOrEmpty(context.Avatar))
-				{
-					context.Identity.AddClaim(new Claim("urn:discord:avatar", context.Avatar, XmlSchemaString, Options.AuthenticationType));
-				}
-				if(!string.IsNullOrEmpty(context.Discriminator))
-				{
-					context.Identity.AddClaim(new Claim("urn:discord:discriminator", context.Discriminator, XmlSchemaString, Options.AuthenticationType));
-				}
+                if (!string.IsNullOrEmpty(context.Email))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.Avatar))
+                {
+                    context.Identity.AddClaim(new Claim("urn:discord:avatar", context.Avatar, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.Discriminator))
+                {
+                    context.Identity.AddClaim(new Claim("urn:discord:discriminator", context.Discriminator, XmlSchemaString, Options.AuthenticationType));
+                }
                 if (!string.IsNullOrEmpty(context.AccessToken))
                 {
                     context.Identity.AddClaim(new Claim("urn:discord:accesstoken", context.AccessToken, XmlSchemaString, Options.AuthenticationType));
                 }
-				context.Identity.AddClaim(new Claim("urn:discord:verified", context.Verified.ToString(), XmlSchemaString, Options.AuthenticationType));
-				context.Properties = properties;
+                context.Identity.AddClaim(new Claim("urn:discord:verified", context.Verified.ToString(), XmlSchemaString, Options.AuthenticationType));
+                context.Properties = properties;
 
                 await Options.Provider.Authenticated(context);
 
                 return new AuthenticationTicket(context.Identity, context.Properties);
-#if !DEBUG
-		}
+            }
             catch (Exception ex)
             {
                 _logger.WriteError(ex.Message);
             }
-#endif
 
             return new AuthenticationTicket(null, properties);
         }
@@ -186,7 +182,7 @@ namespace Owin.Security.Providers.Discord
             var state = Options.StateDataFormat.Protect(properties);
 
             var authorizationEndpoint =
-				"https://discordapp.com/api/oauth2/authorize" +
+                "https://discordapp.com/api/oauth2/authorize" +
                 "?response_type=code" +
                 "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
                 "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +

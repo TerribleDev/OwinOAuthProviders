@@ -11,7 +11,7 @@ namespace Owin.Security.Providers.Discord
     {
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
-        ///     in back channel communications belong to Reddit.
+        ///     in back channel communications belong to Discord.
         /// </summary>
         /// <value>
         ///     The pinned certificate validator.
@@ -23,14 +23,14 @@ namespace Owin.Security.Providers.Discord
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
         /// <summary>
-        ///     The HttpMessageHandler used to communicate with Reddit.
+        ///     The HttpMessageHandler used to communicate with Discord.
         ///     This cannot be set at the same time as BackchannelCertificateValidator unless the value
         ///     can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
         /// <summary>
-        ///     Gets or sets timeout value in milliseconds for back channel communications with Reddit.
+        ///     Gets or sets timeout value in milliseconds for back channel communications with Discord.
         /// </summary>
         /// <value>
         ///     The back channel timeout in milliseconds.
