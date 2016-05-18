@@ -4,6 +4,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 
 //using Owin.Security.Providers.Orcid;
+//using Owin.Security.Providers.Discord;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -276,6 +277,8 @@ namespace OwinOAuthProvidersDemo
 			//app.UseDoYouBuzzAuthentication("", "");
 			//app.("", "");
 			//app.UseOrcidAuthentication("","");
+
+			//app.UseDiscordAuthentication("", "");
 		}
 	}
 }

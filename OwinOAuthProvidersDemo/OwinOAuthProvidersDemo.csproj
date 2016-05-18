@@ -248,6 +248,12 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Discord\Owin.Security.Providers.Discord.csproj">
+      <Project>{4be728eb-778a-41af-8dea-0c7159711d44}</Project>
+      <Name>Owin.Security.Providers.Discord</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
