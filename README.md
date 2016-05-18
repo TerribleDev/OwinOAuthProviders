@@ -12,6 +12,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Buffer
   - Cosign
   - DeviantArt
+  - Discord
   - Dropbox
   - EVEOnline
   - Fitbit
