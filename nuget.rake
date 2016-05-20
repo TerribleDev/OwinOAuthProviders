@@ -36,9 +36,9 @@ namespace :nuget do
     # Make sure we get solution-level deps
     #sh "#{CMD_PREFIX} #{NUGET}/nuget.exe i .nuget/packages.config -o packages"
 
-    FileList["src/**/packages.config"].each { |filepath|
-      sh "#{CMD_PREFIX} #{NUGET}/nuget.exe restore"
-    }
+   
+      sh "nuget.exe restore"
+   
   end
 
 end
