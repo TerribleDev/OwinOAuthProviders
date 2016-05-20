@@ -95,6 +95,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinOAuthProvidersDemo", "OwinOAuthProvidersDemo\OwinOAuthProvidersDemo.csproj", "{5A438007-0C90-4DAC-BAA1-54A32164067F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Discord", "src\Owin.Security.Providers.Discord\Owin.Security.Providers.Discord.csproj", "{4BE728EB-778A-41AF-8DEA-0C7159711D44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Geni", "src\Owin.Security.Providers.Geni\Owin.Security.Providers.Geni.csproj", "{9DE25431-F935-48D7-8EB5-ACB6F918111C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -290,6 +291,10 @@ Global
 		{4BE728EB-778A-41AF-8DEA-0C7159711D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BE728EB-778A-41AF-8DEA-0C7159711D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BE728EB-778A-41AF-8DEA-0C7159711D44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

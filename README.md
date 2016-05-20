@@ -18,6 +18,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Fitbit
   - Flickr
   - Foursquare
+  - Geni
   - GitHub
   - Gitter
   - Google+
