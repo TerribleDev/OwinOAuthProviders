@@ -26,6 +26,12 @@ namespace Owin.Security.Providers.MyHeritage
             /// </remarks>
             public string TokenEndpoint { get; set; }
 
+            /// <summary>
+            /// Endpoint which is used to get information on the user
+            /// </summary>
+            /// <remarks>
+            /// Defaults to https://familygraph.myheritage.com/me
+            /// </remarks>
             public string UserEndpoint { get; set; }
         }
 
@@ -44,7 +50,7 @@ namespace Owin.Security.Providers.MyHeritage
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-MyHeritage".
+        ///     Default value is "/signin-myheritage".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -95,8 +101,8 @@ namespace Owin.Security.Providers.MyHeritage
         public MyHeritageAuthenticationOptions()
             : base("MyHeritage")
         {
-			Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-MyHeritage");
+            Caption = Constants.DefaultAuthenticationType;
+            CallbackPath = new PathString("/signin-myheritage");
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);			
             Endpoints = new MyHeritageAuthenticationEndpoints

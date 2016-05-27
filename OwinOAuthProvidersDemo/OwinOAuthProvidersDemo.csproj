@@ -257,6 +257,16 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Geni\Owin.Security.Providers.Geni.csproj">
+      <Project>{9de25431-f935-48d7-8eb5-acb6f918111c}</Project>
+      <Name>Owin.Security.Providers.Geni</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.MyHeritage\Owin.Security.Providers.MyHeritage.csproj">
+      <Project>{84795078-31b5-4369-bd1b-f960165f8c71}</Project>
+      <Name>Owin.Security.Providers.MyHeritage</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
