@@ -18,26 +18,32 @@ namespace Owin.Security.Providers.ArcGISOnline
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The ArcGIS Online user</param>
-        /// <param name="accessToken">ArcGISOnline Access token</param>
-        public ArcGISOnlineAuthenticatedContext(IOwinContext context, ArcGISOnlineUser user, string accessToken)
+        /// <param name="accessToken">ArcGIS Online Access token</param>
+        /// <param name="refreshToken">ArcGIS Online Refresh token</param>
+        public ArcGISOnlineAuthenticatedContext(IOwinContext context, ArcGISOnlineUser user, string accessToken, string refreshToken)
             : base(context)
         {
             AccessToken = accessToken;
-
-            Id = user.User.Username;
-            Name = user.User.FullName;
+            RefreshToken = refreshToken;
+            Id = user.Username;
+            Name = user.FullName;
             Link = "https://www.arcgis.com/sharing/rest/community/users/" + Id;
             UserName = Id;
-            Email = user.User.Email;
+            Email = user.Email;
         }
 
         /// <summary>
-        /// Gets the ArcGISOnline access token
+        /// Gets the ArcGIS Online access token
         /// </summary>
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the ArcGISOnline user ID
+        /// Gets the ArcGIS Online refresh token
+        /// </summary>
+        public string RefreshToken { get; private set; }
+
+        /// <summary>
+        /// Gets the ArcGIS Online user ID
         /// </summary>
         public string Id { get; }
 
@@ -54,7 +60,7 @@ namespace Owin.Security.Providers.ArcGISOnline
         public string Link { get; private set; }
 
         /// <summary>
-        /// Gets the ArcGISOnline username
+        /// Gets the ArcGIS Online username
         /// </summary>
         public string UserName { get; private set; }
 

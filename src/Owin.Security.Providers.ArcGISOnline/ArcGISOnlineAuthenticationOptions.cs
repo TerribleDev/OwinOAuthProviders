@@ -14,7 +14,7 @@ namespace Owin.Security.Providers.ArcGISOnline
             /// Endpoint which is used to redirect users to request ArcGISOnline access
             /// </summary>
             /// <remarks>
-            /// Defaults to https://www.arcgis.com/sharing/oauth2/authorize
+            /// Defaults to https://www.arcgis.com/sharing/rest/oauth2/authorize/
             /// </remarks>
             public string AuthorizationEndpoint { get; set; }
 
@@ -22,7 +22,7 @@ namespace Owin.Security.Providers.ArcGISOnline
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             /// <remarks>
-            /// Defaults to https://www.arcgis.com/sharing/oauth2/token
+            /// Defaults to https://www.arcgis.com/sharing/rest/oauth2/token/
             /// </remarks>
             public string TokenEndpoint { get; set; }
 
@@ -30,14 +30,14 @@ namespace Owin.Security.Providers.ArcGISOnline
             /// Endpoint which is used to obtain user information after authentication
             /// </summary>
             /// <remarks>
-            /// Defaults to https://www.arcgis.com/sharing/rest/accounts/self
+            /// Defaults to https://www.arcgis.com/sharing/rest/community/self
             /// </remarks>
             public string UserInfoEndpoint { get; set; }
         }
 
-        private const string AuthorizationEndPoint = "https://www.arcgis.com/sharing/oauth2/authorize";
-        private const string TokenEndpoint = "https://www.arcgis.com/sharing/oauth2/token";
-        private const string UserInfoEndpoint = "https://www.arcgis.com/sharing/rest/accounts/self";
+        private const string AuthorizationEndPoint = "https://www.arcgis.com/sharing/rest/oauth2/authorize/";
+        private const string TokenEndpoint = "https://www.arcgis.com/sharing/rest/oauth2/token/";
+        private const string UserInfoEndpoint = "https://www.arcgis.com/sharing/rest/community/self";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used

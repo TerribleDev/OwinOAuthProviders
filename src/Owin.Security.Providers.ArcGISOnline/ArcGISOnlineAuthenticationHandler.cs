@@ -81,6 +81,7 @@ namespace Owin.Security.Providers.ArcGISOnline
                 // Deserializes the token response
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 var accessToken = (string)response.access_token;
+                var refreshToken = (string)response.refresh_token;
 
                 // Get the ArcGISOnline user
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?f=json&token=" + Uri.EscapeDataString(accessToken));
@@ -90,7 +91,7 @@ namespace Owin.Security.Providers.ArcGISOnline
                 text = await userResponse.Content.ReadAsStringAsync();
                 var user = JsonConvert.DeserializeObject<Provider.ArcGISOnlineUser>(text);
 
-                var context = new ArcGISOnlineAuthenticatedContext(Context, user, accessToken)
+                var context = new ArcGISOnlineAuthenticatedContext(Context, user, accessToken, refreshToken)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
