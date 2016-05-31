@@ -13,22 +13,16 @@ namespace Owin.Security.Providers.Salesforce
             /// <summary>
             /// Endpoint which is used to redirect users to request Salesforce access
             /// </summary>
-            /// <remarks>
-            /// Defaults to https://login.salesforce.com/services/oauth2/authorize
-            /// </remarks>
             public string AuthorizationEndpoint { get; set; }
 
             /// <summary>
             /// Endpoint which is used to exchange code for access token
             /// </summary>
-            /// <remarks>
-            /// Defaults to https://login.salesforce.com/services/oauth2/token
-            /// </remarks>
             public string TokenEndpoint { get; set; }
         }
 
-        private const string AuthorizationEndPoint = "https://login.salesforce.com/services/oauth2/authorize";
-        private const string TokenEndpoint = "https://login.salesforce.com/services/oauth2/token";
+        private const string AuthorizationEndPoint = "";
+        private const string TokenEndpoint = "";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -120,10 +114,7 @@ namespace Owin.Security.Providers.Salesforce
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-salesforce");
             AuthenticationMode = AuthenticationMode.Passive;
-            Scope = new List<string>
-            {
-                "user"
-            };
+            Scope = new List<string>();
             BackchannelTimeout = TimeSpan.FromSeconds(60);
             Endpoints = new SalesforceAuthenticationEndpoints
             {

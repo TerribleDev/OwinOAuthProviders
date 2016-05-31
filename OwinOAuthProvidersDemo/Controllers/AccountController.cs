@@ -23,6 +23,8 @@ namespace OwinOAuthProvidersDemo.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            //to support email address as user name
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }

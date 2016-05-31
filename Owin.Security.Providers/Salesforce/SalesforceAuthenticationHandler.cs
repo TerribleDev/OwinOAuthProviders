@@ -65,12 +65,14 @@ namespace Owin.Security.Providers.Salesforce
                 string redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
-                var body = new List<KeyValuePair<string, string>>();
-                body.Add(new KeyValuePair<string, string>("code", code));
-                body.Add(new KeyValuePair<string, string>("redirect_uri", redirectUri));
-                body.Add(new KeyValuePair<string, string>("client_id", Options.ClientId));
-                body.Add(new KeyValuePair<string, string>("client_secret", Options.ClientSecret));
-                body.Add(new KeyValuePair<string, string>("grant_type", "authorization_code"));
+                var body = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("code", code),
+                        new KeyValuePair<string, string>("redirect_uri", redirectUri),
+                        new KeyValuePair<string, string>("client_id", Options.ClientId),
+                        new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
+                        new KeyValuePair<string, string>("grant_type", "authorization_code")
+                    };
 
                 // Request the token
                 var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
@@ -84,6 +86,7 @@ namespace Owin.Security.Providers.Salesforce
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 string accessToken = (string)response.access_token;
                 string refreshToken = (string)response.refresh_token;
+                string instanceUrl = (string)response.instance_url;
 
                 // Get the Salesforce user using the user info endpoint, which is part of the token - response.id
                 HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, (string)response.id + "?access_token=" + Uri.EscapeDataString(accessToken));
@@ -93,7 +96,7 @@ namespace Owin.Security.Providers.Salesforce
                 text = await userResponse.Content.ReadAsStringAsync();
                 JObject user = JObject.Parse(text);
 
-                var context = new SalesforceAuthenticatedContext(Context, user, accessToken, refreshToken);
+                var context = new SalesforceAuthenticatedContext(Context, user, accessToken, refreshToken, instanceUrl);
                 context.Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
                     ClaimsIdentity.DefaultNameClaimType,
@@ -125,12 +128,12 @@ namespace Owin.Security.Providers.Salesforce
 
                 if (!string.IsNullOrEmpty(context.DisplayName))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.DisplayName, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:Salesforce:name", context.DisplayName, XmlSchemaString, Options.AuthenticationType));
                 }
 
-                if (!string.IsNullOrEmpty(context.DisplayName))
+                if (!string.IsNullOrEmpty(context.OrganizationId))
                 {
-                    context.Identity.AddClaim(new Claim("urn:Salesforce:name", context.DisplayName, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:Salesforce:organization_id", context.OrganizationId, XmlSchemaString, Options.AuthenticationType));
                 }
                 
                 context.Properties = properties;
@@ -181,9 +184,6 @@ namespace Owin.Security.Providers.Salesforce
                 // OAuth2 10.12 CSRF
                 GenerateCorrelationId(properties);
 
-                // comma separated
-                //string scope = string.Join(",", Options.Scope);
-
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint = string.Format(
@@ -195,7 +195,8 @@ namespace Owin.Security.Providers.Salesforce
                     "page",
                     false,
                     Uri.EscapeDataString(state),
-                    "");
+                    ""
+                    );
 
                 Response.Redirect(authorizationEndpoint);
             }
