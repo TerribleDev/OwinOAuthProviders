@@ -27,7 +27,7 @@ namespace Owin.Security.Providers.MyHeritage.Provider
             RefreshToken = refreshToken;
             User = user;
             Name = user.SelectToken("name").ToString();
-            Id = user.SelectToken("translator_id").ToString();
+            Id = user.SelectToken("id").ToString();
         }
 
         /// <summary>
