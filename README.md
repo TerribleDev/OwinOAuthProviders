@@ -1,5 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/su8q95onnarswjaq/branch/master?svg=true)](https://ci.appveyor.com/project/ByteBlast/owinoauthproviders/branch/master)
-
+[![Build status](https://ci.appveyor.com/api/projects/status/gjlkpp86t8dw164f?svg=true)](https://ci.appveyor.com/project/tparnell8/owinoauthproviders)
 
 #OWIN OAuth Providers
 
@@ -7,21 +6,31 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
 - OAuth
   - ArcGISOnline
   - Asana
+  - Backlog
   - Battle.net
+  - Bitbucket
   - Buffer
+  - Cosign
   - DeviantArt
+  - Discord
   - Dropbox
   - EVEOnline
+  - Fitbit
   - Flickr
   - Foursquare
+  - Geni
   - GitHub
+  - Gitter
   - Google+
   - HealthGraph
   - Instagram
   - LinkedIn
+  - Onshape
+  - ORCID
   - PayPal
   - Reddit
   - Salesforce
+  - Shopify
   - Slack
   - SoundCloud
   - Spotify
@@ -29,8 +38,11 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - TripIt
   - Twitch.tv
   - Untappd
+  - Vimeo
   - Visual Studio Online
+  - VKontakte
   - Wordpress
+  - Xing
   - Yahoo
   - Yammer
 - OpenID
@@ -39,14 +51,11 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Wargaming
 
 ## Implementation Guides
-For guides on how to implement these providers, please visit my blog, [Be a Big Rockstar](http://www.beabigrockstar.com).
+For above listed provider implementation guide, visit Jerrie Pelser's blog - [Be a Big Rockstar](http://www.beabigrockstar.com)
 
 ## Installation
-To use these providers you will need to install the ```Owin.Security.Providers``` NuGet package.
 
-```
-PM> Install-Package Owin.Security.Providers
-```
+You may install each provider via nuget separately. They are named Owin.Security.Providers.*, or you may install the meta package `Owin.Security.Providers` which will give you all 40+ providers.
 
 ## Contributions
 
@@ -69,12 +78,18 @@ A big thanks goes out to all these contributors without whom this would not have
 * Anthony Ruffino (https://github.com/AnthonyRuffino)
 * Tommy Parnell (https://github.com/tparnell8)
 * Maxime Roussin-Bélanger (https://github.com/Lorac)
+* Jaspalsinh Chauhan (https://github.com/jsinh)
+* Jason Loeffler (https://github.com/jmloeffler)
+* Ben Foster (https://github.com/benfoster)
+* Jonathan Peterson (https://github.com/eonasdan)
+
+For most accurate and up to date list of contributors please see https://github.com/RockstarLabs/OwinOAuthProviders/graphs/contributors
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Jerrie Pelser
+Copyright (c) 2014, 2015 Jerrie Pelser
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

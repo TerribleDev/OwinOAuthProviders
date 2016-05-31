@@ -1,5 +1,10 @@
 version: 1.0.{build}
-before_build:
-- ps: nuget restore
-build:
-  verbosity: minimal
+nuget:
+  project_feed: true
+install:
+  - set PATH=C:\Ruby22\bin;%PATH%
+  - bundle install
+build_script:
+  - rake preflight
+artifacts:
+- path: src\**\*.nupkg
