@@ -98,6 +98,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Dis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Geni", "src\Owin.Security.Providers.Geni\Owin.Security.Providers.Geni.csproj", "{9DE25431-F935-48D7-8EB5-ACB6F918111C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.MyHeritage", "src\Owin.Security.Providers.MyHeritage\Owin.Security.Providers.MyHeritage.csproj", "{84795078-31B5-4369-BD1B-F960165F8C71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -296,6 +298,10 @@ Global
 		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DE25431-F935-48D7-8EB5-ACB6F918111C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84795078-31B5-4369-BD1B-F960165F8C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84795078-31B5-4369-BD1B-F960165F8C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

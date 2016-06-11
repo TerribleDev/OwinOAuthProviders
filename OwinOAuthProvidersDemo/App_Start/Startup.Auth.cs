@@ -278,8 +278,9 @@ namespace OwinOAuthProvidersDemo
             //app.("", "");
             //app.UseOrcidAuthentication("","");
 
-			//app.UseDiscordAuthentication("", "");
+            //app.UseDiscordAuthentication("", "");
             //app.UseGeniAuthentication("", "");
+            //app.UseMyHeritageAuthentication("", "");
         }
     }
 }

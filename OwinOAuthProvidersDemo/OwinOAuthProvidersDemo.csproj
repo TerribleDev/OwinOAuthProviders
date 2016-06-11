@@ -246,12 +246,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Owin.Security.Providers.Discord\Owin.Security.Providers.Discord.csproj">
-      <Project>{4be728eb-778a-41af-8dea-0c7159711d44}</Project>
-      <Name>Owin.Security.Providers.Discord</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
