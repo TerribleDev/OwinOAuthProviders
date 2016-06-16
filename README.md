@@ -52,7 +52,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Wargaming
 
 ## Implementation Guides
-For above listed provider implementation guide, visit Jerrie Pelser's blog - [Be a Big Rockstar](http://www.beabigrockstar.com)
+For above listed provider implementation guide, visit Jerrie Pelser's blog - [oauthforaspnet](http://www.oauthforaspnet.com)
 
 ## Installation
 
