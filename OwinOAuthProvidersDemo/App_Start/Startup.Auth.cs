@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Owin;
+using Owin;                 
 
 //using Owin.Security.Providers.Orcid;
 //using Owin.Security.Providers.Discord;
@@ -46,7 +46,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
-            //app.UseBufferAuthentication("", "");
+            //app.UseBufferAuthentication("", ""); 
 
             //app.UseRedditAuthentication("", "");
 
@@ -280,7 +280,10 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseDiscordAuthentication("", "");
             //app.UseGeniAuthentication("", "");
-            //app.UseMyHeritageAuthentication("", "");
+            //app.UseMyHeritageAuthentication("", "");  
+
+            //app.UseTumblrAuthentication("", "");
+
         }
     }
 }

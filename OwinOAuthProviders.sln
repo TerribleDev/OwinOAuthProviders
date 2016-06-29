@@ -100,6 +100,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Gen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.MyHeritage", "src\Owin.Security.Providers.MyHeritage\Owin.Security.Providers.MyHeritage.csproj", "{84795078-31B5-4369-BD1B-F960165F8C71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Tumblr", "src\Owin.Security.Providers.Tumblr\Owin.Security.Providers.Tumblr.csproj", "{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,6 +304,10 @@ Global
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
