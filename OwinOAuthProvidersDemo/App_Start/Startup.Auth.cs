@@ -1,50 +1,28 @@
-﻿using System;
-using System.Security.Claims;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using Owin.Security.Providers.Asana;
-using Owin.Security.Providers.ArcGISOnline;
-using Owin.Security.Providers.BattleNet;
-using Owin.Security.Providers.Buffer;
-using Owin.Security.Providers.Dropbox;
-using Owin.Security.Providers.EveOnline;
-using Owin.Security.Providers.Foursquare;
-using Owin.Security.Providers.GitHub;
-using Owin.Security.Providers.GooglePlus;
-using Owin.Security.Providers.GooglePlus.Provider;
-using Owin.Security.Providers.HealthGraph;
-using Owin.Security.Providers.Instagram;
-using Owin.Security.Providers.LinkedIn;
-using Owin.Security.Providers.PayPal;
-using Owin.Security.Providers.Reddit;
-using Owin.Security.Providers.Salesforce;
-using Owin.Security.Providers.StackExchange;
-using Owin.Security.Providers.TripIt;
-using Owin.Security.Providers.Twitch;
-using Owin.Security.Providers.Yahoo;
-using Owin.Security.Providers.OpenID;
-using Owin.Security.Providers.SoundCloud;
-using Owin.Security.Providers.Steam;
-using Owin.Security.Providers.WordPress;
+
+//using Owin.Security.Providers.Orcid;
+//using Owin.Security.Providers.Discord;
 
 namespace OwinOAuthProvidersDemo
 {
-    public partial class Startup
-    {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
-        {
-            // Enable the application to use a cookie to store information for the signed in user
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login")
-            });
-            // Use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
+	public partial class Startup
+	{
+		// For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+		public void ConfigureAuth(IAppBuilder app)
+		{
+			// Enable the application to use a cookie to store information for the signed in user
+			app.UseCookieAuthentication(new CookieAuthenticationOptions
+			{
+				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+				LoginPath = new PathString("/Account/Login")
+			});
+			// Use a cookie to temporarily store information about a user logging in with a third party login provider
+			app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            //app.UseDeviantArtAuthentication("id", "secret");
+            //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
@@ -65,7 +43,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseYahooAuthentication("", "");
 
             //app.UseTripItAuthentication("", "");
-            
+
             //app.UseGitHubAuthentication("", "");
 
             //app.UseBufferAuthentication("", "");
@@ -96,8 +74,8 @@ namespace OwinOAuthProvidersDemo
 
             /*
              * Twitch sign-ins use /signin-Twitch as the URL for authentication
-             *            
-             
+             *
+
              */
 
             ////Simple Twitch Sign-in
@@ -110,7 +88,6 @@ namespace OwinOAuthProvidersDemo
             //    ClientSecret = "",
             //    Provider = new TwitchAuthenticationProvider()
             //    {
-                  
             //        OnAuthenticated = async z =>
             //        {
             ////            Getting the twitch users picture
@@ -119,7 +96,7 @@ namespace OwinOAuthProvidersDemo
             ////    You should be able to access these claims with  HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync().Claims in your Account Controller
             //        //    Commonly used in the ExternalLoginCallback() in AccountController.cs
             //        /*
-                      
+
             //           if (user != null)
             //                {
             //                    var claim = (await AuthenticationManager.GetExternalLoginInfoAsync()).ExternalIdentity.Claims.First(
@@ -132,8 +109,6 @@ namespace OwinOAuthProvidersDemo
             //    }
             //};
             //app.UseTwitchAuthentication(opt);
-            
-
 
             //app.UseOpenIDAuthentication("http://me.yahoo.com/", "Yahoo");
 
@@ -148,7 +123,7 @@ namespace OwinOAuthProvidersDemo
             //app.UseOpenIDAuthentication("http://openid.orange.fr/server", "Orange", true);
 
             //app.UseSalesforceAuthentication(
-            //    clientId: "", 
+            //    clientId: "",
             //    clientSecret: "");
 
             //in scenarios where a sandbox URL needs to be used
@@ -175,6 +150,8 @@ namespace OwinOAuthProvidersDemo
             //};
             //app.UseSalesforceAuthentication(salesforceOptions);
 
+            ////app.UseShopifyAuthentication("", "");
+
             //app.UseArcGISOnlineAuthentication(
             //    clientId: "",
             //    clientSecret: "");
@@ -191,31 +168,119 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: "");
 
-
-			//app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
-			//{
-			//	ClientId = "",
-			//	ClientSecret = ""
-			//});
-			//app.UseBattleNetAuthentication(
-			//	clientId: "",
-			//	clientSecret: "");
+            //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
+            //{
+            //	ClientId = "",
+            //	ClientSecret = ""
+            //});
+            //app.UseBattleNetAuthentication(
+            //	clientId: "",
+            //	clientSecret: "");
 
             //app.UseAsanaAuthentication("", "");
 
             //app.UseEveOnlineAuthentication("", "");
 
-			//app.UseSoundCloudAuthentication("", "");
+            //app.UseSoundCloudAuthentication("", "");
 
-			//app.UseFoursquareAuthentication(
-			//	clientId: "",
-			//	clientSecret: "");
+            //app.UseFoursquareAuthentication(
+            //	clientId: "",
+            //	clientSecret: "");
 
             //app.UsePayPalAuthentication(
             //	clientId: "",
             //	clientSecret: "",
             //	isSandbox: false);
 
+            //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
+
+            //app.UseFlickrAuthentication("", "");
+            //app.UseVisualStudioAuthentication(
+            //	appId: "",
+            //	appSecret: "");
+
+            //app.UseSpotifyAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
+
+            //var options = new SlackAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    TeamId = "" // optional
+            //};
+            //options.Scope.Add("identify");
+            //app.UseSlackAuthentication(options);
+
+            //app.UseGitterAuthentication(
+            //    clientId: "",
+            //    clientSecret: ""
+            //);
+
+            //app.UseImgurAuthentication(
+            //    new ImgurAuthenticationOptions
+            //    {
+            //        ClientId = "",
+            //        ClientSecret = ""
+            //    });
+
+            //var options = new BacklogAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    ContractName = "",
+            //    CallbackPath = new PathString(""),  // ex.new PathString("/OauthTokenRequest")
+            //    Provider = new BacklogAuthenticationProvider
+            //    {
+            //        OnAuthenticated = async context => await System.Threading.Tasks.Task.Run(()=> { System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken)); })
+            //    }
+            //};
+
+            //app.UseBacklogAuthentication(options);
+
+            //var cosignOptions = new CosignAuthenticationOptions
+            //{
+            //    AuthenticationType = "Cosign",
+            //    SignInAsAuthenticationType = signInAsType,
+            //    CosignServer = "weblogin.umich.edu",
+            //    CosignServicePort = 6663,
+            //    IdentityServerHostInstance = "core1",
+            //    ClientServer = "cosignservername"
+            //};
+            //app.UseCosignAuthentication(cosignOptions);
+
+            //app.UseVimeoAuthentication("", "");
+
+            //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
+
+            //app.UseOnshapeAuthentication(
+            //    appKey: "",
+            //    appSecret: "");
+            //
+            //
+            //app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
+            //{
+            //  AppKey = "",
+            //  AppSecret = "",
+            //  CallbackPath = new PathString("/oauthRedirect"),
+            //  Hostname = "partner.dev.onshape.com"
+            //});
+
+            //app.UseVKontakteAuthentication("", "");
+
+            //app.UseXingAuthentication("", "");
+
+            //app.UseDoYouBuzzAuthentication("", "");
+            //app.("", "");
+            //app.UseOrcidAuthentication("","");
+
+            //app.UseDiscordAuthentication("", "");
+            //app.UseGeniAuthentication("", "");
+            //app.UseMyHeritageAuthentication("", "");
         }
     }
 }
