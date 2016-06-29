@@ -189,7 +189,7 @@ namespace Owin.Security.Providers.Salesforce
             var authorizationEndpoint =
                 $"{Options.Endpoints.AuthorizationEndpoint}?response_type={"code"}&client_id={Options.ClientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}&display={"page"}&immediate={false}&state={Uri.EscapeDataString(state)}";
 
-            if (Options.Scope.Count > 0)
+            if (Options.Scope != null && Options.Scope.Count > 0)
             {
                 authorizationEndpoint += $"&scope={string.Join(" ", Options.Scope)}";
             }
