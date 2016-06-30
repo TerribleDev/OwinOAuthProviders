@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace Owin.Security.Providers.Tumblr.Provider {
+namespace Owin.Security.Providers.Tumblr.Provider
+{
     /// <summary>
     /// Specifies callback methods which the <see cref="TumblrAuthenticationMiddleware"></see> invokes to enable developer control over the authentication process. />
     /// </summary>
-    public interface ITumblrAuthenticationProvider {
+    public interface ITumblrAuthenticationProvider
+    {
         /// <summary>
         /// Invoked whenever Tumblr successfully authenticates a user
         /// </summary>

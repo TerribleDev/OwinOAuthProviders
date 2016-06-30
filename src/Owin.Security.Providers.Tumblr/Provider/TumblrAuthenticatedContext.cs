@@ -4,12 +4,14 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using Owin.Security.Providers.Tumblr.Messages;
 
-namespace Owin.Security.Providers.Tumblr.Provider {
+namespace Owin.Security.Providers.Tumblr.Provider
+{
     /// <summary>
     /// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
     /// </summary>
-    public class TumblrAuthenticatedContext : BaseContext {
-         /// <summary>
+    public class TumblrAuthenticatedContext : BaseContext
+    {
+        /// <summary>
         /// Initializes a <see cref="TumblrAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
@@ -22,7 +24,7 @@ namespace Owin.Security.Providers.Tumblr.Provider {
             AccessTokenSecret = accessToken.TokenSecret;
             User = accessToken.User;
         }
-                               
+
         /// <summary>
         /// Gets the Tumblr user ID
         /// </summary>

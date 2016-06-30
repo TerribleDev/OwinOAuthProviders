@@ -5,7 +5,8 @@ using Microsoft.Owin.Security;
 using Owin.Security.Providers.Tumblr.Messages;
 using Owin.Security.Providers.Tumblr.Provider;
 
-namespace Owin.Security.Providers.Tumblr {
+namespace Owin.Security.Providers.Tumblr
+{
     public class TumblrAuthenticationOptions : AuthenticationOptions
     {
         /// <summary>

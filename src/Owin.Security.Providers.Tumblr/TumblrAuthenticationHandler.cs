@@ -304,7 +304,7 @@ namespace Owin.Security.Providers.Tumblr
 
             var request = new HttpRequestMessage(HttpMethod.Post, AccessTokenEndpoint);
             request.Headers.Add("Authorization", authorizationHeaderBuilder.ToString());
-            
+
             var formPairs = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("oauth_verifier", verifier)
@@ -385,11 +385,11 @@ namespace Owin.Security.Providers.Tumblr
                 response.EnsureSuccessStatusCode(); // throw
             }
 
-            var responseText = await response.Content.ReadAsStringAsync(); 
+            var responseText = await response.Content.ReadAsStringAsync();
             var userInfo = JObject.Parse(responseText);
             var info = userInfo["response"]["user"];
             token.UserId = info["name"].ToString();
-             
+
             return new AccessToken
             {
                 Token = token.Token,

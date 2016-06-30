@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Owin.Security.Providers.Tumblr.Provider {
+namespace Owin.Security.Providers.Tumblr.Provider
+{
     /// <summary>
     /// Default <see cref="ITumblrAuthenticationProvider"/> implementation.
     /// </summary>
-    public class TumblrAuthenticationProvider : ITumblrAuthenticationProvider {
+    public class TumblrAuthenticationProvider : ITumblrAuthenticationProvider
+    {
         /// <summary>
         /// Initializes a <see cref="TumblrAuthenticationProvider"/>
         /// </summary>
-        public TumblrAuthenticationProvider() {
+        public TumblrAuthenticationProvider()
+        {
             OnAuthenticated = context => Task.FromResult<object>(null);
             OnReturnEndpoint = context => Task.FromResult<object>(null);
         }
@@ -29,7 +32,8 @@ namespace Owin.Security.Providers.Tumblr.Provider {
         /// </summary>
         /// <param name="context">Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task Authenticated(TumblrAuthenticatedContext context) {
+        public virtual Task Authenticated(TumblrAuthenticatedContext context)
+        {
             return OnAuthenticated(context);
         }
 
@@ -38,7 +42,8 @@ namespace Owin.Security.Providers.Tumblr.Provider {
         /// </summary>
         /// <param name="context"></param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
-        public virtual Task ReturnEndpoint(TumblrReturnEndpointContext context) {
+        public virtual Task ReturnEndpoint(TumblrReturnEndpointContext context)
+        {
             return OnReturnEndpoint(context);
         }
     }
