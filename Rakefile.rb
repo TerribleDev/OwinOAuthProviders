@@ -15,7 +15,7 @@ PACKAGES = File.expand_path("packages")
 TOOLS = File.expand_path("tools")
 NUGET = File.expand_path("#{TOOLS}/nuget")
 NUGET_EXE = File.expand_path("#{TOOLS}/nuget/nuget.exe")
-@version = "2.6.0"
+@version = ENV['APPVEYOR_REPO_TAG_NAME'] || '0.0.1-alpha1'
 PROJECTS = Dir.glob('src/*').select{|dir| File.directory? dir }
 
 desc 'Retrieve things'
@@ -63,10 +63,16 @@ end
 
 desc 'publish nugets'
 task :nuspec_publish do
+ if ENV['APPVEYOR_REPO_TAG'] != 'true'
+  puts 'not publishing since APPVEYOR_REPO_TAG has not been set. Please add a github tag'
+  return nil
+ end
+
+
   PROJECTS.each{|dir|
     Dir.chdir(dir) do
-      sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first}"
+      sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first} -ApiKey #{NUGET_KEY}"
     end
   }
-  sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first}"
+  sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first} -ApiKey #{NUGET_KEY}"
 end

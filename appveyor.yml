@@ -5,6 +5,9 @@ install:
   - set PATH=C:\Ruby22\bin;%PATH%
   - bundle install
 build_script:
-  - rake preflight
+  - rake publish
 artifacts:
 - path: src\**\*.nupkg
+environment:
+  NUGET_KEY:
+    secure: 5m1zupizmNvVwCg2MDUkRGQbbVfNypLo9yCstTAXQ5KHDypBe5RrGKi1HnEAhAy8
