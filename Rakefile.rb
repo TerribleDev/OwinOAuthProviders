@@ -63,16 +63,15 @@ end
 
 desc 'publish nugets'
 task :nuspec_publish do
-nugetKey = ENV['APPVEYOR_REPO_TAG']
- if nugetKey != 'true' || nugetKey != true;
+ if ENV['APPVEYOR_REPO_TAG'] != 'true'
   puts 'not publishing since APPVEYOR_REPO_TAG has not been set. Please add a github tag'
   else
   PROJECTS.each{|dir|
     Dir.chdir(dir) do
-      sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first} -ApiKey #{nugetKey}"
+      sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first} -ApiKey #{NUGET_KEY}"
     end
   }
-  sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first} -ApiKey #{nugetKey}"
+  sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first} -ApiKey #{NUGET_KEY}"
  end
 
 
