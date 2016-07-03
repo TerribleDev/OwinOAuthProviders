@@ -16,7 +16,6 @@ TOOLS = File.expand_path("tools")
 NUGET = File.expand_path("#{TOOLS}/nuget")
 NUGET_EXE = File.expand_path("#{TOOLS}/nuget/nuget.exe")
 @version = ENV['APPVEYOR_REPO_TAG_NAME'] || '0.0.1-alpha1'
-@version = @version.sub "v", ""
 PROJECTS = Dir.glob('src/*').select{|dir| File.directory? dir }
 
 desc 'Retrieve things'
