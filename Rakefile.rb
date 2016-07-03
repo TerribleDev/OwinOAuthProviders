@@ -15,7 +15,7 @@ PACKAGES = File.expand_path("packages")
 TOOLS = File.expand_path("tools")
 NUGET = File.expand_path("#{TOOLS}/nuget")
 NUGET_EXE = File.expand_path("#{TOOLS}/nuget/nuget.exe")
-@version = "2.6.0"
+@version = "2.7.0"
 PROJECTS = Dir.glob('src/*').select{|dir| File.directory? dir }
 
 desc 'Retrieve things'
