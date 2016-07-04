@@ -40,7 +40,7 @@ namespace Owin.Security.Providers.Tumblr
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-Tumblr".
+        ///     Default value is "/signin-tumblr".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
