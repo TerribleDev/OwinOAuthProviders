@@ -95,7 +95,7 @@ namespace Owin.Security.Providers.Slack
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 var accessToken = (string)response.access_token;
                 var scope = (string)response.scope;
-
+                var incomingWebhookChannelInfo = response.incoming_webhook;
                 // Get the Slack user
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint + "?token=" + Uri.EscapeDataString(accessToken));
 
@@ -104,7 +104,7 @@ namespace Owin.Security.Providers.Slack
                 text = await userResponse.Content.ReadAsStringAsync();
                 var user = JObject.Parse(text);
 
-                var context = new SlackAuthenticatedContext(Context, user, accessToken, scope)
+                var context = new SlackAuthenticatedContext(Context, user, accessToken, scope, incomingWebhookChannelInfo)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
@@ -130,6 +130,10 @@ namespace Owin.Security.Providers.Slack
                 if (!string.IsNullOrEmpty(context.TeamUrl))
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.TeamUrl, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (!string.IsNullOrEmpty(context.ChannelId))
+                {
+                    context.Identity.AddClaim(new Claim("urn:slack:channel_id", context.ChannelId, XmlSchemaString, Options.AuthenticationType));
                 }
                 context.Properties = properties;
 
