@@ -29,10 +29,14 @@ namespace Owin.Security.Providers.Slack.Provider
             TeamId = TryGetValue(user, "team_id");
             TeamName = TryGetValue(user, "team");
             TeamUrl = TryGetValue(user, "url");
-            ChannelId = TryGetValue(incomingWebhook, "channel_id");
-            ChannelName = TryGetValue(incomingWebhook, "channel");
-            ConfigurationUrl = TryGetValue(incomingWebhook, "configuration_url");
-            HooksUrl = TryGetValue(incomingWebhook, "url");
+            if (incomingWebhook != null)
+            {
+                ChannelId = TryGetValue(incomingWebhook, "channel_id");
+                ChannelName = TryGetValue(incomingWebhook, "channel");
+                ConfigurationUrl = TryGetValue(incomingWebhook, "configuration_url");
+                HooksUrl = TryGetValue(incomingWebhook, "url");
+            }
+
         }
 
         /// <summary>
