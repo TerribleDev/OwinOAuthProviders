@@ -95,6 +95,20 @@ namespace Owin.Security.Providers.Slack
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 var accessToken = (string)response.access_token;
                 var scope = (string)response.scope;
+                dynamic bot = null;
+                dynamic webhook = null;
+                //According to https://api.slack.com/docs/oauth  if you specified bot in the scope request the bot creds will be passed back here
+                //we'll store them here and add these values to the claims below.
+                if (!string.IsNullOrWhiteSpace(scope) && scope.IndexOf("bot", StringComparison.InvariantCultureIgnoreCase) > 0)
+                {
+                    bot = response.bot;
+                }
+                //According to https://api.slack.com/docs/oauth  if you specified incoming-webhook in the scope request the selected channel will be passed here
+                //we'll store them here and add these values to the claims below.
+                if (!string.IsNullOrWhiteSpace(scope) && scope.IndexOf("incoming-webhook", StringComparison.InvariantCultureIgnoreCase) > 0)
+                {
+                    webhook = response.incoming_webhook;
+                }
 
                 // Get the Slack user
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint + "?token=" + Uri.EscapeDataString(accessToken));
@@ -111,6 +125,15 @@ namespace Owin.Security.Providers.Slack
                         ClaimsIdentity.DefaultNameClaimType,
                         ClaimsIdentity.DefaultRoleClaimType)
                 };
+                if (bot != null)
+                {
+                    context.Bot = new SlackAuthenticatedContext_Bot(bot);
+                }
+                    
+                if (webhook != null)
+                {
+                    context.Webhook = new SlackAuthenticatedContext_Webhook(webhook);
+                }
                 if (!string.IsNullOrEmpty(context.UserId))
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId, XmlSchemaString, Options.AuthenticationType));
@@ -130,6 +153,26 @@ namespace Owin.Security.Providers.Slack
                 if (!string.IsNullOrEmpty(context.TeamUrl))
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.TeamUrl, XmlSchemaString, Options.AuthenticationType));
+                }
+                if(context.Bot!=null && !string.IsNullOrWhiteSpace(context.Bot.AccessToken))
+                {
+                    context.Identity.AddClaim(new Claim("urn:slack:bot:accesstoken", context.Bot.AccessToken, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (context.Bot != null && !string.IsNullOrWhiteSpace(context.Bot.userId))
+                {
+                    context.Identity.AddClaim(new Claim("urn:slack:bot:userid", context.Bot.AccessToken, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (context.Webhook != null && !string.IsNullOrWhiteSpace(context.Webhook.channel))
+                {
+                    context.Identity.AddClaim(new Claim("urn:slack:webhook:channel", context.Webhook.channel, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (context.Webhook != null && !string.IsNullOrWhiteSpace(context.Webhook.configuration_url))
+                {
+                    context.Identity.AddClaim(new Claim("urn:slack:webhook:configurationurl", context.Webhook.configuration_url, XmlSchemaString, Options.AuthenticationType));
+                }
+                if (context.Webhook != null && !string.IsNullOrWhiteSpace(context.Webhook.url))
+                {
+                    context.Identity.AddClaim(new Claim("urn:slack:webhook:url", context.Webhook.url, XmlSchemaString, Options.AuthenticationType));
                 }
                 context.Properties = properties;
 

@@ -83,7 +83,17 @@ namespace Owin.Security.Providers.Slack.Provider
         /// </summary>
         public AuthenticationProperties Properties { get; set; }
 
-        private static string TryGetValue(JObject user, string propertyName)
+        /// <summary>
+        /// Gets the Slack bot data
+        /// </summary>
+        public SlackAuthenticatedContext_Bot Bot { get; set; }
+
+        /// <summary>
+        /// Gets the Slack webhook data
+        /// </summary>
+        public SlackAuthenticatedContext_Webhook Webhook { get; set; }
+
+        internal static string TryGetValue(JObject user, string propertyName)
         {
             JToken value;
             return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
