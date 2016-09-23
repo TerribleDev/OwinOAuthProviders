@@ -251,6 +251,12 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Owin.Security.Providers.VidZapper\Owin.Security.Providers.VidZapper.csproj">
+      <Project>{9fdae446-1939-4200-b8cf-d8fb816f1621}</Project>
+      <Name>Owin.Security.Providers.VidZapper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
