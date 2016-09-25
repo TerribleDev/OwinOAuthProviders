@@ -3,8 +3,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using Owin.Security.Providers.VidZapper;
-using Owin.Security.Providers.VidZapper.Provider;
 
 //using Owin.Security.Providers.Orcid;
 //using Owin.Security.Providers.Discord;

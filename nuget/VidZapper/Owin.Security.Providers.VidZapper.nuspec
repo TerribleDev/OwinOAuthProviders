@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Owin.Security.Providers.VidZaper</id>
+    <title>Owin Security Provider VidZaper and Assetry</title>
+    <version>1.0.0</version>
+    <authors>Anuj Pandey</authors>
+    <owners>e10 Infotech Privated Limited</owners>
+    <iconUrl>https://live.vzconsole.com/content/icons/vidzapper/android-icon-192x192.png</iconUrl>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/qanuj/OwinOAuthProviders</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Adds additional OAuth providers for OWIN to use with ASP.NET</description>
+    <releaseNotes>Initial Package with First VidZapper and Assetry Version.</releaseNotes>
+    <tags>owin oauth VidZapper Assetry</tags>
+    <dependencies>
+      <dependency id="Microsoft.Owin" version="3.0.1" />
+      <dependency id="Microsoft.Owin.Security" version="3.0.1" />
+      <dependency id="Newtonsoft.Json" version="8.0.3" />
+      <dependency id="Owin" version="1.0.0" />
+    </dependencies>
+  </metadata>
+</package>
