@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISOnline", "src\Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj", "{8A49FAEF-D365-4D25-942C-1CAD03845A5E}"
 EndProject
@@ -99,6 +99,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Geni", "src\Owin.Security.Providers.Geni\Owin.Security.Providers.Geni.csproj", "{9DE25431-F935-48D7-8EB5-ACB6F918111C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.MyHeritage", "src\Owin.Security.Providers.MyHeritage\Owin.Security.Providers.MyHeritage.csproj", "{84795078-31B5-4369-BD1B-F960165F8C71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Box", "src\Owin.Security.Providers.Box\Owin.Security.Providers.Box.csproj", "{1AEF8813-E1F9-41E1-BC8D-732960595E9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -302,6 +304,10 @@ Global
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AEF8813-E1F9-41E1-BC8D-732960595E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AEF8813-E1F9-41E1-BC8D-732960595E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AEF8813-E1F9-41E1-BC8D-732960595E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AEF8813-E1F9-41E1-BC8D-732960595E9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

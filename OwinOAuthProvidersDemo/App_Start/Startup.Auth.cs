@@ -168,6 +168,10 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: "");
 
+            //app.UseBoxAuthentication(
+            //    appKey: "",
+            //    appSecret: "");
+
             //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
             //{
             //	ClientId = "",
