@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISOnline", "src\Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj", "{8A49FAEF-D365-4D25-942C-1CAD03845A5E}"
 EndProject
@@ -99,6 +99,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Geni", "src\Owin.Security.Providers.Geni\Owin.Security.Providers.Geni.csproj", "{9DE25431-F935-48D7-8EB5-ACB6F918111C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.MyHeritage", "src\Owin.Security.Providers.MyHeritage\Owin.Security.Providers.MyHeritage.csproj", "{84795078-31B5-4369-BD1B-F960165F8C71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Tumblr", "src\Owin.Security.Providers.Tumblr\Owin.Security.Providers.Tumblr.csproj", "{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.VidZapper", "src\Owin.Security.Providers.VidZapper\Owin.Security.Providers.VidZapper.csproj", "{9FDAE446-1939-4200-B8CF-D8FB816F1621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -302,6 +306,14 @@ Global
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84795078-31B5-4369-BD1B-F960165F8C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56A7B4EE-F8B3-4A2F-A1B5-63E3606FD0D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FDAE446-1939-4200-B8CF-D8FB816F1621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FDAE446-1939-4200-B8CF-D8FB816F1621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FDAE446-1939-4200-B8CF-D8FB816F1621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FDAE446-1939-4200-B8CF-D8FB816F1621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
