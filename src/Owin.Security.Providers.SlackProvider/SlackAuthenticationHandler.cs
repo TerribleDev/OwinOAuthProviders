@@ -95,20 +95,6 @@ namespace Owin.Security.Providers.Slack
                 dynamic response = JsonConvert.DeserializeObject<dynamic>(text);
                 var accessToken = (string)response.access_token;
                 var scope = (string)response.scope;
-                dynamic bot = null;
-                dynamic webhook = null;
-                //According to https://api.slack.com/docs/oauth  if you specified bot in the scope request the bot creds will be passed back here
-                //we'll store them here and add these values to the claims below.
-                if (!string.IsNullOrWhiteSpace(scope) && scope.IndexOf("bot", StringComparison.InvariantCultureIgnoreCase) > 0)
-                {
-                    bot = response.bot;
-                }
-                //According to https://api.slack.com/docs/oauth  if you specified incoming-webhook in the scope request the selected channel will be passed here
-                //we'll store them here and add these values to the claims below.
-                if (!string.IsNullOrWhiteSpace(scope) && scope.IndexOf("incoming-webhook", StringComparison.InvariantCultureIgnoreCase) > 0)
-                {
-                    webhook = response.incoming_webhook;
-                }
 
                 // Get the Slack user
                 var userRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint + "?token=" + Uri.EscapeDataString(accessToken));
@@ -125,14 +111,24 @@ namespace Owin.Security.Providers.Slack
                         ClaimsIdentity.DefaultNameClaimType,
                         ClaimsIdentity.DefaultRoleClaimType)
                 };
-                if (bot != null)
+
+                //According to https://api.slack.com/docs/oauth  if you specified bot in the scope request the bot creds will be passed back here
+                //we'll store them here and add these values to the claims below.
+                if (!string.IsNullOrWhiteSpace(scope) && scope.IndexOf("bot", StringComparison.InvariantCultureIgnoreCase) > 0 && response.bot != null)
                 {
-                    context.Bot = new SlackAuthenticatedContext_Bot(bot);
+                    context.Bot = new SlackAuthenticatedContextBot(
+                        SlackAuthenticatedContext.TryGetValue(response.bot, "bot_user_id"),
+                        SlackAuthenticatedContext.TryGetValue(response.bot, "bot_access_token"));
                 }
-                    
-                if (webhook != null)
+
+                //According to https://api.slack.com/docs/oauth  if you specified incoming-webhook in the scope request the selected channel will be passed here
+                //we'll store them here and add these values to the claims below.
+                if (!string.IsNullOrWhiteSpace(scope) && scope.IndexOf("incoming-webhook", StringComparison.InvariantCultureIgnoreCase) > 0 && response.incoming_webhook != null)
                 {
-                    context.Webhook = new SlackAuthenticatedContext_Webhook(webhook);
+                    context.Webhook = new SlackAuthenticatedContextWebhook(
+                        SlackAuthenticatedContext.TryGetValue(response.incoming_webhook, "url"),
+                        SlackAuthenticatedContext.TryGetValue(response.incoming_webhook, "channel"),
+                        SlackAuthenticatedContext.TryGetValue(response.incoming_webhook, "configuration_url"));
                 }
                 if (!string.IsNullOrEmpty(context.UserId))
                 {
@@ -154,7 +150,7 @@ namespace Owin.Security.Providers.Slack
                 {
                     context.Identity.AddClaim(new Claim(ClaimTypes.Webpage, context.TeamUrl, XmlSchemaString, Options.AuthenticationType));
                 }
-                if(context.Bot!=null && !string.IsNullOrWhiteSpace(context.Bot.AccessToken))
+                if (context.Bot != null && !string.IsNullOrWhiteSpace(context.Bot.AccessToken))
                 {
                     context.Identity.AddClaim(new Claim("urn:slack:bot:accesstoken", context.Bot.AccessToken, XmlSchemaString, Options.AuthenticationType));
                 }

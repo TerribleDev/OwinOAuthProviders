@@ -59,8 +59,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Provider\SlackAuthenticatedContext_Bot.cs" />
-    <Compile Include="Provider\SlackAuthenticatedContext_Webhook.cs" />
+    <Compile Include="Provider\SlackAuthenticatedContextBot.cs" />
+    <Compile Include="Provider\SlackAuthenticatedContextWebhook.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

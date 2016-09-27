@@ -86,12 +86,12 @@ namespace Owin.Security.Providers.Slack.Provider
         /// <summary>
         /// Gets the Slack bot data
         /// </summary>
-        public SlackAuthenticatedContext_Bot Bot { get; set; }
+        public SlackAuthenticatedContextBot Bot { get; set; }
 
         /// <summary>
         /// Gets the Slack webhook data
         /// </summary>
-        public SlackAuthenticatedContext_Webhook Webhook { get; set; }
+        public SlackAuthenticatedContextWebhook Webhook { get; set; }
 
         internal static string TryGetValue(JObject user, string propertyName)
         {
