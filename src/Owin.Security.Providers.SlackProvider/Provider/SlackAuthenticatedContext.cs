@@ -16,7 +16,8 @@ namespace Owin.Security.Providers.Slack.Provider
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken">Slack Access token</param>
         /// <param name="scope">Indicates access level of application</param>
-        public SlackAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string scope)
+        /// <param name="incomingWebhook">Contains channel infomation about the choosen default channel</param>
+        public SlackAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string scope, JObject incomingWebhook)
             : base(context)
         {
             User = user;
@@ -28,6 +29,14 @@ namespace Owin.Security.Providers.Slack.Provider
             TeamId = TryGetValue(user, "team_id");
             TeamName = TryGetValue(user, "team");
             TeamUrl = TryGetValue(user, "url");
+            if (incomingWebhook != null)
+            {
+                ChannelId = TryGetValue(incomingWebhook, "channel_id");
+                ChannelName = TryGetValue(incomingWebhook, "channel");
+                ConfigurationUrl = TryGetValue(incomingWebhook, "configuration_url");
+                HooksUrl = TryGetValue(incomingWebhook, "url");
+            }
+
         }
 
         /// <summary>
@@ -72,6 +81,27 @@ namespace Owin.Security.Providers.Slack.Provider
         /// Gets the Slack username
         /// </summary>
         public string UserName { get; private set; }
+
+
+        /// <summary>
+        /// Gets the name of the channel choose at oauth time
+        /// </summary>
+        public string ChannelName { get; private set; }
+
+        /// <summary>
+        /// Gets the channel ID of the channel choosen at oauth time
+        /// </summary>
+        public string ChannelId { get; private set; }
+
+        /// <summary>
+        /// Gets the confiquration url
+        /// </summary>
+        public string ConfigurationUrl { get; private set; }
+
+        /// <summary>
+        /// Gets the hook url
+        /// </summary>
+        public string HooksUrl { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user
