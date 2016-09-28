@@ -34,7 +34,7 @@ namespace Owin.Security.Providers.Box
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the Box user obtained from the endpoint https://api.dropbox.com/1/account/info
+        /// Contains the Box user obtained from the endpoint https://api.box.com/2.0/users/me
         /// </remarks>
         public JObject User { get; private set; }
 
