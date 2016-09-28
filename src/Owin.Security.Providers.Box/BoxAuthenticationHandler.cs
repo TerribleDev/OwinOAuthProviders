@@ -71,8 +71,8 @@ namespace Owin.Security.Providers.Box
                     new KeyValuePair<string, string>("grant_type", "authorization_code"),
                     new KeyValuePair<string, string>("code", code),
                     new KeyValuePair<string, string>("redirect_uri", redirectUri),
-                    new KeyValuePair<string, string>("client_id", Options.AppKey),
-                    new KeyValuePair<string, string>("client_secret", Options.AppSecret)
+                    new KeyValuePair<string, string>("client_id", Options.ClientId),
+                    new KeyValuePair<string, string>("client_secret", Options.ClientSecret)
                 };
 
                 // Request the token
@@ -156,11 +156,11 @@ namespace Owin.Security.Providers.Box
 
             // OAuth2 10.12 CSRF
             GenerateCorrelationId(properties);
-            
+
             var authorizationEndpoint =
                 "https://api.box.com/oauth2/authorize" +
                 "?response_type=code" +
-                "&client_id=" + Uri.EscapeDataString(Options.AppKey) +
+                "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
                 "&state=authenticated" +
                 "&redirect_uri=" + Uri.EscapeDataString(redirectUri);
 

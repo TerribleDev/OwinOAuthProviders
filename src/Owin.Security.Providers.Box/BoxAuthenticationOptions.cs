@@ -38,7 +38,7 @@ namespace Owin.Security.Providers.Box
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-dropbox".
+        ///     Default value is "/signin-box".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -52,14 +52,14 @@ namespace Owin.Security.Providers.Box
         }
 
         /// <summary>
-        ///     Gets or sets the Box supplied Application Key
+        ///     Gets or sets the Box supplied Client ID
         /// </summary>
-        public string AppKey { get; set; }
+        public string ClientId { get; set; }
 
         /// <summary>
-        ///     Gets or sets the Box supplied Application Secret
+        ///     Gets or sets the Box supplied Client Secret
         /// </summary>
-        public string AppSecret { get; set; }
+        public string ClientSecret { get; set; }
 
         /// <summary>
         ///     Gets or sets the <see cref="IBoxAuthenticationProvider" /> used in the authentication events

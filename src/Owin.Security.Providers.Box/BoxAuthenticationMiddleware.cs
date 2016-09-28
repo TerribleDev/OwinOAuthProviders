@@ -19,12 +19,12 @@ namespace Owin.Security.Providers.Box
             BoxAuthenticationOptions options)
             : base(next, options)
         {
-            if (string.IsNullOrWhiteSpace(Options.AppKey))
+            if (string.IsNullOrWhiteSpace(Options.ClientId))
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture,
-                    Resources.Exception_OptionMustBeProvided, "AppKey"));
-            if (string.IsNullOrWhiteSpace(Options.AppSecret))
+                    Resources.Exception_OptionMustBeProvided, nameof(Options.ClientId)));
+            if (string.IsNullOrWhiteSpace(Options.ClientSecret))
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture,
-                    Resources.Exception_OptionMustBeProvided, "AppSecret"));
+                    Resources.Exception_OptionMustBeProvided, nameof(Options.ClientSecret)));
 
             _logger = app.CreateLogger<BoxAuthenticationMiddleware>();
 

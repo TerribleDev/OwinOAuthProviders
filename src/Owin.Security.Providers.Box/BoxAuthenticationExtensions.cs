@@ -21,8 +21,8 @@ namespace Owin.Security.Providers.Box
         {
             return app.UseBoxAuthentication(new BoxAuthenticationOptions
             {
-                AppKey = appKey,
-                AppSecret = appSecret
+                ClientId = appKey,
+                ClientSecret = appSecret
             });
         }
     }
