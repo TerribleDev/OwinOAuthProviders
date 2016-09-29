@@ -3,9 +3,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-//using Owin.Security.Providers.Orcid;
-//using Owin.Security.Providers.Discord;
-
 namespace OwinOAuthProvidersDemo
 {
 	public partial class Startup
@@ -171,6 +168,10 @@ namespace OwinOAuthProvidersDemo
             //app.UseBoxAuthentication(
             //    appKey: "",
             //    appSecret: "");
+
+            //app.UseBaiduAuthentication(
+            //    apiKey: "",
+            //    secretKey: "");
 
             //app.UseBattleNetAuthentication(new BattleNetAuthenticationOptions
             //{
