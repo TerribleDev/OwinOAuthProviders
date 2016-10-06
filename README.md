@@ -84,7 +84,7 @@ A big thanks goes out to all these contributors without whom this would not have
 * Ben Foster (https://github.com/benfoster)
 * Jonathan Peterson (https://github.com/eonasdan)
 
-For most accurate and up to date list of contributors please see https://github.com/RockstarLabs/OwinOAuthProviders/graphs/contributors
+For most accurate and up to date list of contributors please see https://github.com/TerribleDev/OwinOAuthProviders/graphs/contributors
 
 ## License
 
