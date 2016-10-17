@@ -251,6 +251,16 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Owin.Security.Providers.FreeConferenceCall\Owin.Security.Providers.FreeConferenceCall.csproj">
+      <Project>{44FCD479-EF46-414A-B24F-FC41AAD274C8}</Project>
+      <Name>Owin.Security.Providers.FreeConferenceCall</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.GitHub\Owin.Security.Providers.GitHub.csproj">
+      <Project>{803F9EB7-029C-45AC-AB81-135E60D5BEAE}</Project>
+      <Name>Owin.Security.Providers.GitHub</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
