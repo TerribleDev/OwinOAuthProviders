@@ -40,6 +40,7 @@ namespace Owin.Security.Providers.Salesforce
             LastName = TryGetValue(user, "last_name");
             TimeZone = TryGetValue(user, "timezone");
             Active = TryGetValue(user, "active");
+            MobilePhone = TryGetValue(user, "mobile_phone");
         }
 
         /// <summary>
@@ -120,6 +121,11 @@ namespace Owin.Security.Providers.Salesforce
         /// Gets the user's Status
         /// </summary>
         public string Active { get; private set; }
+
+        /// <summary>
+        /// Gets the user's mobile phone number
+        /// </summary>
+        public string MobilePhone { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user

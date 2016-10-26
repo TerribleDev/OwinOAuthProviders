@@ -123,7 +123,7 @@ namespace Owin.Security.Providers.Salesforce
             Caption = Constants.DefaultAuthenticationType;
             CallbackPath = new PathString("/signin-salesforce");
             AuthenticationMode = AuthenticationMode.Passive;
-            Scope = new List<string>();
+            Scope = new List<string> { "id" };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
             Endpoints = new SalesforceAuthenticationEndpoints
             {
