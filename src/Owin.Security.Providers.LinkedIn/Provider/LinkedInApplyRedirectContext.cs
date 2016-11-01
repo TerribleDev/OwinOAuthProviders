@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Provider;
 namespace Owin.Security.Providers.LinkedIn
 {
     /// <summary>
-    /// Context passed when a Challenge causes a redirect to authorize endpoint in the Facebook middleware
+    /// Context passed when a Challenge causes a redirect to authorize endpoint in the LinkedIn middleware
     /// </summary>
     public class LinkedInApplyRedirectContext : BaseContext<LinkedInAuthenticationOptions>
     {
@@ -14,7 +14,7 @@ namespace Owin.Security.Providers.LinkedIn
         /// Creates a new context object.
         /// </summary>
         /// <param name="context">The OWIN request context</param>
-        /// <param name="options">The Facebook middleware options</param>
+        /// <param name="options">The LinkedIn middleware options</param>
         /// <param name="properties">The authenticaiton properties of the challenge</param>
         /// <param name="redirectUri">The initial redirect URI</param>
         public LinkedInApplyRedirectContext(IOwinContext context, LinkedInAuthenticationOptions options,

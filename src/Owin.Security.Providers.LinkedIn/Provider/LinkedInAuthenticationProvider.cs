@@ -55,7 +55,7 @@ namespace Owin.Security.Providers.LinkedIn
         }
 
         /// <summary>
-        /// Called when a Challenge causes a redirect to authorize endpoint in the Facebook middleware
+        /// Called when a Challenge causes a redirect to authorize endpoint in the LinkedIn middleware
         /// </summary>
         /// <param name="context">Contains redirect URI and <see cref="AuthenticationProperties"/> of the challenge </param>
         public virtual void ApplyRedirect(LinkedInApplyRedirectContext context)
