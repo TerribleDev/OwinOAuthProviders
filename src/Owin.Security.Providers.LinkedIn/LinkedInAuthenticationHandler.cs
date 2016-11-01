@@ -213,7 +213,11 @@ namespace Owin.Security.Providers.LinkedIn
                 "&scope=" + Uri.EscapeDataString(scope) +
                 "&state=" + Uri.EscapeDataString(state);
 
-            Response.Redirect(authorizationEndpoint);
+
+            var redirectContext = new LinkedInApplyRedirectContext(
+                Context, Options,
+                properties, authorizationEndpoint);
+            Options.Provider.ApplyRedirect(redirectContext);
 
             return Task.FromResult<object>(null);
         }

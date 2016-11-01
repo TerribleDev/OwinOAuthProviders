@@ -64,6 +64,7 @@
     <Compile Include="LinkedInAuthenticationMiddleware.cs" />
     <Compile Include="LinkedInAuthenticationOptions.cs" />
     <Compile Include="Provider\ILinkedInAuthenticationProvider.cs" />
+    <Compile Include="Provider\LinkedInApplyRedirectContext.cs" />
     <Compile Include="Provider\LinkedInAuthenticatedContext.cs" />
     <Compile Include="Provider\LinkedInAuthenticationProvider.cs" />
     <Compile Include="Provider\LinkedInReturnEndpointContext.cs" />

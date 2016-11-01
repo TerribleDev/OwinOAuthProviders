@@ -20,5 +20,11 @@ namespace Owin.Security.Providers.LinkedIn
         /// <param name="context"></param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
         Task ReturnEndpoint(LinkedInReturnEndpointContext context);
+
+        /// <summary>
+        /// Called when a Challenge causes a redirect to authorize endpoint in the LinkedIn middleware
+        /// </summary>
+        /// <param name="context">Contains redirect URI and <see cref="AuthenticationProperties"/> of the challenge </param>
+        void ApplyRedirect(LinkedInApplyRedirectContext context);
     }
 }
