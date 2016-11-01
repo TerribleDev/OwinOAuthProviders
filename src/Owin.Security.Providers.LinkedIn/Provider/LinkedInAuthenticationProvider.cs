@@ -15,6 +15,8 @@ namespace Owin.Security.Providers.LinkedIn
         {
             OnAuthenticated = context => Task.FromResult<object>(null);
             OnReturnEndpoint = context => Task.FromResult<object>(null);
+            OnApplyRedirect = context =>
+                context.Response.Redirect(context.RedirectUri);
         }
 
         /// <summary>
@@ -26,6 +28,11 @@ namespace Owin.Security.Providers.LinkedIn
         /// Gets or sets the function that is invoked when the ReturnEndpoint method is invoked.
         /// </summary>
         public Func<LinkedInReturnEndpointContext, Task> OnReturnEndpoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the delegate that is invoked when the ApplyRedirect method is invoked.
+        /// </summary>
+        public Action<LinkedInApplyRedirectContext> OnApplyRedirect { get; set; }
 
         /// <summary>
         /// Invoked whenever LinkedIn successfully authenticates a user
@@ -45,6 +52,15 @@ namespace Owin.Security.Providers.LinkedIn
         public virtual Task ReturnEndpoint(LinkedInReturnEndpointContext context)
         {
             return OnReturnEndpoint(context);
+        }
+
+        /// <summary>
+        /// Called when a Challenge causes a redirect to authorize endpoint in the Facebook middleware
+        /// </summary>
+        /// <param name="context">Contains redirect URI and <see cref="AuthenticationProperties"/> of the challenge </param>
+        public virtual void ApplyRedirect(LinkedInApplyRedirectContext context)
+        {
+            OnApplyRedirect(context);
         }
     }
 }
