@@ -52,7 +52,9 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Wargaming
 
 ## Implementation Guides
-For above listed provider implementation guide, visit Jerrie Pelser's blog - [oauthforaspnet](http://www.oauthforaspnet.com)
+Take a look at the [samples project](https://github.com/TerribleDev/OwinOAuthProviders/blob/master/OwinOAuthProvidersDemo/App_Start/Startup.Auth.cs#L39). 
+
+
 
 ## Installation
 
