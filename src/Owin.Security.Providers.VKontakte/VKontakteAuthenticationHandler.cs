@@ -91,10 +91,18 @@ namespace Owin.Security.Providers.VKontakte
 
                 var response = await GetAuthorizationToken(authorizationCode);
                 var accessToken = (string)response["access_token"];
+                // email is optional and only the get auth token call returns the value
+                var email = (string)response["email"];
 
                 var user = await GetUser(response, accessToken);
 
                 var context = CreateAuthenticatedContext(user, accessToken, properties);
+
+                if (!string.IsNullOrEmpty(email))
+                {
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, email, XmlSchemaString,
+                        Options.AuthenticationType));
+                }
 
                 await Options.Provider.Authenticated(context);
 
