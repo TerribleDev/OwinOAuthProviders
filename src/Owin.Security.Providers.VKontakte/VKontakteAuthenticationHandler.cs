@@ -95,10 +95,12 @@ namespace Owin.Security.Providers.VKontakte
                 var user = await GetUser(response, accessToken);
 
                 var context = CreateAuthenticatedContext(user, accessToken, properties);
-    
-                // Email support. VK send it with access_token
-                context.Identity.AddClaim(new Claim(ClaimTypes.Email, response["email"].ToString(), XmlSchemaString,
-                    Options.AuthenticationType));
+                var email = response["email"]?.ToString();
+                if(!string.IsNullOrWhiteSpace(email))
+                {
+                    // Email support. VK send it with access_token
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, email, XmlSchemaString, Options.AuthenticationType));
+                }
 
                 await Options.Provider.Authenticated(context);
 
