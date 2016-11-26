@@ -2,6 +2,8 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.FreeConferenceCall;
+using Owin.Security.Providers.GitHub;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -42,6 +44,8 @@ namespace OwinOAuthProvidersDemo
             //app.UseTripItAuthentication("", "");
 
             //app.UseGitHubAuthentication("", "");
+            app.UseGitHubAuthentication("github client_id here", "github client_secret here");
+            app.UseFreeConferenceCallAuthentication("fcc client_id here", "fcc client_secret here");
 
             //app.UseBufferAuthentication("", "");
 
