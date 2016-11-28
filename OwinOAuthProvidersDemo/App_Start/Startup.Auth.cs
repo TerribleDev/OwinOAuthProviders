@@ -2,6 +2,8 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Evernote;
+using Owin.Security.Providers.Flickr;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -186,106 +188,113 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseEveOnlineAuthentication("", "");
 
-            //app.UseSoundCloudAuthentication("", "");
+		    app.UseEvernoteAuthentication(new EvernoteAuthenticationOptions()
+		    {
+		        IsSandBox = true,
+                AppKey = "guillaumedemicheli",
+                AppSecret = "8ff08518c03150f1"
+            });
 
-            //app.UseFoursquareAuthentication(
-            //	clientId: "",
-            //	clientSecret: "");
+		    //app.UseSoundCloudAuthentication("", "");
 
-            //app.UsePayPalAuthentication(
-            //	clientId: "",
-            //	clientSecret: "",
-            //	isSandbox: false);
+		    //app.UseFoursquareAuthentication(
+		    //	clientId: "",
+		    //	clientSecret: "");
 
-            //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
+		    //app.UsePayPalAuthentication(
+		    //	clientId: "",
+		    //	clientSecret: "",
+		    //	isSandbox: false);
 
-            //app.UseFlickrAuthentication("", "");
-            //app.UseVisualStudioAuthentication(
-            //	appId: "",
-            //	appSecret: "");
+		    //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
-            //app.UseSpotifyAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+		    app.UseFlickrAuthentication("066dd16d229bf4ca08448a86a44e832d", "2d848c699b00cffa");
+		    //app.UseVisualStudioAuthentication(
+		    //	appId: "",
+		    //	appSecret: "");
 
-            //var options = new SlackAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    TeamId = "" // optional
-            //};
-            //options.Scope.Add("identify");
-            //app.UseSlackAuthentication(options);
+		    //app.UseSpotifyAuthentication(
+		    //    clientId: "",
+		    //    clientSecret: "");
 
-            //app.UseGitterAuthentication(
-            //    clientId: "",
-            //    clientSecret: ""
-            //);
+		    //var options = new SlackAuthenticationOptions
+		    //{
+		    //    ClientId = "",
+		    //    ClientSecret = "",
+		    //    TeamId = "" // optional
+		    //};
+		    //options.Scope.Add("identify");
+		    //app.UseSlackAuthentication(options);
 
-            //app.UseImgurAuthentication(
-            //    new ImgurAuthenticationOptions
-            //    {
-            //        ClientId = "",
-            //        ClientSecret = ""
-            //    });
+		    //app.UseGitterAuthentication(
+		    //    clientId: "",
+		    //    clientSecret: ""
+		    //);
 
-            //var options = new BacklogAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = "",
-            //    ContractName = "",
-            //    CallbackPath = new PathString(""),  // ex.new PathString("/OauthTokenRequest")
-            //    Provider = new BacklogAuthenticationProvider
-            //    {
-            //        OnAuthenticated = async context => await System.Threading.Tasks.Task.Run(()=> { System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken)); })
-            //    }
-            //};
+		    //app.UseImgurAuthentication(
+		    //    new ImgurAuthenticationOptions
+		    //    {
+		    //        ClientId = "",
+		    //        ClientSecret = ""
+		    //    });
 
-            //app.UseBacklogAuthentication(options);
+		    //var options = new BacklogAuthenticationOptions
+		    //{
+		    //    ClientId = "",
+		    //    ClientSecret = "",
+		    //    ContractName = "",
+		    //    CallbackPath = new PathString(""),  // ex.new PathString("/OauthTokenRequest")
+		    //    Provider = new BacklogAuthenticationProvider
+		    //    {
+		    //        OnAuthenticated = async context => await System.Threading.Tasks.Task.Run(()=> { System.Diagnostics.Debug.WriteLine(String.Format("Refresh Token: {0}", context.RefreshToken)); })
+		    //    }
+		    //};
 
-            //var cosignOptions = new CosignAuthenticationOptions
-            //{
-            //    AuthenticationType = "Cosign",
-            //    SignInAsAuthenticationType = signInAsType,
-            //    CosignServer = "weblogin.umich.edu",
-            //    CosignServicePort = 6663,
-            //    IdentityServerHostInstance = "core1",
-            //    ClientServer = "cosignservername"
-            //};
-            //app.UseCosignAuthentication(cosignOptions);
+		    //app.UseBacklogAuthentication(options);
 
-            //app.UseVimeoAuthentication("", "");
+		    //var cosignOptions = new CosignAuthenticationOptions
+		    //{
+		    //    AuthenticationType = "Cosign",
+		    //    SignInAsAuthenticationType = signInAsType,
+		    //    CosignServer = "weblogin.umich.edu",
+		    //    CosignServicePort = 6663,
+		    //    IdentityServerHostInstance = "core1",
+		    //    ClientServer = "cosignservername"
+		    //};
+		    //app.UseCosignAuthentication(cosignOptions);
 
-            //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+		    //app.UseVimeoAuthentication("", "");
 
-            //app.UseOnshapeAuthentication(
-            //    appKey: "",
-            //    appSecret: "");
-            //
-            //
-            //app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
-            //{
-            //  AppKey = "",
-            //  AppSecret = "",
-            //  CallbackPath = new PathString("/oauthRedirect"),
-            //  Hostname = "partner.dev.onshape.com"
-            //});
+		    //app.UseFitbitAuthentication(new FitbitAuthenticationOptions
+		    //{
+		    //    ClientId = "",
+		    //    ClientSecret = ""
+		    //});
 
-            //app.UseVKontakteAuthentication("", "");
+		    //app.UseOnshapeAuthentication(
+		    //    appKey: "",
+		    //    appSecret: "");
+		    //
+		    //
+		    //app.UseOnshapeAuthentication(new OnshapeAuthenticationOptions()
+		    //{
+		    //  AppKey = "",
+		    //  AppSecret = "",
+		    //  CallbackPath = new PathString("/oauthRedirect"),
+		    //  Hostname = "partner.dev.onshape.com"
+		    //});
 
-            //app.UseXingAuthentication("", "");
+		    //app.UseVKontakteAuthentication("", "");
 
-            //app.UseDoYouBuzzAuthentication("", "");
-            //app.("", "");
-            //app.UseOrcidAuthentication("","");
+		    //app.UseXingAuthentication("", "");
 
-            //app.UseDiscordAuthentication("", "");
-            //app.UseGeniAuthentication("", "");
-            //app.UseMyHeritageAuthentication("", "");
-        }
+		    //app.UseDoYouBuzzAuthentication("", "");
+		    //app.("", "");
+		    //app.UseOrcidAuthentication("","");
+
+		    //app.UseDiscordAuthentication("", "");
+		    //app.UseGeniAuthentication("", "");
+		    //app.UseMyHeritageAuthentication("", "");
+		}
     }
 }

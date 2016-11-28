@@ -251,6 +251,16 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Evernote\Owin.Security.Providers.Evernote.csproj">
+      <Project>{b8f05057-8b9f-44ce-b983-99cb7c2e9e5a}</Project>
+      <Name>Owin.Security.Providers.Evernote</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Flickr\Owin.Security.Providers.Flickr.csproj">
+      <Project>{af6cbeb8-5638-43d4-839e-c81f305960be}</Project>
+      <Name>Owin.Security.Providers.Flickr</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
