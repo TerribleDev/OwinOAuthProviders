@@ -5,13 +5,17 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Owin.Security.Providers.Evernote.Messages;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.Owin.Helpers;
 
 namespace Owin.Security.Providers.Evernote
 {
@@ -36,6 +40,8 @@ namespace Owin.Security.Providers.Evernote
         {
             _httpClient = httpClient;
             _logger = logger;
+
+            _logger.WriteInformation("Authentication Handler initialized");
         }
 
         public override async Task<bool> InvokeAsync()
@@ -130,6 +136,8 @@ namespace Owin.Security.Providers.Evernote
 
         protected override async Task ApplyResponseChallengeAsync()
         {
+            _logger.WriteInformation("Applying response challenge");
+
             if (Response.StatusCode != 401)
             {
                 return;
@@ -153,7 +161,11 @@ namespace Owin.Security.Providers.Evernote
                 properties.RedirectUri = baseUri + Request.Path + Request.QueryString;
             }
 
+            _logger.WriteInformation("Requesting Token...");
+
             var requestToken = await ObtainRequestTokenAsync(Options.AppKey, Options.AppSecret, callBackUri, properties);
+
+            _logger.WriteInformation("Token request successfull. Token: " + requestToken.Token);
 
             var authorizationEndpoint = BaseUri + AuthenticationEndpoint + requestToken.Token;
 
@@ -200,19 +212,20 @@ namespace Owin.Security.Providers.Evernote
 
             var authorizationEndpoint = normalizedUrl + normalizedRequestParameters;
 
-            string query = await WebRequestAsync("GET", authorizationEndpoint, null);
+            _logger.WriteInformation("Url =" + authorizationEndpoint);
 
-            if (query.Length > 0)
+            string query = await WebRequestAsync(HttpMethod.Get, authorizationEndpoint, null);
+
+            if (query?.Length > 0)
             {
                 NameValueCollection queryString = HttpUtility.ParseQueryString(query);
                 if (queryString["oauth_token"] != null)
                 {
-                    var tToken = Uri.UnescapeDataString(queryString["oauth_token_secret"]);
+                    _logger.WriteInformation("Retrieving data...");
+
                     return new RequestToken
                     {
                         Token = Uri.UnescapeDataString(queryString["oauth_token"]),
-                        
-                        
                         CallbackConfirmed = true,
                         Properties = properties
                     };
@@ -288,8 +301,23 @@ namespace Owin.Security.Providers.Evernote
                 out normalizedUrl, out normalizedRequestParameters);
 
             var postData = normalizedRequestParameters + "&oauth_signature=" + HttpUtility.UrlEncode(signature);
+            var authorizationParts = new SortedDictionary<string, string>();
 
-            string query = await WebRequestAsync("POST", normalizedUrl, postData);
+            foreach (var key in postData.Split('&'))
+            {
+                authorizationParts.Add(key.Split('=')[0], key.Split('=')[1]);
+            }
+
+            var authorizationHeaderBuilder = new StringBuilder();
+            authorizationHeaderBuilder.Append("OAuth ");
+            foreach (var authorizationPart in authorizationParts)
+            {
+                authorizationHeaderBuilder.AppendFormat(
+                    "{0}=\"{1}\", ", authorizationPart.Key, Uri.EscapeDataString(authorizationPart.Value));
+            }
+            authorizationHeaderBuilder.Length = authorizationHeaderBuilder.Length - 2;
+
+            string query = await WebRequestAsync(HttpMethod.Post, normalizedUrl, authorizationHeaderBuilder.ToString());
 
             if (query.Length > 0)
             {
@@ -310,33 +338,57 @@ namespace Owin.Security.Providers.Evernote
             return new AccessToken();
         }
 
-        private async Task<string> WebRequestAsync(string method, string url, string postData)
+        private async Task<string> WebRequestAsync(HttpMethod method, string url, string postData)
         {
-            HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
-            webRequest.Method = method;
-            webRequest.ServicePoint.Expect100Continue = false;
-            webRequest.UserAgent = "MoreProductiveNow";
-            webRequest.Timeout = 20000;
-            webRequest.Proxy = WebRequest.DefaultWebProxy;
-            webRequest.UseDefaultCredentials = true;
-            if (method == "POST")
+            try
             {
-                webRequest.ContentType = "application/x-www-form-urlencoded";
-                StreamWriter streamWriter = new StreamWriter(webRequest.GetRequestStream());
-                try
-                {
-                    streamWriter.Write(postData);
-                }
-                catch
-                {
-                    throw;
-                }
-                finally
-                {
-                    streamWriter.Close();
-                }
+                var request = new HttpRequestMessage(method, url);
+
+                if (method == HttpMethod.Post)
+                    request.Headers.Add("Authorization", postData);
+
+                _logger.WriteInformation("Send request...");
+
+                var response = _httpClient.SendAsync(request, Request.CallCancelled).Result;
+
+                _logger.WriteInformation("Request ended");
+
+                response.EnsureSuccessStatusCode();
+                return response.Content.ReadAsStringAsync().Result;
             }
-            return await WebResponseGetAsync(webRequest);
+            catch (Exception ex)
+            {
+                _logger.WriteError(ex.Message, ex);
+            }
+
+            return null;
+            //HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
+            //webRequest.Method = method;
+            //webRequest.ServicePoint.Expect100Continue = false;
+            //webRequest.UserAgent = "MoreProductiveNow";
+            //webRequest.Timeout = 20000;
+            //webRequest.Proxy = WebRequest.DefaultWebProxy;
+            //webRequest.UseDefaultCredentials = true;
+            //if (method == "POST")
+            //{
+            //    webRequest.ContentType = "application/x-www-form-urlencoded";
+            //    StreamWriter streamWriter = new StreamWriter(webRequest.GetRequestStream());
+            //    try
+            //    {
+            //        streamWriter.Write(postData);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        _logger.WriteError(ex.Message, ex);
+            //        throw;
+            //    }
+            //    finally
+            //    {
+            //        streamWriter.Close();
+            //    }
+            //}
+
+            //return await WebResponseGetAsync(webRequest);
         }
 
         private async Task<string> WebResponseGetAsync(HttpWebRequest webRequest)
@@ -347,10 +399,11 @@ namespace Owin.Security.Providers.Evernote
                 var response = await webRequest.GetResponseAsync();
                 if (response == null) throw new Exception("Bad request");
 
-                var stream = response.GetResponseStream();
-                if (stream != null) streamReader = new StreamReader(stream);
-
-                return streamReader?.ReadToEnd();
+                using (var stream = response.GetResponseStream())
+                {
+                    streamReader = new StreamReader(stream);
+                    return streamReader.ReadToEnd();
+                }
             }
             catch (Exception ex)
             {
@@ -361,6 +414,7 @@ namespace Owin.Security.Providers.Evernote
                 var responseStream = webRequest.GetResponse().GetResponseStream();
                 responseStream?.Close();
                 streamReader?.Close();
+                _logger.WriteInformation("Request closed");
             }
 
             return null;
