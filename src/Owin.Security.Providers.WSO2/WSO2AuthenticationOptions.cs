@@ -65,7 +65,7 @@ namespace Owin.Security.Providers.WSO2
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-linkedin".
+        ///     Default value is "/signin-wso2".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
