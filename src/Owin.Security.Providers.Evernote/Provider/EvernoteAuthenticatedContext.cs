@@ -40,7 +40,7 @@ namespace Owin.Security.Providers.Evernote
         /// <summary>
         /// Gets the Flickr username
         /// </summary>
-        public string UserName { get; private set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets the Flickr access token

@@ -13,8 +13,12 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using Evernote.EDAM.UserStore;
+using EvernoteSDK;
+using EvernoteSDK.Advanced;
 using Microsoft.Owin.Helpers;
 
 namespace Owin.Security.Providers.Evernote
@@ -94,8 +98,12 @@ namespace Owin.Security.Providers.Evernote
 
                 //var sandboxLnb = bool.Parse(query.Get("sandbox_lnb"));
 
+                // Retrieve access token
                 var accessToken = await ObtainAccessTokenAsync(Options.AppKey, Options.AppSecret, requestToken, oauthVerifier);
 
+                // Retrieve user infos
+                var userName = await GetUserInfosAsync(accessToken);
+                
                 var context = new EvernoteAuthenticatedContext(Context, accessToken)
                 {
                     Identity = new ClaimsIdentity(
@@ -109,11 +117,13 @@ namespace Owin.Security.Providers.Evernote
                     context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId,
                         XmlSchemaString, Options.AuthenticationType));
                 }
-                if (!string.IsNullOrEmpty(context.UserName))
+
+                if (!string.IsNullOrEmpty(userName))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName,
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, userName,
                         XmlSchemaString, Options.AuthenticationType));
                 }
+
                 if (!string.IsNullOrEmpty(context.FullName))
                 {
                     context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.FullName,
@@ -132,6 +142,37 @@ namespace Owin.Security.Providers.Evernote
                 _logger.WriteError("Authentication failed", ex);
                 return new AuthenticationTicket(null, properties);
             }
+        }
+
+        private async Task<string> GetUserInfosAsync(AccessToken accessToken)
+        {
+            
+
+            ENSession.SetSharedSessionDeveloperToken(accessToken.Token, accessToken.NoteStoreUrl);
+            ENSession session = new ENSession();
+            session.PerformPostAuthentication();
+            return session.UserDisplayName;
+            // Get the LinkedIn user
+            //var userInfoEndpoint = "?oauth2_access_token=" + Uri.EscapeDataString(accessToken.Token);
+            //var userRequest = new HttpRequestMessage(HttpMethod.Get, userInfoEndpoint);
+            //userRequest.Headers.Add("x-li-format", "json");
+            //var graphResponse = await _httpClient.SendAsync(userRequest, Request.CallCancelled);
+            //graphResponse.EnsureSuccessStatusCode();
+            //text = await graphResponse.Content.ReadAsStringAsync();
+            //var user = JObject.Parse(text);
+        }
+
+        private string UserStoreUrl(AccessToken accessToken)
+        {
+            Uri nsUrl = new Uri(accessToken.NoteStoreUrl);
+            var sessionHost = nsUrl.Host;
+
+            // If the host string includes an explict port (e.g., foo.bar.com:8080), use http. Otherwise https.
+            // Use a simple regex to check for a colon and port number suffix.
+            var matches = Regex.Matches(sessionHost, ".*:[0-9]+", RegexOptions.IgnoreCase);
+            bool hasPort = matches.Count > 0;
+            string scheme = hasPort ? "http" : "https";
+            return string.Format("{0}://{1}/edam/user", scheme, sessionHost);
         }
 
         protected override async Task ApplyResponseChallengeAsync()
@@ -359,62 +400,6 @@ namespace Owin.Security.Providers.Evernote
             catch (Exception ex)
             {
                 _logger.WriteError(ex.Message, ex);
-            }
-
-            return null;
-            //HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
-            //webRequest.Method = method;
-            //webRequest.ServicePoint.Expect100Continue = false;
-            //webRequest.UserAgent = "MoreProductiveNow";
-            //webRequest.Timeout = 20000;
-            //webRequest.Proxy = WebRequest.DefaultWebProxy;
-            //webRequest.UseDefaultCredentials = true;
-            //if (method == "POST")
-            //{
-            //    webRequest.ContentType = "application/x-www-form-urlencoded";
-            //    StreamWriter streamWriter = new StreamWriter(webRequest.GetRequestStream());
-            //    try
-            //    {
-            //        streamWriter.Write(postData);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        _logger.WriteError(ex.Message, ex);
-            //        throw;
-            //    }
-            //    finally
-            //    {
-            //        streamWriter.Close();
-            //    }
-            //}
-
-            //return await WebResponseGetAsync(webRequest);
-        }
-
-        private async Task<string> WebResponseGetAsync(HttpWebRequest webRequest)
-        {
-            StreamReader streamReader = null;
-            try
-            {
-                var response = await webRequest.GetResponseAsync();
-                if (response == null) throw new Exception("Bad request");
-
-                using (var stream = response.GetResponseStream())
-                {
-                    streamReader = new StreamReader(stream);
-                    return streamReader.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.WriteError(ex.Message);
-            }
-            finally
-            {
-                var responseStream = webRequest.GetResponse().GetResponseStream();
-                responseStream?.Close();
-                streamReader?.Close();
-                _logger.WriteInformation("Request closed");
             }
 
             return null;
