@@ -103,7 +103,7 @@ namespace Owin.Security.Providers.Evernote
 
                 // Retrieve user infos
                 var userName = await GetUserInfosAsync(accessToken);
-                
+
                 var context = new EvernoteAuthenticatedContext(Context, accessToken)
                 {
                     Identity = new ClaimsIdentity(
@@ -114,21 +114,24 @@ namespace Owin.Security.Providers.Evernote
 
                 if (!string.IsNullOrEmpty(context.UserId))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId,
-                        XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.UserId, XmlSchemaString, Options.AuthenticationType));
                 }
 
                 if (!string.IsNullOrEmpty(userName))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, userName,
-                        XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim(ClaimTypes.Name, userName, XmlSchemaString, Options.AuthenticationType));
                 }
 
-                if (!string.IsNullOrEmpty(context.FullName))
+                if (!string.IsNullOrEmpty(context.NoteStoreUrl))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.FullName,
-                        XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:evernote:notestoreuri", context.NoteStoreUrl, XmlSchemaString, Options.AuthenticationType));
                 }
+
+                if (!string.IsNullOrEmpty(context.AccessToken))
+                {
+                    context.Identity.AddClaim(new Claim("urn:evernote:accesstoken", context.AccessToken, XmlSchemaString, Options.AuthenticationType));
+                }
+
                 context.Properties = requestToken.Properties;
 
                 Response.Cookies.Delete(StateCookie);
@@ -146,7 +149,7 @@ namespace Owin.Security.Providers.Evernote
 
         private async Task<string> GetUserInfosAsync(AccessToken accessToken)
         {
-            
+
 
             ENSession.SetSharedSessionDeveloperToken(accessToken.Token, accessToken.NoteStoreUrl);
             ENSession session = new ENSession();

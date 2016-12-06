@@ -25,6 +25,7 @@ namespace Owin.Security.Providers.Evernote
             UserId = accessToken.UserId;
             UserName = accessToken.UserName;
             AccessToken = accessToken.Token;
+            NoteStoreUrl = accessToken.NoteStoreUrl;
         }
 
         /// <summary>
@@ -33,19 +34,21 @@ namespace Owin.Security.Providers.Evernote
         public string FullName { get; private set; }
 
         /// <summary>
-        /// Gets the Flickr user ID
+        /// Gets the Evernote user ID
         /// </summary>
         public string UserId { get; private set; }
 
         /// <summary>
-        /// Gets the Flickr username
+        /// Gets the Evernote username
         /// </summary>
         public string UserName { get; set; }
 
         /// <summary>
-        /// Gets the Flickr access token
+        /// Gets the Evernote access token
         /// </summary>
         public string AccessToken { get; private set; }
+
+        public string NoteStoreUrl { get; set; }
 
         /// <summary>
         /// Gets the <see cref="ClaimsIdentity"/> representing the user
