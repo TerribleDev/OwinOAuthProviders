@@ -104,6 +104,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Box
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Baidu", "src\Owin.Security.Providers.Baidu\Owin.Security.Providers.Baidu.csproj", "{E2759807-4D7C-4288-AAC8-F5B7B4616680}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ConstantContact", "src\Owin.Security.Providers.ConstantContact\Owin.Security.Providers.ConstantContact.csproj", "{C414FDAE-0DC1-45D6-A949-3C85FA1BB4A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -314,6 +316,10 @@ Global
 		{E2759807-4D7C-4288-AAC8-F5B7B4616680}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2759807-4D7C-4288-AAC8-F5B7B4616680}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2759807-4D7C-4288-AAC8-F5B7B4616680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C414FDAE-0DC1-45D6-A949-3C85FA1BB4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C414FDAE-0DC1-45D6-A949-3C85FA1BB4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C414FDAE-0DC1-45D6-A949-3C85FA1BB4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C414FDAE-0DC1-45D6-A949-3C85FA1BB4A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
