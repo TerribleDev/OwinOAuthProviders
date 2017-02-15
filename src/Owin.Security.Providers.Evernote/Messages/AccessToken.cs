@@ -17,11 +17,6 @@ namespace Owin.Security.Providers.Evernote.Messages
         /// </summary>
         public string UserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Evernote User Full Name
-        /// </summary>
-        public string FullName { get; set; }
-
         public string Shard { get; set; }
 
         public string NoteStoreUrl { get; set; }

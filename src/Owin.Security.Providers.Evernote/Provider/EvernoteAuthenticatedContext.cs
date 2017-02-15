@@ -21,17 +21,11 @@ namespace Owin.Security.Providers.Evernote
         public EvernoteAuthenticatedContext(IOwinContext context, AccessToken accessToken)
             : base(context)
         {
-            FullName = accessToken.FullName;
             UserId = accessToken.UserId;
             UserName = accessToken.UserName;
             AccessToken = accessToken.Token;
             NoteStoreUrl = accessToken.NoteStoreUrl;
         }
-
-        /// <summary>
-        /// Gets user full name
-        /// </summary>
-        public string FullName { get; private set; }
 
         /// <summary>
         /// Gets the Evernote user ID

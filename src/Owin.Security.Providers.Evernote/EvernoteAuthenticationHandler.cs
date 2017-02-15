@@ -20,6 +20,10 @@ using Evernote.EDAM.UserStore;
 using EvernoteSDK;
 using EvernoteSDK.Advanced;
 using Microsoft.Owin.Helpers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Thrift.Protocol;
+using Thrift.Transport;
 
 namespace Owin.Security.Providers.Evernote
 {
@@ -149,20 +153,21 @@ namespace Owin.Security.Providers.Evernote
 
         private async Task<string> GetUserInfosAsync(AccessToken accessToken)
         {
-
-
+            //var client = new UserStore.Client((TProtocol)new TBinaryProtocol((TTransport)new THttpClient(new Uri(UserStoreUrl(accessToken)))));
+            //var user = client.getUser(accessToken.Token);
+            //return user.Email;
             ENSession.SetSharedSessionDeveloperToken(accessToken.Token, accessToken.NoteStoreUrl);
             ENSession session = new ENSession();
             session.PerformPostAuthentication();
             return session.UserDisplayName;
             // Get the LinkedIn user
-            //var userInfoEndpoint = "?oauth2_access_token=" + Uri.EscapeDataString(accessToken.Token);
-            //var userRequest = new HttpRequestMessage(HttpMethod.Get, userInfoEndpoint);
-            //userRequest.Headers.Add("x-li-format", "json");
-            //var graphResponse = await _httpClient.SendAsync(userRequest, Request.CallCancelled);
-            //graphResponse.EnsureSuccessStatusCode();
-            //text = await graphResponse.Content.ReadAsStringAsync();
-            //var user = JObject.Parse(text);
+            var userInfoEndpoint = UserStoreUrl(accessToken) + "?oauth2_access_token=" + Uri.EscapeDataString(accessToken.Token);
+            var userRequest = new HttpRequestMessage(HttpMethod.Get, userInfoEndpoint);
+            userRequest.Headers.Add("x-li-format", "json");
+            var graphResponse = await _httpClient.SendAsync(userRequest, Request.CallCancelled);
+            graphResponse.EnsureSuccessStatusCode();
+            var text = await graphResponse.Content.ReadAsStringAsync();
+            return text;
         }
 
         private string UserStoreUrl(AccessToken accessToken)
