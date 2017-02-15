@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using EvernoteSDK;
+using Microsoft.Owin;
 using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
@@ -7,23 +8,11 @@ using Owin.Security.Providers.Evernote.Messages;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using Evernote.EDAM.UserStore;
-using EvernoteSDK;
-using EvernoteSDK.Advanced;
-using Microsoft.Owin.Helpers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Thrift.Protocol;
-using Thrift.Transport;
 
 namespace Owin.Security.Providers.Evernote
 {
@@ -100,13 +89,11 @@ namespace Owin.Security.Providers.Evernote
                     return new AuthenticationTicket(null, properties);
                 }
 
-                //var sandboxLnb = bool.Parse(query.Get("sandbox_lnb"));
-
                 // Retrieve access token
                 var accessToken = await ObtainAccessTokenAsync(Options.AppKey, Options.AppSecret, requestToken, oauthVerifier);
 
                 // Retrieve user infos
-                var userName = await GetUserInfosAsync(accessToken);
+                var userName = GetUserInfos(accessToken);
 
                 var context = new EvernoteAuthenticatedContext(Context, accessToken)
                 {
@@ -151,36 +138,12 @@ namespace Owin.Security.Providers.Evernote
             }
         }
 
-        private async Task<string> GetUserInfosAsync(AccessToken accessToken)
+        private string GetUserInfos(AccessToken accessToken)
         {
-            //var client = new UserStore.Client((TProtocol)new TBinaryProtocol((TTransport)new THttpClient(new Uri(UserStoreUrl(accessToken)))));
-            //var user = client.getUser(accessToken.Token);
-            //return user.Email;
             ENSession.SetSharedSessionDeveloperToken(accessToken.Token, accessToken.NoteStoreUrl);
-            ENSession session = new ENSession();
+            var session = new ENSession();
             session.PerformPostAuthentication();
             return session.UserDisplayName;
-            // Get the LinkedIn user
-            var userInfoEndpoint = UserStoreUrl(accessToken) + "?oauth2_access_token=" + Uri.EscapeDataString(accessToken.Token);
-            var userRequest = new HttpRequestMessage(HttpMethod.Get, userInfoEndpoint);
-            userRequest.Headers.Add("x-li-format", "json");
-            var graphResponse = await _httpClient.SendAsync(userRequest, Request.CallCancelled);
-            graphResponse.EnsureSuccessStatusCode();
-            var text = await graphResponse.Content.ReadAsStringAsync();
-            return text;
-        }
-
-        private string UserStoreUrl(AccessToken accessToken)
-        {
-            Uri nsUrl = new Uri(accessToken.NoteStoreUrl);
-            var sessionHost = nsUrl.Host;
-
-            // If the host string includes an explict port (e.g., foo.bar.com:8080), use http. Otherwise https.
-            // Use a simple regex to check for a colon and port number suffix.
-            var matches = Regex.Matches(sessionHost, ".*:[0-9]+", RegexOptions.IgnoreCase);
-            bool hasPort = matches.Count > 0;
-            string scheme = hasPort ? "http" : "https";
-            return string.Format("{0}://{1}/edam/user", scheme, sessionHost);
         }
 
         protected override async Task ApplyResponseChallengeAsync()
@@ -387,7 +350,7 @@ namespace Owin.Security.Providers.Evernote
             return new AccessToken();
         }
 
-        private async Task<string> WebRequestAsync(HttpMethod method, string url, string postData)
+        private Task<string> WebRequestAsync(HttpMethod method, string url, string postData)
         {
             try
             {
@@ -403,7 +366,7 @@ namespace Owin.Security.Providers.Evernote
                 _logger.WriteInformation("Request ended");
 
                 response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result;
+                return response.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
