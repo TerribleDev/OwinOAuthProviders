@@ -3,7 +3,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.Evernote;
-using Owin.Security.Providers.Flickr;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -191,8 +190,8 @@ namespace OwinOAuthProvidersDemo
 		    app.UseEvernoteAuthentication(new EvernoteAuthenticationOptions()
 		    {
 		        IsSandBox = true,
-                AppKey = "guillaumedemicheli",
-                AppSecret = "8ff08518c03150f1"
+                AppKey = "",
+                AppSecret = ""
             });
 
 		    //app.UseSoundCloudAuthentication("", "");
@@ -208,7 +207,7 @@ namespace OwinOAuthProvidersDemo
 
 		    //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
-		    app.UseFlickrAuthentication("066dd16d229bf4ca08448a86a44e832d", "2d848c699b00cffa");
+		    //app.UseFlickrAuthentication("", "");
 		    //app.UseVisualStudioAuthentication(
 		    //	appId: "",
 		    //	appSecret: "");
