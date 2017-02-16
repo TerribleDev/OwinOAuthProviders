@@ -90,7 +90,7 @@ namespace Owin.Security.Providers.Evernote
             : base("Evernote")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-Evernote");
+            CallbackPath = new PathString("/signin-evernote");
             AuthenticationMode = AuthenticationMode.Passive;
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }
