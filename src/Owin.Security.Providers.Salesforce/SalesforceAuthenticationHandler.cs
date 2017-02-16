@@ -145,7 +145,7 @@ namespace Owin.Security.Providers.Salesforce
             }
             catch (Exception ex)
             {
-                _logger.WriteError(ex.Message);
+                _logger.WriteError(ex.Message, ex);
             }
             return new AuthenticationTicket(null, properties);
         }
