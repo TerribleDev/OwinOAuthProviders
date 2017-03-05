@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Evernote;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -74,7 +75,7 @@ namespace OwinOAuthProvidersDemo
              *
 
              */
-
+      
 			////Simple Twitch Sign-in
 			//app.UseTwitchAuthentication("", "");
 
@@ -289,6 +290,12 @@ namespace OwinOAuthProvidersDemo
 
 			//app.UseWSO2Authentication("", "", "");
 
+      //app.UseEvernoteAuthentication(new EvernoteAuthenticationOptions()
+		  //{
+		  //      IsSandBox = true,
+      //      AppKey = "",
+      //      AppSecret = ""
+      //});
 		}
 	}
 }
