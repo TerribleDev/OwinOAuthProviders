@@ -200,8 +200,8 @@ namespace OwinOAuthProvidersDemo
             // System.Net.ServicePointManager.SecurityProtocol = System.Net.ServicePointManager.SecurityProtocol | System.Net.SecurityProtocolType.Tls12;
             // The Return URL must be configured in the PayPal application to https://[hostname][:port]/signin-paypal
             // app.UsePayPalAuthentication(
-            //   clientId: "AUzwpg2omNEJuhje819Y6a73_JEjNEMwOA7UykPLA5f-FieqHBB260vroJ2W7In4BvrmrH7RIakCsiik",
-            //   clientSecret: "EFm5TJbhk4rj5LFGRKtHTx2RgxQTMox-L3iy9AKkBHP5Se_ANiW2vx9Si7HTKa5WygR21ByhPFcGhJS-",
+            //   clientId: "",
+            //   clientSecret: "",
             //   isSandbox: true);
 
             //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
