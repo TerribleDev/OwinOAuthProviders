@@ -252,13 +252,213 @@
     <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\base\Owin.Security.Providers.OpenIDBase\Owin.Security.Providers.OpenIDBase.csproj">
+      <Project>{4fd7b873-1994-4990-aa40-c37060121494}</Project>
+      <Name>Owin.Security.Providers.OpenIDBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj">
+      <Project>{8a49faef-d365-4d25-942c-1cad03845a5e}</Project>
+      <Name>Owin.Security.Providers.ArcGISOnline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Asana\Owin.Security.Providers.Asana.csproj">
+      <Project>{f3e27220-1d8c-4037-94aa-7b7f4a12f351}</Project>
+      <Name>Owin.Security.Providers.Asana</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Backlog\Owin.Security.Providers.Backlog.csproj">
+      <Project>{2dc03778-9ef1-466a-83ec-7d8422decd23}</Project>
+      <Name>Owin.Security.Providers.Backlog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Baidu\Owin.Security.Providers.Baidu.csproj">
+      <Project>{e2759807-4d7c-4288-aac8-f5b7b4616680}</Project>
+      <Name>Owin.Security.Providers.Baidu</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.BattleNet\Owin.Security.Providers.BattleNet.csproj">
+      <Project>{99a175da-ade4-436c-a272-c8ae44b7a086}</Project>
+      <Name>Owin.Security.Providers.BattleNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Bitbucket\Owin.Security.Providers.Bitbucket.csproj">
+      <Project>{e5212fc7-abcb-462f-9989-8e022dffe43c}</Project>
+      <Name>Owin.Security.Providers.Bitbucket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Box\Owin.Security.Providers.Box.csproj">
+      <Project>{1aef8813-e1f9-41e1-bc8d-732960595e9f}</Project>
+      <Name>Owin.Security.Providers.Box</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Buffer\Owin.Security.Providers.Buffer.csproj">
+      <Project>{6f75fc1f-d9e9-49b3-a6ce-cfa8feea11a5}</Project>
+      <Name>Owin.Security.Providers.Buffer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Cosign\Owin.Security.Providers.Cosign.csproj">
+      <Project>{1f1f8d6b-7219-46fa-93d3-8d3061a6cbbf}</Project>
+      <Name>Owin.Security.Providers.Cosign</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.DeviantArt\Owin.Security.Providers.DeviantArt.csproj">
+      <Project>{fabd2e54-976d-41f5-8800-dee58acc027c}</Project>
+      <Name>Owin.Security.Providers.DeviantArt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Discord\Owin.Security.Providers.Discord.csproj">
+      <Project>{4be728eb-778a-41af-8dea-0c7159711d44}</Project>
+      <Name>Owin.Security.Providers.Discord</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.DoYouBuzz\Owin.Security.Providers.DoYouBuzz.csproj">
+      <Project>{4550d8bd-05a7-44f8-bbc0-c3d8e7af2912}</Project>
+      <Name>Owin.Security.Providers.DoYouBuzz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Dropbox\Owin.Security.Providers.Dropbox.csproj">
+      <Project>{cef697b1-3651-49e5-9060-65f2e26c039c}</Project>
+      <Name>Owin.Security.Providers.Dropbox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.EVEOnline\Owin.Security.Providers.EVEOnline.csproj">
+      <Project>{f5dc23f4-5042-4024-9e34-aca648602ba0}</Project>
+      <Name>Owin.Security.Providers.EVEOnline</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Owin.Security.Providers.Evernote\Owin.Security.Providers.Evernote.csproj">
       <Project>{b8f05057-8b9f-44ce-b983-99cb7c2e9e5a}</Project>
       <Name>Owin.Security.Providers.Evernote</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Fitbit\Owin.Security.Providers.Fitbit.csproj">
+      <Project>{ca44d014-5a74-4749-a891-1f711fd3a266}</Project>
+      <Name>Owin.Security.Providers.Fitbit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Owin.Security.Providers.Flickr\Owin.Security.Providers.Flickr.csproj">
       <Project>{af6cbeb8-5638-43d4-839e-c81f305960be}</Project>
       <Name>Owin.Security.Providers.Flickr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Foursquare\Owin.Security.Providers.Foursquare.csproj">
+      <Project>{8acd9194-1efe-4128-ac42-856d856332a4}</Project>
+      <Name>Owin.Security.Providers.Foursquare</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Geni\Owin.Security.Providers.Geni.csproj">
+      <Project>{9de25431-f935-48d7-8eb5-acb6f918111c}</Project>
+      <Name>Owin.Security.Providers.Geni</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.GitHub\Owin.Security.Providers.GitHub.csproj">
+      <Project>{803f9eb7-029c-45ac-ab81-135e60d5beae}</Project>
+      <Name>Owin.Security.Providers.GitHub</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Gitter\Owin.Security.Providers.Gitter.csproj">
+      <Project>{42ec50eb-0c51-460c-93a4-1e007bf1f323}</Project>
+      <Name>Owin.Security.Providers.Gitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.GooglePlus\Owin.Security.Providers.GooglePlus.csproj">
+      <Project>{d3fef959-0e0e-4f50-954c-f123a0b629dc}</Project>
+      <Name>Owin.Security.Providers.GooglePlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.HealthGraph\Owin.Security.Providers.HealthGraph.csproj">
+      <Project>{157bb715-29b2-4202-8a59-ccbacfcbedd3}</Project>
+      <Name>Owin.Security.Providers.HealthGraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Imgur\Owin.Security.Providers.Imgur.csproj">
+      <Project>{101841d3-645e-4a44-af8b-8aaa85ceea4e}</Project>
+      <Name>Owin.Security.Providers.Imgur</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Instagram\Owin.Security.Providers.Instagram.csproj">
+      <Project>{041178c4-6131-4d68-9896-ce33124d83a0}</Project>
+      <Name>Owin.Security.Providers.Instagram</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.LinkedIn\Owin.Security.Providers.LinkedIn.csproj">
+      <Project>{9fa87825-30e9-48d7-ac4a-39e8f0c2777c}</Project>
+      <Name>Owin.Security.Providers.LinkedIn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.MyHeritage\Owin.Security.Providers.MyHeritage.csproj">
+      <Project>{84795078-31b5-4369-bd1b-f960165f8c71}</Project>
+      <Name>Owin.Security.Providers.MyHeritage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Onshape\Owin.Security.Providers.Onshape.csproj">
+      <Project>{9fec99f8-6f45-40a2-8200-85381434c79a}</Project>
+      <Name>Owin.Security.Providers.Onshape</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.OpenID\Owin.Security.Providers.OpenID.csproj">
+      <Project>{90c152d7-9c66-4949-9998-c7ce48b593de}</Project>
+      <Name>Owin.Security.Providers.OpenID</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Orcid\Owin.Security.Providers.Orcid.csproj">
+      <Project>{89cb4342-e23d-4e7c-89e5-c369599a5860}</Project>
+      <Name>Owin.Security.Providers.Orcid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.PayPal\Owin.Security.Providers.PayPal.csproj">
+      <Project>{f7129064-3db7-4b79-81d3-80130d664e45}</Project>
+      <Name>Owin.Security.Providers.PayPal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Reddit\Owin.Security.Providers.Reddit.csproj">
+      <Project>{d0cd86c8-a6f9-4c6c-9bf0-eaa461e7fbad}</Project>
+      <Name>Owin.Security.Providers.Reddit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Salesforce\Owin.Security.Providers.Salesforce.csproj">
+      <Project>{827a9d68-0dd4-4c5e-b763-8302faeedecc}</Project>
+      <Name>Owin.Security.Providers.Salesforce</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Shopify\Owin.Security.Providers.Shopify.csproj">
+      <Project>{67f12bfb-eb3a-4a86-b5dc-f4c066fdf792}</Project>
+      <Name>Owin.Security.Providers.Shopify</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.SlackProvider\Owin.Security.Providers.SlackProvider.csproj">
+      <Project>{3e6f293d-8500-428d-bdc9-27440cc91e16}</Project>
+      <Name>Owin.Security.Providers.SlackProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.SoundCloud\Owin.Security.Providers.SoundCloud.csproj">
+      <Project>{2c959026-7058-4302-a6c4-dfd10a030585}</Project>
+      <Name>Owin.Security.Providers.SoundCloud</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Spotify\Owin.Security.Providers.Spotify.csproj">
+      <Project>{683b4041-a399-40ce-84b8-392f08a6805d}</Project>
+      <Name>Owin.Security.Providers.Spotify</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.StackExchange\Owin.Security.Providers.StackExchange.csproj">
+      <Project>{2c0e07ed-f26d-4ff8-8c3d-f760c09a2d5a}</Project>
+      <Name>Owin.Security.Providers.StackExchange</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Steam\Owin.Security.Providers.Steam.csproj">
+      <Project>{312c4ed7-8ca1-4723-9203-abc694dfdc7c}</Project>
+      <Name>Owin.Security.Providers.Steam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.TripIt\Owin.Security.Providers.TripIt.csproj">
+      <Project>{b35e2616-dc00-48b4-bd58-7e23046257f1}</Project>
+      <Name>Owin.Security.Providers.TripIt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Twitch\Owin.Security.Providers.Twitch.csproj">
+      <Project>{c3cf8734-6aac-4f59-9a3e-1cba8582cd48}</Project>
+      <Name>Owin.Security.Providers.Twitch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Untappd\Owin.Security.Providers.Untappd.csproj">
+      <Project>{3e89eca3-f4e7-4181-b26b-8250d5151044}</Project>
+      <Name>Owin.Security.Providers.Untappd</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Vimeo\Owin.Security.Providers.Vimeo.csproj">
+      <Project>{98ecc703-d651-4ead-a55d-aa3e903ae4d7}</Project>
+      <Name>Owin.Security.Providers.Vimeo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.VisualStudio\Owin.Security.Providers.VisualStudio.csproj">
+      <Project>{3b19fa31-ddff-427f-9d73-f860de74bbc2}</Project>
+      <Name>Owin.Security.Providers.VisualStudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.VKontakte\Owin.Security.Providers.VKontakte.csproj">
+      <Project>{32d70e31-3799-482a-ac7a-081ff9206fc3}</Project>
+      <Name>Owin.Security.Providers.VKontakte</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Wargaming\Owin.Security.Providers.Wargaming.csproj">
+      <Project>{aa72bfce-8495-4a4d-988d-f8d490521776}</Project>
+      <Name>Owin.Security.Providers.Wargaming</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.WordPress\Owin.Security.Providers.WordPress.csproj">
+      <Project>{0ede8223-dd5f-4db8-a98a-64b1f4591f48}</Project>
+      <Name>Owin.Security.Providers.WordPress</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.WSO2\Owin.Security.Providers.WSO2.csproj">
+      <Project>{8fd3a9cb-e684-42c0-a8bf-7746fdd3d43c}</Project>
+      <Name>Owin.Security.Providers.WSO2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Xing\Owin.Security.Providers.Xing.csproj">
+      <Project>{d497d8bd-6ef9-4c30-b195-b0dd153418d6}</Project>
+      <Name>Owin.Security.Providers.Xing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Yahoo\Owin.Security.Providers.Yahoo.csproj">
+      <Project>{1765bedb-9e4b-468c-baf6-06784cdced67}</Project>
+      <Name>Owin.Security.Providers.Yahoo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Yammer\Owin.Security.Providers.Yammer.csproj">
+      <Project>{8d029a93-e687-4ddf-82b0-700ebbf477f7}</Project>
+      <Name>Owin.Security.Providers.Yammer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
