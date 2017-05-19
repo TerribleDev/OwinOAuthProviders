@@ -4,22 +4,22 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.Evernote;
 using Owin.Security.Providers.PayPal;
+
 namespace OwinOAuthProvidersDemo
 {
-    public partial class Startup
-    {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
-        {
-            // Enable the application to use a cookie to store information for the signed in user
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login")
-            });
-            // Use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
+	public partial class Startup
+	{
+		// For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+		public void ConfigureAuth(IAppBuilder app)
+		{
+			// Enable the application to use a cookie to store information for the signed in user
+			app.UseCookieAuthentication(new CookieAuthenticationOptions
+			{
+				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+				LoginPath = new PathString("/Account/Login")
+			});
+			// Use a cookie to temporarily store information about a user logging in with a third party login provider
+			app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             //app.UseDeviantArtAuthentication("id", "secret");
             //app.UseUntappdAuthentication("id", "secret");
             // Uncomment the following lines to enable logging in with third party login providers
@@ -29,7 +29,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
-            //   consumerSecret: "";)
+            //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
             //   appId: "",
@@ -72,10 +72,10 @@ namespace OwinOAuthProvidersDemo
             //app.UseGooglePlusAuthentication(options);
 
             /*
-            * Twitch sign-ins use /signin-Twitch as the URL for authentication
-            *
+             * Twitch sign-ins use /signin-Twitch as the URL for authentication
+             *
 
-            */
+             */
 
             ////Simple Twitch Sign-in
             //app.UseTwitchAuthentication("", "");
@@ -199,10 +199,15 @@ namespace OwinOAuthProvidersDemo
             // http://stackoverflow.com/questions/34939523/the-request-was-aborted-could-not-create-ssl-tls-secure-channel-sandbox-account
             // System.Net.ServicePointManager.SecurityProtocol = System.Net.ServicePointManager.SecurityProtocol | System.Net.SecurityProtocolType.Tls12;
             // The Return URL must be configured in the PayPal application to https://[hostname][:port]/signin-paypal
-            // app.UsePayPalAuthentication(
-            //   clientId: "",
-            //   clientSecret: "",
-            //   isSandbox: true);
+            // PayPalAuthenticationOptions payPalOptions = new PayPalAuthenticationOptions(true);
+            // payPalOptions.ClientId = "";
+            // payPalOptions.ClientSecret = "";
+            // payPalOptions.Scope.Add("email");
+            // payPalOptions.Scope.Add("profile");
+            // payPalOptions.Scope.Add("address");
+            // payPalOptions.Scope.Add("https://uri.paypal.com/services/expresscheckout");
+
+            // app.UsePayPalAuthentication(payPalOptions);
 
             //app.UseWargamingAccountAuthentication("", WargamingAuthenticationOptions.Region.NorthAmerica);
 
@@ -303,5 +308,5 @@ namespace OwinOAuthProvidersDemo
             //      AppSecret = ""
             //});
         }
-    }
+	}
 }
