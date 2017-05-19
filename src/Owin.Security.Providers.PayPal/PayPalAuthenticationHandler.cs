@@ -95,7 +95,7 @@ namespace Owin.Security.Providers.PayPal
                     {
                         if (!System.Net.ServicePointManager.SecurityProtocol.HasFlag(System.Net.SecurityProtocolType.Tls12))
                         {
-                            throw new Exception("PayPal requires TLS v1.2. TLS v1.0 and v1.1 connections will be refused. Set System.Net.ServicePointManager.SecurityProtocol = System.Net.ServicePointManager.SecurityProtocol | System.Net.SecurityProtocolType.Tls12", ex);
+                            throw new System.Net.WebException("PayPal requires TLS v1.2. TLS v1.0 and v1.1 connections will be refused. Set System.Net.ServicePointManager.SecurityProtocol = System.Net.ServicePointManager.SecurityProtocol | System.Net.SecurityProtocolType.Tls12", ex.InnerException);
                         }                        
                     }                    
                     throw;                    
