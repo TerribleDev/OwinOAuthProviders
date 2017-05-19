@@ -121,6 +121,11 @@ namespace Owin.Security.Providers.Twitch
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         /// <summary>
+        ///     Gets or sets whether to force verify the user during the OAuth flow
+        /// </summary>
+        public bool ForceVerify { get; set; }
+
+        /// <summary>
         ///     Initializes a new <see cref="TwitchAuthenticationOptions" />
         /// </summary>
         public TwitchAuthenticationOptions()

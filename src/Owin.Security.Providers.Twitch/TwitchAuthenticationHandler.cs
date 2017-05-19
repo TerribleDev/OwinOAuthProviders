@@ -179,6 +179,7 @@ namespace Owin.Security.Providers.Twitch
                 "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
                 "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
                 "&scope=" + Uri.EscapeDataString(scope) +
+                "&force_verify=" + Options.ForceVerify.ToString().ToLower() +
                 "&response_type=" + "code" +
                 "&state=" + Uri.EscapeDataString(state);
 
