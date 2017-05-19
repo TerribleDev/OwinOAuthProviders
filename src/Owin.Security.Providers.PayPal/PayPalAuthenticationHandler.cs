@@ -81,9 +81,25 @@ namespace Owin.Security.Providers.PayPal
                     new KeyValuePair<string, string>("code", code),
                     new KeyValuePair<string, string>("redirect_uri", redirectUri),
                 });
-                var tokenResponse = await _httpClient.SendAsync(requestMessage);
-                tokenResponse.EnsureSuccessStatusCode();
-                var text = await tokenResponse.Content.ReadAsStringAsync();
+
+                string text = "";
+                try
+                {
+                    var tokenResponse = await _httpClient.SendAsync(requestMessage);
+                    tokenResponse.EnsureSuccessStatusCode();
+                    text = await tokenResponse.Content.ReadAsStringAsync();
+                }
+                catch (HttpRequestException ex)
+                {
+                    if (ex.InnerException is System.Net.WebException && ex.InnerException.Message.Contains("TLS"))
+                    {
+                        if (!System.Net.ServicePointManager.SecurityProtocol.HasFlag(System.Net.SecurityProtocolType.Tls12))
+                        {
+                            throw new System.Net.WebException("PayPal requires TLS v1.2. TLS v1.0 and v1.1 connections will be refused. Set System.Net.ServicePointManager.SecurityProtocol = System.Net.ServicePointManager.SecurityProtocol | System.Net.SecurityProtocolType.Tls12", ex.InnerException);
+                        }                        
+                    }                    
+                    throw;                    
+                }               
 
                 // Deserializes the token response
                 var response = JsonConvert.DeserializeObject<dynamic>(text);
