@@ -15,7 +15,7 @@ PACKAGES = File.expand_path("packages")
 TOOLS = File.expand_path("tools")
 NUGET = File.expand_path("#{TOOLS}/nuget")
 NUGET_EXE = File.expand_path("#{TOOLS}/nuget/nuget.exe")
-@version = "2.12.0"
+@version = "2.14.0"
 PROJECTS = Dir.glob('src/*').select{|dir| File.directory? dir }
 
 desc 'Retrieve things'
@@ -26,7 +26,6 @@ task :build => [:retrieve, :compile]
 
 desc 'clean, retrieve, build, generate nuspecs'
 task :preflight => [:clean, :build, :nuspec_gen]
-
 
 desc 'publish'
 task :publish => [:preflight,:nuspec_gen, :nuspec_pack,  :nuspec_publish]
