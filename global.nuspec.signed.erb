@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Owin.Security.Providers.OpenIDBase</id>
-    <version>2.1.1</version>
+    <id>Owin.Security.Providers-signed</id>
+    <version><%= @version %></version>
     <authors>Jerrie Pelser, Tommy Parnell and contributors</authors>
     <owners>Tommy Parnell</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -13,16 +13,17 @@
     </description>
     <summary>
       Additional OAuth providers for Katana (OWIN).
-
-      Includes providers for ArcGISOnline, Asana, Backlog, Battle.net, Bitbucket, Buffer, DeviantArt, Dropbox, EVEOnline, Fitbit, Flickr, Foursquare, GitHub, Gitter, Google+, HealthGraph, Imgur, Instagram, LinkedIn, Onshape, PayPal, Reddit, Salesforce, Slack, SoundCloud, Spotify, StackExchange, TripIt, Twitch.tv, Untappd, Vimeo, Visual Studio Online, VKontakte, Wordpress, Yahoo and Yammer.
-
-      Also adds generic OpenID 2.0 providers as well implementations for Steam and Wargaming.
+      There are many individual providers, this package is a meta package that has a dependency on all of them.
     </summary>
     <releaseNotes>
-      Version 2.0
-      - Decouple providers into individual files
+    View the release notes on github
     </releaseNotes>
     <copyright>Copyright 2013 - 2016</copyright>
     <tags>owin katana oauth LinkedIn Yahoo Google+ GitHub Reddit Instagram StackExchange SalesForce TripIt Buffer ArcGIS Dropbox Wordpress Battle.NET Yammer OpenID Steam Twitch</tags>
+    <dependencies>
+      <% for @item in @nugets %>
+        <dependency id="<%= @item %>" version="[<%= @version %>]" />
+      <% end %>
+       </dependencies>
   </metadata>
 </package>

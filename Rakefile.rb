@@ -9,13 +9,13 @@ require 'nokogiri'
 require 'openssl'
 import 'nuget.rake'
 
-CLEAN.include(['src/**/obj', 'src/**/bin', 'tool', 'packages/**','src/**/*.nuspec', 'src/**/*.nupkg', 'tools', 'packages', '*.nupkg'])
+CLEAN.include(['src/**/obj', 'Owin.Security.Providers.nuspec', 'Owin.Security.Providers-signed.nuspec' 'src/**/bin', 'tool', 'packages/**','src/**/*.nuspec', 'src/**/*.nupkg', 'tools', 'packages', '*.nupkg'])
 Configuration = ENV['CONFIGURATION'] || 'Release'
 PACKAGES = File.expand_path("packages")
 TOOLS = File.expand_path("tools")
 NUGET = File.expand_path("#{TOOLS}/nuget")
 NUGET_EXE = File.expand_path("#{TOOLS}/nuget/nuget.exe")
-@version = "2.14.0"
+@version = "2.15.1"
 PROJECTS = Dir.glob('src/*').select{|dir| File.directory? dir }
 
 desc 'Retrieve things'
@@ -27,14 +27,18 @@ task :build => [:retrieve, :compile]
 desc 'clean, retrieve, build, generate nuspecs'
 task :preflight => [:clean, :build, :nuspec_gen]
 
+
 desc 'publish'
 task :publish => [:preflight,:nuspec_gen, :nuspec_pack,  :nuspec_publish]
+
+
 
 build :compile do |t|
   t.prop 'Configuration', Configuration
   t.sln = 'OwinOAuthProviders.sln'
+  t.prop 'SignAssembly', 'true'
+  t.prop 'AssemblyOriginatorKeyFile', File.expand_path("keypair.snk")
 end
-
 
 desc "Generate nuspec files"
 task :nuspec_gen do
@@ -50,6 +54,7 @@ task :nuspec_gen do
   File.write('Owin.Security.Providers.nuspec', ERB.new(File.read('global.nuspec.erb')).result())
 end
 
+
 desc 'pack nuspec files'
 task :nuspec_pack do
   PROJECTS.each{|dir|
@@ -59,6 +64,7 @@ task :nuspec_pack do
   }
   sh "#{NUGET_EXE} pack Owin.Security.Providers.nuspec -Exclude \"**\""
 end
+
 
 desc 'publish nugets'
 task :nuspec_publish do
