@@ -44,6 +44,16 @@ namespace Owin.Security.Providers.LinkedIn
         public PathString CallbackPath { get; set; }
 
         /// <summary>
+        ///     Gets or sets the middleware host name.
+        ///     The middleware processes the <see cref="CallbackPath"/> on this host name instead of the application's request host.
+        ///     If this is not set, the application's request host will be used.
+        /// </summary>
+        /// <remarks>
+        ///     Use this property when running behind a proxy.
+        /// </remarks>
+        public string ProxyHost { get; set; }
+
+        /// <summary>
         ///     Get or sets the text that the user can display on a sign in user interface.
         /// </summary>
         public string Caption
