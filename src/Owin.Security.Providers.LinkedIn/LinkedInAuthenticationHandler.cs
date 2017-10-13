@@ -61,7 +61,7 @@ namespace Owin.Security.Providers.LinkedIn
                     return new AuthenticationTicket(null, properties);
                 }
 
-                var requestPrefix = Request.Scheme + "://" + Request.Host;
+                var requestPrefix = Request.Scheme + "://" + this.GetHostName();
                 var redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
@@ -173,7 +173,7 @@ namespace Owin.Security.Providers.LinkedIn
             var baseUri =
                 Request.Scheme +
                 Uri.SchemeDelimiter +
-                Request.Host +
+                this.GetHostName() +
                 Request.PathBase;
 
             var currentUri =
@@ -270,6 +270,16 @@ namespace Owin.Security.Providers.LinkedIn
             context.RequestCompleted();
 
             return context.IsRequestCompleted;
+        }
+
+        /// <summary>
+        ///     Gets proxy host name from <see cref="LinkedInAuthenticationOptions"/> if it is set.
+        ///     If proxy host name is not set, gets application request host name.
+        /// </summary>
+        /// <returns>Host name.</returns>
+        private string GetHostName()
+        {
+            return string.IsNullOrWhiteSpace(Options.ProxyHost) ? Request.Host.ToString() : Options.ProxyHost;
         }
     }
 }
