@@ -17,8 +17,9 @@ namespace Owin.Security.Providers.Dropbox
     {
         private const string StateCookie = "_DropboxState";
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private const string TokenEndpoint = "https://api.dropbox.com/1/oauth2/token";
-        private const string UserInfoEndpoint = "https://api.dropbox.com/1/account/info";
+        private const string TokenEndpoint = "https://api.dropbox.com/oauth2/token";
+        private const string UserInfoEndpoint = "https://api.dropbox.com/2/users/get_current_account";
+
 
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
@@ -65,13 +66,13 @@ namespace Owin.Security.Providers.Dropbox
                 var redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
-                var body = new List<KeyValuePair<string, string>>
+                var body = new Dictionary<string, string>
                 {
-                    new KeyValuePair<string, string>("grant_type", "authorization_code"),
-                    new KeyValuePair<string, string>("code", code),
-                    new KeyValuePair<string, string>("redirect_uri", redirectUri),
-                    new KeyValuePair<string, string>("client_id", Options.AppKey),
-                    new KeyValuePair<string, string>("client_secret", Options.AppSecret)
+                    { "grant_type", "authorization_code" },
+                    { "code", code },
+                    {"redirect_uri", redirectUri },
+                    { "client_id", Options.AppKey },
+                    { "client_secret", Options.AppSecret }
                 };
 
                 // Request the token
@@ -85,8 +86,8 @@ namespace Owin.Security.Providers.Dropbox
                 var accessToken = (string)response.access_token;
 
                 // Get the Dropbox user
-                var graphResponse = await _httpClient.GetAsync(
-                    UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                var graphResponse = await _httpClient.PostAsync(UserInfoEndpoint, null);
                 graphResponse.EnsureSuccessStatusCode();
                 text = await graphResponse.Content.ReadAsStringAsync();
                 var user = JObject.Parse(text);
@@ -154,7 +155,7 @@ namespace Owin.Security.Providers.Dropbox
             GenerateCorrelationId(properties);
 
             var authorizationEndpoint =
-                "https://www.dropbox.com/1/oauth2/authorize" +
+                "https://www.dropbox.com/oauth2/authorize" +
                 "?response_type=code" +
                 "&client_id=" + Uri.EscapeDataString(Options.AppKey) +
                 "&redirect_uri=" + Uri.EscapeDataString(redirectUri);
