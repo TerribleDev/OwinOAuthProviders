@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -379,6 +380,10 @@
     <ProjectReference Include="..\src\Owin.Security.Providers.PayPal\Owin.Security.Providers.PayPal.csproj">
       <Project>{f7129064-3db7-4b79-81d3-80130d664e45}</Project>
       <Name>Owin.Security.Providers.PayPal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Podbean\Owin.Security.Providers.Podbean.csproj">
+      <Project>{a7b95fd4-08ad-499f-b574-07560cc2a63f}</Project>
+      <Name>Owin.Security.Providers.Podbean</Name>
     </ProjectReference>
     <ProjectReference Include="..\src\Owin.Security.Providers.Reddit\Owin.Security.Providers.Reddit.csproj">
       <Project>{d0cd86c8-a6f9-4c6c-9bf0-eaa461e7fbad}</Project>
