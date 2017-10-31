@@ -25,14 +25,16 @@ namespace Owin.Security.Providers.Podbean
 		/// <param name="context">The OWIN environment</param>
 		/// <param name="podcast">The <see cref="Podcast"/></param>
 		/// <param name="accessToken">Podbean Access token</param>
+		/// <param name="refreshToken">Podbean Refresh token</param>
 		/// <param name="expires">Seconds until expiration</param>
-		public PodbeanAuthenticatedContext(IOwinContext context, Podcast podcast, string accessToken, string expires)
+		public PodbeanAuthenticatedContext(IOwinContext context, Podcast podcast, string accessToken, string refreshToken, string expires)
 			: base(context)
 		{
 			Podcast = podcast;
 			Id = podcast.Id;
 			Name = podcast.Title;
 			AccessToken = accessToken;
+			RefreshToken = refreshToken;
 
 			int expiresValue;
 			if (int.TryParse(expires, NumberStyles.Integer, CultureInfo.InvariantCulture, out expiresValue))
@@ -51,6 +53,11 @@ namespace Owin.Security.Providers.Podbean
 		///     Gets the Podbean OAuth access token
 		/// </summary>
 		public string AccessToken { get; }
+
+		/// <summary>
+		///     Gets the Podbean OAuth refresh token
+		/// </summary>
+		public string RefreshToken { get; }
 
 		/// <summary>
 		///     Gets the Podbean access token expiration time

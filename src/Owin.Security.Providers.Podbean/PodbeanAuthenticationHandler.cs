@@ -83,6 +83,7 @@ namespace Owin.Security.Providers.Podbean
 				// Deserializes the token response
 				dynamic token = JsonConvert.DeserializeObject<dynamic>(text);
 				var accessToken = (string)token.access_token;
+				var refreshToken = (string)token.refresh_token;
 				var expires = (string)token.expires_in;
 				
 				// Get the Podbean podcast
@@ -102,7 +103,7 @@ namespace Owin.Security.Providers.Podbean
 				var podcastId = JsonConvert.DeserializeObject<dynamic>(text);
 				podcast.Id = (string)podcastId.podcast_id;
 
-				var context = new PodbeanAuthenticatedContext(Context, podcast, accessToken, expires)
+				var context = new PodbeanAuthenticatedContext(Context, podcast, accessToken, refreshToken, expires)
 				{
 					Identity = new ClaimsIdentity(
 						Options.AuthenticationType,
