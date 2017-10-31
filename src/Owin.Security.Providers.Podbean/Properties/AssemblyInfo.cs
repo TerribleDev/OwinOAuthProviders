@@ -1,9 +1,5 @@
-﻿#region
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
-
-#endregion
 
 [assembly: AssemblyTitle("Owin.Security.Providers.Podbean")]
 [assembly: AssemblyDescription("")]

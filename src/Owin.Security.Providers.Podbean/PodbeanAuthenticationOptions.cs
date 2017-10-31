@@ -1,13 +1,8 @@
-﻿#region
-
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-
-#endregion
 
 namespace Owin.Security.Providers.Podbean
 {
