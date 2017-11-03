@@ -307,6 +307,13 @@ namespace OwinOAuthProvidersDemo
             //      AppKey = "",
             //      AppSecret = ""
             //});
+
+            //app.UsePodbeanAuthentication(new PodbeanAuthenticationOptions
+            //{
+            //      AppId = "",
+            //      AppSecret = "",
+            //      DebugUsingRequestHeadersToBuildBaseUri = true
+            //});
         }
 	}
 }

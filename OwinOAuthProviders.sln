@@ -108,6 +108,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Eve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.WSO2", "src\Owin.Security.Providers.WSO2\Owin.Security.Providers.WSO2.csproj", "{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Podbean", "src\Owin.Security.Providers.Podbean\Owin.Security.Providers.Podbean.csproj", "{A7B95FD4-08AD-499F-B574-07560CC2A63F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -326,8 +328,15 @@ Global
 		{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDFDB942-6583-4AD9-A868-B354B5BF07FC}
 	EndGlobalSection
 EndGlobal
