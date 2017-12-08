@@ -25,7 +25,7 @@ namespace Owin.Security.Providers.Dropbox
             AccessToken = accessToken;
             User = user;
 
-            Id = TryGetValue(user, "uid");
+            Id = TryGetValue(user, "account_id");
             Name = TryGetValue(user, "display_name");
         }
 

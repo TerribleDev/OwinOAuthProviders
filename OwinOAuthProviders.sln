@@ -110,6 +110,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.WSO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISPortal", "src\Owin.Security.Providers.ArcGISPortal\Owin.Security.Providers.ArcGISPortal.csproj", "{18547CA4-D7D3-43C2-81C2-A21FC8151A93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Podbean", "src\Owin.Security.Providers.Podbean\Owin.Security.Providers.Podbean.csproj", "{A7B95FD4-08AD-499F-B574-07560CC2A63F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -328,15 +330,16 @@ Global
 		{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18547CA4-D7D3-43C2-81C2-A21FC8151A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18547CA4-D7D3-43C2-81C2-A21FC8151A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18547CA4-D7D3-43C2-81C2-A21FC8151A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18547CA4-D7D3-43C2-81C2-A21FC8151A93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B95FD4-08AD-499F-B574-07560CC2A63F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6D595CBB-96AF-4273-996E-2171F9EB9EAA}
+
+		SolutionGuid = {EDFDB942-6583-4AD9-A868-B354B5BF07FC}
 	EndGlobalSection
 EndGlobal

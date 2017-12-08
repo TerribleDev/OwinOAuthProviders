@@ -30,6 +30,7 @@ Provides a set of extra authentication providers for OWIN ([Project Katana](http
   - Onshape
   - ORCID
   - PayPal
+  - Podbean
   - Reddit
   - Salesforce
   - Shopify
