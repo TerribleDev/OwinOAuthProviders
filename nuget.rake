@@ -10,12 +10,12 @@ namespace :nuget do
       begin
       FileUtils.mkdir_p("#{NUGET}")
       File.open("#{NUGET}/nuget.exe", "wb") do |file|
-        file.write open('http://nuget.org/nuget.exe', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+        file.write open('https://dist.nuget.org/win-x86-commandline/latest/nuget.exe', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
       end
     rescue
       FileUtils.rm_rf("#{NUGET}/nuget.exe")
       File.open("#{NUGET}/nuget.exe", "wb") do |file|
-        file.write open('https://dist.nuget.org/win-x86-commandline/v3.2.0/nuget.exe', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+        file.write open('https://dist.nuget.org/win-x86-commandline/latest/nuget.exe', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
       end
     end
     end

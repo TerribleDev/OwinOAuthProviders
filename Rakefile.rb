@@ -70,8 +70,8 @@ desc 'publish nugets'
 task :nuspec_publish do
   PROJECTS.each{|dir|
     Dir.chdir(dir) do
-      sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first}"
+      sh "#{NUGET_EXE} push -Source https://api.nuget.org/v3/index.json #{FileList["*.nupkg"].first}"
     end
   }
-  sh "#{NUGET_EXE} push #{FileList["*.nupkg"].first}"
+  sh "#{NUGET_EXE} push -Source https://api.nuget.org/v3/index.json #{FileList["*.nupkg"].first}"
 end
