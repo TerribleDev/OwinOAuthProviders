@@ -5,6 +5,7 @@
 Provides a set of extra authentication providers for OWIN ([Project Katana](http://katanaproject.codeplex.com/)).  This project includes providers for:
 - OAuth
   - ArcGISOnline
+  - ArcGISPortal
   - Asana
   - Backlog
   - Battle.net

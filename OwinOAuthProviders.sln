@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISOnline", "src\Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj", "{8A49FAEF-D365-4D25-942C-1CAD03845A5E}"
 EndProject
@@ -107,6 +107,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Evernote", "src\Owin.Security.Providers.Evernote\Owin.Security.Providers.Evernote.csproj", "{B8F05057-8B9F-44CE-B983-99CB7C2E9E5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.WSO2", "src\Owin.Security.Providers.WSO2\Owin.Security.Providers.WSO2.csproj", "{8FD3A9CB-E684-42C0-A8BF-7746FDD3D43C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISPortal", "src\Owin.Security.Providers.ArcGISPortal\Owin.Security.Providers.ArcGISPortal.csproj", "{18547CA4-D7D3-43C2-81C2-A21FC8151A93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Podbean", "src\Owin.Security.Providers.Podbean\Owin.Security.Providers.Podbean.csproj", "{A7B95FD4-08AD-499F-B574-07560CC2A63F}"
 EndProject
@@ -337,6 +339,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+
 		SolutionGuid = {EDFDB942-6583-4AD9-A868-B354B5BF07FC}
 	EndGlobalSection
 EndGlobal

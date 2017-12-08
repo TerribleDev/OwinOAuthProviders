@@ -259,6 +259,10 @@
       <Project>{4fd7b873-1994-4990-aa40-c37060121494}</Project>
       <Name>Owin.Security.Providers.OpenIDBase</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.ArcGISPortal\Owin.Security.Providers.ArcGISPortal.csproj">
+      <Project>{18547ca4-d7d3-43c2-81c2-a21fc8151a93}</Project>
+      <Name>Owin.Security.Providers.ArcGISPortal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Owin.Security.Providers.ArcGISOnline\Owin.Security.Providers.ArcGISOnline.csproj">
       <Project>{8a49faef-d365-4d25-942c-1cad03845a5e}</Project>
       <Name>Owin.Security.Providers.ArcGISOnline</Name>

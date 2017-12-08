@@ -4,6 +4,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Owin.Security.Providers.Evernote;
 using Owin.Security.Providers.PayPal;
+using Owin.Security.Providers.ArcGISPortal;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -154,6 +155,12 @@ namespace OwinOAuthProvidersDemo
             //app.UseArcGISOnlineAuthentication(
             //    clientId: "",
             //    clientSecret: "");
+
+            //app.UseArcGISPortalAuthentication(new ArcGISPortalAuthenticationOptions(
+            //    "My ArcGIS Portal",
+            //    "https://arcgisportal.mydomain.com/",
+            //    "",
+            //    ""));
 
             //app.UseWordPressAuthentication(
             //    clientId: "",
