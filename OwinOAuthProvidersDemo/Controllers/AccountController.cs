@@ -419,6 +419,13 @@ namespace OwinOAuthProvidersDemo.Controllers
                     properties.Dictionary[ShopNameKey] = ShopName;
                 }
 
+                // if use Salesforce as OAuth provider you can ask for Sandbox auth endpoint 
+                // for this particular request only
+                //properties.Dictionary.Add(
+                //    Owin.Security.Providers.Salesforce.Constants.EnvironmentAuthenticationProperty,
+                //    Owin.Security.Providers.Salesforce.Constants.SandboxEnvironment
+                //    );
+
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
