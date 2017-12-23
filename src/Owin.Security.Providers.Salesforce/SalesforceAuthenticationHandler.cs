@@ -18,6 +18,12 @@ namespace Owin.Security.Providers.Salesforce
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
 
+        private const string ProductionAuthorizationEndPoint = "https://login.salesforce.com/services/oauth2/authorize";
+        private const string ProductionTokenEndpoint = "https://login.salesforce.com/services/oauth2/token";
+
+        private const string SandboxAuthorizationEndPoint = "https://test.salesforce.com/services/oauth2/authorize";
+        private const string SandboxTokenEndpoint = "https://test.salesforce.com/services/oauth2/token";
+
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
 
@@ -74,7 +80,13 @@ namespace Owin.Security.Providers.Salesforce
                     };
 
                 // Request the token
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
+                var tokenEndpoint =
+                    !String.IsNullOrEmpty(Options.Endpoints.TokenEndpoint) ?
+                    Options.Endpoints.TokenEndpoint :
+                    !String.IsNullOrEmpty(Options.Endpoints.Environment) && Options.Endpoints.Environment == Constants.SandboxEnvironment ?
+                    SandboxTokenEndpoint : ProductionTokenEndpoint;
+
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint);
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 requestMessage.Content = new FormUrlEncodedContent(body);
                 var tokenResponse = await _httpClient.SendAsync(requestMessage);
@@ -187,7 +199,13 @@ namespace Owin.Security.Providers.Salesforce
             var state = Options.StateDataFormat.Protect(properties);
 
             var authorizationEndpoint =
-                $"{Options.Endpoints.AuthorizationEndpoint}?response_type={"code"}&client_id={Options.ClientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}&display={"page"}&immediate={false}&state={Uri.EscapeDataString(state)}";
+                !String.IsNullOrEmpty(Options.Endpoints.AuthorizationEndpoint) ?
+                Options.Endpoints.AuthorizationEndpoint :
+                !String.IsNullOrEmpty(Options.Endpoints.Environment) && Options.Endpoints.Environment == Constants.SandboxEnvironment ?
+                SandboxAuthorizationEndPoint : ProductionAuthorizationEndPoint;
+
+            authorizationEndpoint =
+                $"{authorizationEndpoint}?response_type={"code"}&client_id={Options.ClientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}&display={"page"}&immediate={false}&state={Uri.EscapeDataString(state)}";
 
             if (Options.Scope != null && Options.Scope.Count > 0)
             {
