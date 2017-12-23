@@ -18,11 +18,11 @@ namespace Owin.Security.Providers.Salesforce
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
 
-        private const string ProductionAuthorizationEndPoint = "https://login.salesforce.com/services/oauth2/authorize";
-        private const string ProductionTokenEndpoint = "https://login.salesforce.com/services/oauth2/token";
+        private const string ProductionHost =    "https://login.salesforce.com";
+        private const string SandboxHost =       "https://test.salesforce.com";
 
-        private const string SandboxAuthorizationEndPoint = "https://test.salesforce.com/services/oauth2/authorize";
-        private const string SandboxTokenEndpoint = "https://test.salesforce.com/services/oauth2/token";
+        private const string AuthorizationEndpoint = "/services/oauth2/authorize";
+        private const string TokenEndpoint =     "/services/oauth2/token";
 
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
@@ -80,13 +80,7 @@ namespace Owin.Security.Providers.Salesforce
                     };
 
                 // Request the token
-                var tokenEndpoint =
-                    !String.IsNullOrEmpty(Options.Endpoints.TokenEndpoint) ?
-                    Options.Endpoints.TokenEndpoint :
-                    !String.IsNullOrEmpty(Options.Endpoints.Environment) && Options.Endpoints.Environment == Constants.SandboxEnvironment ?
-                    SandboxTokenEndpoint : ProductionTokenEndpoint;
-
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, ComposeTokenEndpoint(properties));
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 requestMessage.Content = new FormUrlEncodedContent(body);
                 var tokenResponse = await _httpClient.SendAsync(requestMessage);
@@ -198,11 +192,7 @@ namespace Owin.Security.Providers.Salesforce
 
             var state = Options.StateDataFormat.Protect(properties);
 
-            var authorizationEndpoint =
-                !String.IsNullOrEmpty(Options.Endpoints.AuthorizationEndpoint) ?
-                Options.Endpoints.AuthorizationEndpoint :
-                !String.IsNullOrEmpty(Options.Endpoints.Environment) && Options.Endpoints.Environment == Constants.SandboxEnvironment ?
-                SandboxAuthorizationEndPoint : ProductionAuthorizationEndPoint;
+            var authorizationEndpoint = ComposeAuthorizationEndpoint(properties);
 
             authorizationEndpoint =
                 $"{authorizationEndpoint}?response_type={"code"}&client_id={Options.ClientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}&display={"page"}&immediate={false}&state={Uri.EscapeDataString(state)}";
@@ -270,6 +260,67 @@ namespace Owin.Security.Providers.Salesforce
             context.RequestCompleted();
 
             return context.IsRequestCompleted;
+        }
+
+        private string ComposeAuthorizationEndpoint(AuthenticationProperties properties) {
+            string endpointPath = AuthorizationEndpoint;
+
+            string endpoint =
+                !String.IsNullOrEmpty(Options.Endpoints.AuthorizationEndpoint) ?
+                Options.Endpoints.AuthorizationEndpoint :
+                ComposeEndpoint(properties, endpointPath);
+
+            // if AuthenticationProperties for this session specifies an environment property
+            // it should take precedence over the value in AuthenticationOptions
+            string environmentProperty = null; ;
+            if (properties.Dictionary.TryGetValue(Constants.EnvironmentAuthenticationProperty, out environmentProperty)) {
+                endpoint =
+                    environmentProperty == Constants.SandboxEnvironment ?
+                    SandboxHost + endpointPath :
+                    ProductionHost + endpointPath;
+            }
+
+            return endpoint;
+        }
+
+        private string ComposeTokenEndpoint(AuthenticationProperties properties) {
+            string endpointPath = TokenEndpoint;
+
+            string endpoint =
+                !String.IsNullOrEmpty(Options.Endpoints.TokenEndpoint) ?
+                Options.Endpoints.TokenEndpoint :
+                ComposeEndpoint(properties, endpointPath);
+
+            // if AuthenticationProperties for this session specifies an environment property
+            // it should take precedence over the value in AuthenticationOptions
+            string environmentProperty = null; ;
+            if (properties.Dictionary.TryGetValue(Constants.EnvironmentAuthenticationProperty, out environmentProperty)) {
+                endpoint =
+                    environmentProperty == Constants.SandboxEnvironment ?
+                    SandboxHost + endpointPath :
+                    ProductionHost + endpointPath;
+            }
+
+            return endpoint;
+        }
+
+        private string ComposeEndpoint(AuthenticationProperties properties, string endpointPath) {
+            string endpoint =
+                !String.IsNullOrEmpty(Options.Endpoints.Environment) && Options.Endpoints.Environment == Constants.SandboxEnvironment ?
+                SandboxHost + endpointPath :
+                ProductionHost + endpointPath;
+
+            // if AuthenticationProperties for this session specifies an environment property
+            // it should take precedence over the value in AuthenticationOptions
+            string environmentProperty = null; ;
+            if (properties.Dictionary.TryGetValue(Constants.EnvironmentAuthenticationProperty, out environmentProperty)) {
+                endpoint =
+                    environmentProperty == Constants.SandboxEnvironment ?
+                    SandboxHost + endpointPath :
+                    ProductionHost + endpointPath;
+            }
+
+            return endpoint;
         }
     }
 }
