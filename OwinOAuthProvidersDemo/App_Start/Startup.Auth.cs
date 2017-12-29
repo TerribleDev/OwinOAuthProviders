@@ -126,14 +126,50 @@ namespace OwinOAuthProvidersDemo
             //    clientId: "",
             //    clientSecret: "");
 
-            //in scenarios where a sandbox URL needs to be used
-            //var salesforceOptions = new SalesforceAuthenticationOptions
+            // Salesforce Option 1: don't specify explicit Endpoint config and use Production endpoint defaults
+            //var salesforceOptions1 = new SalesforceAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    Provider = new SalesforceAuthenticationProvider()
+            //    {
+            //        OnAuthenticated = async context =>
+            //        {
+            //            System.Diagnostics.Debug.WriteLine(context.AccessToken);
+            //            System.Diagnostics.Debug.WriteLine(context.RefreshToken);
+            //            System.Diagnostics.Debug.WriteLine(context.OrganizationId);
+            //        }
+            //    }
+            //};
+
+            // Salesforce Option 2: ask for Sandbox environment; no need to know what those endpoints are
+            //var salesforceOptions2 = new SalesforceAuthenticationOptions
             //{
             //    Endpoints =
             //        new SalesforceAuthenticationOptions.SalesforceAuthenticationEndpoints
             //        {
-            //            AuthorizationEndpoint =
-            //                "https://ap1.salesforce.com/services/oauth2/authorize",
+            //            Environment = Owin.Security.Providers.Salesforce.Constants.SandboxEnvironment
+            //        },
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    Provider = new SalesforceAuthenticationProvider()
+            //    {
+            //        OnAuthenticated = async context =>
+            //        {
+            //            System.Diagnostics.Debug.WriteLine(context.AccessToken);
+            //            System.Diagnostics.Debug.WriteLine(context.RefreshToken);
+            //            System.Diagnostics.Debug.WriteLine(context.OrganizationId);
+            //        }
+            //    }
+            //};
+
+            // Salesforce Option 3: explicitly specify endpoints (will take precedence over Environment choice)
+            //var salesforceOptions3 = new SalesforceAuthenticationOptions
+            //{
+            //    Endpoints =
+            //        new SalesforceAuthenticationOptions.SalesforceAuthenticationEndpoints
+            //        {
+            //            AuthorizationEndpoint = "https://ap1.salesforce.com/services/oauth2/authorize",
             //            TokenEndpoint = "https://ap1.salesforce.com/services/oauth2/token"
             //        },
             //    ClientId = "",
@@ -148,7 +184,7 @@ namespace OwinOAuthProvidersDemo
             //        }
             //    }
             //};
-            //app.UseSalesforceAuthentication(salesforceOptions);
+            //app.UseSalesforceAuthentication(salesforceOptions1);
 
             ////app.UseShopifyAuthentication("", "");
 

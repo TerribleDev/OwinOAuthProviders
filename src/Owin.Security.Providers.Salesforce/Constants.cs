@@ -1,7 +1,11 @@
 ﻿namespace Owin.Security.Providers.Salesforce
 {
-    internal static class Constants
+    public static class Constants
     {
         public const string DefaultAuthenticationType = "Salesforce";
+
+        public const string EnvironmentAuthenticationProperty = "Environment";
+        public const string ProductionEnvironment = "Production";
+        public const string SandboxEnvironment = "Sandbox";
     }
 }

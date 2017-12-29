@@ -19,10 +19,12 @@ namespace Owin.Security.Providers.Salesforce
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             public string TokenEndpoint { get; set; }
-        }
 
-        private const string AuthorizationEndPoint = "";
-        private const string TokenEndpoint = "";
+            /// <summary>
+            /// Production or Sandbox. Use Constants.ProductionEnvironment or Constants.SandboxEnvironment
+            /// </summary>
+            public string Environment { get; set; }
+        }
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -79,8 +81,8 @@ namespace Owin.Security.Providers.Salesforce
         public string ClientSecret { get; set; }
 
         /// <summary>
-        /// Gets the sets of OAuth endpoints used to authenticate against Salesforce.  Overriding these endpoints allows you to use Salesforce Enterprise for
-        /// authentication.
+        /// Gets the sets of OAuth endpoints used to authenticate against Salesforce.  
+        /// Overriding these endpoints allows you to use Salesforce Enterprise for authentication.
         /// </summary>
         public SalesforceAuthenticationEndpoints Endpoints { get; set; }
 
@@ -127,8 +129,8 @@ namespace Owin.Security.Providers.Salesforce
             BackchannelTimeout = TimeSpan.FromSeconds(60);
             Endpoints = new SalesforceAuthenticationEndpoints
             {
-                AuthorizationEndpoint = AuthorizationEndPoint,
-                TokenEndpoint = TokenEndpoint
+                AuthorizationEndpoint = null,
+                TokenEndpoint = null
             };
         }
     }
