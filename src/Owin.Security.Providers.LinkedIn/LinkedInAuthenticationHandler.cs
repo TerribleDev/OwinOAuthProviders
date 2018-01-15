@@ -16,7 +16,7 @@ namespace Owin.Security.Providers.LinkedIn
     public class LinkedInAuthenticationHandler : AuthenticationHandler<LinkedInAuthenticationOptions>
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
-        private const string TokenEndpoint = "https://www.linkedin.com/uas/oauth2/accessToken";
+        private const string TokenEndpoint = "https://www.linkedin.com/oauth/v2/accessToken";
         private const string UserInfoEndpoint = "https://api.linkedin.com/v1/people/";
 
         private readonly ILogger _logger;
@@ -206,7 +206,7 @@ namespace Owin.Security.Providers.LinkedIn
             var state = Options.StateDataFormat.Protect(properties);
 
             var authorizationEndpoint =
-                "https://www.linkedin.com/uas/oauth2/authorization" +
+                "https://www.linkedin.com/oauth/v2/authorization" +
                 "?response_type=code" +
                 "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
                 "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
