@@ -272,7 +272,7 @@ namespace Owin.Security.Providers.Salesforce
 
             // if AuthenticationProperties for this session specifies an environment property
             // it should take precedence over the value in AuthenticationOptions
-            string environmentProperty = null; ;
+            string environmentProperty = null;
             if (properties.Dictionary.TryGetValue(Constants.EnvironmentAuthenticationProperty, out environmentProperty)) {
                 endpoint =
                     environmentProperty == Constants.SandboxEnvironment ?
