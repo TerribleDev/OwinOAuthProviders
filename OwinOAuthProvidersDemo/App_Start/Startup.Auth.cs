@@ -5,6 +5,7 @@ using Owin;
 using Owin.Security.Providers.Evernote;
 using Owin.Security.Providers.PayPal;
 using Owin.Security.Providers.ArcGISPortal;
+using Owin.Security.Providers.Typeform;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -357,6 +358,14 @@ namespace OwinOAuthProvidersDemo
             //      AppSecret = "",
             //      DebugUsingRequestHeadersToBuildBaseUri = true
             //});
+
+            //var typeformOptions = new Owin.Security.Providers.Typeform.TypeformAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //};
+            //typeformOptions.Scope.Add("forms:read");
+            //app.UseTypeformAuthentication(typeformOptions);
         }
-	}
+    }
 }
