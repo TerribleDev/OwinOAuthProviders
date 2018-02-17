@@ -359,6 +359,9 @@ namespace OwinOAuthProvidersDemo
             //      DebugUsingRequestHeadersToBuildBaseUri = true
             //});
 
+            // WARNING:
+            // Typeform doesn't supply the user's ID so use this provider for authorization only, not authentication 
+            // because each time you sign in with the same Typeform account it will yield a distinct UserId.
             //var typeformOptions = new Owin.Security.Providers.Typeform.TypeformAuthenticationOptions
             //{
             //    ClientId = "",

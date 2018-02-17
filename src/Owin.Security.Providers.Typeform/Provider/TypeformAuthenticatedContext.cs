@@ -27,10 +27,11 @@ namespace Owin.Security.Providers.Typeform
         {
             AccessToken = accessToken;
 
-            // Typeform doesn't supply a unique identifier for the user,
-            // however according to https://developer.typeform.com/get-started/applications/
-            // the access token doesn't expire so we can use it as a proxy for UserId
-            UserId = ComputeHash(accessToken);
+            // Typeform doesn't supply a unique identifier for the user, 
+            // so we generate a fake one because OWIN pipeline requires it
+            // This means you can only use Typeform OAuth for authorization, not authentication because
+            // each time you sign in with the same Typeform account this provider will yield a distinct UserId
+            UserId = Guid.NewGuid().ToString();
         }
 
         /// <summary>
@@ -41,6 +42,7 @@ namespace Owin.Security.Providers.Typeform
         /// <summary>
         /// Gets the Typeform User ID
         /// </summary>
+        [Obsolete("This is not the real UserId because Typeform OAuth endpoint does not provide it. Use Typeform OAuth for authorization, not authentication.")]
         public string UserId { get; private set; }
 
 
@@ -53,20 +55,5 @@ namespace Owin.Security.Providers.Typeform
         /// Gets or sets a property bag for common authentication properties
         /// </summary>
         public AuthenticationProperties Properties { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private static string ComputeHash(string input) 
-        {
-            if (String.IsNullOrEmpty(input)) return null;
-
-            byte[] bytes;
-            using (var hash = System.Security.Cryptography.SHA1.Create()) {
-                bytes = hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input));
-            }
-
-            return String.Concat(bytes.Select(x => x.ToString("x2")));
-        }
     }
 }
