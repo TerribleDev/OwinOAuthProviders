@@ -431,6 +431,10 @@
       <Project>{c3cf8734-6aac-4f59-9a3e-1cba8582cd48}</Project>
       <Name>Owin.Security.Providers.Twitch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Typeform\Owin.Security.Providers.Typeform.csproj">
+      <Project>{c8862b45-e1d1-4ab7-a83d-3a2fd2a22526}</Project>
+      <Name>Owin.Security.Providers.Typeform</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Owin.Security.Providers.Untappd\Owin.Security.Providers.Untappd.csproj">
       <Project>{3e89eca3-f4e7-4181-b26b-8250d5151044}</Project>
       <Name>Owin.Security.Providers.Untappd</Name>

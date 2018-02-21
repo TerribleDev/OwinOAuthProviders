@@ -5,6 +5,7 @@ using Owin;
 using Owin.Security.Providers.Evernote;
 using Owin.Security.Providers.PayPal;
 using Owin.Security.Providers.ArcGISPortal;
+using Owin.Security.Providers.Typeform;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -357,6 +358,17 @@ namespace OwinOAuthProvidersDemo
             //      AppSecret = "",
             //      DebugUsingRequestHeadersToBuildBaseUri = true
             //});
+
+            // WARNING:
+            // Typeform doesn't supply the user's ID so use this provider for authorization only, not authentication 
+            // because each time you sign in with the same Typeform account it will yield a distinct UserId.
+            //var typeformOptions = new Owin.Security.Providers.Typeform.TypeformAuthenticationOptions
+            //{
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //};
+            //typeformOptions.Scope.Add("forms:read");
+            //app.UseTypeformAuthentication(typeformOptions);
         }
-	}
+    }
 }
