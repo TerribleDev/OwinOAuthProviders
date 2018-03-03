@@ -156,7 +156,7 @@ namespace Owin.Security.Providers.VKontakte
 
             // Get the VK user
             var userRequestUri = new Uri(
-                $"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id{userId}");
+                $"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id{userId}&v=5.73");
             var userResponse = await _httpClient.GetAsync(userRequestUri, Request.CallCancelled);
             userResponse.EnsureSuccessStatusCode();
 
