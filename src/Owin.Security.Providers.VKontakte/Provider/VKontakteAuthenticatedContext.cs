@@ -25,7 +25,7 @@ namespace Owin.Security.Providers.VKontakte.Provider
             User = user;
             AccessToken = accessToken;
 
-            Id = TryGetValue(user, "uid");
+            Id = TryGetValue(user, "id");
             var firstName = TryGetValue(user, "first_name");
             var lastName = TryGetValue(user, "last_name");
             UserName = firstName + " " + lastName;
