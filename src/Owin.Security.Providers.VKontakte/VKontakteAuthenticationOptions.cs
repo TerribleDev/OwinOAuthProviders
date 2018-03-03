@@ -14,6 +14,7 @@ namespace Owin.Security.Providers.VKontakte
         private const string UserInfoEndpoint = "https://api.vk.com/method/users.get";
         private const string DefaultCallbackPath = "/signin-vkontakte";
         private const string DefaultDisplayMode = "page";
+	    private const string DefaultApiVersion = "5.73";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -100,10 +101,18 @@ namespace Owin.Security.Providers.VKontakte
         /// </summary>
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
-        /// <summary>
-        ///     Initializes a new <see cref="VKontakteAuthenticationOptions" />
-        /// </summary>
-        public VKontakteAuthenticationOptions()
+	    /// <summary>
+	    /// Default API version. Required.
+	    /// </summary>
+	    /// <remarks>
+	    /// Defaults to 5.73
+	    /// </remarks>
+	    public string ApiVersion { get; set; }
+
+		/// <summary>
+		///     Initializes a new <see cref="VKontakteAuthenticationOptions" />
+		/// </summary>
+		public VKontakteAuthenticationOptions()
             : base(Constants.DefaultAuthenticationType)
         {
             Caption = Constants.DefaultAuthenticationType;
@@ -118,6 +127,7 @@ namespace Owin.Security.Providers.VKontakte
                 TokenEndpoint = TokenEndpoint,
                 UserInfoEndpoint = UserInfoEndpoint
             };
+	        ApiVersion = DefaultApiVersion;
         }
     }
 }

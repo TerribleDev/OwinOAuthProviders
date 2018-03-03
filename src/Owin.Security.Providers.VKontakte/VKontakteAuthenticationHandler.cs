@@ -61,7 +61,7 @@ namespace Owin.Security.Providers.VKontakte
             var state = Options.StateDataFormat.Protect(properties);
 
             var authorizationEndpoint =
-                $"{Options.Endpoints.AuthorizationEndpoint}?client_id={Uri.EscapeDataString(Options.ClientId)}&redirect_uri={Uri.EscapeDataString(redirectUri)}&scope={Uri.EscapeDataString(scope)}&state={Uri.EscapeDataString(state)}&display={Uri.EscapeDataString(Options.Display)}";
+                $"{Options.Endpoints.AuthorizationEndpoint}?client_id={Uri.EscapeDataString(Options.ClientId)}&redirect_uri={Uri.EscapeDataString(redirectUri)}&scope={Uri.EscapeDataString(scope)}&state={Uri.EscapeDataString(state)}&display={Uri.EscapeDataString(Options.Display)}&v={Uri.EscapeDataString(Options.ApiVersion)}";
 
             Response.Redirect(authorizationEndpoint);
 
@@ -156,7 +156,7 @@ namespace Owin.Security.Providers.VKontakte
 
             // Get the VK user
             var userRequestUri = new Uri(
-                $"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id{userId}");
+                $"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id{userId}&v={Uri.EscapeDataString(Options.ApiVersion)}");
             var userResponse = await _httpClient.GetAsync(userRequestUri, Request.CallCancelled);
             userResponse.EnsureSuccessStatusCode();
 
