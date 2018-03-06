@@ -101,6 +101,11 @@ namespace Owin.Security.Providers.VKontakte
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         /// <summary>
+        ///     Gets or sets the VK API version
+        /// </summary>
+        public string ApiVersion { get; set; }
+
+        /// <summary>
         ///     Initializes a new <see cref="VKontakteAuthenticationOptions" />
         /// </summary>
         public VKontakteAuthenticationOptions()
@@ -112,6 +117,7 @@ namespace Owin.Security.Providers.VKontakte
             Display = DefaultDisplayMode;
             Scope = new List<string>();
             BackchannelTimeout = TimeSpan.FromSeconds(60);
+            ApiVersion = Constants.DefaultApiVersion;
             Endpoints = new VKontakteAuthenticationEndpoints
             {
                 AuthorizationEndpoint = AuthorizationEndPoint,

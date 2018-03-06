@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace Owin.Security.Providers.VKontakte.Provider
 {
@@ -19,13 +20,23 @@ namespace Owin.Security.Providers.VKontakte.Provider
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken">VK Access token</param>
-        public VKontakteAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+        /// <param name="apiVersion">VK API version</param>
+        public VKontakteAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string apiVersion)
             : base(context)
         {
             User = user;
             AccessToken = accessToken;
+            ApiVersion = apiVersion;
 
-            Id = TryGetValue(user, "uid");
+            if (CompareVersions(ApiVersion, "5.0") < 0)
+            {
+                Id = TryGetValue(user, "uid");
+            }
+            else
+            {
+                Id = TryGetValue(user, "id");
+            }
+
             var firstName = TryGetValue(user, "first_name");
             var lastName = TryGetValue(user, "last_name");
             UserName = firstName + " " + lastName;
@@ -60,6 +71,8 @@ namespace Owin.Security.Providers.VKontakte.Provider
         /// </summary>
         public ClaimsIdentity Identity { get; set; }
 
+        public string ApiVersion { get; private set; }
+
         /// <summary>
         /// Gets or sets a property bag for common authentication properties
         /// </summary>
@@ -69,6 +82,14 @@ namespace Owin.Security.Providers.VKontakte.Provider
         {
             JToken value;
             return user.TryGetValue(propertyName, out value) ? value.ToString() : null;
+        }
+
+        public static int CompareVersions(string current, string compared)
+        {
+            Version vA = new Version(current.Replace(",", "."));
+            Version vB = new Version(compared.Replace(",", "."));
+
+            return vA.CompareTo(vB);
         }
     }
 }

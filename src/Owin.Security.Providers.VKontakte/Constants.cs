@@ -3,5 +3,6 @@
     internal static class Constants
     {
         public const string DefaultAuthenticationType = "VKontakte";
+        public const string DefaultApiVersion = "5.73";
     }
 }
