@@ -61,7 +61,7 @@ namespace Owin.Security.Providers.VKontakte
             var state = Options.StateDataFormat.Protect(properties);
 
             var authorizationEndpoint =
-                $"{Options.Endpoints.AuthorizationEndpoint}?client_id={Uri.EscapeDataString(Options.ClientId)}&redirect_uri={Uri.EscapeDataString(redirectUri)}&scope={Uri.EscapeDataString(scope)}&state={Uri.EscapeDataString(state)}&display={Uri.EscapeDataString(Options.Display)}";
+                $"{Options.Endpoints.AuthorizationEndpoint}?client_id={Uri.EscapeDataString(Options.ClientId)}&redirect_uri={Uri.EscapeDataString(redirectUri)}&scope={Uri.EscapeDataString(scope)}&state={Uri.EscapeDataString(state)}&display={Uri.EscapeDataString(Options.Display)}&v={Options.ApiVersion}";
 
             Response.Redirect(authorizationEndpoint);
 
@@ -128,7 +128,7 @@ namespace Owin.Security.Providers.VKontakte
         private VKontakteAuthenticatedContext CreateAuthenticatedContext(JObject user, string accessToken,
             AuthenticationProperties properties)
         {
-            var context = new VKontakteAuthenticatedContext(Context, user, accessToken)
+            var context = new VKontakteAuthenticatedContext(Context, user, accessToken, Options.ApiVersion)
             {
                 Identity = new ClaimsIdentity(
                     Options.AuthenticationType,
@@ -156,7 +156,7 @@ namespace Owin.Security.Providers.VKontakte
 
             // Get the VK user
             var userRequestUri = new Uri(
-                $"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id{userId}");
+                $"{Options.Endpoints.UserInfoEndpoint}?access_token={Uri.EscapeDataString(accessToken)}&user_id={userId}&v={Options.ApiVersion}");
             var userResponse = await _httpClient.GetAsync(userRequestUri, Request.CallCancelled);
             userResponse.EnsureSuccessStatusCode();
 
@@ -175,7 +175,8 @@ namespace Owin.Security.Providers.VKontakte
                 {"code", authorizationCode},
                 {"redirect_uri", redirectUri},
                 {"client_id", Options.ClientId},
-                {"client_secret", Options.ClientSecret}
+                {"client_secret", Options.ClientSecret},
+                {"v", Options.ApiVersion}
             };
 
             // Request the token
