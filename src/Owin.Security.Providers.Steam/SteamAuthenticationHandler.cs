@@ -10,7 +10,7 @@ namespace Owin.Security.Providers.Steam
 {
     internal sealed class SteamAuthenticationHandler : OpenIDAuthenticationHandlerBase<SteamAuthenticationOptions>
     {
-        private readonly Regex _accountIDRegex = new Regex(@"^http://steamcommunity\.com/openid/id/(7[0-9]{15,25})$", RegexOptions.Compiled);
+        private readonly Regex _accountIDRegex = new Regex(@"^https?://steamcommunity\.com/openid/id/(7[0-9]{15,25})$", RegexOptions.Compiled);
 
         private const string UserInfoUri = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={0}&steamids={1}";
 
