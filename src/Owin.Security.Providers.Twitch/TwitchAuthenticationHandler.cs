@@ -60,8 +60,7 @@ namespace Owin.Security.Providers.Twitch
                     return new AuthenticationTicket(null, properties);
                 }
 
-                var requestPrefix = Request.Scheme + "://" + Request.Host;
-                var redirectUri = requestPrefix + Request.PathBase + Options.CallbackPath;
+                var redirectUri = GetRequestPrefix() + Request.PathBase + Options.CallbackPath;
 
                 // Build up the body for the token request
                 var body = new List<KeyValuePair<string, string>>
@@ -146,9 +145,7 @@ namespace Owin.Security.Providers.Twitch
 
             if (challenge == null) return Task.FromResult<object>(null);
             var baseUri =
-                Request.Scheme +
-                Uri.SchemeDelimiter +
-                Request.Host +
+                GetRequestPrefix() +
                 Request.PathBase;
 
             var currentUri =
@@ -236,6 +233,13 @@ namespace Owin.Security.Providers.Twitch
             context.RequestCompleted();
 
             return context.IsRequestCompleted;
+        }
+
+        private string GetRequestPrefix()
+        {
+            return String.IsNullOrEmpty(Options.RequestPrefix)
+                       ? Options.RequestPrefix
+                       : Request.Scheme + Uri.SchemeDelimiter + Request.Host;
         }
     }
 }
