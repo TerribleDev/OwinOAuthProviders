@@ -237,7 +237,7 @@ namespace Owin.Security.Providers.Twitch
 
         private string GetRequestPrefix()
         {
-            return String.IsNullOrEmpty(Options.RequestPrefix)
+            return !String.IsNullOrEmpty(Options.RequestPrefix)
                        ? Options.RequestPrefix
                        : Request.Scheme + Uri.SchemeDelimiter + Request.Host;
         }
