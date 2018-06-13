@@ -126,6 +126,11 @@ namespace Owin.Security.Providers.Twitch
         public bool ForceVerify { get; set; }
 
         /// <summary>
+        ///     Gets or sets the Request prefix
+        /// </summary>
+        public string RequestPrefix { get; set; }
+
+        /// <summary>
         ///     Initializes a new <see cref="TwitchAuthenticationOptions" />
         /// </summary>
         public TwitchAuthenticationOptions()
