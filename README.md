@@ -1,6 +1,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/gjlkpp86t8dw164f?svg=true)](https://ci.appveyor.com/project/tparnell8/owinoauthproviders)
 
-#OWIN OAuth Providers
+# OWIN OAuth Providers
 
 Provides a set of extra authentication providers for OWIN ([Project Katana](http://katanaproject.codeplex.com/)).  This project includes providers for:
 - OAuth
