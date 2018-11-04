@@ -39,7 +39,7 @@ namespace Owin.Security.Providers.Discord.Provider
             Discriminator = TryGetValue(user, "discriminator");
             Avatar = TryGetValue(user, "avatar");
             Email = TryGetValue(user, "email");
-            Verified = TryGetValue(user, "verified") == "true";
+            Verified = TryGetValue(user, "verified").ToLowerInvariant() == "true";
         }
 
         public string RefreshToken { get; set; }
