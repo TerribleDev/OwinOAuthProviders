@@ -27,6 +27,21 @@ namespace Owin.Security.Providers.Salesforce
         }
 
         /// <summary>
+        /// Options for Display Mode
+        ///     Changes the login and authorization pages’ display type. Salesforce supports these values.
+        ///     page—Full-page authorization screen(default)
+        ///     popup—Compact dialog optimized for modern web browser popup windows
+        ///     touch—Mobile-optimized dialog designed for modern smartphones, such as Android and iPhone
+        ///     mobile—Mobile-optimized dialog designed for less capable smartphones, such as BlackBerry OS 5
+        /// </summary>
+        public enum Display{
+            page,
+            popup,
+            touch,
+            mobile
+        }
+        
+        /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
         ///     in back channel communications belong to Salesforce.
         /// </summary>
@@ -110,6 +125,10 @@ namespace Owin.Security.Providers.Salesforce
         ///     <see cref="System.Security.Claims.ClaimsIdentity" />.
         /// </summary>
         public string SignInAsAuthenticationType { get; set; }
+        /// <summary>
+        ///     Gets or sets the display—(Optional) 
+        /// </summary>
+        public Display DisplayMode { get; set; }
 
         /// <summary>
         ///     Gets or sets the type used to secure data handled by the middleware.

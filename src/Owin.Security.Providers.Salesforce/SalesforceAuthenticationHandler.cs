@@ -195,7 +195,7 @@ namespace Owin.Security.Providers.Salesforce
             var authorizationEndpoint = ComposeAuthorizationEndpoint(properties);
 
             authorizationEndpoint =
-                $"{authorizationEndpoint}?response_type={"code"}&client_id={Options.ClientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}&display={"page"}&immediate={false}&state={Uri.EscapeDataString(state)}";
+                $"{authorizationEndpoint}?response_type={"code"}&client_id={Options.ClientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}&display={Options.DisplayMode}&immediate={false}&state={Uri.EscapeDataString(state)}";
 
             if (Options.Scope != null && Options.Scope.Count > 0)
             {
