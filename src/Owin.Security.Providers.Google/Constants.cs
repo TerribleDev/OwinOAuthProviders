@@ -1,4 +1,4 @@
-﻿namespace Owin.Security.Providers.GooglePlus
+﻿namespace Owin.Security.Providers.Google
 {
     internal static class Constants
     {

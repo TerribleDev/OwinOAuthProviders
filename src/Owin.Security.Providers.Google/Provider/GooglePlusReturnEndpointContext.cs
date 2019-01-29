@@ -4,7 +4,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
 
-namespace Owin.Security.Providers.GooglePlus.Provider
+namespace Owin.Security.Providers.Google.Provider
 {
     /// <summary>
     /// Provides context information to middleware providers.

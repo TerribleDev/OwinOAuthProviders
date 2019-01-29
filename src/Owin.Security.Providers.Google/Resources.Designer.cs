@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Owin.Security.Providers.GooglePlus {
+namespace Owin.Security.Providers.Google {
     using System;
     
     

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Owin.Security.Providers.GooglePlus.Provider
+namespace Owin.Security.Providers.Google.Provider
 {
     /// <summary>
     /// Default <see cref="IGooglePlusAuthenticationProvider"/> implementation.

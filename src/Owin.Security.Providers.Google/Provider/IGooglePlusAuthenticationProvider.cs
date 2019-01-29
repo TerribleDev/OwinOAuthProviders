@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Owin.Security.Providers.GooglePlus.Provider
+namespace Owin.Security.Providers.Google.Provider
 {
     /// <summary>
     /// Specifies callback methods which the <see cref="GooglePlusAuthenticationMiddleware"></see> invokes to enable developer control over the authentication process. />

@@ -9,9 +9,9 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.Google.Provider;
 
-namespace Owin.Security.Providers.GooglePlus
+namespace Owin.Security.Providers.Google
 {
     public class GooglePlusAuthenticationHandler : AuthenticationHandler<GooglePlusAuthenticationOptions>
     {

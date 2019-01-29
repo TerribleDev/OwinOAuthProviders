@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Owin.Security.Providers.GooglePlus.Provider;
+using Owin.Security.Providers.Google.Provider;
 
-namespace Owin.Security.Providers.GooglePlus
+namespace Owin.Security.Providers.Google
 {
     public class GooglePlusAuthenticationOptions : AuthenticationOptions
     {
