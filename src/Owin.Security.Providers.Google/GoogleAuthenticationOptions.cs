@@ -100,6 +100,7 @@ namespace Owin.Security.Providers.Google
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {
+                "openid",
                 "profile",
                 "email"
             };

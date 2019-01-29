@@ -17,8 +17,9 @@ namespace Owin.Security.Providers.Google
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string TokenEndpoint = "https://accounts.google.com/o/oauth2/token";
+        // TODO: This url should come from here: https://accounts.google.com/.well-known/openid-configuration
+        // TODO: as described by https://developers.google.com/identity/protocols/OpenIDConnect#discovery
         private const string UserInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
-        private const string GooglePlusUserEndpoint = "https://www.googleapis.com/plus/v1/people/me";
 
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
@@ -94,16 +95,9 @@ namespace Owin.Security.Providers.Google
                     UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
                 graphResponse.EnsureSuccessStatusCode();
                 text = await graphResponse.Content.ReadAsStringAsync();
-                var user = JObject.Parse(text);
+                var userInfo = JObject.Parse(text);
 
-                // Get the Google+ Person Info
-                graphResponse = await _httpClient.GetAsync(
-                    GooglePlusUserEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken), Request.CallCancelled);
-                graphResponse.EnsureSuccessStatusCode();
-                text = await graphResponse.Content.ReadAsStringAsync();
-                var person = JObject.Parse(text);
-
-                var context = new GoogleAuthenticatedContext(Context, user, person, accessToken, expires, refreshToken)
+                var context = new GoogleAuthenticatedContext(Context, userInfo, accessToken, expires, refreshToken)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
@@ -124,11 +118,11 @@ namespace Owin.Security.Providers.Google
                 }
                 if (!string.IsNullOrEmpty(context.Name))
                 {
-                    context.Identity.AddClaim(new Claim("urn:googleplus:name", context.Name, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:google:name", context.Name, XmlSchemaString, Options.AuthenticationType));
                 }
                 if (!string.IsNullOrEmpty(context.Link))
                 {
-                    context.Identity.AddClaim(new Claim("urn:googleplus:url", context.Link, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim("urn:google:url", context.Link, XmlSchemaString, Options.AuthenticationType));
                 }
                 context.Properties = properties;
 

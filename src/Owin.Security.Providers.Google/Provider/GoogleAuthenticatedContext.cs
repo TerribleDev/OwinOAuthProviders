@@ -2,7 +2,6 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -20,16 +19,14 @@ namespace Owin.Security.Providers.Google.Provider
         /// Initializes a <see cref="GoogleAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
-        /// <param name="user">The JSON-serialized user</param>
-        /// <param name="person"></param>
-        /// <param name="accessToken">Google+ Access token</param>
+        /// <param name="userInfo">The JSON-serialized user_info. Format described here: https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims</param>
+        /// <param name="accessToken">Google Access token</param>
         /// <param name="expires">Seconds until expiration</param>
         /// <param name="refreshToken"></param>
-        public GoogleAuthenticatedContext(IOwinContext context, JObject user, JObject person, string accessToken, string expires, string refreshToken)
+        public GoogleAuthenticatedContext(IOwinContext context, JObject userInfo, string accessToken, string expires, string refreshToken)
             : base(context)
         {
-            User = user;
-            Person = person;
+            UserInfo = userInfo;
             AccessToken = accessToken;
             RefreshToken = refreshToken;
 
@@ -39,16 +36,15 @@ namespace Owin.Security.Providers.Google.Provider
                 ExpiresIn = TimeSpan.FromSeconds(expiresValue);
             }
 
-            Id = TryGetValue(person, "id");
-            Name = TryGetValue(person, "displayName");
-            Link = TryGetValue(person, "url");
-            UserName = TryGetValue(person, "displayName").Replace(" ", "");
+            // See https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims for a list of properties
+            Id = TryGetValue(userInfo, "sub");
+            Name = TryGetValue(userInfo, "name");
+            Link = TryGetValue(userInfo, "profile");
+            UserName = TryGetValue(userInfo, "name").Replace(" ", "");
 
-            var email = (from e in person["emails"]
-                where e["type"].ToString() == "account"
-                select e).FirstOrDefault();
+            var email = TryGetValue(userInfo, "email");
             if (email != null)
-                Email = email["value"].ToString();
+                Email = email;
         }
 
         /// <summary>
@@ -57,16 +53,7 @@ namespace Owin.Security.Providers.Google.Provider
         /// <remarks>
         /// Contains the Google user obtained from the endpoint https://www.googleapis.com/oauth2/v3/userinfo
         /// </remarks>
-        public JObject User { get; private set; }
-
-        /// <summary>
-        /// Gets the JSON-serialized person
-        /// </summary>
-        /// <remarks>
-        /// Contains the Google+ person obtained from the endpoint https://www.googleapis.com/plus/v1/people/me.  For more information
-        /// see https://developers.google.com/+/api/latest/people
-        /// </remarks>
-        public JObject Person { get; private set; }
+        public JObject UserInfo { get; private set; }
 
         /// <summary>
         /// Gets the Google OAuth access token
@@ -79,12 +66,12 @@ namespace Owin.Security.Providers.Google.Provider
         public string RefreshToken { get; private set; }
 
         /// <summary>
-        /// Gets the Google+ access token expiration time
+        /// Gets the Google access token expiration time
         /// </summary>
         public TimeSpan? ExpiresIn { get; set; }
 
         /// <summary>
-        /// Gets the Google+ user ID
+        /// Gets the Google user ID
         /// </summary>
         public string Id { get; private set; }
 
@@ -96,12 +83,12 @@ namespace Owin.Security.Providers.Google.Provider
         public string Link { get; private set; }
 
         /// <summary>
-        /// Gets the Google+ username
+        /// Gets the Google username
         /// </summary>
         public string UserName { get; private set; }
 
         /// <summary>
-        /// Gets the Google+ email address for the account
+        /// Gets the Google email address for the account
         /// </summary>
         public string Email { get; private set; }
 
