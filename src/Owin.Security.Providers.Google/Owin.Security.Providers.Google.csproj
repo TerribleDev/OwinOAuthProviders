@@ -61,14 +61,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="GooglePlusAuthenticationExtensions.cs" />
-    <Compile Include="GooglePlusAuthenticationHandler.cs" />
-    <Compile Include="GooglePlusAuthenticationMiddleware.cs" />
-    <Compile Include="GooglePlusAuthenticationOptions.cs" />
-    <Compile Include="Provider\GooglePlusAuthenticatedContext.cs" />
-    <Compile Include="Provider\GooglePlusAuthenticationProvider.cs" />
-    <Compile Include="Provider\GooglePlusReturnEndpointContext.cs" />
-    <Compile Include="Provider\IGooglePlusAuthenticationProvider.cs" />
+    <Compile Include="GoogleAuthenticationExtensions.cs" />
+    <Compile Include="GoogleAuthenticationHandler.cs" />
+    <Compile Include="GoogleAuthenticationMiddleware.cs" />
+    <Compile Include="GoogleAuthenticationOptions.cs" />
+    <Compile Include="Provider\GoogleAuthenticatedContext.cs" />
+    <Compile Include="Provider\GoogleAuthenticationProvider.cs" />
+    <Compile Include="Provider\GoogleReturnEndpointContext.cs" />
+    <Compile Include="Provider\IGoogleAuthenticationProvider.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

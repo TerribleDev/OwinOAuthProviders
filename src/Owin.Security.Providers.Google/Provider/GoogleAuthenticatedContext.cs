@@ -14,10 +14,10 @@ namespace Owin.Security.Providers.Google.Provider
     /// <summary>
     /// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
     /// </summary>
-    public class GooglePlusAuthenticatedContext : BaseContext
+    public class GoogleAuthenticatedContext : BaseContext
     {
         /// <summary>
-        /// Initializes a <see cref="GooglePlusAuthenticatedContext"/>
+        /// Initializes a <see cref="GoogleAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
@@ -25,7 +25,7 @@ namespace Owin.Security.Providers.Google.Provider
         /// <param name="accessToken">Google+ Access token</param>
         /// <param name="expires">Seconds until expiration</param>
         /// <param name="refreshToken"></param>
-        public GooglePlusAuthenticatedContext(IOwinContext context, JObject user, JObject person, string accessToken, string expires, string refreshToken)
+        public GoogleAuthenticatedContext(IOwinContext context, JObject user, JObject person, string accessToken, string expires, string refreshToken)
             : base(context)
         {
             User = user;
@@ -74,7 +74,7 @@ namespace Owin.Security.Providers.Google.Provider
         public string AccessToken { get; private set; }
 
         /// <summary>
-        /// Gets the Google OAuth refresh token.  This is only available when the RequestOfflineAccess property of <see cref="GooglePlusAuthenticationOptions"/> is set to true
+        /// Gets the Google OAuth refresh token.  This is only available when the RequestOfflineAccess property of <see cref="GoogleAuthenticationOptions"/> is set to true
         /// </summary>
         public string RefreshToken { get; private set; }
 

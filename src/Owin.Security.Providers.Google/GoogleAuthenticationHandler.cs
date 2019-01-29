@@ -13,7 +13,7 @@ using Owin.Security.Providers.Google.Provider;
 
 namespace Owin.Security.Providers.Google
 {
-    public class GooglePlusAuthenticationHandler : AuthenticationHandler<GooglePlusAuthenticationOptions>
+    public class GoogleAuthenticationHandler : AuthenticationHandler<GoogleAuthenticationOptions>
     {
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private const string TokenEndpoint = "https://accounts.google.com/o/oauth2/token";
@@ -23,7 +23,7 @@ namespace Owin.Security.Providers.Google
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
 
-        public GooglePlusAuthenticationHandler(HttpClient httpClient, ILogger logger)
+        public GoogleAuthenticationHandler(HttpClient httpClient, ILogger logger)
         {
             _httpClient = httpClient;
             _logger = logger;
@@ -103,7 +103,7 @@ namespace Owin.Security.Providers.Google
                 text = await graphResponse.Content.ReadAsStringAsync();
                 var person = JObject.Parse(text);
 
-                var context = new GooglePlusAuthenticatedContext(Context, user, person, accessToken, expires, refreshToken)
+                var context = new GoogleAuthenticatedContext(Context, user, person, accessToken, expires, refreshToken)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
@@ -221,7 +221,7 @@ namespace Owin.Security.Providers.Google
                 return true;
             }
 
-            var context = new GooglePlusReturnEndpointContext(Context, ticket)
+            var context = new GoogleReturnEndpointContext(Context, ticket)
             {
                 SignInAsAuthenticationType = Options.SignInAsAuthenticationType,
                 RedirectUri = ticket.Properties.RedirectUri

@@ -9,14 +9,14 @@ namespace Owin.Security.Providers.Google.Provider
     /// <summary>
     /// Provides context information to middleware providers.
     /// </summary>
-    public class GooglePlusReturnEndpointContext : ReturnEndpointContext
+    public class GoogleReturnEndpointContext : ReturnEndpointContext
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context">OWIN environment</param>
         /// <param name="ticket">The authentication ticket</param>
-        public GooglePlusReturnEndpointContext(
+        public GoogleReturnEndpointContext(
             IOwinContext context,
             AuthenticationTicket ticket)
             : base(context, ticket)

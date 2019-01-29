@@ -11,13 +11,13 @@ using Owin.Security.Providers.Google.Provider;
 
 namespace Owin.Security.Providers.Google
 {
-    public class GooglePlusAuthenticationMiddleware : AuthenticationMiddleware<GooglePlusAuthenticationOptions>
+    public class GoogleAuthenticationMiddleware : AuthenticationMiddleware<GoogleAuthenticationOptions>
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger _logger;
 
-        public GooglePlusAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
-            GooglePlusAuthenticationOptions options)
+        public GoogleAuthenticationMiddleware(OwinMiddleware next, IAppBuilder app,
+            GoogleAuthenticationOptions options)
             : base(next, options)
         {
             if (string.IsNullOrWhiteSpace(Options.ClientId))
@@ -27,15 +27,15 @@ namespace Owin.Security.Providers.Google
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture,
                     Resources.Exception_OptionMustBeProvided, "ClientSecret"));
 
-            _logger = app.CreateLogger<GooglePlusAuthenticationMiddleware>();
+            _logger = app.CreateLogger<GoogleAuthenticationMiddleware>();
 
             if (Options.Provider == null)
-                Options.Provider = new GooglePlusAuthenticationProvider();
+                Options.Provider = new GoogleAuthenticationProvider();
 
             if (Options.StateDataFormat == null)
             {
                 var dataProtector = app.CreateDataProtector(
-                    typeof (GooglePlusAuthenticationMiddleware).FullName,
+                    typeof (GoogleAuthenticationMiddleware).FullName,
                     Options.AuthenticationType, "v1");
                 Options.StateDataFormat = new PropertiesDataFormat(dataProtector);
             }
@@ -58,12 +58,12 @@ namespace Owin.Security.Providers.Google
         ///     An <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configured with the
         ///     <see cref="T:Owin.Security.Providers.GooglePlus.GooglePlusAuthenticationOptions" /> supplied to the constructor.
         /// </returns>
-        protected override AuthenticationHandler<GooglePlusAuthenticationOptions> CreateHandler()
+        protected override AuthenticationHandler<GoogleAuthenticationOptions> CreateHandler()
         {
-            return new GooglePlusAuthenticationHandler(_httpClient, _logger);
+            return new GoogleAuthenticationHandler(_httpClient, _logger);
         }
 
-        private static HttpMessageHandler ResolveHttpMessageHandler(GooglePlusAuthenticationOptions options)
+        private static HttpMessageHandler ResolveHttpMessageHandler(GoogleAuthenticationOptions options)
         {
             var handler = options.BackchannelHttpHandler ?? new WebRequestHandler();
 

@@ -7,7 +7,7 @@ using Owin.Security.Providers.Google.Provider;
 
 namespace Owin.Security.Providers.Google
 {
-    public class GooglePlusAuthenticationOptions : AuthenticationOptions
+    public class GoogleAuthenticationOptions : AuthenticationOptions
     {
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -70,12 +70,12 @@ namespace Owin.Security.Providers.Google
         public IList<string> MomentTypes { get; private set; }
 
         /// <summary>
-        ///     Gets or sets the <see cref="IGooglePlusAuthenticationProvider" /> used in the authentication events
+        ///     Gets or sets the <see cref="IGoogleAuthenticationProvider" /> used in the authentication events
         /// </summary>
-        public IGooglePlusAuthenticationProvider Provider { get; set; }
+        public IGoogleAuthenticationProvider Provider { get; set; }
 
         /// <summary>
-        /// Gets or sets whether to request offline access.  If offline access is requested the <see cref="GooglePlusAuthenticatedContext"/> will contain a Refresh Token.
+        /// Gets or sets whether to request offline access.  If offline access is requested the <see cref="GoogleAuthenticatedContext"/> will contain a Refresh Token.
         /// </summary>
         public bool RequestOfflineAccess { get; set; }
 
@@ -96,9 +96,9 @@ namespace Owin.Security.Providers.Google
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         /// <summary>
-        ///     Initializes a new <see cref="GooglePlusAuthenticationOptions" />
+        ///     Initializes a new <see cref="GoogleAuthenticationOptions" />
         /// </summary>
-        public GooglePlusAuthenticationOptions()
+        public GoogleAuthenticationOptions()
             : base("GooglePlus")
         {
             Caption = Constants.DefaultAuthenticationType;
