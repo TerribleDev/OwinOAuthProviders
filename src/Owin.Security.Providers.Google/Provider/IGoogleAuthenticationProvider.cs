@@ -8,7 +8,7 @@ namespace Owin.Security.Providers.Google.Provider
     public interface IGoogleAuthenticationProvider
     {
         /// <summary>
-        /// Invoked whenever Google+ successfully authenticates a user
+        /// Invoked whenever Google successfully authenticates a user
         /// </summary>
         /// <param name="context">Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the completed operation.</returns>
