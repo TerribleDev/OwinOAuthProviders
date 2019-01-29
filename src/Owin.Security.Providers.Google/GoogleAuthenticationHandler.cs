@@ -194,10 +194,6 @@ namespace Owin.Security.Providers.Google
             if (Options.RequestOfflineAccess)
                 authorizationEndpoint += "&access_type=offline";
 
-            // Request the moment types
-            if (Options.MomentTypes.Count > 0)
-                authorizationEndpoint += $"&request_visible_actions={string.Join(" ", Options.MomentTypes)}";
-
             Response.Redirect(authorizationEndpoint);
 
             return Task.FromResult<object>(null);

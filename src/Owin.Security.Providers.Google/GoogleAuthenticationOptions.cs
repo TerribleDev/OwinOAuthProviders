@@ -11,7 +11,7 @@ namespace Owin.Security.Providers.Google
     {
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
-        ///     in back channel communications belong to Google+.
+        ///     in back channel communications belonging to Google.
         /// </summary>
         /// <value>
         ///     The pinned certificate validator.
@@ -23,14 +23,14 @@ namespace Owin.Security.Providers.Google
         public ICertificateValidator BackchannelCertificateValidator { get; set; }
 
         /// <summary>
-        ///     The HttpMessageHandler used to communicate with Google+.
+        ///     The HttpMessageHandler used to communicate with Google.
         ///     This cannot be set at the same time as BackchannelCertificateValidator unless the value
         ///     can be downcast to a WebRequestHandler.
         /// </summary>
         public HttpMessageHandler BackchannelHttpHandler { get; set; }
 
         /// <summary>
-        ///     Gets or sets timeout value in milliseconds for back channel communications with Google+.
+        ///     Gets or sets timeout value in milliseconds for back channel communications with Google.
         /// </summary>
         /// <value>
         ///     The back channel timeout in milliseconds.
@@ -40,7 +40,7 @@ namespace Owin.Security.Providers.Google
         /// <summary>
         ///     The request path within the application's base path where the user-agent will be returned.
         ///     The middleware will process this request when it arrives.
-        ///     Default value is "/signin-googleplus".
+        ///     Default value is "/signin-google".
         /// </summary>
         public PathString CallbackPath { get; set; }
 
@@ -62,12 +62,6 @@ namespace Owin.Security.Providers.Google
         ///     Gets or sets the Google supplied Client Secret
         /// </summary>
         public string ClientSecret { get; set; }
-
-        /// <summary>
-        /// The list of moment types which you application wants to write. During authentication this will be passed through via the request_visible_actions parameter.
-        /// For more information of the moment types you may request, see https://developers.google.com/+/api/moment-types/
-        /// </summary>
-        public IList<string> MomentTypes { get; private set; }
 
         /// <summary>
         ///     Gets or sets the <see cref="IGoogleAuthenticationProvider" /> used in the authentication events
@@ -99,16 +93,15 @@ namespace Owin.Security.Providers.Google
         ///     Initializes a new <see cref="GoogleAuthenticationOptions" />
         /// </summary>
         public GoogleAuthenticationOptions()
-            : base("GooglePlus")
+            : base("Google")
         {
             Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString("/signin-googleplus");
+            CallbackPath = new PathString("/signin-google");
             AuthenticationMode = AuthenticationMode.Passive;
-            MomentTypes = new List<string>();
             Scope = new List<string>
             {
-                "https://www.googleapis.com/auth/plus.login",
-                "https://www.googleapis.com/auth/plus.profile.emails.read"
+                "profile",
+                "email"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }
