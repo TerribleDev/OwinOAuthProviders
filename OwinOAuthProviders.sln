@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -113,6 +113,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.ArcGISPortal", "src\Owin.Security.Providers.ArcGISPortal\Owin.Security.Providers.ArcGISPortal.csproj", "{18547CA4-D7D3-43C2-81C2-A21FC8151A93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Typeform", "src\Owin.Security.Providers.Typeform\Owin.Security.Providers.Typeform.csproj", "{C8862B45-E1D1-4AB7-A83D-3A2FD2A22526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.Google", "src\Owin.Security.Providers.Google\Owin.Security.Providers.Google.csproj", "{ED434959-8CF8-4CAB-83B3-E4A618327AB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -344,6 +346,10 @@ Global
 		{C8862B45-E1D1-4AB7-A83D-3A2FD2A22526}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8862B45-E1D1-4AB7-A83D-3A2FD2A22526}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8862B45-E1D1-4AB7-A83D-3A2FD2A22526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED434959-8CF8-4CAB-83B3-E4A618327AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED434959-8CF8-4CAB-83B3-E4A618327AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED434959-8CF8-4CAB-83B3-E4A618327AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED434959-8CF8-4CAB-83B3-E4A618327AB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
