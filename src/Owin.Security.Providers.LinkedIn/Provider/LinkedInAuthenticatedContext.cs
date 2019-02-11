@@ -6,8 +6,8 @@ using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Provider;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Owin.Security.Providers.LinkedIn
 {
@@ -26,26 +26,35 @@ namespace Owin.Security.Providers.LinkedIn
         public LinkedInAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires)
             : base(context)
         {
-            User = user;
-            AccessToken = accessToken;
+            this.User = user;
+            this.AccessToken = accessToken;
 
             int expiresValue;
             if (int.TryParse(expires, NumberStyles.Integer, CultureInfo.InvariantCulture, out expiresValue))
             {
-                ExpiresIn = TimeSpan.FromSeconds(expiresValue);
+                this.ExpiresIn = TimeSpan.FromSeconds(expiresValue);
             }
 
-            Id = TryGetValue(user, "id");
-            Name = TryGetValue(user, "formattedName");
-            FamilyName = TryGetValue(user, "lastName");
-            GivenName = TryGetValue(user, "firstName");
-            Link = TryGetValue(user, "publicProfileUrl");
-            UserName = TryGetValue(user, "formattedName").Replace(" ", "");
-            Email = TryGetValue(user, "emailAddress");
-            Industry = TryGetValue(user, "industry");
-            Summary = TryGetValue(user, "summary");
-            Headline = TryGetValue(user, "headline");
-            Positions = TryGetValueAndSerialize(user, "positions");
+            this.Id = TryGetValue(user, "id");
+            this.FamilyName = TryGetLocalizedValue(user, "lastName");
+            this.GivenName = TryGetLocalizedValue(user, "firstName");
+            if (this.FamilyName != null || this.GivenName != null)
+            {
+                this.Name = string.Join(" ", this.GivenName, this.FamilyName);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a <see cref="LinkedInAuthenticatedContext"/>
+        /// </summary>
+        /// <param name="context">The OWIN environment</param>
+        /// <param name="user">The JSON-serialized user</param>
+        /// <param name="accessToken">LinkedIn Access token</param>
+        /// <param name="expires">Seconds until expiration</param>
+        /// <param name="expires">User email returned from dedicated endpoint</param>
+        public LinkedInAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires, string email) : this(context, user, accessToken, expires)
+        {
+            this.Email = email;
         }
 
         /// <summary>
@@ -95,25 +104,30 @@ namespace Owin.Security.Providers.LinkedIn
         /// <summary>
         /// Describes the users membership profile
         /// </summary>
+        [Obsolete("LinkedIn doesn't return this claim anymore.")]
         public string Summary { get; private set; }
 
         /// <summary>
         /// Industry the member belongs to
         /// https://developer.linkedin.com/docs/reference/industry-codes
         /// </summary>
+        [Obsolete("LinkedIn doesn't return this claim anymore.")]
         public string Industry { get; set; }
 
         /// <summary>
         /// The members headline
         /// </summary>
+        [Obsolete("LinkedIn doesn't return this claim anymore.")]
         public string Headline { get; set; }
 
         /// <summary>
         /// Member's current positions
         /// https://developer.linkedin.com/docs/fields/positions
         /// </summary>
+        [Obsolete("LinkedIn doesn't return this claim anymore.")]
         public string Positions { get; set; }
 
+        [Obsolete("LinkedIn doesn't return this claim anymore.")]
         public string Link { get; private set; }
 
         /// <summary>
@@ -142,5 +156,28 @@ namespace Owin.Security.Providers.LinkedIn
             JToken value;
             return user.TryGetValue(propertyName, out value) ? JsonConvert.SerializeObject(value) : null;
         }
+
+        private static string TryGetLocalizedValue(JObject container, string propertyName)
+        {
+            var localizedValues = container.SelectToken(propertyName + ".localized") as JObject;
+            if (localizedValues == null)
+            {
+                return null;
+            }
+
+            var defaultValue = TryGetValue(localizedValues, "en-US");
+            if (defaultValue != null)
+            {
+                return defaultValue;
+            }
+
+            if (localizedValues.HasValues)
+            {
+                return localizedValues.First.First.Value<string>();
+            }
+
+            return null;
+        }
+
     }
 }

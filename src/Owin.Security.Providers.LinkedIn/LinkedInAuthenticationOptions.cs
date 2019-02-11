@@ -9,6 +9,11 @@ namespace Owin.Security.Providers.LinkedIn
     public class LinkedInAuthenticationOptions : AuthenticationOptions
     {
         /// <summary>
+        /// The calim name that is used to request permission to retrieve the user address during the authorization call
+        /// </summary>
+        public const string EmailAddressScopeName = "r_emailaddress";
+
+        /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
         ///     in back channel communications belong to LinkedIn.
         /// </summary>
@@ -118,22 +123,15 @@ namespace Owin.Security.Providers.LinkedIn
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {
-                "r_basicprofile",
-                "r_emailaddress"
+                "r_liteprofile",
+                EmailAddressScopeName
             };
             ProfileFields = new List<string>
             {
                 "id",
-                "first-name",
-                "last-name",
-                "formatted-name",
-                "email-address",
-                "public-profile-url",
-                "picture-url",
-                "industry",
-                "headline",
-                "summary",
-                "positions"
+                "firstName",
+                "lastName",
+                "profilePicture(displayImage~:playableStreams)"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
         }
