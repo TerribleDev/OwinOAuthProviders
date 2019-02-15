@@ -95,6 +95,8 @@ namespace Owin.Security.Providers.Spotify
                 var accessToken = (string)response.access_token;
                 var refreshToken = (string)response.refresh_token;
                 var expiresIn = (string)response.expires_in;
+                var scope = (string)response.scope;
+                var tokenType = (string)response.token_type;
 
                 // Get the Spotify user
                 var graphRequest = new HttpRequestMessage(HttpMethod.Get, UserInfoEndpoint);
@@ -124,6 +126,12 @@ namespace Owin.Security.Providers.Spotify
                 {
                     context.Identity.AddClaim(new Claim("urn:spotify:profilepicture", context.ProfilePicture, XmlSchemaString, Options.AuthenticationType));
                 }
+                context.Identity.AddClaim(new Claim("urn:spotify:accessToken", accessToken, XmlSchemaString, Options.AuthenticationType));
+                context.Identity.AddClaim(new Claim("urn:spotify:refreshToken", refreshToken, XmlSchemaString, Options.AuthenticationType));
+                context.Identity.AddClaim(new Claim("urn:spotify:expiresIn", expiresIn, XmlSchemaString, Options.AuthenticationType));
+                context.Identity.AddClaim(new Claim("urn:spotify:scope", scope, XmlSchemaString, Options.AuthenticationType));
+                context.Identity.AddClaim(new Claim("urn:spotify:tokenType", tokenType, XmlSchemaString, Options.AuthenticationType));
+
                 context.Properties = properties;
 
                 await Options.Provider.Authenticated(context);
