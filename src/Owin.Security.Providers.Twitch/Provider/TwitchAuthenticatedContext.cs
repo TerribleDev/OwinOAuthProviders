@@ -17,19 +17,19 @@ namespace Owin.Security.Providers.Twitch
         /// Initializes a <see cref="TwitchAuthenticatedContext"/>
         /// </summary>
         /// <param name="context">The OWIN environment</param>
-        /// <param name="user">The JSON-serialized user</param>
+        /// <param name="users">The JSON-serialized users</param>
         /// <param name="accessToken">Twitch Access token</param>
-        public TwitchAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
+        public TwitchAuthenticatedContext(IOwinContext context, JObject users, string accessToken)
             : base(context)
         {
             User = (JObject) ((JArray) users.GetValue("data")).First;
             AccessToken = accessToken;
 
-            Id = TryGetValue(user, "_id");
-            Name = TryGetValue(user, "name");
-            Link = TryGetValue(user, "url");
-            UserName = TryGetValue(user, "name");
-            Email = TryGetValue(user, "email");
+            Id = TryGetValue(User, "_id");
+            Name = TryGetValue(User, "name");
+            Link = TryGetValue(User, "url");
+            UserName = TryGetValue(User, "name");
+            Email = TryGetValue(User, "email");
         }
 
         /// <summary>
