@@ -14,7 +14,7 @@ namespace Owin.Security.Providers.Twitch
             /// Endpoint which is used to redirect users to request Twitch access
             /// </summary>
             /// <remarks>
-            /// Defaults to https://api.twitch.tv/kraken/oauth2/authorize
+            /// Defaults to https://id.twitch.tv/oauth2/authorize
             /// </remarks>
             public string AuthorizationEndpoint { get; set; }
 
@@ -22,7 +22,7 @@ namespace Owin.Security.Providers.Twitch
             /// Endpoint which is used to exchange code for access token
             /// </summary>
             /// <remarks>
-            /// Defaults to https://api.twitch.tv/kraken/oauth2/token
+            /// Defaults to https://id.twitch.tv/oauth2/token
             /// </remarks>
             public string TokenEndpoint { get; set; }
 
@@ -30,14 +30,14 @@ namespace Owin.Security.Providers.Twitch
             /// Endpoint which is used to obtain user information after authentication
             /// </summary>
             /// <remarks>
-            /// Defaults to https://api.twitch.tv/kraken/user
+            /// Defaults to https://api.twitch.tv/helix/users
             /// </remarks>
             public string UserInfoEndpoint { get; set; }
         }
 
-        private const string AuthorizationEndPoint = "https://api.twitch.tv/kraken/oauth2/authorize";
-        private const string TokenEndpoint = "https://api.twitch.tv/kraken/oauth2/token";
-        private const string UserInfoEndpoint = "https://api.twitch.tv/kraken/user";
+        private const string AuthorizationEndPoint = "https://id.twitch.tv/oauth2/authorize";
+        private const string TokenEndpoint = "https://id.twitch.tv/oauth2/token";
+        private const string UserInfoEndpoint = "https://api.twitch.tv/helix/users";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -141,7 +141,7 @@ namespace Owin.Security.Providers.Twitch
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {
-                "user_read"
+                "user:read:email"
             };
             BackchannelTimeout = TimeSpan.FromSeconds(60);
             Endpoints = new TwitchAuthenticationEndpoints

@@ -22,7 +22,7 @@ namespace Owin.Security.Providers.Twitch
         public TwitchAuthenticatedContext(IOwinContext context, JObject user, string accessToken)
             : base(context)
         {
-            User = user;
+            User = (JObject) ((JArray) users.GetValue("data")).First;
             AccessToken = accessToken;
 
             Id = TryGetValue(user, "_id");
@@ -36,7 +36,7 @@ namespace Owin.Security.Providers.Twitch
         /// Gets the JSON-serialized user
         /// </summary>
         /// <remarks>
-        /// Contains the Twitch user obtained from the User Info endpoint. By default this is https://api.Twitch.com/user but it can be
+        /// Contains the Twitch user obtained from the User Info endpoint. By default this is https://api.twitch.tv/helix/users but it can be
         /// overridden in the options
         /// </remarks>
         public JObject User { get; private set; }
