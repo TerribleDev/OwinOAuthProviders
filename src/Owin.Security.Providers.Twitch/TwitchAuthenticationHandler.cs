@@ -87,8 +87,9 @@ namespace Owin.Security.Providers.Twitch
                 var accessToken = (string)response.access_token;
 
                 // Get the Twitch user
-                var userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?oauth_token=" + Uri.EscapeDataString(accessToken));
+                var userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint);
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                userRequest.Headers.Add("Authorization", "Bearer " + accessToken);
                 var userResponse = await _httpClient.SendAsync(userRequest, Request.CallCancelled);
                 userResponse.EnsureSuccessStatusCode();
                 text = await userResponse.Content.ReadAsStringAsync();
