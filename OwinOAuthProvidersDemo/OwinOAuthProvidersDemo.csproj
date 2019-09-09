@@ -249,7 +249,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-2.2.3.min.map" />
@@ -423,6 +425,10 @@
       <Project>{312c4ed7-8ca1-4723-9203-abc694dfdc7c}</Project>
       <Name>Owin.Security.Providers.Steam</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Owin.Security.Providers.Strava\Owin.Security.Providers.Strava.csproj">
+      <Project>{c445181d-be1b-49e5-841b-22470db6c78c}</Project>
+      <Name>Owin.Security.Providers.Strava</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Owin.Security.Providers.TripIt\Owin.Security.Providers.TripIt.csproj">
       <Project>{b35e2616-dc00-48b4-bd58-7e23046257f1}</Project>
       <Name>Owin.Security.Providers.TripIt</Name>
@@ -475,6 +481,9 @@
       <Project>{8d029a93-e687-4ddf-82b0-700ebbf477f7}</Project>
       <Name>Owin.Security.Providers.Yammer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
