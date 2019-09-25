@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>6.0</LangVersion>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
