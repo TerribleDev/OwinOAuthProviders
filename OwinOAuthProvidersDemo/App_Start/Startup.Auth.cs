@@ -375,9 +375,9 @@ namespace OwinOAuthProvidersDemo
             //Refer to Strava Developers authentication website for valid request scope strings
             //Other optional scope request include "profile:read_all" or "activity:read_all"
             app.UseStravaAccountAuthentication(
-               clientId: "",
-               clientSecret: "",
-               scope: new List<string> {"read"}
+               clientId: "38534",
+               clientSecret: "a8b4dfea996be5734e6c68882f1928167c12e535",
+               scope: new List<string> {"profile:read_all"}
                );
 
         }

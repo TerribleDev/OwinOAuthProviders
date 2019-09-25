@@ -221,6 +221,7 @@ namespace Owin.Security.Providers.Strava
             catch (Exception ex)
             {
                 _logger.WriteError("Authentication failed", ex);
+                Console.WriteLine(ex.StackTrace);
                 return new AuthenticationTicket(null, properties);
             }
         }

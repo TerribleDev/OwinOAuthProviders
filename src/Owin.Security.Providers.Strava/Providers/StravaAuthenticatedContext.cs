@@ -47,6 +47,7 @@ namespace Owin.Security.Providers.Strava.Provider
                 ExpiresIn = TimeSpan.FromSeconds(expiresValue);
             }
          
+            
             Id = GetValueOrDefault("username", userAsDictionary);
             UserName = GetValueOrDefault("username", userAsDictionary);
             FirstName = GetValueOrDefault("firstname", userAsDictionary);
@@ -60,7 +61,8 @@ namespace Owin.Security.Providers.Strava.Provider
 
         private static string GetValueOrDefault(string property, IDictionary<string, JToken> dictionary, string defaultValue=null)
         {
-            return dictionary.ContainsKey(property) ? dictionary[property].ToString() : defaultValue;
+            dictionary.TryGetValue(property, out var value);
+            return value.ToString();
         }
 
     }
