@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.0</LangVersion>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -67,11 +67,6 @@
   <ItemGroup>
     <Compile Include="Providers\IStravaAuthenticationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Providers\StravaApplyRedirectContext.cs" />
     <Compile Include="Providers\StravaAuthenticatedContext.cs" />
     <Compile Include="StravaAuthenticationConstants.cs" />
@@ -81,12 +76,6 @@
     <Compile Include="StravaAuthenticationOptions.cs" />
     <Compile Include="Providers\StravaAuthenticationProvider.cs" />
     <Compile Include="Providers\StravaReturnEndpointContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

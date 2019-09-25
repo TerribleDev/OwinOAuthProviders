@@ -61,7 +61,8 @@ namespace Owin.Security.Providers.Strava.Provider
 
         private static string GetValueOrDefault(string property, IDictionary<string, JToken> dictionary, string defaultValue=null)
         {
-            dictionary.TryGetValue(property, out var value);
+            JToken value;
+            dictionary.TryGetValue(property, out value);
             return value.ToString();
         }
 
