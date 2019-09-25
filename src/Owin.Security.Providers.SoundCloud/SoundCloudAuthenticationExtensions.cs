@@ -13,7 +13,7 @@ namespace Owin.Security.Providers.SoundCloud
                 throw new ArgumentNullException(nameof(options));
 
             app.Use(typeof (SoundCloudAuthenticationMiddleware), app, options);
-
+           
             return app;
         }
 

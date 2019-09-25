@@ -6,6 +6,8 @@ using Owin.Security.Providers.Evernote;
 using Owin.Security.Providers.PayPal;
 using Owin.Security.Providers.ArcGISPortal;
 using Owin.Security.Providers.Typeform;
+using System.Collections.Generic;
+using Owin.Security.Providers.Strava;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -369,6 +371,15 @@ namespace OwinOAuthProvidersDemo
             //};
             //typeformOptions.Scope.Add("forms:read");
             //app.UseTypeformAuthentication(typeformOptions);
+
+            //Refer to Strava Developers authentication website for valid request scope strings
+            //Other optional scope request include "profile:read_all" or "activity:read_all"
+            app.UseStravaAccountAuthentication(
+               clientId: "",
+               clientSecret: "",
+               scope: new List<string> {"read"}
+               );
+
         }
     }
 }
