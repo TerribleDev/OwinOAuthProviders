@@ -126,7 +126,7 @@ namespace Owin.Security.Providers.OpenIDBase
                     }
                     else
                     {
-                        // create the expected return_to parameter based on the URL that is processing 
+                        // create the expected return_to parameter based on the URL that is processing
                         // the assertion, plus exactly and only the the query string parameter (state)
                         // that this RP must have received
                         var expectedReturnTo = BuildReturnTo(GetStateParameter(query));
@@ -182,7 +182,7 @@ namespace Owin.Security.Providers.OpenIDBase
                     }
 
                     SetIdentityInformations(identity, claimedId.Value, attributeExchangeProperties);
-                    
+
                     var context = new OpenIDAuthenticatedContext(
                         Context,
                         identity,
@@ -401,7 +401,7 @@ namespace Owin.Security.Providers.OpenIDBase
                 if (url == null)
                 {
                     Logger.WriteError($"The uri {Options.ProviderDiscoveryUri} doesn't return an XRDS document.");
-                    return;
+                    throw new UriDoesNotReturnXRDSDocument();
                 }
                 else
                 {
@@ -415,7 +415,7 @@ namespace Owin.Security.Providers.OpenIDBase
                     if (!await IsXrdsDocumentAsync(httpResponse))
                     {
                         Logger.WriteError($"The uri {url.AbsoluteUri} doesn't return an XRDS document.");
-                        return;
+                        throw new UriDoesNotReturnXRDSDocument();
                     }
                 }
             }
