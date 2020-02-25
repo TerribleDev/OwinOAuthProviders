@@ -7,14 +7,17 @@ GEM
       rake (~> 10)
       semver2 (~> 3.4)
     map (6.6.0)
-    mini_portile2 (2.3.0)
-    nokogiri (1.8.2-x64-mingw32)
-      mini_portile2 (~> 2.3.0)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.8)
+      mini_portile2 (~> 2.4.0)
+    nokogiri (1.10.8-x64-mingw32)
+      mini_portile2 (~> 2.4.0)
     os (1.0.0)
     rake (10.5.0)
     semver2 (3.4.2)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
