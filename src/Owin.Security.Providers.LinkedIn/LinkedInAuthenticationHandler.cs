@@ -121,7 +121,7 @@ namespace Owin.Security.Providers.LinkedIn
             GenerateCorrelationId(properties);
 
             // comma separated
-            var scope = string.Join(",", Options.Scope);
+            var scope = string.Join(" ", Options.Scope);
 
             // allow scopes to be specified via the authentication properties for this request, when specified they will already be comma separated
             if (properties.Dictionary.ContainsKey("scope"))
